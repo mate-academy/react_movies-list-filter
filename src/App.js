@@ -22,7 +22,7 @@ export class App extends Component {
             onQueryChange={this.handleQueryChange}
           />
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={moviesFromServer} query={this.state.query} />
         </div>
         <div className="sidebar">
           Sidebar goes here
