@@ -5,13 +5,22 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
+
+  handleQueryChange = (query) => {
+    this.setState({ query });
+  };
 
   render() {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchBar />
+          <SearchBar
+            query={this.state.query}
+            onQueryChange={this.handleQueryChange}
+          />
 
           <MoviesList movies={moviesFromServer} />
         </div>
