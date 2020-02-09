@@ -6,7 +6,7 @@ import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies, query }) => {
   const queryLowerCased = query.toLowerCase();
-  const filteredMovies = movies.filter(movie => {
+  const filteredMovies = movies.filter((movie) => {
     const title = movie.title.toLowerCase();
     const description = movie.description.toLowerCase();
 
@@ -33,8 +33,10 @@ MoviesList.propTypes = {
       imdbUrl: PropTypes.string.isRequired,
     }),
   ),
+  query: PropTypes.string,
 };
 
 MoviesList.defaultProps = {
   movies: [],
+  query: '',
 };

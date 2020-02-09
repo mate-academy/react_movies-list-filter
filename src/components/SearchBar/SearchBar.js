@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const SearchBar = ({ query, onQueryChange }) => {
   const handleChange = (evt) => {
@@ -25,4 +26,14 @@ export const SearchBar = ({ query, onQueryChange }) => {
       </div>
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  onQueryChange: PropTypes.func,
+  query: PropTypes.string,
+};
+
+SearchBar.defaultProps = {
+  onQueryChange: () => {},
+  query: '',
 };
