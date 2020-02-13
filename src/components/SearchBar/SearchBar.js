@@ -29,11 +29,10 @@ export const SearchBar = ({ query, onQueryChange }) => {
 };
 
 SearchBar.propTypes = {
-  onQueryChange: PropTypes.func,
+  onQueryChange: PropTypes.func.isRequired,
   query: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
-  onQueryChange: () => {},
   query: '',
 };
