@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DebounceInput } from 'react-debounce-input';
 
-const Input = ({ queryChange, query }) => (
+const Input = ({ getQuery, query }) => (
   <div className="control">
     <DebounceInput
-      debounceTimeout={1000}
+      debounceTimeout={500}
       value={query}
-      onChange={queryChange}
+      onChange={getQuery}
       type="search"
       id="search-query"
       className="input"
@@ -17,7 +17,7 @@ const Input = ({ queryChange, query }) => (
 );
 
 Input.propTypes = {
-  queryChange: PropTypes.func.isRequired,
+  getQuery: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired,
 };
 

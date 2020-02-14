@@ -26,7 +26,7 @@ export class App extends Component {
               <label htmlFor="search-query" className="label">
                 Search movie
               </label>
-              <Input query={query} queryChange={this.handleChangeQuery} />
+              <Input query={query} getQuery={this.handleChangeQuery} />
             </div>
           </div>
           <MoviesList movies={moviesFromServer} query={query} />
