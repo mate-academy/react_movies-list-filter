@@ -4,9 +4,13 @@ import { MoviesList } from './components/MoviesList';
 import SearchBar from './components/SearchBar/SearchBar';
 import moviesFromServer from './api/movies.json';
 
-const filterMovies = (movies, filter) => movies
-  .filter(movie => movie.title.toLowerCase().includes(filter.toLowerCase())
-    || movie.description.toLowerCase().includes(filter.toLowerCase()));
+const filterMovies = (movies, filter) => {
+  const filterToLowerCase = filter.toLowerCase();
+
+  return movies
+    .filter(movie => movie.title.toLowerCase().includes(filterToLowerCase)
+    || movie.description.toLowerCase().includes(filterToLowerCase));
+};
 
 export class App extends Component {
   state = {
