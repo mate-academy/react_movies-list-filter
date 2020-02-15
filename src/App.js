@@ -19,10 +19,12 @@ export class App extends Component {
     let filteredMovies = [];
 
     if (query) {
-      filteredMovies = moviesFromServer.filter(movie => (
-        movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase())
-      ));
+      const searched = query.toLowerCase();
+
+      const filtered = x => x.title.toLowerCase().includes(searched)
+        || x.description.toLowerCase().includes(searched);
+
+      filteredMovies = moviesFromServer.filter(filtered);
     }
 
     return (
