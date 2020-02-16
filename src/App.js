@@ -4,7 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    serchFiledValue: '',
+  };
+
+  changeSerchFiledValue(value) {
+    this.setState(prevState => ({
+      serchFiledValue: value,
+    }));
+  }
 
   render() {
     return (
@@ -22,12 +30,18 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={
+                    event => this.changeSerchFiledValue(event.target.value)
+                  }
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList
+            movies={moviesFromServer}
+            state={this.state.serchFiledValue}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
