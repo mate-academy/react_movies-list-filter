@@ -3,13 +3,8 @@ import './SearchForm.scss';
 import PropTypes from 'prop-types';
 
 export class SearchForm extends Component {
-  state = {
-    query: '',
-  }
-
   handlerChange = (event) => {
-    this.setState({ query: event.target.value });
-    const pattern = new RegExp(this.state.query, 'gi');
+    const pattern = new RegExp(event.target.value, 'gi');
     const filteredMovies = this.props.movies.filter(
       movie => (movie.title.search(pattern) >= 0
       || movie.description.search(pattern) >= 0
