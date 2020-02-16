@@ -12,7 +12,7 @@ export const MoviesList = ({ movies, state }) => {
       movie => movie.title.toLowerCase().includes(state.toLowerCase()),
     );
 
-    if (!filteredMovies) {
+    if (!filteredMovies.length) {
       filteredMovies = movies.filter(
         movie => movie.description.toLowerCase().includes(state.toLowerCase()),
       );
