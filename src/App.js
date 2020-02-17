@@ -23,7 +23,7 @@ export class App extends Component {
 
           <MoviesList
             movies={moviesFromServer}
-            state={this.state.serchFiledValue}
+            query={this.state.serchFiledValue}
           />
         </div>
         <div className="sidebar">

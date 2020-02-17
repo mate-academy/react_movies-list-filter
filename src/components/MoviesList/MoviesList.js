@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies, state }) => {
+export const MoviesList = ({ movies, query }) => {
   let filteredMovies = null;
 
-  if (state) {
+  if (query) {
     filteredMovies = movies.filter(
-      movie => movie.title.toLowerCase().includes(state.toLowerCase()),
+      movie => movie.title.toLowerCase().includes(query.toLowerCase()),
     );
 
     if (!filteredMovies.length) {
       filteredMovies = movies.filter(
-        movie => movie.description.toLowerCase().includes(state.toLowerCase()),
+        movie => movie.description.toLowerCase().includes(query.toLowerCase()),
       );
     }
   } else {
@@ -40,7 +40,7 @@ MoviesList.propTypes = {
     }),
   ),
 
-  state: PropTypes.string.isRequired,
+  query: PropTypes.string.isRequired,
 };
 
 MoviesList.defaultProps = {
