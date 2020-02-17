@@ -14,12 +14,12 @@ export class App extends Component {
     });
   }
 
-  queryHandler = (movies, queries) => {
-    const pattern = new RegExp(`${queries}`, 'gi');
+  queryHandler = (movies, query) => {
+    const pattern = new RegExp(`${query}`, 'gi');
 
     return movies
-      .filter(movie => movie.description.search(pattern) >= 0
-      || movie.title.search(pattern) >= 0);
+      .filter(({ description, title }) => pattern.test(description)
+        || pattern.test(title));
   };
 
   render() {
