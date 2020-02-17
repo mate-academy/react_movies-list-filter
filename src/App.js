@@ -4,13 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
 
   changeInput = (event) => {
-    const searchValue = event.target.value;
+    const { value } = event.target;
 
     this.setState({
-      query: searchValue,
+      query: value,
     });
   }
 
