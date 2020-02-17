@@ -17,13 +17,14 @@ export class App extends Component {
   queryHandler = (movies, query) => {
     const pattern = new RegExp(`${query}`, 'gi');
 
-    return movies
-      .filter(({ description, title }) => pattern.test(description)
-        || pattern.test(title));
+    return movies.filter(({ description, title }) => (
+      pattern.test(description) || pattern.test(title)
+    ));
   };
 
   render() {
     const { query } = this.state;
+    const movies = this.queryHandler(moviesFromServer, query);
 
     return (
       <div className="page">
@@ -46,7 +47,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={this.queryHandler(moviesFromServer, query)} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
