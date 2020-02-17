@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SearchBar = ({ data }) => (
+export const SearchBar = ({ changeFilter }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -13,7 +13,7 @@ export const SearchBar = ({ data }) => (
           id="search-query"
           className="input"
           placeholder="Type search word"
-          onChange={e => data(e.target.value)}
+          onChange={e => changeFilter(e.target.value)}
         />
       </div>
     </div>
@@ -21,5 +21,5 @@ export const SearchBar = ({ data }) => (
 );
 
 SearchBar.propTypes = {
-  data: PropTypes.func.isRequired,
+  changeFilter: PropTypes.func.isRequired,
 };

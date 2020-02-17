@@ -9,7 +9,7 @@ export class App extends Component {
     query: '',
   };
 
-  changingSearchBar = (value) => {
+  changingQuery = (value) => {
     this.setState(prevState => ({
       query: value,
     }));
@@ -27,7 +27,7 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchBar data={this.changingSearchBar} />
+          <SearchBar changeFilter={this.changingQuery} />
           <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
