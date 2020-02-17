@@ -6,10 +6,12 @@ import moviesFromServer from './api/movies.json';
 const moviesFilter = (movies, query) => {
   const queryLowerCase = query.toLowerCase();
 
-  /* eslint-disable max-len */
-  return movies.filter(movie => movie.title.toLowerCase().includes(queryLowerCase)
-  /* eslint-enable max-len */
-    || movie.description.toLowerCase().includes(queryLowerCase));
+  return movies.filter(movie => movie.title
+    .toLowerCase()
+    .includes(queryLowerCase)
+    || movie.description
+      .toLowerCase()
+      .includes(queryLowerCase));
 };
 
 export class App extends Component {
