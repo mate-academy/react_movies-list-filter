@@ -1,52 +1,32 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import InputBox from './components/InputBox/InputBox';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
 
   searchQuery = (event) => {
-    const searchMovie = event.target.value;
-
     this.setState({
-      query: searchMovie,
+      query: event.target.value.toLowerCase(),
     });
   };
 
   render() {
     const { query } = this.state;
-    let filteredResult = [];
 
-    if (query) {
-      const search = query.toLowerCase();
-      const callbackSearch = x => x.title.toLowerCase().includes(search)
-        || x.description.toLowerCase().includes(search);
+    const callbackSearch = movie => movie.title.toLowerCase().includes(query)
+        || movie.description.toLowerCase().includes(query);
 
-      filteredResult = moviesFromServer.filter(callbackSearch);
-    }
+    const filteredResult = moviesFromServer.filter(callbackSearch);
 
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  onChange={this.searchQuery}
-                />
-              </div>
-            </div>
-          </div>
-
+          <InputBox onChange={this.searchQuery} />
           <MoviesList movies={query ? filteredResult : moviesFromServer} />
         </div>
         <div className="sidebar">
