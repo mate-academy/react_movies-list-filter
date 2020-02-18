@@ -1,33 +1,26 @@
 import React, { Component } from 'react';
 import './App.scss';
+import { SearchBar } from './components/SearchBar';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    searchValue: '',
+  };
+
+  handleSearch = (e) => {
+    this.setState({ searchValue: e.target.value.toLowerCase() });
+  }
 
   render() {
+    const { searchValue } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
-          </div>
-
-          <MoviesList movies={moviesFromServer} />
+          <SearchBar onChange={(e => this.handleSearch(e))} />
+          <MoviesList movies={moviesFromServer} searchValue={searchValue} />
         </div>
         <div className="sidebar">
           Sidebar goes here
