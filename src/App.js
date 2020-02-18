@@ -10,7 +10,7 @@ export class App extends Component {
 
   handleChange = (event) => {
     this.setState({
-      searchQuery: event.target.value.trim(),
+      searchQuery: event.target.value.toLowerCase().trim(),
     });
   };
 
