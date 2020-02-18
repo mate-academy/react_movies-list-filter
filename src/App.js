@@ -16,7 +16,7 @@ export class App extends Component {
 
   render() {
     const { query } = this.state;
-    let filtredMovies = [];
+    let filtredMovies = moviesFromServer;
 
     if (query) {
       filtredMovies = moviesFromServer.filter(
@@ -46,12 +46,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={
-            query
-              ? filtredMovies
-              : moviesFromServer
-          }
-          />
+          <MoviesList movies={filtredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
