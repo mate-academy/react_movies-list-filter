@@ -10,13 +10,12 @@ export class App extends Component {
 
   inputText = (event) => {
     this.setState({
-      query: event.target.value,
+      query: event.target.value.toLowerCase(),
     });
   }
 
   render() {
     const { query } = this.state;
-
     const filteredMovies = moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(query)
       || movie.description.toLowerCase().includes(query)
