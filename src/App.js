@@ -19,7 +19,7 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchFiled updateData={this.changeSerchFiledValue} />
+          <SearchFiled changeQuery={this.changeSerchFiledValue} />
 
           <MoviesList
             movies={moviesFromServer}

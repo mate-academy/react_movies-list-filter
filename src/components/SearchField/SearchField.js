@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SearchFiled = ({ updateData }) => (
+export const SearchFiled = ({ changeQuery }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -15,7 +15,7 @@ export const SearchFiled = ({ updateData }) => (
           className="input"
           placeholder="Type search word"
           onChange={
-            event => updateData(event.target.value)
+            event => changeQuery(event.target.value)
           }
         />
       </div>
@@ -24,5 +24,5 @@ export const SearchFiled = ({ updateData }) => (
 );
 
 SearchFiled.propTypes = {
-  updateData: PropTypes.func.isRequired,
+  changeQuery: PropTypes.func.isRequired,
 };
