@@ -5,9 +5,15 @@ import moviesFromServer from './api/movies.json';
 import { SearchForm } from './components/SerchForm/SearchForm';
 
 export class App extends Component {
-  state = { movies: moviesFromServer };
+  state = {
+    movies: moviesFromServer,
+    query: '',
+  };
 
-  handlerSearch = findMovies => this.setState({ movies: findMovies })
+  handlerSearch = (findMovies, query) => this.setState({
+    movies: findMovies,
+    query,
+  })
 
   render() {
     return (
