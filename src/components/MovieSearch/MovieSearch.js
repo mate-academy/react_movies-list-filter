@@ -13,16 +13,14 @@ export const MovieSearch = ({ query, changeHandler }) => {
           Search movie
         </label>
 
-        <div className="control">
-          <input
-            type="text"
-            id="search-query"
-            className="input"
-            placeholder="Type search word"
-            value={query}
-            onChange={evt => onChangeHandler(evt)}
-          />
-        </div>
+        <input
+          type="text"
+          id="search-query"
+          className="input"
+          placeholder="Type search word"
+          value={query}
+          onChange={evt => onChangeHandler(evt)}
+        />
       </div>
     </div>
   );
