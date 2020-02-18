@@ -10,7 +10,7 @@ export class App extends Component {
 
   handleChange = (event) => {
     this.setState({
-      searchQuery: event.target.value,
+      searchQuery: event.target.value.trim(),
     });
   };
 
@@ -18,8 +18,8 @@ export class App extends Component {
     const { searchQuery } = this.state;
 
     const filteredList = moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(searchQuery.trim())
-      || movie.description.toLowerCase().includes(searchQuery.trim())
+      movie.title.toLowerCase().includes(searchQuery)
+      || movie.description.toLowerCase().includes(searchQuery)
     ));
 
     return (
