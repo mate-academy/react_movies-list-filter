@@ -8,12 +8,27 @@ export class App extends Component {
   state = {
     movies: moviesFromServer,
     query: '',
+    //  other flags
   };
 
-  handlerSearch = (findMovies, query) => this.setState({
-    movies: findMovies,
-    query,
-  })
+  handlerSearch = (query) => {
+    this.state.query = query;
+    this.changeListMovies();
+  }
+
+  /*  other handlers */
+
+  changeListMovies = () => {
+    const pattern = new RegExp(this.state.query, 'gi');
+
+    this.setState({
+      movies: moviesFromServer.filter(
+        movie => (movie.title.search(pattern) >= 0
+        || movie.description.search(pattern) >= 0 /*  && other flags  */
+        ),
+      ),
+    });
+  }
 
   render() {
     return (

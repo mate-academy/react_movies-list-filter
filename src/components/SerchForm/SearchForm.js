@@ -4,15 +4,7 @@ import PropTypes from 'prop-types';
 
 export class SearchForm extends Component {
   handlerChange = (event) => {
-    const query = event.target.value;
-    const pattern = new RegExp(query, 'gi');
-    const filteredMovies = this.props.movies.filter(
-      movie => (movie.title.search(pattern) >= 0
-      || movie.description.search(pattern) >= 0
-      ),
-    );
-
-    this.props.handler(filteredMovies, query);
+    this.props.handler(event.target.value);
   }
 
   render() {
@@ -38,9 +30,5 @@ export class SearchForm extends Component {
 }
 
 SearchForm.propTypes = {
-  movies: PropTypes.arrayOf({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
   handler: PropTypes.func.isRequired,
 };
