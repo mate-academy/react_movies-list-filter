@@ -8,7 +8,6 @@ export class App extends Component {
   state = {
     movies: moviesFromServer,
     query: '',
-    //  other flags
   };
 
   handlerSearch = (query) => {
@@ -16,26 +15,26 @@ export class App extends Component {
     this.changeListMovies();
   }
 
-  /*  other handlers */
-
   changeListMovies = () => {
     const pattern = new RegExp(this.state.query, 'gi');
 
     this.setState({
       movies: moviesFromServer.filter(
         movie => (movie.title.search(pattern) >= 0
-        || movie.description.search(pattern) >= 0 /*  && other flags  */
+        || movie.description.search(pattern) >= 0
         ),
       ),
     });
   }
 
   render() {
+    const { movies } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
-          <SearchForm movies={moviesFromServer} handler={this.handlerSearch} />
-          <MoviesList movies={this.state.movies} />
+          <SearchForm onSearch={this.handlerSearch} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
