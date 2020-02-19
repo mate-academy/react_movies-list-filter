@@ -4,7 +4,9 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
 
   filterList = (event) => {
     const searchItem = event.target.value;
@@ -16,14 +18,11 @@ export class App extends Component {
 
   render() {
     const { query } = this.state;
-    let filtredMovies = moviesFromServer;
 
-    if (query) {
-      filtredMovies = moviesFromServer.filter(
-        movie => movie.title.toLowerCase().includes(query.toLowerCase())
+    const filtredMovies = moviesFromServer && moviesFromServer.filter(
+      movie => movie.title.toLowerCase().includes(query.toLowerCase())
         || movie.description.toLowerCase().includes(query.toLowerCase()),
-      );
-    }
+    );
 
     return (
       <div className="page">
