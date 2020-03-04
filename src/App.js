@@ -4,9 +4,21 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    term: '',
+  };
+
+  onLabelChange = (e) => {
+    const term = e.target.value;
+
+    this.setState({ term });
+  };
 
   render() {
+    const { term } = this.state;
+    const visibleItems = moviesFromServer.filter(item => (
+      item.title.toLowerCase().indexOf(term.toLowerCase()) > -1));
+
     return (
       <div className="page">
         <div className="page-content">
@@ -15,19 +27,20 @@ export class App extends Component {
               <label htmlFor="search-query" className="label">
                 Search movie
               </label>
-
-              <div className="control">
+              <form className="control">
                 <input
                   type="text"
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={this.onLabelChange}
+                  value={this.state.term}
                 />
-              </div>
+              </form>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={visibleItems} />
         </div>
         <div className="sidebar">
           Sidebar goes here
