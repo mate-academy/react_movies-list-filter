@@ -1,38 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { MoviesList } from './components/MoviesList';
+import { SearchField } from './components/SearchField';
+import { debounce } from './helpers/debounce';
 
-export class App extends Component {
-  state = {};
+export const App = () => {
+  const [searchValue, setInputValue] = useState('');
+  const [combinedMovies, setCombinedMovies] = useState(moviesFromServer);
 
-  render() {
-    return (
-      <div className="page">
-        <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
+  const applySearchWithDebounce = debounce(value => setCombinedMovies(
+    moviesFromServer.filter(
+      ({ title, description }) => (title + description)
+        .toLowerCase().includes(value),
+    ),
+  ), 1000);
+  const searchMovies = ({ target }) => {
+    const value = target.value.toLowerCase().slice(0, 20);
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
-          </div>
+    setInputValue(value);
+    applySearchWithDebounce(value);
+  };
 
-          <MoviesList movies={moviesFromServer} />
-        </div>
-        <div className="sidebar">
-          Sidebar goes here
-        </div>
+  return (
+    <div className="page">
+      <div className="page-content">
+        <SearchField
+          value={searchValue}
+          inputChangeHandler={searchMovies}
+        />
+        <MoviesList
+          movies={combinedMovies}
+          highlightSearchResult={searchValue}
+        />
       </div>
-    );
-  }
-}
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
+    </div>
+  );
+};
