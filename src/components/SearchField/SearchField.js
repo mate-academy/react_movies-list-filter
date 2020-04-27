@@ -7,7 +7,6 @@ export const SearchField = ({ value, inputChangeHandler }) => (
       <label htmlFor="search-query" className="label">
         Search movie
       </label>
-
       <div className="control">
         <input
           type="text"
