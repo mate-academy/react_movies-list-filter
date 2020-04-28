@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import Query from './components/Query/Query';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
 
   render() {
+    const { query } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -22,12 +26,20 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={(event) => {
+                    const text = event.target.value;
+
+                    this.setState(state => ({ query: text }));
+                  }}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <Query
+            movies={moviesFromServer}
+            query={query}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
