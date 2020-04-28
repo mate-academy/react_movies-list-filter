@@ -15,7 +15,7 @@ export class App extends Component {
         const title = m.title.toLowerCase();
         const description = m.description.toLowerCase();
 
-        return (title + description).includes(query);
+        return (title + description).includes(query.toLowerCase());
       });
 
     return (
