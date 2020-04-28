@@ -4,9 +4,21 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = { searchPhrase: '' };
+
+  inputChangeHandler(searchPhrase) {
+    this.setState({ searchPhrase });
+  }
 
   render() {
+    const { searchPhrase } = this.state;
+
+    const searchCallback = ({ title, description }) => (title + description)
+      .toLowerCase()
+      .includes(searchPhrase);
+
+    const filteredMovieList = moviesFromServer.filter(searchCallback);
+
     return (
       <div className="page">
         <div className="page-content">
@@ -22,12 +34,20 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={(e) => {
+                    const query = e.target.value;
+
+                    this.inputChangeHandler(query);
+                  }}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={searchPhrase === ''
+            ? moviesFromServer
+            : filteredMovieList}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here

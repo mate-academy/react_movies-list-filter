@@ -9,6 +9,7 @@ export const MoviesList = ({ movies }) => (
     {movies.map(movie => (
       <MovieCard key={movie.imdbId} {...movie} />
     ))}
+    {movies.length === 0 && 'No movies found'}
   </div>
 );
 
