@@ -9,7 +9,7 @@ export const App = () => {
   const [searchValue, setInputValue] = useState('');
   const [combinedMovies, setCombinedMovies] = useState(moviesFromServer);
 
-  const applySearchWithDebounce = debounce(value => setCombinedMovies(
+  const debouncedSearch = debounce(value => setCombinedMovies(
     moviesFromServer.filter(
       ({ title, description }) => (title + description)
         .toLowerCase().includes(value),
@@ -19,7 +19,7 @@ export const App = () => {
     const value = target.value.toLowerCase().slice(0, 20);
 
     setInputValue(value);
-    applySearchWithDebounce(value);
+    debouncedSearch(value);
   };
 
   return (
