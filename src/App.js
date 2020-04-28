@@ -16,8 +16,6 @@ export class App extends Component {
     this.state = {
       query: '',
     };
-
-    this.updateSearch = this.updateSearch.bind(this);
   }
 
   updateSearch = (event) => {
