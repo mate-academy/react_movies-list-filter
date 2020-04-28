@@ -7,8 +7,7 @@ import { MovieCard } from '../MovieCard';
 export const MoviesList = ({ movies }) => (
   <div className="movies">
     {movies.map(movie => (
-      <MovieCard key={movie.imdbId} {...movie} />
-    ))}
+      <MovieCard key={movie.imdbId} {...movie} />))}
   </div>
 );
 
@@ -21,6 +20,7 @@ MoviesList.propTypes = {
       imdbUrl: PropTypes.string.isRequired,
     }),
   ),
+  searchWord: PropTypes.string.isRequired,
 };
 
 MoviesList.defaultProps = {
