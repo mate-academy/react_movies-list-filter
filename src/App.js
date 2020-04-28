@@ -4,7 +4,9 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
 
   render() {
     return (
@@ -22,12 +24,18 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={e => (this.setState({ query: e.target.value }))}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={moviesFromServer.filter((movie) => {
+            const pattern = new RegExp(this.state.query, 'i');
+
+            return pattern.test(movie.title) || pattern.test(movie.description);
+          })}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
