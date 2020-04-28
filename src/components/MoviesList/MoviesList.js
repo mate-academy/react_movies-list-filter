@@ -6,9 +6,11 @@ import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies }) => (
   <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} {...movie} />
-    ))}
+    {movies.length === 0
+      ? `Sorry, your search did not match any videos`
+      : movies.map(movie => (
+        <MovieCard key={movie.imdbId} {...movie} />
+      ))}
   </div>
 );
 
