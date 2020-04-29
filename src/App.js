@@ -2,32 +2,37 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import SearchBar from './components/searcField/SearchField';
 
 export class App extends Component {
-  state = {};
+  state = {
+    search: '',
+  };
+
+  searchField = (search) => {
+    this.setState({ search });
+  };
 
   render() {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
+          <SearchBar callBack={this.searchField} />
+          {(this.state.search.length === 0)
+            ? <MoviesList movies={moviesFromServer} />
+            : (
+              <MoviesList movies={
+                moviesFromServer.filter((movie) => {
+                  const str = (movie.title + movie.description).toLowerCase();
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
-          </div>
-
-          <MoviesList movies={moviesFromServer} />
+                  if (str.includes(this.state.search)) {
+                    return movie;
+                  }
+                })
+              }
+              />
+            )
+          }
         </div>
         <div className="sidebar">
           Sidebar goes here
