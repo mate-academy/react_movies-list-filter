@@ -18,7 +18,21 @@ export class App extends Component {
       <div className="page">
         <div className="page-content">
           <SearchBar callBack={this.searchField} />
-          <MoviesList movies={moviesFromServer} search={this.state.search} />
+          {(this.state.search.length === 0)
+            ? <MoviesList movies={moviesFromServer} />
+            : (
+              <MoviesList movies={
+                moviesFromServer.filter((movie) => {
+                  const str = (movie.title + movie.description).toLowerCase();
+
+                  if (str.includes(this.state.search)) {
+                    return movie;
+                  }
+                })
+              }
+              />
+            )
+          }
         </div>
         <div className="sidebar">
           Sidebar goes here
