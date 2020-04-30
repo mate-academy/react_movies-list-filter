@@ -11,7 +11,8 @@ export class App extends Component {
   getCurrentMoviesList = () => {
     const normalizedQuery = this.state.query.toLowerCase();
     const filteredMoviesList = moviesFromServer.filter(
-      elem => elem.title.toLowerCase().includes(normalizedQuery),
+      elem => (elem.title.toLowerCase().includes(normalizedQuery))
+      || (elem.description.toLowerCase().includes(normalizedQuery)),
     );
 
     return filteredMoviesList;
