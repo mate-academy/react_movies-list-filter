@@ -14,8 +14,8 @@ export class App extends Component {
 
   render() {
     const { text } = this.state;
-    const gi = 'gi';
-    const regesp = new RegExp(text, gi);
+    const i = 'i';
+    const regesp = new RegExp(text, i);
 
     return (
       <div className="page">
@@ -41,7 +41,13 @@ export class App extends Component {
 
           <MoviesList
             movies={
-              [...moviesFromServer].filter(item => item.title.match(regesp))}
+              [...moviesFromServer].filter((item) => {
+                const result = item.title.split('');
+
+                result.length -= (result.length - text.length);
+
+                return result.join('').match(regesp);
+              })}
           />
         </div>
         <div className="sidebar">
