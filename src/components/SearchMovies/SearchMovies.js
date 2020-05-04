@@ -5,9 +5,8 @@ import { MoviesList } from '../MoviesList/MoviesList';
 class SearchMovies extends React.PureComponent {
   render() {
     const { query, movies } = this.props;
-    const moveisForSearch = movies.map(movie => movie);
 
-    const moviesMatchedQuery = moveisForSearch.filter(movie => (
+    const moviesMatchedQuery = movies.filter(movie => (
       movie.title.toLowerCase().includes(query)
       || movie.description.toLowerCase().includes(query)));
 
