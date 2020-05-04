@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MoviesList from '../MoviesList/MoviesList';
+import { MoviesList } from '../MoviesList/MoviesList';
 
 class SearchMovies extends React.PureComponent {
   render() {

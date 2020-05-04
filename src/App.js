@@ -29,7 +29,7 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   onChange={(e) => {
-                    this.setState({ query: e.target.value });
+                    this.setState({ query: (e.target.value).trim() });
                   }}
                 />
               </div>
