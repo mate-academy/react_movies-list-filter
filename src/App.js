@@ -4,9 +4,18 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    text: '',
+  };
+
+  handleChange = (event) => {
+    this.setState({ text: event.target.value.trim() });
+  }
 
   render() {
+    const { text } = this.state;
+    const regexp = new RegExp(text, 'i');
+
     return (
       <div className="page">
         <div className="page-content">
@@ -19,15 +28,26 @@ export class App extends Component {
               <div className="control">
                 <input
                   type="text"
+                  value={this.state.text}
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList
+            movies={
+              moviesFromServer.filter((item) => {
+                const result = item.title.split('');
+
+                result.length -= (result.length - text.length);
+
+                return result.join('').match(regexp);
+              })}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
