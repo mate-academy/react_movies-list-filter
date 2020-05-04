@@ -9,13 +9,12 @@ export class App extends Component {
   };
 
   handleChange = (event) => {
-    this.setState({ text: event.target.value });
+    this.setState({ text: event.target.value.trim() });
   }
 
   render() {
     const { text } = this.state;
-    const i = 'i';
-    const regesp = new RegExp(text, i);
+    const regexp = new RegExp(text, 'i');
 
     return (
       <div className="page">
@@ -41,12 +40,12 @@ export class App extends Component {
 
           <MoviesList
             movies={
-              [...moviesFromServer].filter((item) => {
+              moviesFromServer.filter((item) => {
                 const result = item.title.split('');
 
                 result.length -= (result.length - text.length);
 
-                return result.join('').match(regesp);
+                return result.join('').match(regexp);
               })}
           />
         </div>
