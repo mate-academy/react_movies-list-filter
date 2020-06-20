@@ -7,40 +7,52 @@ const checkMatches = (str, sub) => {
   return pattern.test(str);
 };
 
-const SearchField = ({ query, handleOnChange, moviesFromServer }) => (
-  <div className="box">
-    <div className="field">
-      <label htmlFor="search-query" className="label">
-        Search movie
-      </label>
+class SearchField extends React.PureComponent {
+  checkMatches = (str, sub) => {
+    const pattern = new RegExp(sub, 'i');
 
-      <div className="control">
-        <input
-          type="text"
-          id="search-query"
-          className="input"
-          placeholder="Type search word"
-          value={query}
-          onChange={(event) => {
-            const { value } = event.target;
+    return pattern.test(str);
+  }
 
-            const movies = moviesFromServer.filter(movie => (
-              checkMatches(movie.title, value)
-              || checkMatches(movie.description, value)
-            ));
+  handleOnChange = (event) => {
+    const { value } = event.target;
 
-            handleOnChange(value, movies);
-          }}
-        />
+    const movies = this.props.moviesFromServer.filter(movie => (
+      checkMatches(movie.title, value)
+      || checkMatches(movie.description, value)
+    ));
+
+    this.props.filterMovies(value, movies);
+  }
+
+  render() {
+    return (
+      <div className="box">
+        <div className="field">
+          <label htmlFor="search-query" className="label">
+            Search movie
+          </label>
+
+          <div className="control">
+            <input
+              type="text"
+              id="search-query"
+              className="input"
+              placeholder="Type search word"
+              value={this.props.query}
+              onChange={this.handleOnChange}
+            />
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
 export { SearchField };
 
 SearchField.propTypes = {
   query: PropTypes.string.isRequired,
-  handleOnChange: PropTypes.func.isRequired,
+  filterMovies: PropTypes.func.isRequired,
   moviesFromServer: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

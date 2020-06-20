@@ -23,7 +23,7 @@ export class App extends Component {
         <div className="page-content">
           <SearchField
             query={this.state.query}
-            handleOnChange={this.filterMovies}
+            filterMovies={this.filterMovies}
             moviesFromServer={moviesFromServer}
           />
           <MoviesList movies={this.state.movies} />
