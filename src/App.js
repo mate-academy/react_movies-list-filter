@@ -10,7 +10,7 @@ export class App extends Component {
 
   handleChange = (value) => {
     this.setState({
-      query: value.replace(/\s/, ''),
+      query: value.trimStart(),
     });
   }
 
