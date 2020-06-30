@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { SearchBar } from './components/SearchBar/SearchBar';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: moviesFromServer,
+  };
+
+  getKeywords = (e) => {
+    const word = e.target.value;
+    const pattern = new RegExp(`${word}`, 'gi');
+
+    this.setState({
+      query: moviesFromServer
+        .filter(movie => pattern.test(movie.description)
+      || pattern.test(movie.title)),
+    });
+  }
 
   render() {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
+          <SearchBar onChange={this.getKeywords} />
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
-          </div>
-
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.state.query} />
         </div>
         <div className="sidebar">
           Sidebar goes here
