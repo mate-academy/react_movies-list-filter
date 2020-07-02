@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
+import { ShapeMovieCard } from '../../Shapes/ShapeMovieCard';
 
-export const MoviesList = ({ movies }) => (
-  <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} {...movie} />
-    ))}
-  </div>
-);
+export const MoviesList = (props) => {
+  const { movies } = props;
+
+  return (
+    <div className="movies">
+      {movies.map(movie => (
+        <MovieCard
+          key={movie.imdbId}
+          movie={movie}
+        />
+      ))}
+    </div>
+  );
+};
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      imgUrl: PropTypes.string.isRequired,
-      imdbUrl: PropTypes.string.isRequired,
-    }),
+    PropTypes.shape(ShapeMovieCard),
   ),
 };
 
