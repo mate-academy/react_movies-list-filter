@@ -6,7 +6,6 @@ import { SearchField } from './components/SearchField/SearchField';
 
 export class App extends Component {
   state = {
-    query: '',
     movies: [...moviesFromServer],
   };
 

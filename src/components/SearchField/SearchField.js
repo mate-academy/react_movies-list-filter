@@ -1,28 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const checkMatches = (str, sub) => {
-  const pattern = new RegExp(sub, 'i');
-
-  return pattern.test(str);
-};
-
 class SearchField extends React.PureComponent {
-  checkMatches = (str, sub) => {
-    const pattern = new RegExp(sub, 'i');
-
-    return pattern.test(str);
-  }
-
   handleOnChange = (event) => {
     const { value } = event.target;
 
     const movies = this.props.moviesFromServer.filter(movie => (
-      checkMatches(movie.title, value)
-      || checkMatches(movie.description, value)
+      this.#checkMatches(movie.title, value)
+      || this.#checkMatches(movie.description, value)
     ));
 
     this.props.filterMovies(value, movies);
+  }
+
+  #checkMatches = (str, sub) => {
+    const pattern = new RegExp(sub, 'i');
+
+    return pattern.test(str);
   }
 
   render() {
