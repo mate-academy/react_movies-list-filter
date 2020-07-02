@@ -17,8 +17,8 @@ export class App extends Component {
       this.setState(prevState => ({
         query: search.toLowerCase(),
         films: moviesFromServer.filter(
-          movie => (movie.title.toLowerCase().includes(prevState.query)
-          || movie.description.toLowerCase().includes(prevState.query)),
+          movie => (movie.title.toLowerCase().includes(prevState.query.trim())
+          || movie.description.toLowerCase().includes(prevState.query.trim())),
         ),
       })));
   }
