@@ -5,20 +5,17 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
-    query: '',
     films: [...moviesFromServer],
   }
 
-  filterFilms = (ev) => {
-    ev.persist();
-    const search = ev.target.value;
+  filterFilms = (value) => {
+    const search = value.trim().toLowerCase();
 
     return (
-      this.setState(prevState => ({
-        query: search.toLowerCase(),
+      this.setState(() => ({
         films: moviesFromServer.filter(
-          movie => (movie.title.toLowerCase().includes(prevState.query.trim())
-          || movie.description.toLowerCase().includes(prevState.query.trim())),
+          movie => (movie.title.toLowerCase().includes(search)
+          || movie.description.toLowerCase().includes(search)),
         ),
       })));
   }
@@ -39,7 +36,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onInput={ev => this.filterFilms(ev)}
+                  onInput={ev => this.filterFilms(ev.target.value)}
                 />
               </div>
             </div>
