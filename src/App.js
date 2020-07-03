@@ -9,7 +9,7 @@ export class App extends Component {
   }
 
   filterFilms = (value) => {
-    const search = value.trim().toLowerCase();
+    const search = value.toLowerCase();
 
     return (
       this.setState(() => ({
