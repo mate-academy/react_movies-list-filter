@@ -10,7 +10,7 @@ export class App extends Component {
 
   handleChange = (value) => {
     this.setState({
-      query: value.trimStart(),
+      query: value.replace(/\s/g, ' ').replace(/^\s/, ''),
     });
   }
 
@@ -35,7 +35,7 @@ export class App extends Component {
 
               <div className="control">
                 <input
-                  onChange={e => this.handleChange(e.target.value)}
+                  onChange={event => this.handleChange(event.target.value)}
                   value={query}
                   type="text"
                   id="search-query"
