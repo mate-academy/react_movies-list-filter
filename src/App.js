@@ -4,7 +4,19 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    movieList: [...moviesFromServer],
+  };
+
+  onChangeHandler = (e) => {
+    const searchInput = e.target.value;
+
+    this.setState({
+      movieList: moviesFromServer.filter(({ title, description }) => (
+        (title + description).toLowerCase().includes(searchInput)
+      )),
+    });
+  };
 
   render() {
     return (
@@ -22,12 +34,13 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={this.onChangeHandler}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.state.movieList} />
         </div>
         <div className="sidebar">
           Sidebar goes here
