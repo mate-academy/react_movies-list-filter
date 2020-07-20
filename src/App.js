@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { Search } from './components/Search';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    moviesList: moviesFromServer,
+  };
+
+  searchMovies = (search) => {
+    this.setState({ find: search });
+  }
 
   render() {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
-          </div>
-
-          <MoviesList movies={moviesFromServer} />
+          <Search movies={this.state.moviesList} search={this.searchMovies} />
+          <MoviesList movies={this.state.find
+            ? this.state.find
+            : this.state.moviesList}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
