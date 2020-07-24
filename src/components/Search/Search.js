@@ -14,17 +14,20 @@ export class Search extends Component {
   }
 
   handleChange(event) {
-    this.setState({ query: event.target.value });
+    this.setState(({
+      query: event.target.value,
+    }), () => {
+      const search = this.state.query.length !== 0
+        ? this.state.movies
+          .filter(movie => movie.title
+            .toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())
+            || movie.description
+              .toLocaleLowerCase()
+              .includes(this.state.query.toLocaleLowerCase()))
+        : this.state.movies;
 
-    const search = this.state.query.length !== 0
-      ? this.state.movies
-        .filter(movie => movie.title
-          .toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())
-          || movie.description
-            .toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase()))
-      : this.state.movies;
-
-    this.state.search(search);
+      this.state.search(search);
+    });
   }
 
   render() {
@@ -33,7 +36,6 @@ export class Search extends Component {
         <div className="field">
           <label htmlFor="search-query" className="label">
             Search movie
-            {this.state.query}
           </label>
 
           <div className="control">
