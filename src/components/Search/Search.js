@@ -14,9 +14,9 @@ export class Search extends Component {
   }
 
   handleChange(event) {
-    this.setState(({
+    this.setState({
       query: event.target.value,
-    }), () => {
+    }, () => {
       const search = this.state.query.length !== 0
         ? this.state.movies
           .filter(movie => movie.title
