@@ -6,26 +6,26 @@ import { Search } from './components/Search';
 
 export class App extends Component {
   state = {
-    queryFromUser: '',
+    query: '',
   };
 
   updateQuery = (value) => {
-    this.setState({ queryFromUser: value });
+    this.setState({ query: value });
   };
 
   render() {
-    const { queryFromUser } = this.state;
+    const { query } = this.state;
     const moviesToShow = moviesFromServer.filter(movie => (
       movie.title.toLowerCase()
-        .includes(queryFromUser.toLowerCase())
+        .includes(query.toLowerCase())
       || movie.description.toLowerCase()
-        .includes(queryFromUser.toLowerCase())
+        .includes(query.toLowerCase())
     ));
 
     return (
       <div className="page">
         <div className="page-content">
-          <Search query={queryFromUser} updateQuery={this.updateQuery} />
+          <Search updateQuery={this.updateQuery} />
           <MoviesList movies={moviesToShow} />
         </div>
         <div className="sidebar">
