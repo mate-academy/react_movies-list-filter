@@ -8,7 +8,7 @@ export class App extends Component {
     query: '',
   };
 
-  findMovie = (event) => {
+  handleMovie = (event) => {
     this.setState({
       query: event.target.value,
     });
@@ -37,8 +37,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.query}
-                  onChange={this.findMovie}
+                  onChange={this.handleMovie}
                 />
               </div>
             </div>
