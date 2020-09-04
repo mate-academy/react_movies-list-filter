@@ -15,12 +15,18 @@ export class App extends Component {
 
   render() {
     const { queryFromUser } = this.state;
+    const moviesToShow = moviesFromServer.filter(movie => (
+      movie.title.toLowerCase()
+        .includes(queryFromUser.toLowerCase())
+      || movie.description.toLowerCase()
+        .includes(queryFromUser.toLowerCase())
+    ));
 
     return (
       <div className="page">
         <div className="page-content">
           <Search query={queryFromUser} updateQuery={this.updateQuery} />
-          <MoviesList movies={moviesFromServer} query={queryFromUser} />
+          <MoviesList movies={moviesToShow} />
         </div>
         <div className="sidebar">
           Sidebar goes here
