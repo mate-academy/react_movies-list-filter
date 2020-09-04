@@ -13,11 +13,13 @@ export class App extends Component {
     const { value } = event.target;
 
     this.setState({
-      query: event.target.value,
-      movies: moviesFromServer
-        .filter(movie => movie.title.toLowerCase()
-          .includes(value.toLowerCase()) || movie.description.toLowerCase()
-          .includes(value.toLowerCase())),
+      query: value,
+      movies: moviesFromServer.filter(movie => (
+        movie.title.toLowerCase()
+          .includes(value.toLowerCase())
+        || movie.description.toLowerCase()
+          .includes(value.toLowerCase())
+      )),
     });
   }
 
