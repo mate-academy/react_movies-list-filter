@@ -1,9 +1,7 @@
 import React from 'react';
 import './Search.scss';
 
-import moviesFromServer from './api/movies.json';
-
-export class SearchBlock extends React.Component {
+export class Search extends React.Component {
   state = {
     query: '',
   };
@@ -14,6 +12,7 @@ export class SearchBlock extends React.Component {
 
   render() {
     const { query } = this.state;
+    const { moviesFromServer } = this.props;
 
     const filteredFilms = moviesFromServer
       .filter(item => (
