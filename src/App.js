@@ -9,13 +9,18 @@ export class App extends Component {
   };
 
   render() {
-    const movies = moviesFromServer.filter(
-      movie => !this.state.query
-        || (movie.title.toLocaleLowerCase()
-          .includes(this.state.query.toLocaleLowerCase()))
-        || (movie.description.toLocaleLowerCase()
-          .includes(this.state.query.toLocaleLowerCase())),
-    );
+    let movies = moviesFromServer;
+
+    if (this.state.query) {
+      const lowerQuery = this.state.query.toLowerCase();
+
+      movies = movies.filter(
+        movie => (movie.title.toLowerCase()
+          .includes(lowerQuery))
+          || (movie.description.toLowerCase()
+            .includes(lowerQuery)),
+      );
+    }
 
     return (
       <div className="page">
