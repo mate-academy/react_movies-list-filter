@@ -9,16 +9,16 @@ export class App extends Component {
     movies: moviesFromServer,
   };
 
-  filterMovies = event => {
+  filterMovies = (event) => {
     const { value } = event.target;
 
     this.setState({
-      query: value,
+      query: value.toLowerCase().trim(),
       movies: moviesFromServer.filter(movie => (
         movie.title.toLowerCase()
-          .includes(value.toLowerCase())
+          .includes(value)
         || movie.description.toLowerCase()
-          .includes(value.toLowerCase())
+          .includes(value)
       )),
     });
   }
