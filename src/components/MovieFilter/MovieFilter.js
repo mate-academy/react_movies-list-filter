@@ -9,11 +9,17 @@ export class MovieFilter extends Component {
 
   handleChange = (event) => {
     this.setState({
-      query: event.target.value,
+      query: event.target.value.toLowerCase(),
     });
   }
 
   render() {
+    const filteredMovies = [...this.props.allMovies]
+      .filter(movie => movie.title.toLowerCase()
+        .includes(this.state.query)
+          || movie.description.toLowerCase()
+            .includes(this.state.query));
+
     return (
       <>
         <div className="box">
@@ -35,12 +41,7 @@ export class MovieFilter extends Component {
           </div>
         </div>
 
-        <MoviesList movies={[...this.props.allMovies]
-          .filter(movie => movie.title.toLowerCase()
-            .includes(this.state.query.toLowerCase())
-                || movie.description.toLowerCase()
-                  .includes(this.state.query.toLowerCase()))}
-        />
+        <MoviesList movies={filteredMovies} />
       </>
     );
   }
