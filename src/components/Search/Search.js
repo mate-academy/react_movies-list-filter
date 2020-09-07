@@ -5,17 +5,16 @@ import { MoviesList } from '../MoviesList';
 export class Search extends React.Component {
   state = {
     query: '',
-    movies: [...this.props.movies],
   };
 
   render() {
-    const { query, movies } = this.state;
+    const { query } = this.state;
+    const { movies } = this.props;
 
-    const findedMovies = movies
-      .filter(movie => (
-        movie.title.slice(0, query.length).toLowerCase() === query.toLowerCase()
-        || movie.description.toLowerCase().includes(query.toLowerCase())
-      ));
+    const findedMovies = movies.filter(movie => (
+      (movie.title + movie.description)
+        .toLowerCase().includes(query.toLowerCase())
+    ));
 
     return (
       <div className="page-content">
