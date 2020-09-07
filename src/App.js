@@ -12,8 +12,8 @@ export class App extends Component {
     const { query } = this.state;
 
     const movies = moviesFromServer.filter(
-      movie => movie.title.toUpperCase().includes(query.toUpperCase())
-      || movie.description.toUpperCase().includes(query.toUpperCase()),
+      movie => movie.title.toLowerCase().includes(query)
+      || movie.description.toLowerCase().includes(query),
     );
 
     return (
@@ -33,7 +33,7 @@ export class App extends Component {
                   placeholder="Type search word"
                   value={this.state.query}
                   onChange={(event) => {
-                    this.setState({ query: event.target.value });
+                    this.setState({ query: event.target.value.toLowerCase() });
                   }}
                 />
               </div>
