@@ -12,8 +12,8 @@ export class App extends Component {
     const { query } = this.state;
     const lowerQuery = query.toLowerCase();
     const visibleMovies = moviesFromServer
-      .filter(movie => (movie.title.toLowerCase().includes(lowerQuery))
-      || (movie.description.toLowerCase().includes(lowerQuery)));
+      .filter(({ title, description }) => (
+        (title + description).toLowerCase().includes(lowerQuery)));
 
     return (
       <div className="page">
