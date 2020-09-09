@@ -5,7 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
-    query: null,
+    query: '',
   };
 
   changeHandler = (event) => {
@@ -17,17 +17,13 @@ export class App extends Component {
   }
 
   render() {
-    let filteredMovie;
     const { query } = this.state;
-
-    if (query) {
-      filteredMovie = moviesFromServer.filter(movie => (
+    const filteredMovie = query
+      ? moviesFromServer.filter(movie => (
         movie.title.toLocaleLowerCase().includes(query.toLowerCase())
         || movie.description.toLowerCase().includes(query.toLowerCase())
-      ));
-    } else {
-      filteredMovie = moviesFromServer;
-    }
+      ))
+      : moviesFromServer;
 
     return (
       <div className="page">
