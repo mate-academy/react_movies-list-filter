@@ -10,24 +10,24 @@ export class App extends Component {
   };
 
   handleChange = (event) => {
-    this.setState({ query: event.target.value });
+    this.setState({
+      query: (event.target.value).toLowerCase(),
+      movies: [...moviesFromServer],
+    });
+    this.moviesFilter();
   };
 
-  moviesFilter = (event) => {
-    if (event.key !== 'Enter') {
-      return;
-    }
+  moviesFilter = () => {
+    const { query } = this.state;
 
-    if (this.state.query) {
+    if (query) {
       this.setState(state => ({
         movies: state.movies
           .filter(movie => (
-            movie.title.toLowerCase().includes(state.query.toLowerCase())
-         || movie.description.toLowerCase().includes(state.query.toLowerCase())
+            movie.title.toLowerCase().includes(query)
+         || movie.description.toLowerCase().includes(query)
           )),
       }));
-    } else {
-      this.setState(state => ({ movies: [...moviesFromServer] }));
     }
   }
 
@@ -48,7 +48,6 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   onChange={this.handleChange}
-                  onKeyDown={this.moviesFilter}
                 />
               </div>
             </div>
