@@ -6,26 +6,24 @@ import moviesFromServer from './api/movies.json';
 export class App extends Component {
   state = {
     movies: [...moviesFromServer],
-    query: '',
   };
 
   handleChange = (event) => {
+    const { value } = event.target;
+
     this.setState({
-      query: (event.target.value).toLowerCase(),
       movies: [...moviesFromServer],
     });
-    this.moviesFilter();
+    this.moviesFilter(value.toLowerCase());
   };
 
-  moviesFilter = () => {
-    const { query } = this.state;
-
-    if (query) {
+  moviesFilter = (value) => {
+    if (value.length > 2) {
       this.setState(state => ({
         movies: state.movies
           .filter(movie => (
-            movie.title.toLowerCase().includes(query)
-         || movie.description.toLowerCase().includes(query)
+            movie.title.toLowerCase().includes(value)
+         || movie.description.toLowerCase().includes(value)
           )),
       }));
     }
