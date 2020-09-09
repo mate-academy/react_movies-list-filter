@@ -17,8 +17,10 @@ export class App extends React.Component {
 
     this.setState(state => ({
       search: moviesFromServer
-        .filter(movie => movie.title.slice(0, state.query.length).toLowerCase()
-          === state.query.toLowerCase()),
+        .filter(movie => movie.title.toLowerCase()
+          .includes(state.query.toLowerCase())
+          || movie.description.toLowerCase()
+            .includes(state.query.toLowerCase())),
     }));
   }
 
