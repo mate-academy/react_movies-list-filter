@@ -11,10 +11,10 @@ export class App extends Component {
   };
 
   onFilter = (event) => {
-    const { value, name } = event.target;
+    const { value } = event.target;
 
     this.setState({
-      [name]: value,
+      query: value,
     });
     this.setState({
       moviesList: moviesFromServer
