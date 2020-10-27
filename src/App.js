@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { Box } from './components/Box/Box';
+import { SearchField } from './components/SearchField/SearchField';
 
 export class App extends Component {
   state = {
@@ -19,7 +19,10 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <Box query={this.state.query} changeHandler={this.changeHandler} />
+          <SearchField
+            query={this.state.query}
+            changeHandler={this.changeHandler}
+          />
 
           <MoviesList
             movies={moviesFromServer}
