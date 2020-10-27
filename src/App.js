@@ -18,9 +18,9 @@ export class App extends Component {
   render() {
     const { query } = this.state;
 
-    const movies = moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase())
+    const movies = moviesFromServer.filter(({ title, description }) => (
+      title.toLowerCase().includes(query.toLowerCase())
+      || description.toLowerCase().includes(query.toLowerCase())
     ));
 
     return (
