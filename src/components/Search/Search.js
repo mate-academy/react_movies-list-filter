@@ -5,7 +5,9 @@ import { MovieShape } from '../shapes/MovieShape';
 export const Search = ({ update, movies }) => {
   const [query, setQuery] = useState('');
 
-  const searchMovie = (value) => {
+  const searchMovie = (event) => {
+    const { value } = event.target;
+
     setQuery(value);
 
     const searchedMovies = movies.filter(movie => (
@@ -31,7 +33,7 @@ export const Search = ({ update, movies }) => {
           className="input"
           value={query}
           placeholder="Type search word"
-          onChange={e => searchMovie(e.target.value)}
+          onChange={searchMovie}
         />
       </div>
     </>
