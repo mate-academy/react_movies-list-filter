@@ -13,7 +13,7 @@ export class App extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value.trim(),
+      [name]: value,
     });
   }
 
