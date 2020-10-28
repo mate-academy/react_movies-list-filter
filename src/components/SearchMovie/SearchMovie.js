@@ -11,7 +11,7 @@ export class SearchMovie extends React.PureComponent {
       query: target.value,
     });
 
-    this.props.filterMovie(target.value.toLowerCase());
+    this.props.filterMovie(target.value);
   }
 
   render() {

@@ -9,7 +9,8 @@ export class App extends Component {
     movies: moviesFromServer,
   };
 
-  filterMovies = (queryInLowerCase) => {
+  filterMovies = (query) => {
+    const queryInLowerCase = query.toLocaleLowerCase();
     const filtredMovies = moviesFromServer.filter(({ title, description }) => {
       const titleInLowerCase = title.toLocaleLowerCase();
       const descriptionInLowerCase = description.toLocaleLowerCase();
