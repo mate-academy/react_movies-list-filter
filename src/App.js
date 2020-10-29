@@ -1,33 +1,46 @@
 import React, { Component } from 'react';
-import './App.scss';
+
 import { MoviesList } from './components/MoviesList';
+import { SearchBar } from './components/SearchBar';
 import moviesFromServer from './api/movies.json';
 
+import './App.scss';
+
 export class App extends Component {
-  state = {};
+  state = {
+    visibleMovies: moviesFromServer,
+    query: '',
+  };
+
+  filterMoviesList = (event) => {
+    const value = event.target.value.toLowerCase();
+
+    this.setState({
+      query: value,
+    });
+
+    this.setState({
+      visibleMovies: moviesFromServer.filter(movie => (
+        movie.title.toLowerCase().includes(value)
+        || movie.description.toLowerCase().includes(value)
+      )),
+    });
+  }
 
   render() {
+    const { query, visibleMovies } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
           <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
+            <SearchBar
+              query={query}
+              filterMoviesList={this.filterMoviesList}
+            />
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
