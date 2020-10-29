@@ -9,7 +9,7 @@ export class App extends Component {
     movies: moviesFromServer,
   };
 
-  onSearch = (query) => {
+  handleSearch = (query) => {
     this.setState({
       movies: moviesFromServer.filter((movie) => {
         const lowerCaseQuery = query.toLowerCase().trim();
@@ -31,7 +31,7 @@ export class App extends Component {
       <div className="page">
         <div className="page-content">
           <div className="box">
-            <SearchField onSearch={this.onSearch} />
+            <SearchField handleSearch={this.handleSearch} />
           </div>
 
           <MoviesList movies={movies} />

@@ -9,7 +9,7 @@ export class SearchField extends Component {
   handleChange = (event) => {
     const { value } = event.target;
 
-    this.props.onSearch(value);
+    this.props.handleSearch(value);
 
     this.setState({
       query: value,
@@ -41,5 +41,5 @@ export class SearchField extends Component {
 }
 
 SearchField.propTypes = {
-  onSearch: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
