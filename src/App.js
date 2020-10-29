@@ -8,7 +8,7 @@ export class App extends Component {
     query: '',
   };
 
-  saveInput = (event) => {
+  searchHandler = (event) => {
     const { value } = event.target;
 
     this.setState({
@@ -40,7 +40,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onChange={this.saveInput}
+                  onChange={this.searchHandler}
                 />
               </div>
             </div>
