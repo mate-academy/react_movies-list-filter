@@ -7,10 +7,7 @@ import { MovieCard } from '../MovieCard';
 export const MoviesList = ({ movies, query }) => (
   <div className="movies">
     {movies.map(movie => (
-      movie.title.toLowerCase().includes(query)
-      || movie.description.toLowerCase().includes(query)
-        ? <MovieCard key={movie.imdbId} {...movie} />
-        : ''
+      <MovieCard key={movie.imdbId} {...movie} />
     ))}
   </div>
 );

@@ -8,7 +8,7 @@ export class App extends Component {
     query: '',
   };
 
-  filterList = (event) => {
+  searchHandler = (event) => {
     const { value } = event.target;
 
     this.setState({
@@ -18,6 +18,11 @@ export class App extends Component {
 
   render() {
     const { query } = this.state;
+
+    const filterMovie = moviesFromServer.filter(({ title, description }) => (
+      title.toLowerCase().includes(query)
+      || description.toLowerCase().includes(query)
+    ));
 
     return (
       <div className="page">
@@ -35,14 +40,14 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={query}
-                  onChange={this.filterList}
+                  onChange={this.searchHandler}
                 />
               </div>
             </div>
           </div>
 
           <MoviesList
-            movies={moviesFromServer}
+            movies={filterMovie}
             query={query}
           />
         </div>
