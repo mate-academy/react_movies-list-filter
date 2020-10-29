@@ -10,12 +10,14 @@ export class App extends Component {
     query: '',
   };
 
-  filterMovies = value => moviesFromServer.filter(
-    movie => (value !== ''
-      ? (movie.title.toLowerCase().indexOf(value.toLowerCase()) !== -1)
-        || (movie.description.toLowerCase().indexOf(value.toLowerCase()) !== -1)
-      : movie),
-  );
+  filterMovies = value => (
+    value !== ''
+      ? moviesFromServer.filter(
+        ({ title, description }) => (title + description)
+          .toLowerCase()
+          .indexOf(value.toLowerCase()) !== -1,
+      )
+      : moviesFromServer);
 
   handleSearch = (event) => {
     this.setState({
