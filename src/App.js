@@ -31,8 +31,8 @@ export class App extends Component {
       <div className="page">
         <div className="page-content">
           <SearchBar
-            value={this.state.query}
             clickHandler={this.handleChange}
+            value={this.state.query}
           />
           <MoviesList movies={filtredMovies} />
         </div>
