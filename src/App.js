@@ -6,9 +6,12 @@ import moviesFromServer from './api/movies.json';
 export class App extends Component {
   state = {
     query: null,
+    movies: moviesFromServer,
   };
 
   render() {
+    const { query, movies } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -29,19 +32,20 @@ export class App extends Component {
                       query: event.target.value,
                     });
                   }}
+                  value={query}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={!this.state.query
-            ? moviesFromServer
-            : moviesFromServer.filter(
+          <MoviesList movies={!query
+            ? movies
+            : movies.filter(
               movie => movie.title.toLowerCase().includes(
-                this.state.query.toLowerCase(),
+                query.toLowerCase(),
               )
                 || movie.description.toLowerCase().includes(
-                  this.state.query.toLowerCase(),
+                  query.toLowerCase(),
                 ),
             )
           }
