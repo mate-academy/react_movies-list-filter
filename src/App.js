@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { SearchBar } from './components/searchBar/SearchBar';
 
 export class App extends Component {
   state = {
@@ -17,6 +18,10 @@ export class App extends Component {
     return (title.includes(substr) || description.includes(substr));
   })
 
+  onQueryChange = (inputText) => {
+    this.setState({ query: inputText });
+  }
+
   render() {
     const { query } = this.state;
 
@@ -30,16 +35,7 @@ export class App extends Component {
               </label>
 
               <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  value={query}
-                  onChange={(event) => {
-                    this.setState({ query: event.target.value });
-                  }}
-                />
+                <SearchBar query={query} onChange={this.onQueryChange} />
               </div>
             </div>
           </div>
