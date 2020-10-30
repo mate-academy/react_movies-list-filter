@@ -36,17 +36,9 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={this.state.query
-            ? moviesFromServer.filter(
-              movie => movie.title.toLowerCase().includes(
-                this.state.query.toLowerCase(),
-              )
-              || movie.description.toLowerCase().includes(
-                this.state.query.toLowerCase(),
-              ),
-            )
-            : moviesFromServer
-          }
+          <MoviesList
+            movies={moviesFromServer}
+            query={this.state.query}
           />
         </div>
         <div className="sidebar">
