@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { Search } from './components/Search';
 
 export class App extends Component {
   state = {
     query: '',
   };
 
-  search = (event) => {
+  searchHandle = (event) => {
     const { value } = event.target;
 
     this.setState({
@@ -28,22 +29,7 @@ export class App extends Component {
       <div className="page">
         <div className="page-content">
           <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  value={query}
-                  onChange={this.search}
-                />
-              </div>
-            </div>
+            <Search query={query} search={this.searchHandle} />
           </div>
 
           <MoviesList movies={moviesFiltered} />
