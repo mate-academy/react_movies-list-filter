@@ -7,6 +7,12 @@ class Search extends React.PureComponent {
     query: '',
   }
 
+  searchMovie = (event) => {
+    this.setState({
+      query: event.target.value,
+    });
+  }
+
   render() {
     const { query } = this.state;
     const { movies } = this.props;
@@ -31,11 +37,7 @@ class Search extends React.PureComponent {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  this.setState({
-                    query: event.target.value,
-                  });
-                }}
+                onChange={this.searchMovie}
               />
             </div>
           </div>
