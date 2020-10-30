@@ -8,8 +8,9 @@ export const MoviesList = ({ moviesList, sortedByQuery }) => (
   <div className="movies">
     {
       moviesList.map((movie) => {
-        const filteredMovie = movie.title.toLowerCase().includes(sortedByQuery)
-          || movie.description.toLowerCase().includes(sortedByQuery);
+        const query = sortedByQuery.toLowerCase();
+        const filteredMovie = movie.title.toLowerCase().includes(query)
+          || movie.description.toLowerCase().includes(query);
 
         return (
           filteredMovie && <MovieCard key={movie.imdbId} {...movie} />
