@@ -13,9 +13,7 @@ export const Search = ({ query, moviesFilter }) => (
         value={query}
         className="input"
         placeholder="Type search word"
-        onChange={event => (
-          moviesFilter(event.target.value)
-        )}
+        onChange={moviesFilter}
       />
     </div>
   </div>
