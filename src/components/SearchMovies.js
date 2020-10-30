@@ -15,7 +15,7 @@ export const SearchMovies = ({ query, changeHandler }) => (
           className="input"
           placeholder="Type search word"
           value={query}
-          onChange={event => changeHandler(event)}
+          onChange={changeHandler}
         />
       </div>
     </div>
