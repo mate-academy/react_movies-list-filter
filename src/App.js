@@ -43,7 +43,6 @@ export class App extends Component {
 
           <MoviesList
             movies={filteredMovies}
-            query={this.state.query}
           />
         </div>
         <div className="sidebar">
