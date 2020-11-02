@@ -8,6 +8,12 @@ export class App extends Component {
     query: '',
   };
 
+  changeQuery = (event) => {
+    this.setState({
+      query: event.target.value,
+    });
+  }
+
   render() {
     return (
       <div className="page">
@@ -24,11 +30,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.changeQuery}
                 />
               </div>
             </div>
