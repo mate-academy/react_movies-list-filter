@@ -11,11 +11,11 @@ export class App extends Component {
   };
 
   findMovie = () => this.state.movies.filter((movie) => {
-    const substr = this.state.query.toUpperCase();
+    const substring = this.state.query.toUpperCase();
     const title = movie.title.toUpperCase();
     const description = movie.description.toUpperCase();
 
-    return (title.includes(substr) || description.includes(substr));
+    return (title.includes(substring) || description.includes(substring));
   })
 
   onQueryChange = (inputText) => {
