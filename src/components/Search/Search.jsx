@@ -13,15 +13,17 @@ class Search extends React.PureComponent {
     });
   }
 
+  filteredMovies = (movies, query) => (
+    movies
+      .filter(movie => movie.title.toLocaleLowerCase()
+        .includes(query.toLocaleLowerCase()))
+    || movies.filter(movie => movie.description.toLocaleLowerCase()
+      .includes(query.toLocaleLowerCase()))
+  )
+
   render() {
     const { query } = this.state;
     const { movies } = this.props;
-
-    const filteredMovies = movies
-      .filter(movie => movie.title.toLocaleLowerCase()
-        .includes(query.toLocaleLowerCase()))
-      || movies.filter(movie => movie.description.toLocaleLowerCase()
-        .includes(query.toLocaleLowerCase()));
 
     return (
       <div className="page-content">
@@ -42,7 +44,7 @@ class Search extends React.PureComponent {
             </div>
           </div>
         </div>
-        <MoviesList movies={filteredMovies} />
+        <MoviesList movies={this.filteredMovies(movies, query)} />
       </div>
     );
   }
