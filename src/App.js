@@ -13,7 +13,7 @@ export class App extends Component {
     this.setState({ query: event.target.value });
   }
 
-  filterMovies = () => (
+  filteredMovies = () => (
     moviesFromServer.filter(({ title, description }) => (
       this.searchForMatches(title) || this.searchForMatches(description)
     ))
@@ -35,7 +35,7 @@ export class App extends Component {
             query={query}
             changeHandler={this.changeHandler}
           />
-          <MoviesList movies={this.filterMovies()} />
+          <MoviesList movies={this.filteredMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
