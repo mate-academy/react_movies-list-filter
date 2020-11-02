@@ -4,7 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
+
+  changeQuery = (event) => {
+    this.setState({
+      query: event.target.value,
+    });
+  }
 
   render() {
     return (
@@ -22,12 +30,16 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={this.changeQuery}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList
+            movies={moviesFromServer}
+            query={this.state.query}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
