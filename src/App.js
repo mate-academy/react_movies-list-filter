@@ -13,6 +13,12 @@ export class App extends Component {
     this.setState({ query: event.target.value });
   }
 
+  filterMovies = () => (
+    moviesFromServer.filter(({ title, description }) => (
+      this.searchForMatches(title) || this.searchForMatches(description)
+    ))
+  )
+
   searchForMatches(section) {
     const { query } = this.state;
 
@@ -22,10 +28,6 @@ export class App extends Component {
   render() {
     const { query } = this.state;
 
-    const filterMovies = moviesFromServer.filter(({ title, description }) => (
-      this.searchForMatches(title) || this.searchForMatches(description)
-    ));
-
     return (
       <div className="page">
         <div className="page-content">
@@ -33,7 +35,7 @@ export class App extends Component {
             query={query}
             changeHandler={this.changeHandler}
           />
-          <MoviesList movies={filterMovies} />
+          <MoviesList movies={this.filterMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
