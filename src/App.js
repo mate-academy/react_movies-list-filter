@@ -8,6 +8,15 @@ export class App extends Component {
     query: '',
   };
 
+  filterByQuery = (query) => {
+    const sortedByQuery = query.toLowerCase();
+
+    return moviesFromServer.filter(movie => (
+      movie.title.toLowerCase().includes(sortedByQuery)
+      || movie.description.toLowerCase().includes(sortedByQuery)
+    ));
+  }
+
   handleEvent = (event) => {
     this.setState({
       query: event.target.value,
@@ -16,11 +25,7 @@ export class App extends Component {
 
   render() {
     const { query } = this.state;
-    const sortedByQuery = query.toLowerCase();
-    const filteredMovies = moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(sortedByQuery)
-      || movie.description.toLowerCase().includes(sortedByQuery)
-    ));
+    const filteredMovies = this.filterByQuery(query);
 
     return (
       <div className="page">
