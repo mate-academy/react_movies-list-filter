@@ -7,10 +7,9 @@ import { SearchBar } from './components/searchBar/SearchBar';
 export class App extends Component {
   state = {
     query: '',
-    movies: moviesFromServer,
   };
 
-  findMovie = () => this.state.movies.filter((movie) => {
+  findMovie = () => moviesFromServer.filter((movie) => {
     const substring = this.state.query.toUpperCase();
     const title = movie.title.toUpperCase();
     const description = movie.description.toUpperCase();
