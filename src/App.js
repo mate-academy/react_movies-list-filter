@@ -8,21 +8,23 @@ import './App.scss';
 export class App extends Component {
   state = {
     search: '',
+    movies: moviesFromServer,
   };
 
   searchMovie = (event) => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value });
-  };
+    this.setState({
+      [name]: value,
+      movies: moviesFromServer.filter(movie => (
+        movie.title.toLowerCase().includes(value.toLowerCase())
+        || movie.description.toLowerCase().includes(value.toLowerCase())
+      )),
+    });
+  }
 
   render() {
-    const { search } = this.state;
-
-    const filteredMovies = moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(search.toLowerCase())
-      || movie.description.toLowerCase().includes(search.toLowerCase())
-    ));
+    const { search, movies } = this.state;
 
     return (
       <div className="page">
@@ -33,7 +35,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList filteredMovies={filteredMovies} search={search} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
