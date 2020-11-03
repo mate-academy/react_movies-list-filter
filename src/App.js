@@ -18,6 +18,15 @@ export class App extends Component {
   render() {
     const { query, movies } = this.state;
 
+    const moviesFilter = movies.filter(
+      movie => movie.title.toLowerCase().includes(
+        query.toLowerCase(),
+      )
+      || movie.description.toLowerCase().includes(
+        query.toLowerCase(),
+      ),
+    );
+
     return (
       <div className="page">
         <div className="page-content">
@@ -41,14 +50,7 @@ export class App extends Component {
           </div>
 
           <MoviesList movies={query
-            ? movies.filter(
-              movie => movie.title.toLowerCase().includes(
-                query.toLowerCase(),
-              )
-              || movie.description.toLowerCase().includes(
-                query.toLowerCase(),
-              ),
-            )
+            ? moviesFilter
             : movies
           }
           />
