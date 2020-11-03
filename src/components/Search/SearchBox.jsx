@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MoviesList } from '../MoviesList';
+import SearchInput from './SearchInput';
 
 class Search extends React.PureComponent {
   state = {
@@ -28,21 +29,7 @@ class Search extends React.PureComponent {
     return (
       <div className="page-content">
         <div className="box">
-          <div className="field">
-            <label htmlFor="search-query" className="label">
-              Search movie
-            </label>
-
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-                onChange={this.searchMovie}
-              />
-            </div>
-          </div>
+          <SearchInput searchMovi={this.searchMovie} />
         </div>
         <MoviesList movies={this.filteredMovies(movies, query)} />
       </div>
