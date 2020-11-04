@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+
 import moviesFromServer from './api/movies.json';
+
+function moviesFilter(movies, query) {
+  const filtered = movies.filter(
+    movie => movie.title.toLowerCase().includes(
+      query.toLowerCase(),
+    )
+    || movie.description.toLowerCase().includes(
+      query.toLowerCase(),
+    ),
+  );
+
+  return filtered;
+}
 
 export class App extends Component {
   state = {
     query: '',
-    movies: moviesFromServer,
   };
 
   changeQuery = (event) => {
@@ -16,16 +29,7 @@ export class App extends Component {
   };
 
   render() {
-    const { query, movies } = this.state;
-
-    const moviesFilter = movies.filter(
-      movie => movie.title.toLowerCase().includes(
-        query.toLowerCase(),
-      )
-      || movie.description.toLowerCase().includes(
-        query.toLowerCase(),
-      ),
-    );
+    const { query } = this.state;
 
     return (
       <div className="page">
@@ -50,8 +54,8 @@ export class App extends Component {
           </div>
 
           <MoviesList movies={query
-            ? moviesFilter
-            : movies
+            ? moviesFilter(moviesFromServer, query)
+            : moviesFromServer
           }
           />
         </div>
