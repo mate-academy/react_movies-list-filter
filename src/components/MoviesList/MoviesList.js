@@ -1,3 +1,5 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable comma-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,7 +8,7 @@ import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies }) => (
   <div className="movies">
-    {movies.map(movie => (
+    {movies.map((movie) => (
       <MovieCard key={movie.imdbId} {...movie} />
     ))}
   </div>
@@ -19,7 +21,7 @@ MoviesList.propTypes = {
       description: PropTypes.string,
       imgUrl: PropTypes.string.isRequired,
       imdbUrl: PropTypes.string.isRequired,
-    }),
+    })
   ),
 };
 
