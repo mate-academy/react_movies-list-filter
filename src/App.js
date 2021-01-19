@@ -50,7 +50,6 @@ export class App extends Component {
               </div>
             </div>
           </div>
-
           <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
