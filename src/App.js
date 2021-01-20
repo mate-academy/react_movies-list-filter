@@ -16,14 +16,13 @@ export class App extends Component {
   }
 
   moviesFilter = () => {
-    this.setState(prevState => ({
-      ...prevState,
+    this.setState({
       movies: moviesFromServer
         .filter(movie => movie.title
           .toLowerCase().includes(prevState.search.toLowerCase())
           || movie.description
             .toLowerCase().includes(prevState.search.toLowerCase())),
-    }));
+    });
   }
 
   render() {
