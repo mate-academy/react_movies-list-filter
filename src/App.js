@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { Search } from './components/Search';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
+
+  updateValue = (value) => {
+    this.setState({ query: value });
+  }
 
   render() {
+    const { query } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -17,17 +26,12 @@ export class App extends Component {
               </label>
 
               <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
+                <Search query={query} updateValue={this.updateValue} />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={moviesFromServer} query={query} />
         </div>
         <div className="sidebar">
           Sidebar goes here
