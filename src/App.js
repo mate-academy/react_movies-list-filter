@@ -16,15 +16,15 @@ export class App extends Component {
   )
 
   filetVisibleMovies = () => {
-    this.setState({
-      movies: moviesFromServer
-        .filter(movie => movie.title
-        // eslint-disable-next-line react/no-access-state-in-setstate
-          .toLowerCase().includes(this.state.searchInput.toLowerCase())
-          || movie.description
-            // eslint-disable-next-line react/no-access-state-in-setstate
-            .toLowerCase().includes(this.state.searchInput.toLowerCase())),
-    });
+    this.setState(state => (
+      {
+        movies: moviesFromServer
+          .filter(movie => movie.title
+            .toLowerCase().includes(state.searchInput.toLowerCase())
+            || movie.description
+              .toLowerCase().includes(state.searchInput.toLowerCase())),
+      }
+    ));
   }
 
   render() {
