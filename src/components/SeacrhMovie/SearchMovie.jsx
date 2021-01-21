@@ -13,6 +13,7 @@ export const SearchMovie = ({ prevState, handleChange }) => (
           type="text"
           id="search-query"
           className="input"
+          name="query"
           placeholder="Type search word"
           value={prevState.query}
           onChange={handleChange}

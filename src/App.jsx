@@ -10,16 +10,18 @@ export class App extends Component {
   };
 
   handleChange = (event) => {
+    const { name, value } = event.target;
+
     this.setState({
-      query: event.target.value,
-    })
+      [name]: value,
+    });
   }
 
   render() {
     const { query } = this.state;
 
     const filteredMovies = moviesFromServer
-      .filter(  
+      .filter(
         movie => (
           movie.title
             .toLowerCase()
@@ -28,8 +30,8 @@ export class App extends Component {
           movie.description
             .toLowerCase()
             .includes(query.toLowerCase())
-        )
-      )
+        ),
+      );
 
     return (
       <div className="page">
