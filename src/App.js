@@ -11,6 +11,11 @@ export class App extends Component {
   render() {
     const { query } = this.state;
 
+    const filteredMovies = moviesFromServer.filter(movie => movie.description
+      .toLowerCase().includes(query.toLowerCase())
+      || movie.title
+        .toLowerCase().includes(query.toLowerCase()));
+
     return (
       <div className="page">
         <div className="page-content">
@@ -25,6 +30,7 @@ export class App extends Component {
                   type="text"
                   id="search-query"
                   className="input"
+                  value={query}
                   placeholder="Type search word"
                   onChange={(event) => {
                     this.setState({ query: event.target.value });
@@ -34,7 +40,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} query={query} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
