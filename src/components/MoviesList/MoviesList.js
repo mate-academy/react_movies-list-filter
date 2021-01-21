@@ -8,8 +8,9 @@ export const MoviesList = ({ movies, query }) => {
   const filteredMovies = movies.filter((movie) => {
     const titleTLC = movie.title.toLowerCase();
     const discriptionTLC = movie.description.toLowerCase();
+    const queryTLC = query.toLowerCase();
 
-    return titleTLC.includes(query) || discriptionTLC.includes(query);
+    return titleTLC.includes(queryTLC) || discriptionTLC.includes(queryTLC);
   });
 
   return filteredMovies.length >= 1 ? (

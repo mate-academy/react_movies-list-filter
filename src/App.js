@@ -23,13 +23,13 @@ export class App extends Component {
               <div className="control">
                 <input
                   type="text"
-                  vcalue={this.state.query}
+                  value={this.state.query}
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
                   onChange={(e) => {
                     this.setState({
-                      query: e.target.value.toLocaleLowerCase(),
+                      query: e.target.value,
                     });
                   }}
                 />
