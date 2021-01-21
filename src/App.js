@@ -10,10 +10,13 @@ export class App extends Component {
   };
 
   render() {
-    const moviesForRender = this.state.movies.filter(movie => (
-      movie.title.toLowerCase().includes(this.state.query)
-      || movie.description.toLowerCase().includes(this.state.query)
-    ));
+    const moviesForRender = this.state.movies
+      .filter(movie => (
+        movie.title.toLowerCase()
+          .includes(this.state.query.toLowerCase())
+          || movie.description.toLowerCase()
+            .includes(this.state.query.toLowerCase())
+      ));
 
     return (
       <div className="page">
@@ -23,7 +26,6 @@ export class App extends Component {
               <label htmlFor="search-query" className="label">
                 Search movie
               </label>
-
               <div className="control">
                 <input
                   type="text"
@@ -33,7 +35,7 @@ export class App extends Component {
                   value={this.state.query}
                   onChange={(event) => {
                     this.setState({
-                      query: event.target.value.toLowerCase(),
+                      query: event.target.value,
                     });
                   }}
                 />
