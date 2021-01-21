@@ -16,7 +16,7 @@ export class App extends Component {
     });
   }
 
-  findMovie = () => {
+  filterMovies = () => {
     const lowerQuery = this.state.query.toLowerCase();
 
     return [...moviesFromServer].filter(movie => (
@@ -49,7 +49,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={this.findMovie()} />
+          <MoviesList movies={this.filterMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
