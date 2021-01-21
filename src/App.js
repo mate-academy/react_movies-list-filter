@@ -10,6 +10,12 @@ export class App extends Component {
     query: '',
   };
 
+  changeHandler = (event) => {
+    this.setState({
+      query: event.target.value,
+    });
+  }
+
   getVisibleMovies = ({ movies, query }) => {
     let visibleMovies = [...movies];
 
@@ -17,7 +23,10 @@ export class App extends Component {
       const lowerQuery = query.toLowerCase();
 
       visibleMovies = visibleMovies
-        .filter(movie => movie.title.toLowerCase().includes(lowerQuery));
+        .filter(movie => (
+          movie.title.toLowerCase().includes(lowerQuery)
+          || movie.description.toLowerCase().includes(lowerQuery)
+        ));
     }
 
     return visibleMovies;
@@ -45,11 +54,7 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={query}
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.changeHandler}
                 />
               </div>
             </div>
