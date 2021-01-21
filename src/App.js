@@ -4,9 +4,18 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
 
   render() {
+    const { query } = this.state;
+    const querySmall = query.toLowerCase();
+    const visibleMovies = moviesFromServer.filter(movie => (
+      movie.title.toLowerCase().includes(querySmall)
+      || movie.description.toLowerCase().includes(querySmall)
+    ));
+
     return (
       <div className="page">
         <div className="page-content">
@@ -22,12 +31,16 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  value={query}
+                  onChange={(event) => {
+                    this.setState({ query: event.target.value });
+                  }}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
