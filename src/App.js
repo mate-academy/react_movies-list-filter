@@ -8,6 +8,12 @@ export class App extends Component {
     query: '',
   };
 
+  call = (event) => {
+    this.setState({
+      query: event.target.value,
+    });
+  };
+
   render() {
     const { query } = this.state;
 
@@ -27,19 +33,17 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={query}
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.call}
                 />
               </div>
             </div>
           </div>
 
           <MoviesList movies={
-            moviesFromServer.filter(movie => movie.title
-              .toLowerCase().includes(query.toLowerCase()))
+            moviesFromServer.filter(movie => movie.description.toLowerCase()
+              .includes(query.toLowerCase())
+            || movie.title.toLowerCase()
+              .includes(query.toLowerCase()))
           }
           />
         </div>
