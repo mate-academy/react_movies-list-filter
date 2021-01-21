@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SearchMovie = ({ prevState, handleChange }) => (
+export const SearchMovie = ({ query, handleChange }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -15,7 +15,7 @@ export const SearchMovie = ({ prevState, handleChange }) => (
           className="input"
           name="query"
           placeholder="Type search word"
-          value={prevState.query}
+          value={query}
           onChange={handleChange}
         />
       </div>
@@ -23,11 +23,7 @@ export const SearchMovie = ({ prevState, handleChange }) => (
   </div>
 );
 
-const prevStateType = PropTypes.shape({
-  query: PropTypes.string,
-});
-
 SearchMovie.propTypes = {
-  prevState: prevStateType.isRequired,
+  query: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };

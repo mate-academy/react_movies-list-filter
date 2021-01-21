@@ -10,10 +10,10 @@ export class App extends Component {
   };
 
   handleChange = (event) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
 
     this.setState({
-      [name]: value,
+      query: value,
     });
   }
 
@@ -37,7 +37,7 @@ export class App extends Component {
       <div className="page">
         <div className="page-content">
           <SearchMovie
-            prevState={this.state}
+            query={query}
             handleChange={this.handleChange}
           />
 
