@@ -11,7 +11,7 @@ export class App extends Component {
   searchMovie = () => {
     const { query } = this.state;
 
-    const filtredMovies = [...moviesFromServer].filter(movie => (
+    const filtredMovies = moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(query.toLocaleLowerCase())
       || movie.description.toLowerCase().includes(query.toLocaleLowerCase())
     ));
