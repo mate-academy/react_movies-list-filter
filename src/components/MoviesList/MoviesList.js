@@ -6,10 +6,13 @@ import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies, filter }) => (
   <div className="movies">
-    {movies.filter(movie => movie.title.toLowerCase().includes(filter.toLowerCase()) // eslint-disable-line
-      || movie.description.toLowerCase().includes(filter.toLowerCase())).map(movie => ( // eslint-disable-line
-      <MovieCard key={movie.imdbId} {...movie} /> // eslint-disable-line
-    ))}
+    {movies.filter(movie => movie.title
+      .toLowerCase().includes(filter.toLowerCase())
+        || movie.description
+          .toLowerCase().includes(filter.toLowerCase()))
+      .map(movie => (
+        <MovieCard key={movie.imdbId} {...movie} />
+      ))}
   </div>
 );
 
