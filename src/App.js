@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
-import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 import { MovieFilter } from './components/MovieFilter';
+import './App.scss';
 
 export class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      filteredMovies: moviesFromServer,
-    };
-    this.applyFilteredList = this.applyFilteredList.bind(this);
+  state = {
+    movies: moviesFromServer,
   }
 
-  applyFilteredList(filteredList) {
+  queryChangeHandler = (query) => {
+    const queryLowerCase = query.toLowerCase();
+
     this.setState({
-      filteredMovies: filteredList,
+      movies: moviesFromServer.filter(({ title, description }) => (
+        title.toLowerCase().includes(queryLowerCase)
+          || description.toLowerCase().includes(queryLowerCase)
+      )),
     });
   }
 
   render() {
-    const { filteredMovies } = this.state;
+    const { movies } = this.state;
 
     return (
       <div className="page">
         <div className="page-content">
           <MovieFilter
-            movies={moviesFromServer}
-            sendFilteredList={this.applyFilteredList}
+            onChange={this.queryChangeHandler}
           />
-          <MoviesList movies={filteredMovies} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here

@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 
 export class MovieFilter extends Component {
   static propTypes = {
-    movies: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-    })).isRequired,
-    sendFilteredList: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
   }
 
   state = {
@@ -15,30 +11,11 @@ export class MovieFilter extends Component {
   }
 
   handleChange = (event) => {
-    const query = event.target.value;
+    const { value } = event.target;
+    const { onChange } = this.props;
 
-    this.sendFilteredList(query);
-
-    this.setState({
-      query: event.target.value,
-    });
-  }
-
-  filterMovies = (list, query) => {
-    const processedList = list.filter((movie) => {
-      const searchName = query.toLowerCase();
-
-      return movie.title.toLowerCase().includes(searchName)
-        || movie.description.toLowerCase().includes(searchName);
-    });
-
-    return processedList;
-  }
-
-  sendFilteredList = (query) => {
-    const { movies, sendFilteredList } = this.props;
-
-    sendFilteredList(this.filterMovies(movies, query));
+    this.setState({ query: value });
+    onChange(value);
   }
 
   render() {
