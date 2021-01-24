@@ -4,30 +4,41 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    query: '',
+  };
 
   render() {
     return (
       <div className="page">
         <div className="page-content">
           <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
+            <form>
+              <div className="form__field">
+                <label htmlFor="search-query" className="label">
+                  Search movie
+                </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
+                <div className="control">
+                  <input
+                    type="text"
+                    id="search-query"
+                    className="input"
+                    placeholder="Type search word"
+                    name="movie"
+                    value={this.state.query}
+                    onChange={(event) => {
+                      this.setState({
+                        query: event.target.value,
+                      });
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            </form>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={moviesFromServer} search={this.state.query} />
         </div>
         <div className="sidebar">
           Sidebar goes here
