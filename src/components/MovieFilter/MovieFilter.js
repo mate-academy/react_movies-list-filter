@@ -3,23 +3,19 @@ import PropTypes from 'prop-types';
 
 export class MovieFilter extends Component {
   static propTypes = {
+    query: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-  }
-
-  state = {
-    query: '',
   }
 
   handleChange = (event) => {
     const { value } = event.target;
     const { onChange } = this.props;
 
-    this.setState({ query: value });
     onChange(value);
   }
 
   render() {
-    const { query } = this.state;
+    const { query } = this.props;
 
     return (
       <div className="box">

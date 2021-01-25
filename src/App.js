@@ -11,24 +11,24 @@ export class App extends Component {
 
   queryChangeHandler = (query) => {
     this.setState({
-      query,
+      query: query.toLowerCase(),
     });
   }
 
   render() {
     const { query } = this.state;
 
-    const queryLowerCase = query.toLowerCase();
     const filteredMovies = moviesFromServer
       .filter(({ title, description }) => (
-        title.toLowerCase().includes(queryLowerCase)
-          || description.toLowerCase().includes(queryLowerCase)
+        title.toLowerCase().includes(query)
+          || description.toLowerCase().includes(query)
       ));
 
     return (
       <div className="page">
         <div className="page-content">
           <MovieFilter
+            query={query}
             onChange={this.queryChangeHandler}
           />
           <MoviesList movies={filteredMovies} />
