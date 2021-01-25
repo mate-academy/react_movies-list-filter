@@ -6,22 +6,24 @@ import './App.scss';
 
 export class App extends Component {
   state = {
-    movies: moviesFromServer,
+    query: '',
   }
 
   queryChangeHandler = (query) => {
-    const queryLowerCase = query.toLowerCase();
-
     this.setState({
-      movies: moviesFromServer.filter(({ title, description }) => (
-        title.toLowerCase().includes(queryLowerCase)
-          || description.toLowerCase().includes(queryLowerCase)
-      )),
+      query,
     });
   }
 
   render() {
-    const { movies } = this.state;
+    const { query } = this.state;
+
+    const queryLowerCase = query.toLowerCase();
+    const filteredMovies = moviesFromServer
+      .filter(({ title, description }) => (
+        title.toLowerCase().includes(queryLowerCase)
+          || description.toLowerCase().includes(queryLowerCase)
+      ));
 
     return (
       <div className="page">
@@ -29,7 +31,7 @@ export class App extends Component {
           <MovieFilter
             onChange={this.queryChangeHandler}
           />
-          <MoviesList movies={movies} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
