@@ -21,7 +21,7 @@ export class App extends Component {
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <label htmlFor="search-query" lassName="label">
+              <label htmlFor="search-query" className="label">
                 Search movie
               </label>
 
