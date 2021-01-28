@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SearchMovie = ({ filterMovies, query }) => (
+export const SearchMovie = ({ saveQuery, query }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -14,7 +14,7 @@ export const SearchMovie = ({ filterMovies, query }) => (
           className="input"
           placeholder="Type search word"
           value={query}
-          onChange={filterMovies}
+          onChange={event => saveQuery(event.target.value)}
         />
       </div>
     </div>
@@ -26,6 +26,6 @@ SearchMovie.defaultProps = {
 };
 
 SearchMovie.propTypes = {
-  filterMovies: PropTypes.func.isRequired,
+  saveQuery: PropTypes.func.isRequired,
   query: PropTypes.string,
 };

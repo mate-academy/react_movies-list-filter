@@ -9,13 +9,13 @@ export class App extends Component {
     query: '',
   };
 
-  filterMovies = (event) => {
-    this.setState({ query: event.target.value });
+  saveQuery = (value) => {
+    this.setState({ query: value });
   };
 
   render() {
     const { query } = this.state;
-    const searchMovie = moviesFromServer.filter(movie => movie.title
+    const filteredMovies = moviesFromServer.filter(movie => movie.title
       .toLocaleLowerCase()
       .includes(query.toLocaleLowerCase())
       || movie.description
@@ -24,9 +24,9 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchMovie filterMovies={this.filterMovies} query={query} />
+          <SearchMovie saveQuery={this.saveQuery} query={query} />
 
-          <MoviesList movies={searchMovie} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
