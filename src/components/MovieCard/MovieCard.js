@@ -1,8 +1,10 @@
+/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import './MovieCard.scss';
 
-export const MovieCard = ({ title, description, imgUrl, imdbUrl }) => (
+export const MovieCard = ({ title, description, imgUrl, imdbUrl, searchTerm }) => (
   <div className="card">
     <div className="card-image">
       <figure className="image is-4by3">
@@ -23,11 +25,11 @@ export const MovieCard = ({ title, description, imgUrl, imdbUrl }) => (
           </figure>
         </div>
         <div className="media-content">
-          <p className="title is-8">{title}</p>
+          <p className={cn('title', { highlight: searchTerm && title.toLowerCase().includes(searchTerm.toLowerCase()) })}>{title}</p>
         </div>
       </div>
 
-      <div className="content">
+      <div className={cn('content', { highlight: searchTerm && description.toLowerCase().includes(searchTerm.toLowerCase()) })}>
         {description}
         <br />
         <a href={imdbUrl}>IMDB</a>
@@ -41,6 +43,7 @@ MovieCard.propTypes = {
   description: PropTypes.string,
   imgUrl: PropTypes.string.isRequired,
   imdbUrl: PropTypes.string.isRequired,
+  searchTerm: PropTypes.string.isRequired,
 };
 
 MovieCard.defaultProps = {
