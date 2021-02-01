@@ -4,10 +4,15 @@ import PropTypes from 'prop-types';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies }) => (
+export const MoviesList = ({ movies, searchTerm, isHighlighted }) => (
   <div className="movies">
     {movies.map(movie => (
-      <MovieCard key={movie.imdbId} {...movie} />
+      <MovieCard
+        key={movie.imdbId}
+        {...movie}
+        searchTerm={searchTerm}
+        isHighlighted={isHighlighted}
+      />
     ))}
   </div>
 );
@@ -21,6 +26,8 @@ MoviesList.propTypes = {
       imdbUrl: PropTypes.string.isRequired,
     }),
   ),
+  searchTerm: PropTypes.string.isRequired,
+  isHighlighted: PropTypes.bool.isRequired,
 };
 
 MoviesList.defaultProps = {
