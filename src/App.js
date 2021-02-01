@@ -10,20 +10,29 @@ export class App extends Component {
     movies: moviesFromServer,
     visibleMoviesList: moviesFromServer,
     searchParam: '',
+    isHighlighted: false,
   }
 
   onSearchSubmit = (term) => {
-    const query = term.trim();
+    const query = term.trim().toLowerCase();
 
     this.setState(state => ((query === '')
-      ? { visibleMoviesList: [...state.movies] }
-      : { visibleMoviesList: state.movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()) === true
-        || movie.description.toLowerCase().includes(query.toLowerCase()) === true) }));
+      ? {
+        visibleMoviesList: [...state.movies],
+        isHighlighted: false,
+      }
+      : {
+        visibleMoviesList: state.movies.filter(movie => (movie.title + movie.description).toLowerCase().includes(query) === true),
+        isHighlighted: true,
+      }));
     this.setState({ searchParam: query });
   }
 
   render() {
-    const { visibleMoviesList, searchParam } = this.state;
+    const
+      { visibleMoviesList
+        , searchParam,
+        isHighlighted } = this.state;
 
     return (
       <div className="page">
@@ -32,6 +41,7 @@ export class App extends Component {
           <MoviesList
             movies={visibleMoviesList}
             searchTerm={searchParam}
+            isHighlighted={isHighlighted}
           />
         </div>
         <div className="sidebar">
