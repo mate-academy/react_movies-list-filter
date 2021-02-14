@@ -23,10 +23,11 @@ export const MovieCard = ({ title, description, imgUrl, imdbUrl }) => (
           </figure>
         </div>
         <div className="media-content">
-          <p className="title is-8">{title}</p>
+          <p className="title is-8">
+            {title}
+          </p>
         </div>
       </div>
-
       <div className="content">
         {description}
         <br />
