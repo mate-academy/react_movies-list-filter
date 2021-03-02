@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './MovieCard.scss';
 
-export const MovieCard = ({ title, description, imgUrl, imdbUrl }) => (
-  <div className="card">
+export const MovieCard = ({ title, description, imgUrl, imdbUrl, hidden }) => (
+  <div className="card" hidden={hidden}>
     <div className="card-image">
       <figure className="image is-4by3">
         <img
@@ -41,6 +41,7 @@ MovieCard.propTypes = {
   description: PropTypes.string,
   imgUrl: PropTypes.string.isRequired,
   imdbUrl: PropTypes.string.isRequired,
+  hidden: PropTypes.bool.isRequired,
 };
 
 MovieCard.defaultProps = {
