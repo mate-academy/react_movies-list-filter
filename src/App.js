@@ -14,20 +14,12 @@ export class App extends Component {
 
     this.setState(state => ({
       query: value,
-      movies: state.movies.map((movie) => {
-        if (movie.title.toLowerCase().includes(value.toLowerCase())
-        || movie.description.toLowerCase().includes(value.toLowerCase())) {
-          return ({
-            ...movie,
-            hidden: false,
-          });
-        }
-
-        return ({
-          ...movie,
-          hidden: true,
-        });
-      }),
+      movies: value !== ''
+        ? state.movies.filter(movie => (
+          movie.title.toLowerCase().includes(value.toLowerCase())
+          || movie.description.toLowerCase().includes(value.toLowerCase())
+        ))
+        : [...moviesFromServer],
     }));
   }
 
