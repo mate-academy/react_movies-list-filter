@@ -18,8 +18,8 @@ export class App extends Component {
     const { movies, query } = this.state;
 
     return (
-      movies.filter(movie => movie.title.toLowerCase().includes(query)
-        || movie.description.toLowerCase().includes(query))
+      movies.filter(({ title, description }) => (title + description)
+        .toLowerCase().includes(query))
     );
   }
 
