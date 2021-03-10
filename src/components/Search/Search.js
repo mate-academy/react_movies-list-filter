@@ -14,7 +14,7 @@ export const Search = ({ query, setQuery }) => (
           id="search-query"
           className="input"
           value={query}
-          onChange={event => setQuery(event.target.value)}
+          onChange={({ target }) => setQuery(target.value)}
           placeholder="Type search word"
         />
       </div>
