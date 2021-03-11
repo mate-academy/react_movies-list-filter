@@ -6,7 +6,7 @@ import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
 export function MoviesList({ movies, query }) {
-  const filteredMovieByTitle = [...movies].filter(
+  const filteredMovieByTitle = movies.filter(
     movie => movie.title.toLowerCase().includes(query.toLowerCase())
     || movie.description.toLowerCase().includes(query.toLowerCase()),
   );
