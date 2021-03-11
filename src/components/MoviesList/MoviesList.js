@@ -7,8 +7,8 @@ import { MovieCard } from '../MovieCard';
 
 export function MoviesList({ movies, query }) {
   const filteredMovieByTitle = [...movies].filter(
-    movie => movie.title.toLowerCase().startsWith(query.toLowerCase())
-    || movie.description.toLowerCase().startsWith(query.toLowerCase()),
+    movie => movie.title.toLowerCase().includes(query.toLowerCase())
+    || movie.description.toLowerCase().includes(query.toLowerCase()),
   );
 
   return (
