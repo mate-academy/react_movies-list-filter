@@ -11,7 +11,7 @@ export class App extends Component {
   changeQuery = (event) => {
     const { value, name } = event.target;
 
-    this.setState(({ [name]: value.toLowerCase() }));
+    this.setState(({ [name]: value }));
   }
 
   render() {
