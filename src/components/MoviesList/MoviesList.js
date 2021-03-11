@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies }) => (
+export const MoviesList = ({ movies, input }) => (
   <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} {...movie} />
-    ))}
+    {movies.filter(movie => (
+      movie.title.toLowerCase().includes(input.toLowerCase())
+      || movie.description.toLowerCase().includes(input.toLowerCase())))
+      .map(movie => (
+        <MovieCard key={movie.imdbId} {...movie} />
+      ))}
   </div>
 );
 
@@ -21,6 +24,7 @@ MoviesList.propTypes = {
       imdbUrl: PropTypes.string.isRequired,
     }),
   ),
+  input: PropTypes.string.isRequired,
 };
 
 MoviesList.defaultProps = {
