@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export class App extends Component {
   state = {
     query: '',
-    filteredMovies: [...moviesFromServer],
+    filteredMovies: moviesFromServer,
   };
 
   handleChange = (event) => {
