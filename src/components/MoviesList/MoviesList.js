@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies, input }) => (
+export const MoviesList = ({ movies }) => (
   <div className="movies">
-    {movies.filter(movie => (
-      movie.title.toLowerCase().includes(input.toLowerCase())
-      || movie.description.toLowerCase().includes(input.toLowerCase())))
-      .map(movie => (
-        <MovieCard key={movie.imdbId} {...movie} />
-      ))}
+    {movies.map(movie => (
+      <MovieCard key={movie.imdbId} {...movie} />
+    ))}
   </div>
 );
 
