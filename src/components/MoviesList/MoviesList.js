@@ -21,6 +21,7 @@ MoviesList.propTypes = {
       imdbUrl: PropTypes.string.isRequired,
     }),
   ),
+  input: PropTypes.string.isRequired,
 };
 
 MoviesList.defaultProps = {
