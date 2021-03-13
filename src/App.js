@@ -5,29 +5,31 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
-    query: '',
+    qwery: '',
     movies: moviesFromServer,
   };
 
-  handleChange = (event) => {
-    this.setState({ query: event.target.value });
+  changeHandler = (event) => {
+    this.setState({ qwery: event.target.value });
     this.moviesFilter();
-  }
+  };
 
   moviesFilter = () => {
-    const { query } = this.state;
+    this.setState((state) => {
+      const { qwery } = state;
 
-    this.setState(() => ({
-      movies: moviesFromServer.filter((film) => {
-        const title = film.title.toLocaleLowerCase();
-        const description = film.description.toLocaleLowerCase();
+      return ({
+        movies: moviesFromServer.filter((film) => {
+          const title = film.title.toLowerCase();
+          const description = film.description.toLowerCase();
 
-        return (
-          title.includes(query.toLocaleLowerCase())
-          || description.includes(query.toLocaleLowerCase())
-        );
-      }),
-    }));
+          return (
+            title.includes(qwery.toLowerCase())
+            || description.includes(qwery.toLowerCase())
+          );
+        }),
+      });
+    });
   }
 
   render() {
@@ -46,8 +48,8 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  defaultValue={this.state.query}
-                  onChange={this.handleChange}
+                  defaultValue={this.state.qwery}
+                  onChange={this.changeHandler}
                 />
               </div>
             </div>
