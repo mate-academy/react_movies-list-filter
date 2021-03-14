@@ -9,6 +9,12 @@ export class App extends Component {
     inputValue: '',
   };
 
+  inputHandler = (e) => {
+    this.setState({
+      inputValue: e.target.value,
+    });
+  }
+
   render() {
     const { movies, inputValue } = this.state;
 
@@ -28,11 +34,7 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={inputValue}
-                  onChange={(e) => {
-                    this.setState({
-                      inputValue: e.target.value,
-                    });
-                  }}
+                  onChange={this.inputHandler}
                 />
               </div>
             </div>
