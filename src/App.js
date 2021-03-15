@@ -48,7 +48,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  defaultValue={this.state.qwery}
+                  value={this.state.qwery}
                   onChange={this.changeHandler}
                 />
               </div>
