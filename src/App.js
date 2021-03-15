@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export class App extends Component {
   state = {
     query: '',
-    visibleMovies: [...moviesFromServer],
+    visibleMovies: moviesFromServer,
   };
 
   changeHandler = (event) => {
@@ -17,12 +17,6 @@ export class App extends Component {
   filterMovies = () => {
     this.setState((prevState) => {
       const { query } = prevState;
-
-      if (query.trim() === '') {
-        return {
-          visibleMovies: [...moviesFromServer],
-        };
-      }
 
       const regex = new RegExp(query.toLowerCase(), 'g');
       const filteredMovies = moviesFromServer.filter(movie => (
