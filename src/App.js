@@ -4,7 +4,33 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    qwery: '',
+    movies: moviesFromServer,
+  };
+
+  changeHandler = (event) => {
+    this.setState({ qwery: event.target.value });
+    this.moviesFilter();
+  };
+
+  moviesFilter = () => {
+    this.setState((state) => {
+      const { qwery } = state;
+
+      return ({
+        movies: moviesFromServer.filter((film) => {
+          const title = film.title.toLowerCase();
+          const description = film.description.toLowerCase();
+
+          return (
+            title.includes(qwery.toLowerCase())
+            || description.includes(qwery.toLowerCase())
+          );
+        }),
+      });
+    });
+  }
 
   render() {
     return (
@@ -22,12 +48,14 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  value={this.state.qwery}
+                  onChange={this.changeHandler}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.state.movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
