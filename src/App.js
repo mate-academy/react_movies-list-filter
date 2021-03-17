@@ -8,14 +8,21 @@ export class App extends Component {
     query: '',
   };
 
-  queryOnChangeHandler = (event) => {
+  queryOnChangeHandler = ({ target: { value } }) => {
     this.setState({
-      query: event.target.value,
+      query: value,
     });
   }
 
+  getFilteredMovies = (rawMovies, query) => rawMovies.filter(
+    ({ title, description }) => (
+      (title + description).toUpperCase().includes(query.toUpperCase())
+    ),
+  );
+
   render() {
-    const { queryOnChangeHandler, state: { query } } = this;
+    const { queryOnChangeHandler, getFilteredMovies,
+      state: { query } } = this;
 
     return (
       <div className="page">
@@ -39,16 +46,12 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={query.length === 0 ? moviesFromServer : (
-            moviesFromServer.filter((movie) => {
-              const title = movie.title.toUpperCase();
-              const description = movie.description.toUpperCase();
-              const transCasedQuery = query.toUpperCase();
-
-              return title.includes(transCasedQuery)
-                || description.includes(transCasedQuery);
-            })
-          )}
+          <MoviesList
+            movies={
+              query.length === 0
+                ? moviesFromServer
+                : (getFilteredMovies(moviesFromServer, query))
+            }
           />
         </div>
         <div className="sidebar">
