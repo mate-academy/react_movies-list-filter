@@ -13,6 +13,7 @@ export const MoviesList = ({ movies }) => (
 );
 
 MoviesList.propTypes = {
+  query: PropTypes.string,
   movies: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -25,4 +26,5 @@ MoviesList.propTypes = {
 
 MoviesList.defaultProps = {
   movies: [],
+  query: '',
 };
