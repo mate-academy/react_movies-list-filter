@@ -1,3 +1,9 @@
+.card {
+  @media (prefers-color-scheme: dark) {
+    background-color: gray;
+  }
+}
+
 .card-image img {
   object-fit: contain;
 }
