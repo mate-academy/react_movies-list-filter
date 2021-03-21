@@ -9,9 +9,29 @@ export class App extends Component {
     query: '',
   };
 
-  inputHandler = (e) => {
+  queryHandler = (e) => {
     this.setState({
       query: e.target.value,
+    });
+
+    this.filterMovies();
+  }
+
+  filterMovies = () => {
+    this.setState((prevState) => {
+      const { query } = prevState;
+
+      return ({
+        movies: moviesFromServer.filter((movie) => {
+          const description = movie.description.toLowerCase();
+          const title = movie.title.toLowerCase();
+
+          return (
+            description.includes(query.toLowerCase())
+             || title.includes(query.toLowerCase())
+          );
+        }),
+      });
     });
   }
 
@@ -34,12 +54,14 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={query}
-                  onChange={this.inputHandler}
+                  onChange={this.queryHandler}
                 />
               </div>
             </div>
           </div>
-          <MoviesList movies={movies} query={query} />
+          <MoviesList
+            movies={movies}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
