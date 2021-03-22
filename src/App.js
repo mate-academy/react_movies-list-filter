@@ -9,9 +9,9 @@ export class App extends Component {
     query: '',
   };
 
-  queryHandler = (e) => {
+  queryHandler = (event) => {
     this.setState({
-      query: e.target.value,
+      query: event.target.value,
     });
 
     this.filterMovies();
@@ -21,16 +21,18 @@ export class App extends Component {
     this.setState((prevState) => {
       const { query } = prevState;
 
-      return ({
-        movies: moviesFromServer.filter((movie) => {
-          const description = movie.description.toLowerCase();
-          const title = movie.title.toLowerCase();
+      const filtredMovies = moviesFromServer.filter((movie) => {
+        const description = movie.description.toLowerCase();
+        const title = movie.title.toLowerCase();
 
-          return (
-            description.includes(query.toLowerCase())
-             || title.includes(query.toLowerCase())
-          );
-        }),
+        return (
+          description.includes(query.toLowerCase())
+            || title.includes(query.toLowerCase())
+        );
+      });
+
+      return ({
+        movies: filtredMovies,
       });
     });
   }
@@ -59,9 +61,7 @@ export class App extends Component {
               </div>
             </div>
           </div>
-          <MoviesList
-            movies={movies}
-          />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
