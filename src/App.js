@@ -9,18 +9,16 @@ export class App extends Component {
     filteredFilmList: moviesFromServer,
   };
 
-  findingFilms = (event) => {
+  findFims = (event) => {
     const { query } = this.state;
 
     this.setState({
       query: event.target.value,
       filteredFilmList: [...moviesFromServer].filter((film) => {
-        if (film.title.toLowerCase().includes(query)
-        || film.description.toLowerCase().includes(query)) {
-          return true;
-        }
+        const isFilmFound = (film.title.toLowerCase().includes(query)
+          || film.description.toLowerCase().includes(query));
 
-        return false;
+        return isFilmFound;
       }),
     });
   }
@@ -41,7 +39,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onChange={this.findingFilms}
+                  onChange={this.findFims}
                 />
               </div>
             </div>
