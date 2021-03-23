@@ -11,15 +11,16 @@ export class App extends Component {
 
   handleChange = (actualEvent) => {
     const { value } = actualEvent.target;
+    const inputText = value.toLowerCase();
 
     this.setState({
       query: value,
       movies: [...moviesFromServer].filter(
         movie => movie.title.toLowerCase().includes(
-          value.toLowerCase(),
+          inputText,
         )
         || movie.description.toLowerCase().includes(
-          value.toLowerCase(),
+          inputText,
         ),
       ),
     });
