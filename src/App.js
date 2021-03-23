@@ -9,7 +9,7 @@ export class App extends Component {
   };
 
   render() {
-    const filteredMovie = [...moviesFromServer].filter(
+    const filteredMovies = moviesFromServer.filter(
       movie => movie.title.toLowerCase()
         .includes(this.state.query.toLowerCase())
       || movie.description.includes(this.state.query.toLowerCase()),
@@ -39,7 +39,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={filteredMovie} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
