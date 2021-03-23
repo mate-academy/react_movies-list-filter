@@ -11,7 +11,10 @@ export class App extends Component {
   render() {
     const { query } = this.state;
     const movies = moviesFromServer.filter(
-      movie => movie.title.includes(query),
+      movie => movie.title.toUpperCase().includes(query.toUpperCase())
+
+      || movie.description.toUpperCase().includes(query.toUpperCase()),
+
     );
 
     return (
