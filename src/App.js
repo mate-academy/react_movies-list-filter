@@ -14,7 +14,7 @@ export class App extends Component {
 
     this.setState({
       query: value,
-      movies: [...moviesFromServer].filter((movie) => {
+      movies: moviesFromServer.filter((movie) => {
         const { title, description } = movie;
 
         return title.toLowerCase().includes(value.toLowerCase())
