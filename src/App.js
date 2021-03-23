@@ -11,12 +11,13 @@ export class App extends Component {
 
   filterMoviesBySearchWord = (event) => {
     const { value } = event.target;
+    const prepearedValue = value.toLowerCase();
 
     this.setState({
       query: value,
       movies: [...moviesFromServer].filter(
-        movie => movie.title.toLowerCase().includes(value.toLowerCase())
-        || movie.description.toLowerCase().includes(value.toLowerCase()),
+        movie => movie.title.toLowerCase().includes(prepearedValue)
+        || movie.description.toLowerCase().includes(prepearedValue),
       ),
     });
   }
