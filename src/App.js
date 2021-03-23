@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export class App extends Component {
   state = {
     query: '',
-    filteredFilmList: moviesFromServer,
+    movies: moviesFromServer,
   };
 
   findFims = (event) => {
@@ -14,7 +14,7 @@ export class App extends Component {
 
     this.setState({
       query: event.target.value,
-      filteredFilmList: [...moviesFromServer].filter((film) => {
+      movies: moviesFromServer.filter((film) => {
         const isFilmFound = (film.title.toLowerCase().includes(query)
           || film.description.toLowerCase().includes(query));
 
@@ -45,7 +45,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={this.state.filteredFilmList} />
+          <MoviesList movies={this.state.movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
