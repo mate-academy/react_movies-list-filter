@@ -8,15 +8,24 @@ export class App extends Component {
     query: '',
   };
 
-  render() {
+  handleChange = (inputHandle) => {
+    const { value } = inputHandle.target;
+
+    this.setState({
+      query: value,
+    });
+  };
+
+  filteMovies = () => {
     const { query } = this.state;
-    const movies = moviesFromServer.filter(
+
+    return moviesFromServer.filter(
       movie => movie.title.toUpperCase().includes(query.toUpperCase())
-
       || movie.description.toUpperCase().includes(query.toUpperCase()),
-
     );
+  };
 
+  render() {
     return (
       <div className="page">
         <div className="page-content">
@@ -32,19 +41,15 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={query}
+                  value={this.state.query}
 
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={movies} />
+          <MoviesList movies={this.filteMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
