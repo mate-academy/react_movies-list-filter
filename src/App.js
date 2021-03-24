@@ -14,7 +14,8 @@ export class App extends Component {
     this.setState({
       movies: moviesFromServer.filter(movie => (
         movie.title.toLowerCase().includes(value.toLocaleLowerCase())
-      )),
+      )
+      || movie.description.toLowerCase().includes(value.toLocaleLowerCase())),
     });
   }
 
