@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { InputSearch } from './components/InputSearch/InputSearch';
 
 export class App extends Component {
   state = {
@@ -16,6 +17,12 @@ export class App extends Component {
         .includes(this.state.query.toUpperCase())
     ));
 
+  changeHandler = (event) => {
+    this.setState({
+      query: event.target.value,
+    });
+  }
+
   render() {
     return (
       <div className="page">
@@ -27,17 +34,9 @@ export class App extends Component {
               </label>
 
               <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
+                <InputSearch
                   value={this.state.query}
-                  className="input"
-                  placeholder="Type search word"
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.changeHandler}
                 />
               </div>
             </div>
