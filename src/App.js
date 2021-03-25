@@ -28,6 +28,11 @@ export class App extends Component {
   }
 
   render() {
+    const {
+      movies,
+      query,
+    } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -43,14 +48,14 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.query}
+                  value={query}
                   onChange={this.changeHandler}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={this.state.movies} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
