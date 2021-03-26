@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import { Search } from './components/Search';
 import moviesFromServer from './api/movies.json';
+import './App.scss';
 
 export class App extends Component {
   state = {
     query: '',
-    movies: moviesFromServer,
     filteredMovies: moviesFromServer,
   };
 
@@ -22,12 +21,12 @@ export class App extends Component {
   };
 
   filterMovies = () => {
-    this.setState(state => ({
-      filteredMovies: state.movies.filter((movie) => {
+    this.setState(prevState => ({
+      filteredMovies: moviesFromServer.filter((movie) => {
         const { title, description } = movie;
 
-        return title.toLowerCase().includes(state.query.toLowerCase())
-          || description.toLowerCase().includes(state.query.toLowerCase());
+        return title.toLowerCase().includes(prevState.query.toLowerCase())
+          || description.toLowerCase().includes(prevState.query.toLowerCase());
       }),
     }));
   };
