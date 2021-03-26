@@ -1,10 +1,31 @@
 [
   {
+    "title": "Friends",
+    "description": "Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.",
+    "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/81EK4l7881L._SL1500_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt0108778/?ref_=fn_al_tt_1",
+    "imdbId": "tt0108778"
+  },
+  {
+    "title": "Mate Academy",
+    "description": "Get or set, to complete a task on time or get a message from Yurii in next morning, get a reject from Vova Pavlenko or Vova Bely this week, become a programmer or die...in the cinemas from 10 of January",
+    "imgUrl": "https://happymonday.ua/wp-content/uploads/2020/09/Stvory-pershu-veb-storinku-za-2-godyny.-Tak-povnistyu-z-nulya-1-833x435.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt2234155/",
+    "imdbId": "tt2234155"
+  },
+  {
     "title": "Inception",
     "description": "Follows the lives of eight very different couples in dealing with their love lives in various loosely interrelated tales all set during a frantic month before Christmas in London, England.",
     "imgUrl": "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
     "imdbUrl": "https://www.imdb.com/title/tt1375666",
     "imdbId": "tt1375666"
+  },
+  {
+    "title": "Home Alone",
+    "description": "An eight-year-old troublemaker must protect his house from a pair of burglars when he is accidentally left home alone by his family during Christmas vacation.",
+    "imgUrl": "https://images-na.ssl-images-amazon.com/images/I/51NZLvm-N%2BL.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt0099785/?ref_=fn_al_tt_1",
+    "imdbId": "tt0099785"
   },
   {
     "title": "Love Actually",
