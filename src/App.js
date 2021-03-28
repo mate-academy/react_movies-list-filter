@@ -13,14 +13,24 @@ export class App extends Component {
     this.setState({
       query: typingEvent.target.value,
     });
+    this.filterMovies();
+  }
+
+  filterMovies = () => {
+    this.setState((prevState) => {
+      const { query } = prevState;
+
+      return {
+        movies: moviesFromServer.filter(film => film.description.toLowerCase()
+          .includes(query.toLowerCase())
+          || film.title.toLowerCase()
+            .includes(query.toLowerCase())),
+      };
+    });
   }
 
   render() {
     const { query, movies } = this.state;
-    const filtredMovies = movies.filter(film => film.description.toLowerCase()
-      .includes(this.state.query.toLowerCase())
-      || film.title.toLowerCase()
-        .includes(this.state.query.toLowerCase()));
 
     return (
       <div className="page">
@@ -43,7 +53,7 @@ export class App extends Component {
               </div>
             </div>
           </div>
-          <MoviesList movies={filtredMovies} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
