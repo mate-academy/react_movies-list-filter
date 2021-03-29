@@ -13,6 +13,7 @@ export const MoviesList = ({ movies }) => (
 );
 
 MoviesList.propTypes = {
+  query: PropTypes.string.isRequired,
   movies: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
