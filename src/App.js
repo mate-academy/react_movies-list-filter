@@ -5,15 +5,24 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
+    filteredMovieList: moviesFromServer,
     query: '',
   };
 
   handleChange = (event) => {
-    this.setState({ query: event.target.value });
+    this.setState({
+      filteredMovieList: moviesFromServer.filter(
+        movie => movie.title
+          .toLowerCase().includes(event.target.value.toLowerCase())
+          || movie.description
+            .toLowerCase().includes(event.target.value.toLowerCase()),
+      ),
+      query: event.target.value,
+    });
   }
 
   render() {
-    const { query } = this.state;
+    const { filteredMovieList, query } = this.state;
 
     return (
       <div className="page">
@@ -38,8 +47,7 @@ export class App extends Component {
           </div>
 
           <MoviesList
-            movies={moviesFromServer}
-            query={query}
+            movies={filteredMovieList}
           />
         </div>
         <div className="sidebar">
