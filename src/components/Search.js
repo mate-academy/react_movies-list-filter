@@ -15,7 +15,7 @@ export const Search = ({ query, handleQuery }) => (
           className="input"
           placeholder="Type search word"
           value={query}
-          onChange={({ target }) => handleQuery(target.value)}
+          onChange={handleQuery}
         />
       </div>
     </div>
