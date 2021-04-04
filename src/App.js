@@ -10,13 +10,13 @@ export class App extends Component {
   };
 
   handleChange = (value) => {
+    const movie = value.trim().toLowerCase();
+
     this.setState({
-      movies: (value.length > 0)
+      movies: (movie.length > 0)
         ? moviesFromServer
-          .filter(film => film.title.toLowerCase()
-            .includes(value.toLowerCase())
-            || film.description.toLowerCase()
-              .includes(value.toLowerCase()))
+          .filter(film => film.title.toLowerCase().includes(movie)
+          || film.description.toLowerCase().includes(movie))
         : moviesFromServer,
     });
   }
