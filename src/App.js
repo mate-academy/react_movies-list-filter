@@ -15,7 +15,7 @@ export class App extends Component {
         ? moviesFromServer
           .filter(film => film.title.toLowerCase()
             .includes(value.toLowerCase())
-            || film.description.toLocaleLowerCase()
+            || film.description.toLowerCase()
               .includes(value.toLowerCase()))
         : moviesFromServer,
     });
