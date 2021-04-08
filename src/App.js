@@ -14,6 +14,7 @@ export class App extends Component {
     const newValue = e.target.value.toLowerCase();
     const newVisibleMovie = [...moviesFromServer].filter(movie => (
       movie.title.toLowerCase().includes(newValue)
+       || movie.description.toLowerCase().includes(newValue)
     ));
 
     this.setState({
