@@ -13,9 +13,29 @@ export class App extends Component {
     let { movies } = this.state;
     const { query } = this.state;
 
-    movies = movies.filter(film => (
+    const appropTitles = movies.filter(film => (
       film.title.toLowerCase().includes(query.toLowerCase())
     ));
+
+    const appropDesc = movies.filter(film => (
+      film.description.toLowerCase().includes(query.toLowerCase())
+      && !film.title.toLowerCase().includes(query.toLowerCase())
+    ));
+
+    appropTitles.sort((film1, film2) => (
+      film1.description.toLowerCase().indexOf(query.toLowerCase())
+      - film2.description.toLowerCase().indexOf(query.toLowerCase())
+    ));
+
+    appropDesc.sort((film1, film2) => (
+      film1.description.toLowerCase().indexOf(query.toLowerCase())
+      - film2.description.toLowerCase().indexOf(query.toLowerCase())
+    ));
+
+    movies = [
+      ...appropTitles,
+      ...appropDesc,
+    ];
 
     return (
       <div className="page">
