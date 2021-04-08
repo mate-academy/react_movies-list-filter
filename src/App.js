@@ -11,13 +11,12 @@ export class App extends Component {
   };
 
   searchFilms = (event) => {
-    const currentValue = event.target.value;
+    const currentValue = event.target.value.toLowerCase();
 
     this.setState({
       search: currentValue,
       movies: moviesFromServer.filter(movie => (
-        movie.title.toLowerCase().includes(currentValue.toLowerCase())
-        || movie.description.toLowerCase().includes(currentValue.toLowerCase())
+        (movie.title + movie.description).toLowerCase().includes(currentValue)
       )),
     });
   };
