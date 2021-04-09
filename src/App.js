@@ -5,37 +5,40 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
-    movies: moviesFromServer,
     query: '',
   };
 
   render() {
-    let { movies } = this.state;
+    const movies = [...moviesFromServer];
     const { query } = this.state;
 
-    const appropTitles = movies.filter(film => (
-      film.title.toLowerCase().includes(query.toLowerCase())
-    ));
+    const filterFilms = (moviesArr) => {
+      const preparedQuery = query.trim().toLowerCase();
 
-    const appropDesc = movies.filter(film => (
-      film.description.toLowerCase().includes(query.toLowerCase())
-      && !film.title.toLowerCase().includes(query.toLowerCase())
-    ));
+      const appropTitles = moviesArr.filter(film => (
+        film.title.toLowerCase().includes(preparedQuery)
+      ));
 
-    appropTitles.sort((film1, film2) => (
-      film1.description.toLowerCase().indexOf(query.toLowerCase())
-      - film2.description.toLowerCase().indexOf(query.toLowerCase())
-    ));
+      const appropDesc = moviesArr.filter(film => (
+        film.description.toLowerCase().includes(preparedQuery)
+        && !film.title.toLowerCase().includes(preparedQuery)
+      ));
 
-    appropDesc.sort((film1, film2) => (
-      film1.description.toLowerCase().indexOf(query.toLowerCase())
-      - film2.description.toLowerCase().indexOf(query.toLowerCase())
-    ));
+      appropTitles.sort((film1, film2) => (
+        film1.description.toLowerCase().indexOf(preparedQuery)
+        - film2.description.toLowerCase().indexOf(preparedQuery)
+      ));
 
-    movies = [
-      ...appropTitles,
-      ...appropDesc,
-    ];
+      appropDesc.sort((film1, film2) => (
+        film1.description.toLowerCase().indexOf(preparedQuery)
+        - film2.description.toLowerCase().indexOf(preparedQuery)
+      ));
+
+      return [
+        ...appropTitles,
+        ...appropDesc,
+      ];
+    };
 
     return (
       <div className="page">
@@ -61,7 +64,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={movies} />
+          <MoviesList movies={filterFilms(movies)} />
         </div>
         <div className="sidebar">
           Sidebar goes here
