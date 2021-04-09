@@ -10,10 +10,11 @@ export class App extends Component {
   };
 
   handleChange = (query) => {
+    const lowerCaseQuery = query.toLowerCase();
+
     this.setState({
       visibleMovies: moviesFromServer.filter(movie => (
-        movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase())
+        (movie.title + movie.description).toLowerCase().includes(lowerCaseQuery)
       )),
     });
   }
