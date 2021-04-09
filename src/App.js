@@ -13,16 +13,14 @@ export class App extends Component {
     const { value } = event.target;
 
     this.setState({ query: value });
-  }
+  };
 
-  filterMovies = (movies, criteria) => {
-    movies.filter((movie) => {
-      const searchIn
-        = (`${movie.description} ${movie.title}`).toLocaleLowerCase();
+  filterMovies = (movies, criteria) => movies.filter((movie) => {
+    const searchIn
+      = (`${movie.description} ${movie.title}`).toLocaleLowerCase();
 
-      return searchIn.includes(criteria.toLocaleLowerCase());
-    });
-  }
+    return searchIn.includes(criteria.toLocaleLowerCase());
+  })
 
   render() {
     const { movies, query } = this.state;
