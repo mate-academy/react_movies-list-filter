@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { SearchMovie } from './components/SearchMovie';
 
 export class App extends Component {
   state = {
@@ -29,7 +30,11 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
+          <SearchMovie
+            query={query}
+            showSearchedMovies={this.showSearchedMovies}
+          />
+          {/* <div className="box">
             <div className="field">
               <label htmlFor="search-query" className="label">
                 Search movie
@@ -48,7 +53,7 @@ export class App extends Component {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
 
           <MoviesList movies={visibleMovies} />
         </div>
