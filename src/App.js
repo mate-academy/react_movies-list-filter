@@ -2,49 +2,33 @@ import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { Search } from './components/Search/Search';
 
 export class App extends Component {
   state = {
-    query: '',
+    movies: [...moviesFromServer],
   };
 
-  render() {
-    const { query } = this.state;
-    const lowerQuery = query.toLowerCase();
+  moviesFilter = (movie) => {
+    const lowerCase = movie.toLowerCase();
 
-    const moviesFilter = moviesFromServer
-      .filter(movie => ((movie.title + movie.description)
-        .toLowerCase()
-        .includes(lowerQuery)
-      ));
+    this.setState({
+      movies: moviesFromServer.filter(mov => (
+        (mov.title + mov.description)
+          .toLowerCase()
+          .includes(lowerCase)
+      )),
+    });
+  }
+
+  render() {
+    const { movies } = this.state;
 
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  value={query}
-                  onChange={(e) => {
-                    this.setState({
-                      query: e.target.value,
-                    });
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          <MoviesList movies={moviesFilter} />
+          <Search moviesFilter={this.moviesFilter} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
