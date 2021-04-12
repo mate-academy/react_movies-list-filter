@@ -7,13 +7,13 @@ export class SearchBar extends React.Component {
   }
 
   handleChange = (e) => {
-    const { list } = this.props;
+    const { filterMovieList } = this.props;
     const { value } = e.target;
 
     this.setState({
       query: value,
     });
-    list(value);
+    filterMovieList(value);
   }
 
   render() {

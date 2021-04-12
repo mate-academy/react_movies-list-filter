@@ -27,7 +27,7 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchBar list={this.filterList} />
+          <SearchBar filterMovieList={this.filterList} />
 
           <MoviesList movies={movies} />
         </div>
