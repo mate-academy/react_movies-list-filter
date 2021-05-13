@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import Filter from './components/Filter/Filter';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
@@ -8,24 +9,17 @@ export class App extends Component {
     searchText: '',
   };
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-
-    this.setState({ [name]: value });
+  onHandleChange = (value) => {
+    this.setState({ searchText: value });
   }
 
   render() {
     const { searchText } = this.state;
     const filmList = (searchText === '')
       ? moviesFromServer
-      : moviesFromServer.filter((movie) => {
-        if (movie.title.toUpperCase().includes(searchText.toUpperCase())
-        || movie.description.toUpperCase().includes(searchText.toUpperCase())) {
-          return true;
-        }
-
-        return false;
-      });
+      : moviesFromServer.filter(({ title, description }) => (
+        title + description
+      ).toUpperCase().includes(searchText.toUpperCase()));
 
     return (
       <div className="page">
@@ -36,20 +30,11 @@ export class App extends Component {
                 Search movie
               </label>
 
-              <div className="control">
-                <input
-                  onChange={this.handleChange}
-                  name="searchText"
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
+              <Filter onFilterChange={this.onHandleChange} />
             </div>
           </div>
 
-          <MoviesList movies={filmList} />
+          <MoviesList movies={filmList} searchText={searchText} />
         </div>
         <div className="sidebar">
           Sidebar goes here
