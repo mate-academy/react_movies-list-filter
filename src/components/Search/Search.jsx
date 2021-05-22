@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 class Search extends React.Component {
   state = {
     search: '',
-    filterWithDebounce: debounce(this.props.filter, 500),
   };
+
+  componentDidMount() {
+    this.filterWithDebounce = debounce(this.props.filter, 500);
+  }
 
   handlerChange = (event) => {
     const { name, value } = event.target;
-    const { filterWithDebounce } = this.state;
 
     this.setState({ [name]: value });
     const callback = ({ title, description }) => (
@@ -17,7 +19,7 @@ class Search extends React.Component {
       || description.toLowerCase().includes(value.toLowerCase())
     );
 
-    filterWithDebounce(callback);
+    this.filterWithDebounce(callback);
   };
 
   render() {
