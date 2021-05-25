@@ -1,33 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { FilteredList } from './components/FilteredList';
 
-export class App extends Component {
-  state = {};
-
+export class App extends PureComponent {
   render() {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
-          </div>
-
-          <MoviesList movies={moviesFromServer} />
+          <FilteredList list={moviesFromServer} />
         </div>
         <div className="sidebar">
           Sidebar goes here
