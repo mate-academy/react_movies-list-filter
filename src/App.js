@@ -18,7 +18,8 @@ export class App extends Component {
     const { query } = this.state;
     const normalizeQuery = query.toLowerCase();
     const visibleMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(normalizeQuery),
+      movie => movie.title.toLowerCase().includes(normalizeQuery)
+              || movie.description.toLowerCase().includes(normalizeQuery),
     );
 
     return (
