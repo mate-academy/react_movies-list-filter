@@ -10,7 +10,7 @@ export class Search extends Component {
   render() {
     const { movies } = this.props;
     const textToLower = this.state.query.toLocaleLowerCase();
-    const visibleMovies = [...movies].filter(({ title, description }) => (
+    const visibleMovies = movies.filter(({ title, description }) => (
       title.toLocaleLowerCase().includes(textToLower)
         || description.toLocaleLowerCase().includes(textToLower)
     ));
