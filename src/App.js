@@ -8,7 +8,7 @@ export class App extends Component {
     query: '',
   };
 
-  safeQuery = (event) => {
+  savedQuery = (event) => {
     this.setState({
       query: event.target.value,
     });
@@ -38,7 +38,7 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={this.state.query}
-                  onChange={this.safeQuery}
+                  onChange={this.savedQuery}
                 />
               </div>
             </div>
