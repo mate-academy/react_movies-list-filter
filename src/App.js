@@ -25,7 +25,6 @@ export class App extends Component {
   }
 
   render() {
-    // console.log(this.state.query);
     return (
       <div className="page">
         <div className="page-content">
