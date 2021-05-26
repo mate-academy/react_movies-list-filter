@@ -4,7 +4,17 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    querry: '',
+  };
+
+  inputAdd = (event) => {
+    if (event.key === 'Enter') {
+      this.setState(
+        { querry: event.target.value },
+      );
+    }
+  }
 
   render() {
     return (
@@ -18,16 +28,18 @@ export class App extends Component {
 
               <div className="control">
                 <input
+                  name="serachField"
                   type="text"
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onKeyPress={this.inputAdd}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={moviesFromServer} querry={this.state.querry} />
         </div>
         <div className="sidebar">
           Sidebar goes here
