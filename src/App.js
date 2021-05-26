@@ -15,7 +15,8 @@ export class App extends Component {
   render() {
     const normalizedQuery = this.state.query.toLocaleLowerCase();
     const visibleMovies = moviesFromServer.filter(
-      movie => movie.title.toLocaleLowerCase().includes(normalizedQuery),
+      movie => (movie.title.toLocaleLowerCase().includes(normalizedQuery)
+      || movie.description.toLocaleLowerCase().includes(normalizedQuery)),
     );
 
     return (
