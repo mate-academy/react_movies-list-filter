@@ -1,12 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export class App extends Component {
-  state = {};
+export class App extends React.Component {
+  state = {
+    query: '',
+  };
+
+  handleQuery = (event) => {
+    this.setState({ query: event.target.value });
+  }
 
   render() {
+    const selectedMovies = moviesFromServer
+      .filter(movie => movie.title.toLowerCase()
+        .startsWith(this.state.query.toLowerCase()));
+
     return (
       <div className="page">
         <div className="page-content">
@@ -22,12 +32,13 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={this.handleQuery}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={selectedMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
