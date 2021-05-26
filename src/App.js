@@ -34,7 +34,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.qwery}
+                  value={this.state.query}
                   onChange={this.handleInputChange}
                 />
               </div>
