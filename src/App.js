@@ -9,20 +9,27 @@ export class App extends Component {
   };
 
   inputAdd = (event) => {
-    if (event.key === 'Enter') {
-      this.setState(
-        { querry: event.target.value },
-      );
-    }
+    this.setState(
+      { querry: event.target.value },
+    );
   }
 
   render() {
+    const filteredMovies = moviesFromServer.filter(({ title, description }) => {
+      if (title.toLowerCase().includes(this.state.querry)
+        || description.toLowerCase().includes(this.state.querry)) {
+        return true;
+      }
+
+      return false;
+    });
+
     return (
       <div className="page">
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <label htmlFor="search-query" className="label">
+              <label htmlFor="search-querry" className="label">
                 Search movie
               </label>
 
@@ -30,7 +37,7 @@ export class App extends Component {
                 <input
                   name="serachField"
                   type="text"
-                  id="search-query"
+                  id="search-querry"
                   className="input"
                   placeholder="Type search word"
                   onKeyPress={this.inputAdd}
@@ -39,7 +46,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} querry={this.state.querry} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
