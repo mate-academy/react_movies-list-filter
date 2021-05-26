@@ -10,9 +10,11 @@ export class App extends Component {
   };
 
   handleQuerySearch = (event) => {
-    const query = event.target.value.toLowerCase();
+    const query = event.target.value;
     const visibleMovies = moviesFromServer
-      .filter(movie => movie.title.toLowerCase().includes(query));
+      .filter(movie => movie.title
+        .toLowerCase()
+        .includes(query.toLowerCase()));
 
     this.setState({
       query,
