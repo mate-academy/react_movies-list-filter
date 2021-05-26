@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
-import moviesFromServer from './api/movies.json';
+import { SearchMovie } from './components/SearchMovie';
 
 export class App extends Component {
   state = {};
@@ -10,24 +9,9 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
-            </div>
-          </div>
+          <SearchMovie />
 
-          <MoviesList movies={moviesFromServer} />
         </div>
         <div className="sidebar">
           Sidebar goes here
