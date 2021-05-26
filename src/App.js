@@ -5,7 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
-    word: null,
+    word: '',
   };
 
   render() {
