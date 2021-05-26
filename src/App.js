@@ -15,12 +15,12 @@ export class App extends Component {
   }
 
   render() {
-    const { query } = this.state;
-    const lowerQuery = query.toLowerCase();
+    const lowerQuery = this.state.query.toLowerCase();
 
-    // eslint-disable-next-line max-len
-    const visibleMovies = moviesFromServer.filter(movie => movie.title.toLowerCase().includes(lowerQuery)
-      || movie.description.toLowerCase().includes(lowerQuery));
+    const visibleMovies = moviesFromServer.filter(
+      movie => movie.title.toLowerCase().includes(lowerQuery)
+      || movie.description.toLowerCase().includes(lowerQuery),
+    );
 
     return (
       <div className="page">
