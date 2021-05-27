@@ -12,8 +12,9 @@ export class App extends Component {
     const { query } = this.state;
     const filteredMovies = moviesFromServer
       .filter(
-        movie => movie.title.toLowerCase().startsWith(query.toLowerCase())
-        || movie.description.toLowerCase().startsWith(query.toLowerCase()),
+        // eslint-disable-next-line max-len
+        ({ title, description }) => title.toLowerCase().includes(query.toLowerCase())
+        || description.toLowerCase().includes(query.toLowerCase()),
       );
 
     return (
