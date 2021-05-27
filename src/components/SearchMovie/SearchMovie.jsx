@@ -8,13 +8,14 @@ export class SearchMovie extends React.Component {
   }
 
   queryChange = (event) => {
-    this.setState({ query: event.target.value });
+    this.setState({ query: event.target.value.toLowerCase() });
   }
 
   render() {
     const { query } = this.state;
     const visibleMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase()),
+      ({ title, description }) => title.toLowerCase().includes(query)
+      || description.toLowerCase().includes(query),
     );
 
     return (
