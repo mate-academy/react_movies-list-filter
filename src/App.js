@@ -9,15 +9,10 @@ export class App extends Component {
   };
 
   render() {
-    let copy = [...moviesFromServer];
-
-    if (this.state.query.length > 0) {
-      const filterQuery = this.state.query.toLowerCase();
-
-      copy = copy
-        .filter(movie => (movie.title.toLowerCase().indexOf(filterQuery) >= 0)
-      || (movie.description.toLowerCase().indexOf(filterQuery) >= 0));
-    }
+    const { query } = this.state;
+    const visibleMovies = moviesFromServer
+      .filter(({ title, description }) => (title.toLowerCase().includes(query))
+      || (description.toLowerCase().includes(query)));
 
     return (
       <div className="page">
@@ -35,14 +30,14 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   onChange={(event) => {
-                    this.setState({ query: event.target.value });
+                    this.setState({ query: event.target.value.toLowerCase() });
                   }}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={copy} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
