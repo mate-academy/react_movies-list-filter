@@ -8,14 +8,15 @@ export class App extends Component {
     query: '',
   };
 
-  filmQueryChange= (event) => {
+  filmQueryChange = (event) => {
     this.setState({ query: event.target.value });
   };
 
   render() {
     const { query } = this.state;
     const normalizedQuery = query.toLowerCase();
-    const visibleFilm = moviesFromServer.filter(film => film.title.toLowerCase().includes(normalizedQuery));
+    const visibleFilm = moviesFromServer.filter(film => film.title.toLowerCase().includes(normalizedQuery)
+      || film.description.toLowerCase().includes(normalizedQuery));
 
     return (
       <div className="page">
