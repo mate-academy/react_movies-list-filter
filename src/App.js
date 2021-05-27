@@ -8,6 +8,10 @@ export class App extends Component {
     query: '',
   };
 
+  handleQuerySearch = (event) => {
+    this.setState({ query: event.target.value });
+  }
+
   render() {
     const { query } = this.state;
     const normalizeQuery = query.toLowerCase();
@@ -32,9 +36,7 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={this.state.query}
-                  onChange={(event) => {
-                    this.setState({ query: event.target.value });
-                  }}
+                  onChange={this.handleQuerySearch}
                 />
               </div>
             </div>
