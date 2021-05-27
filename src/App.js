@@ -14,8 +14,8 @@ export class App extends React.Component {
 
   render() {
     const selectedMovies = moviesFromServer
-      .filter(movie => movie.title.toLowerCase()
-        .startsWith(this.state.query.toLowerCase()));
+      .filter(movie => ((`${movie.title} ${movie.description}`).toLowerCase()
+        .includes(this.state.query.toLowerCase())));
 
     return (
       <div className="page">
