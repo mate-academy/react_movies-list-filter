@@ -17,6 +17,11 @@ export class App extends Component {
   }
 
   render() {
+    const { query } = this.state;
+    const preparedMoviesList = moviesFromServer
+      .filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())
+      || movie.description.toLowerCase().includes(query.toLowerCase()));
+
     return (
       <div className="page">
         <div className="page-content">
@@ -39,7 +44,7 @@ export class App extends Component {
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} query={this.state.query} />
+          <MoviesList movies={preparedMoviesList} query={this.state.query} />
         </div>
         <div className="sidebar">
           Sidebar goes here
