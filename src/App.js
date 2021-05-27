@@ -12,13 +12,9 @@ export class App extends Component {
     const { query } = this.state;
     const insensitive = query.toLowerCase();
 
-    let movies = moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(insensitive)));
-
-    if (movies.length === 0) {
-      movies = moviesFromServer.filter(movie => (
-        movie.description.toLowerCase().includes(insensitive)));
-    }
+    const movies = moviesFromServer.filter(movie => (
+      movie.title.toLowerCase().includes(insensitive))
+        || (movie.description.toLowerCase().includes(insensitive)));
 
     return (
       <div className="page">
