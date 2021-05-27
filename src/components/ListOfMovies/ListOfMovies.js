@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MoviesList } from '../MoviesList';
 
-export class Search extends React.Component {
+export class ListOfMovies extends React.Component {
   state = {
     query: '',
   };
@@ -45,7 +45,7 @@ export class Search extends React.Component {
   }
 }
 
-Search.propTypes = {
+ListOfMovies.propTypes = {
   movies: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -56,6 +56,6 @@ Search.propTypes = {
   ),
 };
 
-Search.defaultProps = {
+ListOfMovies.defaultProps = {
   movies: [],
 };
