@@ -11,15 +11,12 @@ export class Search extends React.Component {
     const { moviesList } = this.props;
     const { query } = this.state;
     let filteredMoveisList = [];
+    const searchPhrase = query.toLocaleLowerCase();
 
-    if (query) {
-      const searchPhrase = query.toLocaleLowerCase();
-
-      filteredMoveisList = moviesList.filter(({ title, description }) => (
-        title.toLocaleLowerCase().includes(searchPhrase)
-            || description.toLocaleLowerCase().includes(searchPhrase)
-      ));
-    }
+    filteredMoveisList = moviesList.filter(({ title, description }) => (
+      title.toLocaleLowerCase().includes(searchPhrase)
+        || description.toLocaleLowerCase().includes(searchPhrase)
+    ));
 
     return (
       <>
@@ -44,7 +41,7 @@ export class Search extends React.Component {
           </div>
         </div>
 
-        <MoviesList movies={query ? filteredMoveisList : moviesList} />
+        <MoviesList movies={filteredMoveisList} />
       </>
     );
   }
