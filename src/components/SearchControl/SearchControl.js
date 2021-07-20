@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SearchControl = props => (
+export const SearchControl = ({ setSearchQuery }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -14,9 +14,7 @@ export const SearchControl = props => (
           id="search-query"
           className="input"
           placeholder="Type search word"
-          onChange={({ target }) => {
-            props.app.setSearchQuery(target.value);
-          }}
+          onChange={setSearchQuery}
         />
       </div>
     </div>
@@ -24,7 +22,5 @@ export const SearchControl = props => (
 );
 
 SearchControl.propTypes = {
-  app: PropTypes.shape({
-    setSearchQuery: PropTypes.func.isRequired,
-  }).isRequired,
+  setSearchQuery: PropTypes.func.isRequired,
 };

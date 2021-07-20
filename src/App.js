@@ -9,18 +9,26 @@ export class App extends Component {
     query: '',
   }
 
-  setSearchQuery(query) {
+  setSearchQuery = ({ target }) => {
     this.setState({
-      query,
+      query: target.value,
     });
-  }
+  };
 
   render() {
+    const movies = moviesFromServer.filter((movie) => {
+      const { title, description } = movie;
+      const pattern = new RegExp(this.state.query, 'i');
+
+      return ((title.search(pattern) !== -1)
+      || (description.search(pattern) !== -1));
+    });
+
     return (
       <div className="page">
         <div className="page-content">
-          <SearchControl app={this} />
-          <MoviesList movies={moviesFromServer} query={this.state.query} />
+          <SearchControl setSearchQuery={this.setSearchQuery} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
