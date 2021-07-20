@@ -27,7 +27,10 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchControl setSearchQuery={this.setSearchQuery} />
+          <SearchControl
+            setSearchQuery={this.setSearchQuery}
+            query={this.state.query}
+          />
           <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
