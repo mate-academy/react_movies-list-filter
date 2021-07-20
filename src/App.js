@@ -12,16 +12,16 @@ export class App extends Component {
 
   getFindedMovies = () => {
     const queryToLowerCase = this.state.query.toLocaleLowerCase();
-    const filtred = this.state.movies.filter(movie => (
+    const filtredMovies = this.state.movies.filter(movie => (
       movie.title.toLowerCase().indexOf(queryToLowerCase) !== -1
         || movie.description.toLowerCase().indexOf(queryToLowerCase) !== -1
     ));
 
-    return filtred;
+    return filtredMovies;
   };
 
-  getValueSerachBar = (value) => {
-    this.setState({ query: value });
+  setQuery = (query) => {
+    this.setState({ query });
   }
 
   render() {
@@ -30,7 +30,8 @@ export class App extends Component {
         <div className="page-content">
           <div className="box">
             <SearchBar
-              getValueSerachBar={this.getValueSerachBar}
+              setQuery={this.setQuery}
+              query={this.state.query}
             />
           </div>
 

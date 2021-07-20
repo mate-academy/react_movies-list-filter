@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchBar = ({ getValueSerachBar }) => (
+const SearchBar = ({ setQuery, query }) => (
   <div className="field">
     <label htmlFor="search-query" className="label">
       Search movie
@@ -14,8 +14,9 @@ const SearchBar = ({ getValueSerachBar }) => (
         className="input"
         name="searchbar"
         placeholder="Type search word"
+        value={query}
         onChange={(event) => {
-          getValueSerachBar(event.target.value);
+          setQuery(event.target.value);
         }
         }
       />
@@ -24,7 +25,8 @@ const SearchBar = ({ getValueSerachBar }) => (
 );
 
 SearchBar.propTypes = {
-  getValueSerachBar: PropTypes.func.isRequired,
+  setQuery: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
 };
 
 export default SearchBar;
