@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
-import SearchField from './components/SearchField/SearcshField';
+import { SearchField } from './components/SearchField/SearcshField';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
@@ -9,29 +9,31 @@ export class App extends Component {
     query: '',
   };
 
-  ChangeQuery = event => this.setState({
+  сhangeQuery = event => this.setState({
     query: event.target.value,
   })
+
+  filterMovies = () => moviesFromServer.filter(
+    movie => movie.description.toLowerCase().includes(
+      this.state.query.toLowerCase(),
+    )
+    || movie.title.toLowerCase().includes(this.state.query.toLowerCase()),
+  );
 
   render() {
     const { query } = this.state;
 
-    const neededMovie = moviesFromServer.filter(
-      movie => movie.description.toLowerCase().includes(
-        this.state.query.toLowerCase(),
-      )
-      || movie.title.toLowerCase().includes(this.state.query.toLowerCase()),
-    );
+    const filteredMovies = this.filterMovies();
 
     return (
       <div className="page">
         <div className="page-content">
           <SearchField
             value={query}
-            onChange={this.ChangeQuery}
+            onChange={this.сhangeQuery}
           />
           <MoviesList
-            movies={neededMovie}
+            movies={filteredMovies}
           />
         </div>
         <div className="sidebar">
