@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const SerachBar = appObject => (
+const SearchBar = ({ getValueSerachBar }) => (
   <div className="field">
     <label htmlFor="search-query" className="label">
       Search movie
@@ -14,7 +15,7 @@ const SerachBar = appObject => (
         name="searchbar"
         placeholder="Type search word"
         onChange={(event) => {
-          appObject.classApp.setAppState(event.target.value);
+          getValueSerachBar(event.target.value);
         }
         }
       />
@@ -22,4 +23,8 @@ const SerachBar = appObject => (
   </div>
 );
 
-export default SerachBar;
+SearchBar.propTypes = {
+  getValueSerachBar: PropTypes.func.isRequired,
+};
+
+export default SearchBar;

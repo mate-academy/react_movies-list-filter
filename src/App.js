@@ -20,7 +20,7 @@ export class App extends Component {
     return filtred;
   };
 
-  setAppState = (value) => {
+  getValueSerachBar = (value) => {
     this.setState({ query: value });
   }
 
@@ -29,7 +29,9 @@ export class App extends Component {
       <div className="page">
         <div className="page-content">
           <div className="box">
-            <SearchBar classApp={this} />
+            <SearchBar
+              getValueSerachBar={this.getValueSerachBar}
+            />
           </div>
 
           <MoviesList
