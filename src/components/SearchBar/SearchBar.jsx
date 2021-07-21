@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SearchBar = ({ makeSearchParam, query }) => (
+export const SearchBar = ({ action, query }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -15,7 +15,7 @@ export const SearchBar = ({ makeSearchParam, query }) => (
           className="input"
           placeholder="Type search word"
           value={query}
-          onChange={makeSearchParam}
+          onChange={action}
         />
       </div>
     </div>
@@ -23,6 +23,6 @@ export const SearchBar = ({ makeSearchParam, query }) => (
 );
 
 SearchBar.propTypes = {
-  makeSearchParam: PropTypes.func.isRequired,
+  action: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired,
 };

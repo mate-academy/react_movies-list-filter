@@ -7,12 +7,16 @@ import moviesFromServer from './api/movies.json';
 export class App extends Component {
   state = {
     query: '',
+    filteredMovies: moviesFromServer,
   }
 
   makeSearchParam = (event) => {
     const { value } = event.target;
 
-    this.setState({ query: value });
+    this.setState({
+      query: value,
+      filteredMovies: this.filterMovies(),
+    });
   };
 
   filterMovies = () => {
@@ -27,14 +31,13 @@ export class App extends Component {
   }
 
   render() {
-    const { query } = this.state;
-    const filteredMovies = this.filterMovies();
+    const { query, filteredMovies } = this.state;
 
     return (
       <div className="page">
         <div className="page-content">
           <SearchBar
-            makeSearchParam={this.makeSearchParam}
+            action={this.makeSearchParam}
             query={query}
           />
           <MoviesList movies={filteredMovies} />
