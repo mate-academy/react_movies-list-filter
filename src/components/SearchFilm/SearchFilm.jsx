@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SearchFilm = ({ value, handler }) => (
+export const SearchFilm = ({ value, onChange }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -15,7 +15,7 @@ export const SearchFilm = ({ value, handler }) => (
           className="input"
           placeholder="Type search word"
           value={value}
-          onChange={handler}
+          onChange={onChange}
         />
       </div>
     </div>
@@ -24,5 +24,5 @@ export const SearchFilm = ({ value, handler }) => (
 
 SearchFilm.propTypes = {
   value: PropTypes.string.isRequired,
-  handler: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };

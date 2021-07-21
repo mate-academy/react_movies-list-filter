@@ -11,7 +11,7 @@ export class App extends Component {
 
   сhangeQuery = ({ target }) => this.setState({ query: target.value });
 
-  movies = () => moviesFromServer.filter(
+  filterMovies = () => moviesFromServer.filter(
     movie => movie.description.toLowerCase().includes(
       this.state.query.toLowerCase(),
     )
@@ -22,8 +22,8 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchFilm value={this.state.query} handler={this.сhangeQuery} />
-          <MoviesList movies={this.movies()} />
+          <SearchFilm value={this.state.query} onChange={this.сhangeQuery} />
+          <MoviesList movies={this.filterMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
