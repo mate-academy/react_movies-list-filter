@@ -15,10 +15,12 @@ export class App extends Component {
     this.setState({ query: value });
   };
 
-  filterMovies = (movies, searchQuery) => {
-    return movies.filter((movie) => {
+  filterMovies = () => {
+    const { query } = this.state;
+
+    return moviesFromServer.filter((movie) => {
       const { title, description } = movie;
-      const regex = new RegExp(searchQuery, 'gi');
+      const regex = new RegExp(query, 'gi');
 
       return regex.test(title) || regex.test(description);
     });
@@ -26,7 +28,7 @@ export class App extends Component {
 
   render() {
     const { query } = this.state;
-    const filteredMovies = this.filterMovies(moviesFromServer, query);
+    const filteredMovies = this.filterMovies();
 
     return (
       <div className="page">
