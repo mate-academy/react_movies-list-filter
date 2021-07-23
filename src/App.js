@@ -26,7 +26,6 @@ export class App extends Component {
               <ControlsInput
                 setFilteredMovies={this.setFilteredMovies}
                 moviesFromServer={moviesFromServer}
-                filtering={this.filtering}
               />
             </div>
           </div>
