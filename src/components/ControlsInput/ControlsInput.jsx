@@ -6,19 +6,21 @@ export class ControlsInput extends React.Component {
     query: '',
   }
 
-  filtering = (event) => {
-    const { moviesFromServer, setFilteredMovieList } = this.props;
-
+  setQuery = (event) => {
     this.setState({ query: event.target.value });
+  }
 
-    const filteringMovieList = moviesFromServer.filter(
+  getFilteredMovies = (event) => {
+    const { moviesFromServer, setFilteredMovies } = this.props;
+
+    const filteredMovies = moviesFromServer.filter(
       movie => movie.title.toLowerCase()
         .includes(event.target.value.toLowerCase())
       || movie.description.toLowerCase()
         .includes(event.target.value.toLowerCase()),
     );
 
-    setFilteredMovieList(filteringMovieList);
+    setFilteredMovies(filteredMovies);
   }
 
   render() {
@@ -30,7 +32,10 @@ export class ControlsInput extends React.Component {
           className="input"
           placeholder="Type search word"
           value={this.state.query}
-          onChange={event => this.filtering(event)}
+          onChange={(event) => {
+            this.setQuery(event);
+            this.getFilteredMovies(event);
+          }}
         />
       </div>
     );
@@ -46,5 +51,5 @@ ControlsInput.propTypes = {
       imdbUrl: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  setFilteredMovieList: PropTypes.func.isRequired,
+  setFilteredMovies: PropTypes.func.isRequired,
 };

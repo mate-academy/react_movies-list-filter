@@ -6,11 +6,11 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
-    filteredMovieList: moviesFromServer,
+    filteredMovies: moviesFromServer,
   };
 
-  setFilteredMovieList = (filteredMovie) => {
-    this.setState({ filteredMovieList: filteredMovie });
+  setFilteredMovies = (filteredMovie) => {
+    this.setState({ filteredMovies: filteredMovie });
   }
 
   render() {
@@ -24,14 +24,14 @@ export class App extends Component {
               </label>
 
               <ControlsInput
-                setFilteredMovieList={this.setFilteredMovieList}
+                setFilteredMovies={this.setFilteredMovies}
                 moviesFromServer={moviesFromServer}
                 filtering={this.filtering}
               />
             </div>
           </div>
 
-          <MoviesList movies={this.state.filteredMovieList} />
+          <MoviesList movies={this.state.filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
