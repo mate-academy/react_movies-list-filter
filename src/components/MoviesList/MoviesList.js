@@ -9,7 +9,7 @@ export const MoviesList = ({ movies, searchableFilm }) => (
     {movies.filter(movie => movie.title.toLowerCase().includes(searchableFilm)
     || movie.description.toLowerCase().includes(searchableFilm))
       .map(movie => (
-        <MovieCard key={movie.imdbId} {...movie} />
+        <MovieCard {...movie} />
       ))}
   </div>
 );
