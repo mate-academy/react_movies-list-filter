@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { ControlsInput } from './components/ControlsInput';
 import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
-  state = {};
+  state = {
+    filteredMovies: moviesFromServer,
+  };
+
+  setFilteredMovies = (filteredMovie) => {
+    this.setState({ filteredMovies: filteredMovie });
+  }
 
   render() {
     return (
@@ -16,18 +23,14 @@ export class App extends Component {
                 Search movie
               </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
+              <ControlsInput
+                setFilteredMovies={this.setFilteredMovies}
+                moviesFromServer={moviesFromServer}
+              />
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.state.filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
