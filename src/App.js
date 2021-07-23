@@ -9,11 +9,11 @@ export class App extends Component {
     query: '',
   };
 
-  isChangedQuery = (event) => {
+  changeQuery = (event) => {
     this.setState({ query: event.target.value });
   }
 
-  isFiltredMovies = () => moviesFromServer.filter((item) => {
+  filterMovies = () => moviesFromServer.filter((item) => {
     const { query } = this.state;
     const { title, description } = item;
 
@@ -32,9 +32,9 @@ export class App extends Component {
         <div className="page-content">
           <FilteredFilm
             query={this.state.query}
-            onChange={this.isChangedQuery}
+            onChange={this.changeQuery}
           />
-          <MoviesList movies={this.isFiltredMovies()} />
+          <MoviesList movies={this.filterMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
