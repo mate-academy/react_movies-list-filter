@@ -8,6 +8,12 @@ export class App extends Component {
     query: '',
   };
 
+  inputMovie = (event) => {
+    this.setState({
+      query: event.target.value,
+    });
+  }
+
   render() {
     return (
       <div className="page">
@@ -26,18 +32,17 @@ export class App extends Component {
                   placeholder="Type search word"
                   value={this.state.query}
                   onChange={(event => (
-                    this.setState({
-                      query: event.target.value,
-                    })
+                    this.inputMovie(event)
                   ))}
                 />
               </div>
             </div>
           </div>
-
           <MoviesList
-            movies={moviesFromServer}
-            searchableFilm={this.state.query.toLowerCase()}
+            movies={moviesFromServer.filter(movie => movie.title.toLowerCase()
+              .includes(this.state.query.toLowerCase())
+              || movie.description.toLowerCase()
+                .includes(this.state.query.toLowerCase()))}
           />
         </div>
         <div className="sidebar">

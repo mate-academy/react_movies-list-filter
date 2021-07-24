@@ -4,13 +4,9 @@ import PropTypes from 'prop-types';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies, searchableFilm }) => (
+export const MoviesList = ({ movies }) => (
   <div className="movies">
-    {movies.filter(movie => movie.title.toLowerCase().includes(searchableFilm)
-    || movie.description.toLowerCase().includes(searchableFilm))
-      .map(movie => (
-        <MovieCard {...movie} />
-      ))}
+    {movies.map(movie => (<MovieCard {...movie} />))}
   </div>
 );
 
@@ -23,10 +19,8 @@ MoviesList.propTypes = {
       imdbUrl: PropTypes.string.isRequired,
     }),
   ),
-  searchableFilm: PropTypes.string,
 };
 
 MoviesList.defaultProps = {
   movies: [],
-  searchableFilm: '',
 };
