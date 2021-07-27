@@ -13,7 +13,7 @@ export class App extends Component {
     this.setState({ query: event.target.value });
   }
 
-  filteredMovies = movies => [...movies].filter(
+  filteredMovies = movies => movies.filter(
     movie => movie.title.toLowerCase().includes(this.state.query.toLowerCase())
     || movie.description.toLowerCase().includes(this.state.query.toLowerCase()),
   );
