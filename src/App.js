@@ -24,13 +24,14 @@ export class App extends Component {
 
   render() {
     const { query, visibleMovies } = this.state;
+    const onChange = this.handleQueryChange;
 
     return (
       <div className="page">
         <div className="page-content">
           <SearchMovie
             value={query}
-            onChange={this.handleQueryChange}
+            onChange={onChange}
           />
           <MoviesList movies={visibleMovies} />
         </div>
