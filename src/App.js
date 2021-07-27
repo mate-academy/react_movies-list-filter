@@ -19,7 +19,7 @@ export class App extends Component {
     const { query } = this.state;
     const queryToLower = query.toLowerCase();
 
-    const choiceMovie = moviesFromServer.filter(
+    const chosenMovies = moviesFromServer.filter(
       movie => movie.description.toLowerCase().includes(
         queryToLower,
       )
@@ -31,7 +31,7 @@ export class App extends Component {
         <div className="page-content">
           <SearchField value={query} onChange={this.addQuery} />
 
-          <MoviesList movies={choiceMovie} />
+          <MoviesList movies={chosenMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
