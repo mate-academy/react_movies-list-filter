@@ -18,6 +18,10 @@ export class App extends Component {
   }
 
   prepareMovies = (query) => {
+    if (!query) {
+      return [...moviesFromServer];
+    }
+
     const filteredMovies = [...moviesFromServer].filter((movie) => {
       const title = movie.title.toLowerCase();
       const description = movie.description.toLowerCase();
