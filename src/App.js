@@ -16,14 +16,16 @@ export class App extends Component {
   }
 
   filterMoviesList = () => (
-    [...moviesFromServer].filter(
-      movie => (
-        movie.title.toLocaleLowerCase()
-          .includes(this.state.query.toLocaleLowerCase())
-        || movie.description.toLocaleLowerCase()
-          .includes(this.state.query.toLocaleLowerCase())
-      ),
-    )
+    this.state.query.length > 0
+      ? [...moviesFromServer].filter(
+        movie => (
+          movie.title.toLocaleLowerCase()
+            .includes(this.state.query.toLocaleLowerCase())
+          || movie.description.toLocaleLowerCase()
+            .includes(this.state.query.toLocaleLowerCase())
+        ),
+      )
+      : [...moviesFromServer]
   )
 
   render() {
