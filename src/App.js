@@ -33,7 +33,6 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.searchFilter}
                   onChange={this.handleChange}
                 />
               </div>
