@@ -16,7 +16,7 @@ export class App extends Component {
     });
   }
 
-  moviesList = () => {
+  filterMoviesList = () => {
     const { query } = this.state;
 
     return (moviesFromServer.filter(movie => (
@@ -26,7 +26,9 @@ export class App extends Component {
   }
 
   render() {
-    const moviesList = this.moviesList();
+    const { query } = this.state;
+    const search = this.handleSearch;
+    const moviesList = this.filterMoviesList();
 
     return (
       <div className="page">
@@ -43,8 +45,8 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.query}
-                  onChange={this.handleSearch}
+                  value={query}
+                  onChange={search}
                 />
               </div>
             </div>
