@@ -40,7 +40,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.query}
+                  value={query}
                   onChange={this.changesHandler}
                 />
               </div>
