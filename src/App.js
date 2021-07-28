@@ -15,9 +15,9 @@ export class App extends Component {
   }
 
   filterByContent = () => (
-    moviesFromServer.filter(el => (
-      el.title.includes(this.state.query.toLowerCase())
-      || el.description.includes(this.state.query.toLowerCase())
+    moviesFromServer.filter(film => (
+      film.title.toLowerCase().includes(this.state.query.toLowerCase())
+      || film.description.toLowerCase().includes(this.state.query.toLowerCase())
     ))
   )
 
