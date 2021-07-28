@@ -15,6 +15,7 @@ export class App extends Component {
   }
 
   render() {
+    const changeMovies = this.handlerChange;
     const { query } = this.state;
     const searchMovies = moviesFromServer.filter(
       movie => (
@@ -41,7 +42,7 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={query}
-                  onChange={this.handlerChange}
+                  onChange={changeMovies}
                 />
               </div>
             </div>
