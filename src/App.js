@@ -9,15 +9,16 @@ export class App extends Component {
     movies: moviesFromServer,
   };
 
-  moviesFilter = () => {
-    const { search } = this.state;
-
+  moviesFilter = (search) => {
     const foundMovies = moviesFromServer.filter(
       movie => movie.title.toLowerCase().includes(search.toLowerCase())
       || movie.description.toLowerCase().includes(search.toLowerCase()),
     );
 
-    this.setState({ movies: foundMovies });
+    this.setState({
+      search,
+      movies: foundMovies,
+    });
   }
 
   render() {
@@ -40,10 +41,7 @@ export class App extends Component {
                   placeholder="Type search word"
                   value={search}
                   onChange={(event) => {
-                    this.setState({
-                      search: event.target.value,
-                    });
-                    this.moviesFilter();
+                    this.moviesFilter(event.target.value);
                   }}
                 />
               </div>
