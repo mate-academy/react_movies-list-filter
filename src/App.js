@@ -12,15 +12,16 @@ export class App extends Component {
     const { value } = event.target;
 
     this.setState({
-      query: value.toLowerCase(),
+      query: value,
     });
   }
 
   render() {
     const { query } = this.state;
     const filteredFilms = moviesFromServer.filter(movie => movie
-      .description.toLowerCase().includes(query)
-      || movie.title.toLowerCase().includes(query));
+      .description.toLowerCase().includes(query.toLowerCase())
+      || movie.title.toLowerCase().includes(query.toLowerCase()));
+    const onChange = this.handleChange;
 
     return (
       <div className="page">
@@ -38,7 +39,7 @@ export class App extends Component {
                   className="input"
                   placeholder="Type search word"
                   value={query}
-                  onChange={this.handleChange}
+                  onChange={onChange}
                 />
               </div>
             </div>
