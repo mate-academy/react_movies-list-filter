@@ -6,6 +6,7 @@ import { SearchField } from './components/SearchField';
 
 export class App extends Component {
   state = {
+    movies: moviesFromServer,
     query: '',
   };
 
@@ -17,12 +18,12 @@ export class App extends Component {
     });
   }
 
-  prepareMovies = (query) => {
+  prepareMovies = (query, movies) => {
     if (!query) {
-      return [...moviesFromServer];
+      return [...movies];
     }
 
-    const filteredMovies = [...moviesFromServer].filter((movie) => {
+    const filteredMovies = [...movies].filter((movie) => {
       const title = movie.title.toLowerCase();
       const description = movie.description.toLowerCase();
 
@@ -34,8 +35,8 @@ export class App extends Component {
   }
 
   render() {
-    const { query } = this.state;
-    const preparedMovies = this.prepareMovies(query);
+    const { query, movies } = this.state;
+    const preparedMovies = this.prepareMovies(query, movies);
 
     return (
       <div className="page">
