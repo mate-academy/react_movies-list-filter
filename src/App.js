@@ -14,28 +14,22 @@ export class App extends Component {
 
     this.setState({
       searchParams: value,
+      movieList: this.filteredMovies(),
     });
   };
 
   filteredMovies = () => {
-    let { movieList } = this.state;
+    const movieArray = [...moviesFromServer];
     const { searchParams } = this.state;
     const redactedSearchParams = searchParams.toLocaleLowerCase();
 
-    movieList = movieList.filter(movie => movie
+    return movieArray.filter(movie => movie
       .description.toLocaleLowerCase().includes(redactedSearchParams)
       || movie
         .title.toLocaleLowerCase().includes(redactedSearchParams));
-
-    return movieList;
   };
 
   render() {
-    let { movieList } = this.state;
-    const { searchParams } = this.state;
-
-    movieList = this.filteredMovies();
-
     return (
       <div className="page">
         <div className="page-content">
@@ -51,14 +45,14 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={searchParams}
+                  value={this.state.searchParams}
                   onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={movieList} />
+          <MoviesList movies={this.state.movieList} />
         </div>
         <div className="sidebar">
           Sidebar goes here
