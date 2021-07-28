@@ -10,7 +10,7 @@ export const MoviesList = ({ movies, query }) => (
       movie.title.toLowerCase().includes(query.toLowerCase())
       || movie.description.toLowerCase().includes(query.toLowerCase())
         ? <MovieCard key={movie.imdbId} {...movie} />
-        : ''
+        : null
     ))}
   </div>
 );
