@@ -24,7 +24,7 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchBar changeQuery={this.changeQuery} />
+          <SearchBar changeQuery={this.changeQuery} value={query} />
           <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
