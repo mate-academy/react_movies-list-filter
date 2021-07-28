@@ -15,6 +15,9 @@ export class App extends Component {
   }
 
   render() {
+    const { state, handleChange } = this;
+    const { query } = state;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -30,8 +33,8 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.query}
-                  onChange={this.handleChange}
+                  value={query}
+                  onChange={handleChange}
                 />
               </div>
             </div>
