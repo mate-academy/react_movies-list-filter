@@ -10,15 +10,15 @@ export class App extends Component {
 
   handleFilterChange = (event) => {
     this.setState({
-      query: event.target.value.toLowerCase(),
+      query: event.target.value,
     });
   }
 
   render() {
     const { query } = this.state;
     const searchingMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(query)
-      || movie.description.toLowerCase().includes(query),
+      movie => movie.title.toLowerCase().includes(query.toLocaleLowerCase())
+      || movie.description.toLowerCase().includes(query.toLocaleLowerCase()),
     );
 
     return (
