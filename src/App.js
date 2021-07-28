@@ -5,18 +5,37 @@ import moviesFromServer from './api/movies.json';
 
 export class App extends Component {
   state = {
+    movieList: [...moviesFromServer],
     searchParams: '',
   };
 
-  handleSearch = (event) => {
-    const { name, value } = event.target;
+  handleChange = (event) => {
+    const { value } = event.target;
 
     this.setState({
-      [name]: value,
+      searchParams: value,
     });
-  }
+  };
+
+  filteredMovies = () => {
+    let { movieList } = this.state;
+    const { searchParams } = this.state;
+    const redactedSearchParams = searchParams.toLocaleLowerCase();
+
+    movieList = movieList.filter(movie => movie
+      .description.toLocaleLowerCase().includes(redactedSearchParams)
+      || movie
+        .title.toLocaleLowerCase().includes(redactedSearchParams));
+
+    return movieList;
+  };
 
   render() {
+    let { movieList } = this.state;
+    const { searchParams } = this.state;
+
+    movieList = this.filteredMovies();
+
     return (
       <div className="page">
         <div className="page-content">
@@ -32,18 +51,14 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  name="searchParams"
-                  value={this.state.searchParams}
-                  onChange={this.handleSearch}
+                  value={searchParams}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList
-            movies={moviesFromServer}
-            searchString={this.state.searchParams}
-          />
+          <MoviesList movies={movieList} />
         </div>
         <div className="sidebar">
           Sidebar goes here
