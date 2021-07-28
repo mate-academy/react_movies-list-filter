@@ -15,13 +15,18 @@ export class App extends Component {
   }
 
   filterByContent = () => (
-    moviesFromServer.filter(film => (
-      film.title.toLowerCase().includes(this.state.query.toLowerCase())
-      || film.description.toLowerCase().includes(this.state.query.toLowerCase())
-    ))
+    moviesFromServer.filter((film) => {
+      const { title, description } = film;
+      const { query } = this.state;
+
+      return title.toLowerCase().includes(query.toLowerCase())
+      || description.toLowerCase().includes(query.toLowerCase());
+    })
   )
 
   render() {
+    const { query } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -36,7 +41,7 @@ export class App extends Component {
                   type="text"
                   id="search-query"
                   className="input"
-                  value={this.state.query}
+                  value={query}
                   onChange={this.inputChangeValue}
                   placeholder="Type search word"
                 />
