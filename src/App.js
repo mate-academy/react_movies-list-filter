@@ -15,6 +15,7 @@ export class App extends Component {
   }
 
   render() {
+    const { query } = this.state;
     const searchMovies = moviesFromServer.filter(
       movie => (
         movie.title.toLowerCase().includes(this.state.query.toLowerCase())
@@ -39,7 +40,7 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.query}
+                  value={query}
                   onChange={this.handlerChange}
                 />
               </div>
