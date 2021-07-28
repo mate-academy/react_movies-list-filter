@@ -14,7 +14,6 @@ export class App extends Component {
 
     this.setState({
       searchParams: value,
-      movieList: this.filteredMovies(),
     });
   };
 
@@ -30,6 +29,8 @@ export class App extends Component {
   };
 
   render() {
+    this.state.movieList = this.filteredMovies();
+
     return (
       <div className="page">
         <div className="page-content">
