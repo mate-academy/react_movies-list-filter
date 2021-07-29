@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,18 +7,24 @@ import moviesFromServer from './api/movies.json';
 export class App extends Component {
   state = {
     moviesList: [...moviesFromServer],
+    query: '',
   };
 
   handleChange = (event) => {
-    const value = event.target.value.toLowerCase();
-
-    this.setState({
+    event.persist();
+    this.setState(prevState => ({
+      query: event.target.value,
       moviesList: moviesFromServer.filter(movie => (
-        (movie.title + movie.description).toLowerCase().includes(value))),
-    });
+        (movie.title + movie.description)
+          .toLowerCase()
+          .includes(prevState.query.toLowerCase()))),
+    }));
   }
 
   render() {
+    const { moviesList, query } = this.state;
+    const { handleChange } = this;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -33,13 +40,14 @@ export class App extends Component {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onChange={this.handleChange}
+                  value={query}
+                  onChange={handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={this.state.moviesList} />
+          <MoviesList movies={moviesList} />
         </div>
         <div className="sidebar">
           Sidebar goes here
