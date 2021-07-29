@@ -12,12 +12,15 @@ export class App extends Component {
 
   handleChange = (event) => {
     event.persist();
+
+    const value = event.target.value.toLowerCase();
+
     this.setState(prevState => ({
       query: event.target.value,
       moviesList: moviesFromServer.filter(movie => (
         (movie.title + movie.description)
           .toLowerCase()
-          .includes(prevState.query.toLowerCase()))),
+          .includes(value.toLowerCase()))),
     }));
   }
 
