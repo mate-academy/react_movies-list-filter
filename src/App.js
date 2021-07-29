@@ -10,9 +10,9 @@ export class App extends Component {
   };
 
   handleChange = (event) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
 
-    this.setState({ [name]: value.toLocaleLowerCase() });
+    this.setState({ query: value.toLocaleLowerCase() });
   }
 
   filterMovies = () => {
@@ -30,7 +30,7 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <Search change={this.handleChange} />
+          <Search onChange={this.handleChange} valueInput={query} />
 
           <MoviesList movies={query
             ? this.filterMovies()
