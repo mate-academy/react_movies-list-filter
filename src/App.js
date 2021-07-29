@@ -30,11 +30,12 @@ export class App extends Component {
     return (
       <div className="page">
         <div className="page-content">
-          <Search onChange={this.handleChange} valueInput={query} />
+          <Search onChange={this.handleChange} query={query} />
 
-          <MoviesList movies={query
-            ? this.filterMovies()
-            : moviesFromServer}
+          <MoviesList movies={
+            query
+              ? this.filterMovies()
+              : moviesFromServer}
           />
         </div>
         <div className="sidebar">

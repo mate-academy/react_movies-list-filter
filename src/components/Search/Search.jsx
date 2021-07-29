@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-export const Search = ({ onChange, valueInput }) => (
+export const Search = ({ onChange, query }) => (
   <div className="box">
     <div className="field">
       <label htmlFor="search-query" className="label">
@@ -13,7 +13,7 @@ export const Search = ({ onChange, valueInput }) => (
           type="text"
           name="query"
           onChange={onChange}
-          value={valueInput}
+          value={query}
           id="search-query"
           className="input"
           placeholder="Type search word"
@@ -25,4 +25,5 @@ export const Search = ({ onChange, valueInput }) => (
 
 Search.propTypes = {
   onChange: propTypes.func.isRequired,
+  query: propTypes.string.isRequired,
 };
