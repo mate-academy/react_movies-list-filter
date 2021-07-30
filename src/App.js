@@ -16,7 +16,7 @@ export class App extends Component {
 
   render() {
     const { query } = this.state;
-    const { handlerChange } = this.state;
+    const { handlerChange } = this;
 
     const targetMovies = moviesFromServer.filter(
       movie => (
