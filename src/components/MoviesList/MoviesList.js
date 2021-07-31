@@ -4,22 +4,25 @@ import PropTypes from 'prop-types';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies, query }) => (
-  <div className="movies">
+export const MoviesList = ({ movies, query }) => {
+  const filteredMovies = movies.filter(movie => (
+    movie.description.toLowerCase()
+      .includes(query.toLowerCase())
+    || movie.title.toLowerCase().includes(
+      query.toLowerCase(),
+    )));
 
-    {movies.filter(movie => (
-      movie.description.toLowerCase()
-        .includes(query.toLowerCase())
-      || movie.title.toLowerCase().includes(
-        query.toLowerCase(),
-      ))).map(movie => (
+  return (
+    <div className="movies">
+      {filteredMovies.map(movie => (
         <MovieCard
           key={movie.imdbId}
           {...movie}
         />
-    ))}
-  </div>
-);
+      ))}
+    </div>
+  );
+};
 
 MoviesList.propTypes = {
   query: PropTypes.string,
