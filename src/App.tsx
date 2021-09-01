@@ -13,7 +13,7 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  changeState = (value: string) => {
+  setQuery = (value: string) => {
     this.setState({
       query: value,
     });
@@ -22,18 +22,21 @@ export class App extends React.Component<{}, State> {
   render() {
     const { query } = this.state;
 
+    const visualizedMovies = moviesFromServer
+      .filter(({ title, description }) => (title + description).toLowerCase()
+        .includes(query.toLowerCase()));
+
     return (
       <div className="page">
         <div className="page-content">
 
           <SearchBar
             query={query}
-            changeState={this.changeState}
+            setQuery={this.setQuery}
           />
 
           <MoviesList
-            movies={moviesFromServer}
-            query={query}
+            movies={visualizedMovies}
           />
 
         </div>

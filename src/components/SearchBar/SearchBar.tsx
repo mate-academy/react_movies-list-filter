@@ -2,12 +2,12 @@ import React from 'react';
 
 interface Props {
   query: string,
-  changeState: (value: string) => void,
+  setQuery: (value: string) => void,
 }
 
 class SearchBar extends React.Component<Props, {}> {
-  onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.props.changeState(event.target.value);
+  onChangeInput = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    this.props.setQuery(target.value);
   };
 
   render() {
