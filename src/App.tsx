@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { SearchBar } from './components/SearchBar/SearchBar';
 import moviesFromServer from './api/movies.json';
 
 export class App extends React.Component<{}, State> {
@@ -19,30 +20,14 @@ export class App extends React.Component<{}, State> {
     const { movies, query } = this.state;
     const filteredMovies = movies
       .filter(movie => (
-        movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase())
+        (movie.title + movie.description).toLowerCase()
+          .includes(query.toLowerCase())
       ));
 
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  onChange={this.changeHandler}
-                />
-              </div>
-            </div>
-          </div>
+          <SearchBar queryUpdateFunction={this.changeHandler} />
 
           <MoviesList movies={filteredMovies} />
         </div>
