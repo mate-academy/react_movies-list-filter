@@ -13,29 +13,29 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
+  changeQuery = (value: string) => {
     this.setState({ query: value });
+  };
+
+  filterMovies = () => {
+    const queryToFilter = this.state.query.toLowerCase();
+
+    return moviesFromServer.filter(movie => (
+      movie.title.toLowerCase().includes(queryToFilter)
+      || movie.description.toLowerCase().includes(queryToFilter)
+    ));
   };
 
   render() {
     const { query } = this.state;
-    const visibleMovies = moviesFromServer.filter(movie => {
-      const queryToFilter = query.toLowerCase();
-
-      return (
-        movie.title.toLowerCase().includes(queryToFilter)
-        || movie.description.toLowerCase().includes(queryToFilter)
-      );
-    });
+    const visibleMovies = this.filterMovies();
 
     return (
       <div className="page">
         <div className="page-content">
           <SearchBar
             query={query}
-            changeHandler={this.changeHandler}
+            changeQuery={this.changeQuery}
           />
           <MoviesList movies={visibleMovies} />
         </div>

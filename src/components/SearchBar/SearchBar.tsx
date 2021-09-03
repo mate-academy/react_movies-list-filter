@@ -2,11 +2,11 @@ import React from 'react';
 
 interface Props {
   query: string;
-  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeQuery: (value: string) => void;
 }
 
 export const SearchBar: React.FC<Props> = (props) => {
-  const { query, changeHandler } = props;
+  const { query, changeQuery } = props;
 
   return (
     <div className="box">
@@ -22,7 +22,9 @@ export const SearchBar: React.FC<Props> = (props) => {
             className="input"
             placeholder="Type search word"
             value={query}
-            onChange={changeHandler}
+            onChange={(event) => {
+              changeQuery(event.target.value);
+            }}
           />
         </div>
       </div>
