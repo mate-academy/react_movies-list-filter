@@ -21,7 +21,8 @@ export class App extends React.Component<{}, State> {
     const { query } = this.state;
 
     const filteredMovies = [...moviesFromServer].filter(({ title, description }) => {
-      return description.includes(query) || title.toUpperCase().includes(query.toUpperCase());
+      return description.toUpperCase().includes(query.toUpperCase())
+      || title.toUpperCase().includes(query.toUpperCase());
     });
 
     return (
