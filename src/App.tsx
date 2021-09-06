@@ -4,6 +4,11 @@ import { MoviesList } from './components/MoviesList';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import moviesFromServer from './api/movies.json';
 
+type State = {
+  query: string;
+  movies: Movie[];
+};
+
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
