@@ -20,7 +20,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { query } = this.state;
 
-    const newFilms = [...moviesFromServer].filter(({ title, description }) => {
+    const filteredMovies = [...moviesFromServer].filter(({ title, description }) => {
       return description.includes(query) || title.toUpperCase().includes(query.toUpperCase());
     });
 
@@ -29,7 +29,7 @@ export class App extends React.Component<{}, State> {
         <div className="page-content">
           <SearchField query={query} setQuery={this.setQuery} />
 
-          <MoviesList movies={newFilms} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
