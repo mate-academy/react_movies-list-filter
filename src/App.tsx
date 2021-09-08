@@ -17,13 +17,21 @@ export class App extends React.Component<{}, State> {
     this.setState({ query });
   };
 
-  render() {
+  filteredMovies = () => {
     const { query } = this.state;
 
-    const filteredMovies = [...moviesFromServer].filter(({ title, description }) => {
+    const movies: Movie[] = [...moviesFromServer].filter(({ title, description }) => {
       return description.toUpperCase().includes(query.toUpperCase())
       || title.toUpperCase().includes(query.toUpperCase());
     });
+
+    return movies;
+  };
+
+  render() {
+    const { query } = this.state;
+
+    const filteredMovies = this.filteredMovies();
 
     return (
       <div className="page">
