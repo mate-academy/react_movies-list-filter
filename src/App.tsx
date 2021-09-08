@@ -25,7 +25,7 @@ export class App extends React.Component<{}, State> {
   searchMovies = () => {
     const { query } = this.state;
 
-    const movies: Movie[] = [...moviesFromServer].filter(movie => (
+    const movies: Movie[] = moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(query) || movie.description.toLowerCase().includes(query)
     ));
 
