@@ -17,13 +17,20 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: value });
   };
 
-  render() {
+  getFilteredMovies = () => {
     const { query } = this.state;
     const queryLow = query.toLowerCase();
     const filteredMovies = moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(queryLow)
       || movie.description.toLowerCase().includes(queryLow)
     ));
+
+    return filteredMovies;
+  };
+
+  render() {
+    const { query } = this.state;
+    const filteredMovies = this.getFilteredMovies();
 
     return (
       <div className="page">
