@@ -19,12 +19,14 @@ export class Search extends React.Component<Props, State> {
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    this.setState(() => ({
+    this.setState({
       query: value,
-    }), this.getVisibleMovies);
+    });
   };
 
-  getVisibleMovies = () => {
+  getVisibleMovies = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    await this.handleChange(event);
+
     const { movies } = this.props;
     const { query } = this.state;
 
@@ -53,7 +55,7 @@ export class Search extends React.Component<Props, State> {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={this.handleChange}
+                onChange={this.getVisibleMovies}
               />
             </div>
           </div>
