@@ -25,6 +25,9 @@ export class App extends React.Component<{}, State> {
     const { query, movies } = this.state;
     let visibleMovies = [...movies];
 
+    // eslint-disable-next-line
+    console.log(query)
+
     if (query) {
       const lowerQuery = query.toLowerCase();
 
