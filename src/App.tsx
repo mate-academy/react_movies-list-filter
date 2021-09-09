@@ -12,12 +12,18 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  render() {
+  searchMovie = () => {
     const searchMovie = moviesFromServer
       .filter(({ title, description }) => (
         title.toLowerCase().includes(this.state.query.toLowerCase())
         || description.toLowerCase().includes(this.state.query.toLowerCase())
       ));
+
+    return searchMovie;
+  };
+
+  render() {
+    const searchMovie: Movie[] = this.searchMovie();
 
     return (
       <div className="page">
@@ -46,12 +52,7 @@ export class App extends React.Component<{}, State> {
           <div className="show-search">
             {!searchMovie.length && 'Search returned no results'}
             <MoviesList movies={searchMovie} />
-            <hr />
-            <hr />
-            <hr />
           </div>
-
-          <MoviesList movies={moviesFromServer} />
         </div>
         <div className="sidebar">
           Sidebar goes here
