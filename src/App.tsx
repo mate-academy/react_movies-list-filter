@@ -44,6 +44,7 @@ export class App extends React.Component<{}, State> {
           </div>
 
           <div className="show-search">
+            {!searchMovie.length && 'Search returned no results'}
             <MoviesList movies={searchMovie} />
             <hr />
             <hr />
