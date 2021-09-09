@@ -15,6 +15,17 @@ export class App extends React.Component<{}, State> {
     movies: moviesFromServer,
   };
 
+  getFilteredMovies = () => {
+    const { movies, query } = this.state;
+    const filteredMovies = movies
+      .filter(movie => (
+        (movie.title + movie.description).toLowerCase()
+          .includes(query.toLowerCase())
+      ));
+
+    return filteredMovies;
+  };
+
   changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       query: event.target.value,
@@ -22,12 +33,7 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { movies, query } = this.state;
-    const filteredMovies = movies
-      .filter(movie => (
-        (movie.title + movie.description).toLowerCase()
-          .includes(query.toLowerCase())
-      ));
+    const filteredMovies = this.getFilteredMovies();
 
     return (
       <div className="page">
