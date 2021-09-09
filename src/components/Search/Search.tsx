@@ -24,19 +24,6 @@ export class Search extends React.Component<Props, State> {
     });
   };
 
-  getVisibleMovies = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    await this.handleChange(event);
-
-    const { movies } = this.props;
-    const { query } = this.state;
-
-    const visibleMovies = movies
-      .filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.includes(query.toLowerCase()));
-
-    this.setState({ visibleMovies });
-  };
-
   render() {
     const { query, visibleMovies } = this.state;
 
@@ -55,13 +42,13 @@ export class Search extends React.Component<Props, State> {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={this.getVisibleMovies}
+                onChange={this.handleChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={visibleMovies} query={query} />
       </>
     );
   }
