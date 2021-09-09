@@ -7,13 +7,11 @@ interface Props {
 
 interface State {
   query: string;
-  visibleMovies: Movie[];
 }
 
 export class Search extends React.Component<Props, State> {
   state: State = {
     query: '',
-    visibleMovies: this.props.movies,
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +23,8 @@ export class Search extends React.Component<Props, State> {
   };
 
   render() {
-    const { query, visibleMovies } = this.state;
+    const { query } = this.state;
+    const { movies } = this.props;
 
     return (
       <>
@@ -48,7 +47,7 @@ export class Search extends React.Component<Props, State> {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} query={query} />
+        <MoviesList movies={movies} query={query} />
       </>
     );
   }
