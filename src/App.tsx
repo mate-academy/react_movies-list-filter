@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { FindMovie } from './components/FindMovie';
 import moviesFromServer from './api/movies.json';
 
 type State = {
@@ -10,6 +11,10 @@ type State = {
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
+  };
+
+  addQueryValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ query: event.target.value });
   };
 
   searchMovie = () => {
@@ -28,29 +33,13 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  value={this.state.query}
-                  onChange={(event) => {
-                    this.setState({ query: event.target.value });
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+          <FindMovie
+            query={this.state.query}
+            addQueryValue={this.addQueryValue}
+          />
 
           <div className="show-search">
-            {!searchMovie.length && 'Search returned no results'}
+            {!searchMovie.length && 'No results found'}
             <MoviesList movies={searchMovie} />
           </div>
         </div>
