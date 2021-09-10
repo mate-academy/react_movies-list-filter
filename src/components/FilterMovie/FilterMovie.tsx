@@ -8,11 +8,12 @@ interface Props {
 
 export const FilterMovie: React.FC<Props> = (props) => {
   const { moviesFromServer, query } = props;
+  const queryToLowerCase = query.toLocaleLowerCase();
   const filterMovies = moviesFromServer
     .filter((movie: Movie) => movie.title.toLocaleLowerCase()
-      .includes(query.toLocaleLowerCase())
+      .includes(queryToLowerCase)
       || movie.description.toLocaleLowerCase()
-        .includes(query.toLocaleLowerCase()));
+        .includes(queryToLowerCase));
 
   return (
     <MoviesList movies={filterMovies} />
