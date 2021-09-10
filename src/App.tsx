@@ -19,9 +19,9 @@ export class App extends React.Component<{}, State> {
     const { movies, query } = this.state;
     const filteredMovies = movies
       .filter(movie => (
-        (movie.title + movie.description).toLowerCase()
-          .includes(query.toLowerCase())
-      ));
+        (movie.title.toLowerCase().includes(query.toLowerCase())
+        || movie.description.toLowerCase().includes(query.toLowerCase())
+        )));
 
     return filteredMovies;
   };
