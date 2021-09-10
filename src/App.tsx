@@ -13,17 +13,18 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  setQuery = (target: string) => {
-    this.setState({ query: target });
+  setQuery = (value: string) => {
+    this.setState({ query: value });
   };
 
   render() {
     const { query } = this.state;
+    const copyQuery = query.toLowerCase();
     const { setQuery } = this;
 
     const visibleMovies = moviesFromServer.filter(movie => (
-      movie.description.toLowerCase().includes(query.toLowerCase())
-      || movie.title.toLowerCase().includes(query.toLowerCase())
+      movie.description.toLowerCase().includes(copyQuery)
+      || movie.title.toLowerCase().includes(copyQuery)
     ));
 
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {
   query: string;
-  setQuery: (target: string) => void
+  setQuery: (value: string) => void
 };
 
 export class Search extends React.Component<Props> {
