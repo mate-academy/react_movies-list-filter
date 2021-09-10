@@ -18,10 +18,11 @@ export class MoviesList extends React.Component<Props, {}> {
 
   visibleMovies = () => {
     const { query } = this.props;
+    const param = query.toLowerCase().trimRight();
 
     const visibleMovies = [...this.state.searchedMovies].filter(movie => (
-      movie.title.toLowerCase().includes(query.toLowerCase().trimRight())
-      || movie.description.toLowerCase().includes(query.toLowerCase().trimRight())
+      movie.title.toLowerCase().includes(param)
+      || movie.description.toLowerCase().includes(param)
     ));
 
     return visibleMovies;
