@@ -18,10 +18,11 @@ export class App extends React.Component<{}, State> {
 
   getFilteredMove = () => {
     const { query } = this.state;
+    const queryLower = query.toLocaleLowerCase();
 
     const filteredMove = [...moviesFromServer].filter((movie) => (
-      (movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-    || movie.description.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+      (movie.title.toLocaleLowerCase().includes(queryLower)
+    || movie.description.toLocaleLowerCase().includes(queryLower))
     ));
 
     return filteredMove;
