@@ -11,14 +11,6 @@ interface State {
   searchedMovies: Movie[]
 }
 
-// export const MoviesList: React.FC<Props> = ({ movies, query }) => (
-//   <div className="movies">
-//     {movies.map(movie => (
-//       <MovieCard key={movie.imdbId} movie={movie} />
-//     ))}
-//   </div>
-// );
-
 export class MoviesList extends React.Component<Props, {}> {
   state: State = {
     searchedMovies: this.props.movies,
