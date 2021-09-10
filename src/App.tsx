@@ -18,12 +18,12 @@ export class App extends React.Component<{}, State> {
   };
 
   searchMovie = () => {
-    const { query } = this.state;
+    const query = this.state.query.toLowerCase();
 
     const searchMovie = moviesFromServer
       .filter(({ title, description }) => (
-        title.toLowerCase().includes(query.toLowerCase())
-        || description.toLowerCase().includes(query.toLowerCase())
+        title.toLowerCase().includes(query)
+        || description.toLowerCase().includes(query)
       ));
 
     return searchMovie;
