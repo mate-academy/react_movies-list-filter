@@ -15,15 +15,23 @@ export class App extends React.Component<{}, State> {
   };
 
   sortMovies = () => {
-    const filter = this.state.movies.filter((movie) => (
-      movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-      || movie.description.toLowerCase().includes(this.state.query.toLowerCase())
-    ));
+    const filter = this.state.movies.filter((movie) => {
+      const movieTitleToLowerCase = movie.title.toLowerCase();
+      const movieDescriptionToLowerCase = movie.description.toLowerCase();
+      const queryToLowerCase = this.state.query.toLowerCase();
+
+      return (
+        movieTitleToLowerCase.includes(queryToLowerCase)
+        || movieDescriptionToLowerCase.includes(queryToLowerCase)
+      );
+    });
 
     return filter;
   };
 
   render() {
+    const sortMovies = this.sortMovies();
+
     return (
       <div className="page">
         <div className="page-content">
@@ -50,7 +58,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={this.sortMovies()} />
+          <MoviesList movies={sortMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
