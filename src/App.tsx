@@ -14,8 +14,14 @@ export class App extends React.Component<{}, State> {
     movies: moviesFromServer,
   };
 
-  sortMovies = () => {
-    const filter = this.state.movies.filter((movie) => {
+  handleChande = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
+  };
+
+  filterMovies = () => {
+    const filteredMovies = this.state.movies.filter((movie) => {
       const movieTitleToLowerCase = movie.title.toLowerCase();
       const movieDescriptionToLowerCase = movie.description.toLowerCase();
       const queryToLowerCase = this.state.query.toLowerCase();
@@ -26,11 +32,11 @@ export class App extends React.Component<{}, State> {
       );
     });
 
-    return filter;
+    return filteredMovies;
   };
 
   render() {
-    const sortMovies = this.sortMovies();
+    const filterMovies = this.filterMovies();
 
     return (
       <div className="page">
@@ -48,17 +54,13 @@ export class App extends React.Component<{}, State> {
                   className="input"
                   placeholder="Type search word"
                   value={this.state.query}
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.handleChande}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={sortMovies} />
+          <MoviesList movies={filterMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
