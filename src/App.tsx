@@ -12,6 +12,22 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const key: keyof State = name as keyof State;
+
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  filterByQuery = (movies: Movie[]) => {
+    return [...movies].filter(
+      movie => movie.title.toLowerCase().includes(this.state.query.toLowerCase())
+      || movie.description.toLowerCase().includes(this.state.query.toLowerCase()),
+    );
+  };
+
   render() {
     const { query } = this.state;
 
@@ -30,22 +46,15 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  name="query"
                   value={query}
-                  onChange={(e) => {
-                    this.setState({ query: e.target.value });
-                  }}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={
-            moviesFromServer.filter(
-              movie => movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-              || movie.description.toLowerCase().includes(this.state.query.toLowerCase()),
-            )
-          }
-          />
+          <MoviesList movies={this.filterByQuery(moviesFromServer)} />
         </div>
         <div className="sidebar">
           Sidebar goes here
