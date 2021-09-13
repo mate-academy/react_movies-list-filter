@@ -22,6 +22,12 @@ export class App extends React.Component<{}, State> {
     return filteredMovies;
   };
 
+  searchResult = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
+  };
+
   render() {
     const filteredMovies = this.getFilteredMovies();
 
@@ -41,11 +47,7 @@ export class App extends React.Component<{}, State> {
                   className="input"
                   placeholder="Type search word"
                   value={this.state.query}
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.searchResult}
                 />
               </div>
             </div>
