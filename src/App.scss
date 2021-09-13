@@ -23,3 +23,20 @@
 .card-image img {
   object-fit: contain;
 }
+
+
+.control {
+  padding-bottom: 10px;
+}
+
+.control-button {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+
+.control-button:hover {
+  background-color: darkgray;
+  border: 1px solid darkgray;
+  border-radius: 1px;
+}
