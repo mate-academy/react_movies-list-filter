@@ -10,8 +10,8 @@ interface Props {
 export const MoviesList: React.FC<Props> = ({ movies, query }) => (
   <div className="movies">
     {movies.map((movie) => {
-      if (movie.title.slice(0, query.length).toLowerCase() === query.toLowerCase()
-      || movie.description.slice(0, query.length).toLowerCase() === query.toLowerCase()) {
+      if (movie.title.toLowerCase().includes(query.toLowerCase())
+      || movie.description.toLowerCase().includes(query.toLowerCase())) {
         return <MovieCard key={movie.imdbId} movie={movie} />;
       }
 
