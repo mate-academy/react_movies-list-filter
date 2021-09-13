@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.scss';
-import { FilterMovie } from './components/FilterMovie/FilterMovie';
+// import { FilterMovie } from './components/FilterMovie/FilterMovie';
 import moviesFromServer from './api/movies.json';
+import { MoviesList } from './components/MoviesList';
 
 type State = {
   query: string;
@@ -10,6 +11,23 @@ type State = {
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
+    this.filterMovie();
+  };
+
+  filterMovie = () => {
+    const { query } = this.state;
+    const queryToLowerCase = query.toLocaleLowerCase();
+
+    return moviesFromServer.filter((movie: Movie) => movie.title.toLocaleLowerCase()
+      .includes(queryToLowerCase)
+      || movie.description.toLocaleLowerCase()
+        .includes(queryToLowerCase));
   };
 
   render() {
@@ -28,17 +46,13 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <FilterMovie moviesFromServer={moviesFromServer} query={this.state.query} />
+          <MoviesList movies={this.filterMovie()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
