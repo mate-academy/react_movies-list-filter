@@ -14,9 +14,11 @@ export class App extends React.Component<{}, State> {
 
   searchMovies = () => {
     const { query } = this.state;
+    const copyQuery = query.toLocaleLowerCase();
+
     const searchMovie = moviesFromServer.filter(movie => (
-      movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-      || movie.description.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+      movie.title.toLocaleLowerCase().includes(copyQuery)
+      || movie.description.toLocaleLowerCase().includes(copyQuery)
     ));
 
     return searchMovie;
