@@ -1,12 +1,33 @@
+/* eslint-disable max-len */
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+type State = {
+  query: string;
+};
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state: State = {
+    query: '',
+  };
+
+  searchFilm = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    this.setState({
+      query: value,
+    });
+  };
+
+  filterFilms(array: Movie[]): Movie[] {
+    const { query } = this.state;
+
+    return array.filter(film => (
+      film.title.toLowerCase().includes(query.toLowerCase())
+    ));
+  }
 
   render() {
     return (
@@ -24,12 +45,13 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={this.searchFilm}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.filterFilms(moviesFromServer)} />
         </div>
         <div className="sidebar">
           Sidebar goes here
