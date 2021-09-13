@@ -20,7 +20,6 @@ export class App extends React.Component<{}, State> {
   render() {
     const { query } = this.state;
     const copyQuery = query.toLowerCase();
-    const { setQuery } = this;
 
     const visibleMovies = moviesFromServer.filter(movie => (
       movie.description.toLowerCase().includes(copyQuery)
@@ -30,7 +29,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="page">
         <div className="page-content">
-          <Search query={query} setQuery={setQuery} />
+          <Search query={query} setQuery={this.setQuery} />
           {visibleMovies.length
             ? <MoviesList movies={visibleMovies} />
             : 'Movie not found'}
