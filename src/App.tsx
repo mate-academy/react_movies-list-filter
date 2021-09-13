@@ -17,16 +17,13 @@ export class App extends React.Component<{}, State> {
     movies: moviesFromServer,
   };
 
-  getQuery = (query: string) => {
+  handleChangeQuery = (query: string) => {
     this.setState({ query });
   };
 
-  changeVisibleMovies = () => {
+  getVisibleMovies = () => {
     const { query, movies } = this.state;
     let visibleMovies = [...movies];
-
-    // eslint-disable-next-line
-    console.log(query)
 
     if (query) {
       const lowerQuery = query.toLowerCase();
@@ -41,12 +38,12 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const visibleMovies = this.changeVisibleMovies();
+    const visibleMovies = this.getVisibleMovies();
 
     return (
       <div className="page">
         <div className="page-content">
-          <Search callback={this.getQuery} />
+          <Search changeQuery={this.handleChangeQuery} />
 
           <MoviesList movies={visibleMovies} />
         </div>
