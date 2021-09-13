@@ -13,36 +13,39 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  addQueryValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ query: event.target.value });
   };
 
-  searchMovie = () => {
+  searchMovies = () => {
     const query = this.state.query.toLowerCase();
 
-    const searchMovie = moviesFromServer
+    const searchMovies = moviesFromServer
       .filter(({ title, description }) => (
         title.toLowerCase().includes(query)
         || description.toLowerCase().includes(query)
       ));
 
-    return searchMovie;
+    return searchMovies;
   };
 
   render() {
-    const searchMovie: Movie[] = this.searchMovie();
+    const searchMovies: Movie[] = this.searchMovies();
 
     return (
       <div className="page">
         <div className="page-content">
           <FindMovie
             query={this.state.query}
-            addQueryValue={this.addQueryValue}
+            handleChange={this.handleChange}
           />
 
           <div className="show-search">
-            {!searchMovie.length && 'No results found'}
-            <MoviesList movies={searchMovie} />
+            {!searchMovies.length ? (
+              'No results found'
+            ) : (
+              <MoviesList movies={searchMovies} />
+            )}
           </div>
         </div>
         <div className="sidebar">

@@ -1,10 +1,10 @@
 type Props = {
   query: string,
-  addQueryValue: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
 export const FindMovie = (props: Props) => {
-  const { query, addQueryValue } = props;
+  const { query, handleChange } = props;
 
   return (
     <div className="box">
@@ -20,7 +20,7 @@ export const FindMovie = (props: Props) => {
             className="input"
             placeholder="Type search word"
             value={query}
-            onChange={addQueryValue}
+            onChange={handleChange}
           />
         </div>
       </div>
