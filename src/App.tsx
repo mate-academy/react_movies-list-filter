@@ -14,9 +14,9 @@ export class App extends React.Component<{}, State> {
 
   getFilteredMovies = () => {
     const { query } = this.state;
-    const quertyInLowerCase = query.toLocaleLowerCase()
+    const quertyInLowerCase = query.toLocaleLowerCase();
     const filteredMovies = moviesFromServer.filter(movie => (
-      (movie.title + ' ' + movie.description).toLocaleLowerCase()
+      (`${movie.title} ${movie.description}`).toLocaleLowerCase()
         .includes(quertyInLowerCase)
     ));
 
