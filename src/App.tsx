@@ -14,16 +14,13 @@ export class App extends React.Component<{}, State> {
     movies: [...moviesFromServer],
   };
 
-  handleChange = (event: any) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-
-    this.setState({ query: value.toLowerCase() });
-  };
-
-  searchFilm = () => {
     const { query } = this.state;
 
     this.setState({
+      query: value.toLowerCase(),
+
       movies: [...moviesFromServer].filter(movie => (
         movie.title.toLowerCase().includes(query)
         || movie.description.toLowerCase().includes(query)
@@ -57,14 +54,6 @@ export class App extends React.Component<{}, State> {
                   onChange={this.handleChange}
                 />
               </div>
-
-              <button
-                type="submit"
-                className="control-button"
-                onClick={this.searchFilm}
-              >
-                Search
-              </button>
 
             </div>
           </form>
