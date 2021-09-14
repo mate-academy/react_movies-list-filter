@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { SearchBar } from './components/SearchBar';
 
 type Movie = {
   title: string;
@@ -44,25 +45,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="page">
         <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  onChange={this.handleChangeEvent}
-                  value={this.state.query}
-                />
-              </div>
-            </div>
-          </div>
-
+          <SearchBar handleChangeEvent={this.handleChangeEvent} query={this.state.query} />
           <MoviesList movies={this.state.moviesList} />
         </div>
         <div className="sidebar">

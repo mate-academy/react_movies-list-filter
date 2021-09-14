@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 type Props = {
-
+  handleChangeEvent: (event:ChangeEvent<HTMLInputElement>) => void;
+  query:string;
 };
 
 export class SearchBar extends React.PureComponent<Props> {
   render() {
+    const { handleChangeEvent, query } = this.props;
+
     return (
       <div className="SearchBar">
         <div className="field">
@@ -19,6 +22,8 @@ export class SearchBar extends React.PureComponent<Props> {
               id="search-query"
               className="input"
               placeholder="Type search word"
+              onChange={event => handleChangeEvent(event)}
+              value={query}
             />
           </div>
         </div>
