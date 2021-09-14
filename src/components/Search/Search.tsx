@@ -1,8 +1,7 @@
 import React from 'react';
-import { MoviesList } from '../MoviesList';
 
 interface Props {
-  movies: Movie[];
+  onFilter: (query: string) => void;
 }
 
 interface State {
@@ -14,6 +13,15 @@ export class Search extends React.Component<Props, State> {
     query: '',
   };
 
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    const { onFilter } = prevProps;
+    const { query } = this.state;
+
+    if (prevState !== this.state) {
+      onFilter(query);
+    }
+  }
+
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
@@ -24,7 +32,6 @@ export class Search extends React.Component<Props, State> {
 
   render() {
     const { query } = this.state;
-    const { movies } = this.props;
 
     return (
       <>
@@ -46,8 +53,6 @@ export class Search extends React.Component<Props, State> {
             </div>
           </div>
         </div>
-
-        <MoviesList movies={movies} query={query} />
       </>
     );
   }
