@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { Movie } from './type/Movie';
 import './App.scss';
