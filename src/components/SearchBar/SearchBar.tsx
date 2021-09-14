@@ -19,8 +19,6 @@ export class SearchBar extends React.PureComponent<Props> {
               id="search-query"
               className="input"
               placeholder="Type search word"
-              // onChange={this.handleChangeEvent}
-              // value={this.state.query}
             />
           </div>
         </div>
