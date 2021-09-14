@@ -18,11 +18,16 @@ export class App extends React.Component<{}, State> {
   getFilteredMovies = () => {
     const { movies, query } = this.state;
     const lowercaseQuery = query.toLowerCase();
-    const filteredMovies = movies
-      .filter(movie => (
-        (movie.title.toLowerCase().includes(lowercaseQuery)
-        || movie.description.toLowerCase().includes(lowercaseQuery)
-        )));
+    const filteredMovies = movies.filter(movie => {
+      const { title, description } = movie;
+
+      const conditions = [
+        title.toLowerCase().includes(lowercaseQuery),
+        description.toLowerCase().includes(lowercaseQuery),
+      ];
+
+      return conditions.some(Boolean);
+    });
 
     return filteredMovies;
   };
@@ -39,7 +44,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="page">
         <div className="page-content">
-          <SearchBar queryUpdateFunction={this.changeHandler} />
+          <SearchBar onChangeCallback={this.changeHandler} />
 
           <MoviesList movies={filteredMovies} />
         </div>

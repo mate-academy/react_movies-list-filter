@@ -1,11 +1,11 @@
 import React from 'react';
 
 type Props = {
-  queryUpdateFunction: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeCallback: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const SearchBar: React.FC<Props> = (props) => {
-  const { queryUpdateFunction } = props;
+  const { onChangeCallback } = props;
 
   return (
     <div className="box">
@@ -20,7 +20,7 @@ export const SearchBar: React.FC<Props> = (props) => {
             id="search-query"
             className="input"
             placeholder="Type search word"
-            onChange={queryUpdateFunction}
+            onChange={onChangeCallback}
           />
         </div>
       </div>
