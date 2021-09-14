@@ -17,10 +17,11 @@ export class App extends React.Component<{}, State> {
 
   getFilteredMovies = () => {
     const { movies, query } = this.state;
+    const lowercaseQuery = query.toLowerCase();
     const filteredMovies = movies
       .filter(movie => (
-        (movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase())
+        (movie.title.toLowerCase().includes(lowercaseQuery)
+        || movie.description.toLowerCase().includes(lowercaseQuery)
         )));
 
     return filteredMovies;
