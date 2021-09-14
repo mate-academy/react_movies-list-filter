@@ -19,10 +19,10 @@ export class App extends React.Component<{}, State> {
     const { query } = this.state;
 
     this.setState({
-      query: value.toLowerCase(),
+      query: value,
 
-      movies: [...moviesFromServer].filter(movie => (
-        movie.title.toLowerCase().includes(query)
+      movies: moviesFromServer.filter(movie => (
+        movie.title.toLowerCase().includes(query.toLowerCase().trim())
         || movie.description.toLowerCase().includes(query)
       )),
     });
