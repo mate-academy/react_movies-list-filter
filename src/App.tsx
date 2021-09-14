@@ -14,17 +14,17 @@ export class App extends React.Component<{}, State> {
     movies: [...moviesFromServer],
   };
 
-  getPassingMovies = () => {
-    const lowerQuery = this.state.query.toLowerCase();
+  getFilteredMovies = () => {
+    const { query, movies } = this.state;
 
-    const passingMovies = this.state.movies.filter(movie => {
-      return (
-        movie.title.toLowerCase().includes(lowerQuery)
-        || movie.description.toLowerCase().includes(lowerQuery)
-      );
-    });
+    const lowerQuery = query.toLowerCase();
 
-    return passingMovies;
+    const FilteredMovies = movies.filter(movie => (
+      movie.title.toLowerCase().includes(lowerQuery)
+      || movie.description.toLowerCase().includes(lowerQuery)
+    ));
+
+    return FilteredMovies;
   };
 
   inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +60,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={this.getPassingMovies()} />
+          <MoviesList movies={this.getFilteredMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
