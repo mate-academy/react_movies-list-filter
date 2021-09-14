@@ -17,9 +17,11 @@ export class App extends React.Component<{}, State> {
     || movie.title.toLowerCase().includes(this.state.query.toLowerCase()),
   );
 
-  changeQuery = (event: { target: { value: string; }; }) => this.setState({
-    query: event.target.value,
-  });
+  changeQuery = (event: { target: { value: string; }; }) => (
+    this.setState({
+      query: event.target.value,
+    })
+  );
 
   render() {
     return (
