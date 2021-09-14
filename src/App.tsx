@@ -14,17 +14,19 @@ export class App extends React.Component<{}, State> {
     movies: moviesFromServer,
   };
 
-  filteredMovie = () => {
-    return this.state.movies.filter((movie) => {
-      return (
-        movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-        || movie.description.toLowerCase().includes(this.state.query.toLowerCase())
-      );
-    });
+  getFilteredMovie = () => {
+    const { query } = this.state;
+
+    const queryToLowerCase = query.toLowerCase();
+
+    return this.state.movies.filter((movie) => (
+      movie.title.toLowerCase().includes(queryToLowerCase)
+      || movie.description.toLowerCase().includes(queryToLowerCase)
+    ));
   };
 
   render() {
-    const filteredMovie = this.filteredMovie();
+    const filteredMovie = this.getFilteredMovie();
     const { query } = this.state;
 
     return (
