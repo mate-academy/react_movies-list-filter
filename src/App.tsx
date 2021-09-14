@@ -17,10 +17,10 @@ export class App extends React.Component<{}, State> {
     this.setState({
       query: event.target.value,
     });
-    this.filterMovie();
+    this.getFilteredMovies();
   };
 
-  filterMovie = () => {
+  getFilteredMovies = () => {
     const { query } = this.state;
     const queryToLowerCase = query.toLocaleLowerCase();
 
@@ -52,7 +52,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={this.filterMovie()} />
+          <MoviesList movies={this.getFilteredMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
