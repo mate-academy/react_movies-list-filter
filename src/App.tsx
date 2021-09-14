@@ -16,14 +16,21 @@ export class App extends React.Component<{}, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const { query } = this.state;
 
     this.setState({
       query: value,
+    });
+  };
 
+  getMovies = () => {
+    const { query } = this.state;
+
+    const lowerQuery = query.toLowerCase();
+
+    this.setState({
       movies: moviesFromServer.filter(movie => (
-        movie.title.toLowerCase().includes(query.toLowerCase().trim())
-        || movie.description.toLowerCase().includes(query)
+        movie.title.toLowerCase().includes(lowerQuery)
+        || movie.description.toLowerCase().includes(lowerQuery)
       )),
     });
   };
@@ -32,31 +39,22 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="page">
         <div className="page-content">
-          <form
-            method="post"
-            className="box"
-            onSubmit={(event) => {
-              event.preventDefault();
-            }}
-          >
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
+          <div className="field" onChange={this.getMovies}>
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  value={this.state.query}
-                  onChange={this.handleChange}
-                />
-              </div>
-
+            <div className="control">
+              <input
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                value={this.state.query}
+                onChange={this.handleChange}
+              />
             </div>
-          </form>
+          </div>
 
           <MoviesList movies={this.state.movies} />
         </div>
