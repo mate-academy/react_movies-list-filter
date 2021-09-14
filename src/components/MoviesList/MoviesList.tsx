@@ -7,10 +7,22 @@ interface Props {
   query: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, query }) => (
-  <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} movie={movie} query={query} />
-    ))}
-  </div>
-);
+export const MoviesList: React.FC<Props> = ({ movies, query }) => {
+  const lowerCaseQuery = query.toLowerCase();
+  const moviesFilter = movies.filter(movie => {
+    if (movie.title.toLowerCase().includes(lowerCaseQuery)
+    || movie.description.toLowerCase().includes(lowerCaseQuery)) {
+      return true;
+    }
+
+    return false;
+  });
+
+  return (
+    <div className="movies">
+      {moviesFilter.map(movie => (
+        <MovieCard key={movie.imdbId} movie={movie} />
+      ))}
+    </div>
+  );
+};
