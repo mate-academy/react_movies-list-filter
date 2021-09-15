@@ -21,10 +21,12 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  filterByQuery = (movies: Movie[]) => {
-    return [...movies].filter(
-      movie => movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-      || movie.description.toLowerCase().includes(this.state.query.toLowerCase()),
+  getFilteredMovies = (movies: Movie[]) => {
+    const { query } = this.state;
+
+    return movies.filter(
+      movie => movie.title.toLowerCase().includes(query.toLowerCase())
+      || movie.description.toLowerCase().includes(query.toLowerCase()),
     );
   };
 
@@ -54,7 +56,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={this.filterByQuery(moviesFromServer)} />
+          <MoviesList movies={this.getFilteredMovies(moviesFromServer)} />
         </div>
         <div className="sidebar">
           Sidebar goes here
