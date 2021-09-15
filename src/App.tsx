@@ -4,8 +4,8 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 type State = {
-  query: string,
-  movies: Movie[],
+  query: string;
+  movies: Movie[];
 };
 
 export class App extends React.Component<{}, State> {
