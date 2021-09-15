@@ -3,12 +3,36 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+type State = {
+  query: string;
+};
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state = {
+    query: '',
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const key: keyof State = name as keyof State;
+
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  getFilteredMovies = (movies: Movie[]) => {
+    const { query } = this.state;
+
+    return movies.filter(
+      movie => movie.title.toLowerCase().includes(query.toLowerCase())
+      || movie.description.toLowerCase().includes(query.toLowerCase()),
+    );
+  };
 
   render() {
+    const { query } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
@@ -24,12 +48,15 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  name="query"
+                  value={query}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.getFilteredMovies(moviesFromServer)} />
         </div>
         <div className="sidebar">
           Sidebar goes here
