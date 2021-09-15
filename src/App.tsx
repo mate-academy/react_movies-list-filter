@@ -6,20 +6,18 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 type State = {
-  query: string,
-  movieStorage: Movie[],
+  query: string;
+  movieStorage: Movie[];
 };
 
 export class App extends React.Component<{}, State> {
-  moviesFromServerClone = moviesFromServer.map(movie => {
-    return {
-      ...movie,
-    };
-  });
-
   state: State = {
     query: '',
-    movieStorage: this.moviesFromServerClone,
+    movieStorage: moviesFromServer.map(movie => {
+      return {
+        ...movie,
+      };
+    }),
   };
 
   render() {
