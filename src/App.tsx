@@ -3,10 +3,24 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+type State = {
+  query: string;
+};
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state: State = {
+    query: ' ',
+  };
+
+  handleChange = (event: any) => {
+    this.setState({
+      query: event.target.value.toLowerCase(),
+    });
+  };
+
+  filterMovies = () => moviesFromServer.filter(e => e.description
+    .includes(this.state.query.toLowerCase())
+    || e.title.toLowerCase().includes(this.state.query.toLowerCase()));
 
   render() {
     return (
@@ -24,12 +38,13 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  onChange={(event) => this.handleChange(event)}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.filterMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
