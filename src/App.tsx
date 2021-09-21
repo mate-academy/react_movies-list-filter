@@ -12,7 +12,7 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  handleChange = (event: { target: { value: string; }; }) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       query: event.target.value,
     });
