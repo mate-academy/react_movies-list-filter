@@ -18,9 +18,9 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  filterMovies = () => moviesFromServer.filter(e => e.description
-    .includes(this.state.query.toLowerCase())
-    || e.title.toLowerCase().includes(this.state.query.toLowerCase()));
+  filterMovies = () => moviesFromServer.filter(e => (e.description + e.title).toLowerCase()
+  .includes(this.state.query.toLowerCase())
+ );
 
   render() {
     return (
@@ -38,7 +38,7 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onChange={(event) => this.handleChange(event)}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
