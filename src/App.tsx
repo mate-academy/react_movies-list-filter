@@ -2,34 +2,34 @@ import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { SearchInput } from './components/SearchInput/SearchInput';
 
-type State = {};
+type State = {
+  query: string;
+};
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state: State = {
+    query: '',
+  };
+
+  onChangeHandler = (value: string) => {
+    this.setState({ query: value });
+  };
 
   render() {
+    const { query } = this.state;
+
     return (
       <div className="page">
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
+              <SearchInput query={query} onChange={this.onChangeHandler} />
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList query={query} movies={moviesFromServer} />
         </div>
         <div className="sidebar">
           Sidebar goes here
