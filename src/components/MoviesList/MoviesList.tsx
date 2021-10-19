@@ -10,12 +10,12 @@ interface Props {
 export const MoviesList: React.FC<Props> = ({ movies, query }) => (
   <div className="movies">
     {movies.filter(movie => {
-      const seachQuery = query.toLowerCase();
+      const searchQuery = query.toLowerCase();
       const movieTitle = movie.title.toLowerCase();
       const movieDescription = movie.description.toLowerCase();
 
-      return movieTitle.includes(seachQuery)
-      || movieDescription.includes(seachQuery);
+      return movieTitle.includes(searchQuery)
+      || movieDescription.includes(searchQueryg);
     }).map(movie => (
       <MovieCard key={movie.imdbId} movie={movie} />
     ))}
