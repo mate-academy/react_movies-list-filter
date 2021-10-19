@@ -22,17 +22,26 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { query } = this.state;
+    let { query } = this.state;
+    const movies = moviesFromServer.filter(item => {
+      let { title, description } = item;
+
+      query = query.toLocaleLowerCase();
+      title = title.toLocaleLowerCase();
+      description = description.toLocaleLowerCase();
+
+      return !query || (title.includes(query) || description.includes(query));
+    });
 
     return (
       <div className="page">
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <Search query={query} callback={(event) => this.changedQuery(event)} />
+              <Search query={query} callback={this.changedQuery} />
             </div>
           </div>
-          <MoviesList movies={moviesFromServer} query={query.toLocaleLowerCase()} />
+          <MoviesList movies={movies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
