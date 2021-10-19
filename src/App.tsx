@@ -28,7 +28,7 @@ export class App extends React.Component<{}, State> {
       <div className="page">
         <div className="page-content">
 
-          <Search onChangeFunction={this.onChangeFunction} />
+          <Search value={this.state.query} onChange={this.onChangeFunction} />
           <MoviesList movies={movies} />
         </div>
         <div className="sidebar">

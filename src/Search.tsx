@@ -1,10 +1,11 @@
 import React from 'react';
 
 type Props = {
-  onChangeFunction: (value: string) => void;
+  value: string,
+  onChange: (value: string) => void;
 };
 
-export const Search: React.FC<Props> = ({ onChangeFunction }) => (
+export const Search: React.FC<Props> = ({ value, onChange }) => (
   <div className="box">
     <div className="field">
       {/* eslint-disable-next-line */}
@@ -16,10 +17,11 @@ export const Search: React.FC<Props> = ({ onChangeFunction }) => (
         <input
           type="text"
           id="search-query"
+          value={value}
           className="input"
           placeholder="Type search word"
           onChange={(event) => {
-            onChangeFunction(event.target.value);
+            onChange(event.target.value);
           }}
         />
       </div>
