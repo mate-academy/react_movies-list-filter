@@ -18,7 +18,7 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const moviesCopy = moviesFromServer.filter(movie => {
+    const filteredMovies = moviesFromServer.filter(movie => {
       return movie.title.toLowerCase().includes(this.state.query.toLowerCase())
       || movie.description.toLowerCase().includes(this.state.query.toLowerCase());
     });
@@ -45,7 +45,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={moviesCopy} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
