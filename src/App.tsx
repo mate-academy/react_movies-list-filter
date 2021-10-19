@@ -8,15 +8,15 @@ type State = {
 };
 
 export class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     query: '',
   };
 
-  queryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ query: event.target.value });
   };
 
-  searchMovie = () => {
+  getFilteredMovies = () => {
     const { query } = this.state;
     const queryToLowerCase = query.toLocaleLowerCase();
 
@@ -43,14 +43,14 @@ export class App extends React.Component<{}, State> {
                     className="input"
                     placeholder="Type search word"
                     value={this.state.query}
-                    onChange={this.queryChange}
+                    onChange={this.handleChange}
                   />
                 </div>
               </label>
             </div>
           </div>
 
-          <MoviesList movies={this.searchMovie()} />
+          <MoviesList movies={this.getFilteredMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
