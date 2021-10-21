@@ -1,16 +1,14 @@
 import './MoviesList.scss';
 import React from 'react';
 import { MovieCard } from '../MovieCard';
-import filterMovies from '../../utils/filterMovies';
 
 interface Props {
   movies: Movie[];
-  query: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, query }) => (
+export const MoviesList: React.FC<Props> = ({ movies }) => (
   <div className="movies">
-    {filterMovies(movies, query).map(movie => (
+    {movies.map(movie => (
       <MovieCard
         key={movie.imdbId}
         movie={movie}

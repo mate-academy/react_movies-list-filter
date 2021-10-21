@@ -17,6 +17,16 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: event.target.value });
   };
 
+  filterMovies = (movies: Array<Movie>, query: string) => {
+    return movies.filter(movie => {
+      const queryLower = query.toLowerCase();
+      const hasInTitle = movie.title.toLowerCase().includes(queryLower);
+      const hasInDesc = movie.description.toLowerCase().includes(queryLower);
+
+      return hasInTitle || hasInDesc;
+    });
+  };
+
   render() {
     return (
       <div className="page">
@@ -41,8 +51,7 @@ export class App extends React.Component<{}, State> {
           </div>
 
           <MoviesList
-            movies={moviesFromServer}
-            query={this.state.query}
+            movies={this.filterMovies(moviesFromServer, this.state.query)}
           />
         </div>
         <div className="sidebar">
