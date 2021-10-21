@@ -5,18 +5,16 @@ import moviesFromServer from './api/movies.json';
 
 type State = {
   query: string,
-  movies: Movie[],
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
-    movies: [...moviesFromServer],
   };
 
   render() {
     const { query } = this.state;
-    const movies = [...this.state.movies].filter(
+    const filteredMovies = moviesFromServer.filter(
       movie => movie.title.toLowerCase()
         .includes(query.toLowerCase())
         || movie.description.toLowerCase()
@@ -47,7 +45,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={movies} />
+          <MoviesList movies={filteredMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
