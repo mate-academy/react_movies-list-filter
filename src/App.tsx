@@ -3,10 +3,20 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+type State = {
+  query: string,
+};
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state: State = {
+    query: '',
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
+  };
 
   render() {
     return (
@@ -20,6 +30,8 @@ export class App extends React.Component<{}, State> {
 
               <div className="control">
                 <input
+                  value={this.state.query}
+                  onChange={this.handleChange}
                   type="text"
                   id="search-query"
                   className="input"
@@ -29,7 +41,10 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList
+            movies={moviesFromServer}
+            query={this.state.query}
+          />
         </div>
         <div className="sidebar">
           Sidebar goes here
