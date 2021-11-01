@@ -16,7 +16,7 @@ export class App extends React.Component<{}, State> {
     const { query } = this.state;
     const filteredMovies = moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(query.toLowerCase()))
-       || (movie.description.toLowerCase().includes(query.toLowerCase())));
+       || movie.description.toLowerCase().includes(query.toLowerCase()));
 
     return (
       <div className="page">
@@ -25,19 +25,19 @@ export class App extends React.Component<{}, State> {
             <div className="field">
               <label htmlFor="search-query" className="label">
                 Search movie
-              </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  onChange={(e) => {
-                    this.setState({ query: e.target.value });
-                  }}
-                />
-              </div>
+                <div className="control">
+                  <input
+                    type="text"
+                    id="search-query"
+                    className="input"
+                    placeholder="Type search word"
+                    onChange={(e) => {
+                      this.setState({ query: e.target.value });
+                    }}
+                  />
+                </div>
+              </label>
             </div>
           </div>
 
