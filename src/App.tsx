@@ -1,14 +1,37 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+type State = {
+  query: string;
+};
+
+interface Event {
+  target: {
+    value: string;
+  };
+}
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state: State = {
+    query: '',
+  };
+
+  handleChange = (event: Event) => (
+    this.setState({ query: event.target.value }));
 
   render() {
+    const { query } = this.state;
+
+    const visibleMovies = [...moviesFromServer].filter(
+      movie => (
+        movie.title.toLowerCase().includes(query.toLocaleLowerCase())
+        || movie.description.toLowerCase().includes(query.toLocaleLowerCase())
+      ),
+    );
+
     return (
       <div className="page">
         <div className="page-content">
@@ -20,7 +43,10 @@ export class App extends React.Component<{}, State> {
 
               <div className="control">
                 <input
+                  name="query"
                   type="text"
+                  value={query}
+                  onChange={this.handleChange}
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
@@ -28,8 +54,7 @@ export class App extends React.Component<{}, State> {
               </div>
             </div>
           </div>
-
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
