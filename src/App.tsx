@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
@@ -14,7 +15,7 @@ export class App extends React.Component<{}, State> {
 
   updateState = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      query: event.target.value,
+      query: event.target.value.toLowerCase(),
     });
   };
 
