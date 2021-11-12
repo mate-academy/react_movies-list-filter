@@ -12,10 +12,19 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value.toLowerCase(),
+    });
+  };
+
+  includesQuery = (...args: string[]) => {
+    return args.some(item => item.toLowerCase().includes(this.state.query));
+  };
+
   render() {
     const visibleMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(this.state.query)
-      || movie.description.toLowerCase().includes(this.state.query),
+      movie => this.includesQuery(movie.title, movie.description),
     );
 
     return (
@@ -33,11 +42,7 @@ export class App extends React.Component<{}, State> {
                     className="input"
                     placeholder="Type search word"
                     value={this.state.query}
-                    onChange={(event) => {
-                      this.setState({
-                        query: event.target.value.toLowerCase(),
-                      });
-                    }}
+                    onChange={(event) => this.handleChange(event)}
                   />
                 </div>
               </label>
