@@ -17,6 +17,7 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
           <img
             src={imgUrl}
             alt="Film logo"
+            className="image"
           />
         </figure>
       </div>
@@ -27,6 +28,7 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
               <img
                 src="images/imdb-logo.jpeg"
                 alt="imdb"
+                className="image"
               />
             </figure>
           </div>
