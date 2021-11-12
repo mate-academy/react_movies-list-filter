@@ -22,16 +22,9 @@ export class App extends React.Component<{}, State> {
     const { query, movies } = this.state;
     const normalizedQuery = query.toLocaleLowerCase();
 
-    return [...movies].filter((movie:Movie) => {
-      if (movie.title.toLowerCase().includes(normalizedQuery)) {
-        return movie;
-      }
-
-      if (movie.description.toLowerCase().includes(normalizedQuery)) {
-        return movie;
-      }
-
-      return null;
+    return movies.filter((movie:Movie) => {
+      return movie.title.toLocaleLowerCase().includes(normalizedQuery)
+        || movie.description.toLowerCase().includes(normalizedQuery);
     });
   };
 
