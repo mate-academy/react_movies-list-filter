@@ -3,39 +3,28 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-interface Movie {
-  title: string,
-  description: string,
-  imgUrl: string,
-  imdbUrl: string,
-  imdbId: string
-}
-
 interface State {
-  visibleMovies: Movie[];
   query: string;
 }
 
 export class App extends React.Component<{}, State> {
   state: State = {
-    visibleMovies: moviesFromServer,
     query: '',
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
 
-    this.setState({
-      visibleMovies: moviesFromServer.filter(
-        movie => movie.description.toLowerCase().includes(target.value.toLowerCase())
-          || movie.title.toLowerCase().includes(target.value.toLowerCase()),
-      ),
-      query: target.value,
-    });
+    this.setState({ query: target.value });
   };
 
   render() {
-    const { visibleMovies, query } = this.state;
+    const { query } = this.state;
+
+    const visibleMovies = moviesFromServer.filter(
+      movie => movie.description.toLowerCase().includes(query.toLowerCase())
+          || movie.title.toLowerCase().includes(query.toLowerCase()),
+    );
 
     return (
       <div className="page">
