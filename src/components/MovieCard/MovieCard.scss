@@ -1,3 +1,11 @@
+.card {
+  &:hover {
+    background-color: rgb(255, 195, 139);
+    transition: all 0.5s;
+  }
+}
+
 .card-image img {
+  margin-top: 15px;
   object-fit: contain;
 }
