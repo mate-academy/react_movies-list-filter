@@ -22,16 +22,16 @@ export class App extends React.Component<{}, State> {
     const { query } = this.state;
 
     if (!query) {
-     return moviesFromServer;
-   }
-   
-   return moviesFromServer.filter(movie => {
-        const { title, description } = movie;
-        const lowerCaseQuery = query.toLowerCase();
+      return moviesFromServer;
+    }
 
-        return title.toLowerCase().includes(lowerCaseQuery)
-          || description.toLowerCase().includes(lowerCaseQuery);
-      });
+    return moviesFromServer.filter(movie => {
+      const { title, description } = movie;
+      const lowerCaseQuery = query.toLowerCase();
+
+      return title.toLowerCase().includes(lowerCaseQuery)
+        || description.toLowerCase().includes(lowerCaseQuery);
+    });
   };
 
   render() {
