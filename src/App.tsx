@@ -38,7 +38,8 @@ export class App extends React.Component<{}, State> {
                   onChange={(event) => {
                     this.setState({ query: event.target.value });
                   }}
-                  value={this.state.query}
+                  name="search-by-query"
+                  value={query}
                   type="text"
                   id="search-query"
                   className="input"
