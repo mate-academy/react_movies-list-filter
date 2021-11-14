@@ -21,17 +21,17 @@ export class App extends React.Component<{}, State> {
   getVisibleMovies = () => {
     const { query } = this.state;
 
-    if (query) {
-      return moviesFromServer.filter(movie => {
+    if (!query) {
+     return moviesFromServer;
+   }
+   
+   return moviesFromServer.filter(movie => {
         const { title, description } = movie;
         const lowerCaseQuery = query.toLowerCase();
 
         return title.toLowerCase().includes(lowerCaseQuery)
           || description.toLowerCase().includes(lowerCaseQuery);
       });
-    }
-
-    return moviesFromServer;
   };
 
   render() {
