@@ -23,6 +23,7 @@ export class App extends React.Component<{}, State> {
   search = (value:string) => {
     const newMovies = moviesFromServer.filter(item => (
       item.title.toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) > -1
+      || item.description.toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) > -1
     ));
 
     this.setState({ search: newMovies });
