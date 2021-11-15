@@ -7,6 +7,14 @@ type State = {
   query: string,
 };
 
+type Movie = {
+  title: string,
+  description: string,
+  imgUrl: string,
+  imdbUrl: string,
+  imdbId: string;
+}
+
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
@@ -18,13 +26,23 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: value.toLowerCase() });
   };
 
+  getVisibleMovies(movies: Movie[]): Movie[] {
+    const { query } = this.state;
+
+    if (query) {
+      return movies.filter(movie => (
+        movie.description.toLowerCase().includes(query)
+        || movie.title.toLowerCase().includes(query)
+      ))
+    } else {
+      return moviesFromServer;
+    }
+  }
+
   render() {
     const { query } = this.state;
 
-    const visibleMovies = moviesFromServer.filter(movie => (
-      movie.description.toLowerCase().includes(query)
-      || movie.title.toLowerCase().includes(query)
-    ));
+    const visibleMovies = this.getVisibleMovies(moviesFromServer);
 
     return (
       <div className="page">
@@ -38,7 +56,7 @@ export class App extends React.Component<{}, State> {
                   <input
                     type="text"
                     name="query"
-                    value={this.state.query}
+                    value={query}
                     onChange={this.handleChange}
                     id="search-query"
                     className="input"
@@ -49,9 +67,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={!this.state.query
-            ? moviesFromServer
-            : visibleMovies}
+          <MoviesList movies={visibleMovies}
           />
         </div>
         <div className="sidebar">
