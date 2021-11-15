@@ -8,24 +8,18 @@ type State = {
   query: string;
 };
 
-interface Event {
-  target: {
-    value: string;
-  };
-}
-
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
   };
 
-  handleChange = (event: Event) => (
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => (
     this.setState({ query: event.target.value }));
 
   render() {
     const { query } = this.state;
 
-    const visibleMovies = [...moviesFromServer].filter(
+    const visibleMovies = moviesFromServer.filter(
       movie => (
         movie.title.toLowerCase().includes(query.toLocaleLowerCase())
         || movie.description.toLowerCase().includes(query.toLocaleLowerCase())
