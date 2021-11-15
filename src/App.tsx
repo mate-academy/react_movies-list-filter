@@ -13,16 +13,16 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  render() {
-    const includesStateQuery = (title: string, description: string, query: string): boolean => {
-      return title.toLowerCase().includes(query.toLowerCase())
-        || description.toLowerCase().includes(query.toLowerCase());
-    };
+  includesStateQuery = (title: string, description: string, query: string): boolean => {
+    return title.toLowerCase().includes(query.toLowerCase())
+      || description.toLowerCase().includes(query.toLowerCase());
+  };
 
+  render() {
     const { query } = this.state;
 
     const visibleMovies = moviesFromServer
-      .filter(({ title, description }) => includesStateQuery(title, description, query));
+      .filter(({ title, description }) => this.includesStateQuery(title, description, query));
 
     return (
       <div className="page">
