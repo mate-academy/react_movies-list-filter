@@ -3,42 +3,32 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-interface Movie {
-  title: string,
-  description: string,
-  imgUrl: string,
-  imdbUrl: string,
-  imdbId: string,
-}
-
 type Props = {};
 
 interface State {
-  films: Movie[],
-  visibleFilms: Movie[] | [],
-  filterBy: string,
+  query: string,
 }
 
 export class App extends React.Component<Props, State> {
   state: State = {
-    films: moviesFromServer,
-    visibleFilms: moviesFromServer,
-    filterBy: '',
+    query: '',
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
 
-    this.setState(state => ({
-      visibleFilms: state.films.filter(
-        movie => movie.title.toLowerCase().includes(target.value.toLowerCase()),
-      ),
-      filterBy: target.value,
-    }));
+    this.setState({
+      query: target.value,
+    });
   };
 
   render() {
-    const { visibleFilms, filterBy } = this.state;
+    const { query } = this.state;
+
+    const visibleMovies = moviesFromServer.filter(
+      movie => movie.title.toLowerCase().includes(query.toLowerCase())
+      || movie.description.toLowerCase().includes(query.toLowerCase()),
+    );
 
     return (
       <div className="page">
@@ -52,14 +42,14 @@ export class App extends React.Component<Props, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={filterBy}
+                  value={query}
                   onChange={this.handleChange}
                 />
               </label>
             </div>
           </div>
 
-          <MoviesList movies={visibleFilms} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
