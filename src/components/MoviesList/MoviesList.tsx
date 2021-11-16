@@ -2,13 +2,21 @@ import './MoviesList.scss';
 import React from 'react';
 import { MovieCard } from '../MovieCard';
 
-interface Props {
-  movies: Movie[];
+interface Movie {
+  title: string,
+  description: string,
+  imgUrl: string,
+  imdbUrl: string,
+  imdbId: string,
 }
 
-export const MoviesList: React.FC<Props> = ({ movies }) => (
+interface Props {
+  visibleMovies: Movie[];
+}
+
+export const MoviesList: React.FC <Props> = ({ visibleMovies }) => (
   <div className="movies">
-    {movies.map(movie => (
+    {visibleMovies.map(movie => (
       <MovieCard key={movie.imdbId} movie={movie} />
     ))}
   </div>
