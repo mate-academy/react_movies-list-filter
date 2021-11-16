@@ -18,11 +18,17 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  moviesFinder = () => {
     const { query } = this.state;
-    const visibleMovies = [...moviesFromServer].filter((movie) => (
+
+    return moviesFromServer.filter((movie) => (
       movie.title.toLowerCase().includes(query.toLowerCase()))
       || movie.description.toLowerCase().includes(query.toLowerCase()));
+  };
+
+  render() {
+    const { query } = this.state;
+    const visibleMovies = this.moviesFinder();
 
     return (
       <div className="page">
