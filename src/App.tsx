@@ -25,7 +25,7 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const showMovies = moviesFromServer.filter(movie => {
+    const visibleMovies = moviesFromServer.filter(movie => {
       return this.includesSimilar(movie.title, movie.description);
     });
 
@@ -50,7 +50,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={showMovies} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
