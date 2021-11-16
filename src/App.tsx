@@ -13,16 +13,20 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  includesStateQuery = (title: string, description: string, query: string): boolean => {
+  includesQuery = (title: string, description: string, query: string): boolean => {
     return title.toLowerCase().includes(query.toLowerCase())
       || description.toLowerCase().includes(query.toLowerCase());
+  };
+
+  setQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ query: event.target.value });
   };
 
   render() {
     const { query } = this.state;
 
     const visibleMovies = moviesFromServer
-      .filter(({ title, description }) => this.includesStateQuery(title, description, query));
+      .filter(({ title, description }) => this.includesQuery(title, description, query));
 
     return (
       <div className="page">
@@ -35,9 +39,7 @@ export class App extends React.Component<{}, State> {
 
               <div className="control">
                 <input
-                  onChange={(event) => {
-                    this.setState({ query: event.target.value });
-                  }}
+                  onChange={this.setQuery}
                   name="search-by-query"
                   value={query}
                   type="text"
