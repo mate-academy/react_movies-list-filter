@@ -3,13 +3,11 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type Props = {};
-
 interface State {
   query: string,
 }
 
-export class App extends React.Component<Props, State> {
+export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
   };
@@ -22,12 +20,15 @@ export class App extends React.Component<Props, State> {
     });
   };
 
+  checkMovies = (...args: string[]) => {
+    return args.some(movie => movie.toLowerCase().includes(this.state.query.toLowerCase()));
+  };
+
   render() {
     const { query } = this.state;
 
     const visibleMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase()),
+      movie => this.checkMovies(movie.title, movie.description),
     );
 
     return (
