@@ -14,13 +14,13 @@ export class App extends React.Component<{}, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      query: event.target.value.toLowerCase(),
+      query: event.target.value,
     });
   };
 
   includesSimilar = (...args: string[]) => {
     return args.some(item => (
-      item.toLowerCase().includes(this.state.query)
+      item.toLowerCase().includes(this.state.query.toLowerCase())
     ));
   };
 
