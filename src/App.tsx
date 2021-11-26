@@ -33,7 +33,7 @@ export class App extends React.Component<{}, State> {
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <label htmlFor="search-query">
+              <label htmlFor="search-query" className="label">
                 Search movie
                 <div className="control">
                   <input
