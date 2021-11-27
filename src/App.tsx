@@ -20,8 +20,7 @@ export class App extends React.Component<{}, State> {
     const { query } = this.state;
 
     const visibleMovies = moviesFromServer.filter(movie => {
-      return movie.title.toUpperCase().includes(query)
-        || movie.description.toUpperCase().includes(query);
+      return (movie.title + movie.description).toUpperCase().includes(query);
     });
 
     return (
@@ -29,6 +28,7 @@ export class App extends React.Component<{}, State> {
         <div className="page-content">
           <div className="box">
             <div className="field">
+              {/* eslint-disable-next-line */}
               <label htmlFor="search-query" className="label">
                 Search movie
               </label>
