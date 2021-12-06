@@ -54,19 +54,6 @@ export class App extends React.Component<{}, State> {
                   }}
                 />
               </label>
-
-              <div className="control">
-                {/* <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  value={this.state.search}
-                  onChange={(event) => {
-                    this.setState({ search: event.target.value });
-                  }}
-                /> */}
-              </div>
             </div>
           </div>
 
