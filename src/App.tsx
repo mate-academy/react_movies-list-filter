@@ -13,8 +13,8 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  filteredMovies = () => {
-    return moviesFromServer.filter(movie => {
+  filteredMovies = (movies: Movie[]) => {
+    return movies.filter(movie => {
       const queryInLower = this.state.query.toLowerCase();
       const titleInLower = movie.title.toLowerCase();
       const decriptionInLower = movie.description.toLowerCase();
@@ -30,7 +30,7 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const visibleMovies = this.filteredMovies();
+    const visibleMovies = this.filteredMovies(moviesFromServer);
 
     return (
       <div className="page">
