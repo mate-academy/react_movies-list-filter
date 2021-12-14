@@ -38,19 +38,19 @@ export class App extends React.Component<{}, State> {
             <div className="field">
               <label htmlFor="search-query" className="label">
                 Search movie
-              </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  name="searchQuery"
-                  id="search-query"
-                  value={this.state.searchQuery}
-                  className="input"
-                  placeholder="Type search word"
-                  onChange={this.handleChange}
-                />
-              </div>
+                <div className="control">
+                  <input
+                    type="text"
+                    name="searchQuery"
+                    id="search-query"
+                    value={this.state.searchQuery}
+                    className="input"
+                    placeholder="Type search word"
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </label>
             </div>
           </div>
 
