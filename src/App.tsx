@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
-import moviesFromServer from './api/movies.json';
+import movies from './api/movies.json';
 
 type State = {
   query: string;
@@ -18,8 +18,8 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  createContent() {
-    return (moviesFromServer.filter(movie => {
+  getVisibleMovies() {
+    return (movies.filter(movie => {
       const queryLower = this.state.query.toLowerCase();
       const titleLower = movie.title.toLowerCase();
       const descriptionLower = movie.description.toLowerCase();
@@ -31,7 +31,7 @@ export class App extends React.Component<{}, State> {
   }
 
   render() {
-    const visibleMovie = this.createContent();
+    const visibleMovie = this.getVisibleMovies();
 
     return (
       <div className="page">
