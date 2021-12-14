@@ -13,6 +13,10 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
+  shouldComponentUpdate(nextProps:State) {
+    return nextProps.query !== this.state.query;
+  }
+
   render() {
     const visibleMovies = moviesFromServer.filter(movie => {
       const queryInLower = this.state.query.toLowerCase();
