@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
@@ -12,12 +13,23 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  render() {
-    const { query } = this.state;
-    const visibleMovies = moviesFromServer.filter((movie) => {
-      return movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-      || movie.description.toLocaleLowerCase().includes(query.toLocaleLowerCase());
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
     });
+  };
+
+  filterMovies = () => {
+    return (
+      moviesFromServer.filter((movie) => {
+        return movie.title.toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())
+        || movie.description.toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase());
+      })
+    );
+  };
+
+  render() {
+    const visibleMovies = this.filterMovies();
 
     return (
       <div className="page">
@@ -34,9 +46,7 @@ export class App extends React.Component<{}, State> {
                     className="input"
                     placeholder="Type search word"
                     value={this.state.query}
-                    onChange={(event) => {
-                      this.setState({ query: event.target.value });
-                    }}
+                    onChange={this.handleChange}
                   />
                 </div>
               </label>
