@@ -27,7 +27,7 @@ export class App extends React.Component<{}, State> {
       const title = movie.title.toLowerCase();
       const description = movie.description.toLowerCase();
 
-      return title.includes(query) || description.includes(query);
+      return title.includes(query.toLowerCase()) || description.includes(query.toLowerCase());
     }));
   }
 
