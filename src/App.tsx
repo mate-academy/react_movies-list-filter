@@ -12,19 +12,8 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  handleOnChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    const oneLetter = event.target.value;
-    const callback = (prevState: State) => {
-      const { query } = prevState;
-      const newQuery = query + oneLetter;
-      const result = {
-        query: newQuery,
-      };
-
-      return result;
-    };
-
-    this.setState(callback);
+  handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ query: event.target.value });
   };
 
   filterMovies = () => {
