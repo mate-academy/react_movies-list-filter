@@ -16,13 +16,19 @@ export class App extends Component<{}, State> {
     this.setState({ query: event.target.value });
   };
 
-  render() {
+  getFilteredMovies() {
     const { query } = this.state;
 
-    const filteredMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase()
-        .includes(query.toLowerCase()),
-    );
+    return (moviesFromServer.filter(movie => {
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
+
+      return title.includes(query.toLowerCase()) || description.includes(query.toLowerCase());
+    }));
+  }
+
+  render() {
+    const filteredMovies = this.getFilteredMovies();
 
     return (
       <div className="page">
@@ -36,8 +42,7 @@ export class App extends Component<{}, State> {
                     type="text"
                     id="search-query"
                     className="input"
-                    placeholder="Search"
-                    value={query}
+                    placeholder="Type search word"
                     onChange={this.onChangeHandler}
                   />
                 </div>
