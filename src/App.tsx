@@ -16,15 +16,21 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: event.target.value });
   };
 
-  render() {
-    const query = this.state.query.toLocaleLowerCase();
+  checkIncludes = () => {
+    const query = this.state.query.toLowerCase();
 
     const visibleMovies = moviesFromServer.filter(({ title, description }) => {
       const lowTitle = title.toLowerCase();
-      const lowDescr = description.toLocaleLowerCase();
+      const lowDescr = description.toLowerCase();
 
       return lowTitle.includes(query) || lowDescr.includes(query);
     });
+
+    return visibleMovies;
+  };
+
+  render() {
+    const visibleMovies = this.checkIncludes();
 
     return (
       <div className="page">
