@@ -3,33 +3,56 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+type State = {
+  query: string,
+};
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state = {
+    query: '',
+  };
+
+  changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ query: event.target.value });
+  };
+
+  checkIncludes = () => {
+    const query = this.state.query.toLowerCase();
+
+    const visibleMovies = moviesFromServer.filter(({ title, description }) => {
+      const lowTitle = title.toLowerCase();
+      const lowDescr = description.toLowerCase();
+
+      return lowTitle.includes(query) || lowDescr.includes(query);
+    });
+
+    return visibleMovies;
+  };
 
   render() {
+    const visibleMovies = this.checkIncludes();
+
     return (
       <div className="page">
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <label htmlFor="search-query" className="label">
+              <label className="label" htmlFor="search-query">
                 Search movie
+                <div className="control">
+                  <input
+                    type="text"
+                    id="search-query"
+                    className="input"
+                    placeholder="Type search word"
+                    value={this.state.query}
+                    onChange={this.changeHandler}
+                  />
+                </div>
               </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
             </div>
           </div>
-
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
