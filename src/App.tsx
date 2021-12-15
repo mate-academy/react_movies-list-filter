@@ -5,35 +5,35 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 type State = {
-  movies: Movie[],
+  query: string,
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
-    movies: [...moviesFromServer],
+    query: '',
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    this.setState({
-      movies: moviesFromServer.filter(movie => {
-        const lowerTitle = movie.title.toLowerCase();
-        const lowerDescription = movie.description.toLowerCase();
-        const lowerQuery = value.toLowerCase();
-
-        if (lowerTitle.includes(lowerQuery)
-          || lowerDescription.includes(lowerQuery)) {
-          return movie;
-        }
-
-        return undefined;
-      }),
-    });
+    this.setState({ query: value });
   };
 
   render() {
-    const { movies } = this.state;
+    const { query } = this.state;
+
+    const visibleMovies = moviesFromServer.filter(movie => {
+      const lowerTitle = movie.title.toLowerCase();
+      const lowerDescription = movie.description.toLowerCase();
+      const lowerQuery = query.toLowerCase();
+
+      if (lowerTitle.includes(lowerQuery)
+        || lowerDescription.includes(lowerQuery)) {
+        return movie;
+      }
+
+      return undefined;
+    });
 
     return (
       <div className="page">
@@ -50,13 +50,14 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
+                  value={query}
                   onChange={this.handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={movies} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
