@@ -28,9 +28,14 @@ export class App extends React.Component<{}, State> {
 
     this.setState(() => ({
       query: value,
-      films: moviesFromServer.filter(film => (
-        film.title.toLocaleLowerCase().includes(value.toLowerCase())
-        || film.description.toLowerCase().includes(value.toLowerCase()))),
+      films: moviesFromServer.filter(film => {
+        const valueLowerCase = value.toLowerCase();
+        const titleLowerCase = film.title.toLowerCase();
+        const descriptionLowerCase = film.description.toLowerCase();
+
+        return (titleLowerCase.includes(valueLowerCase)
+          || descriptionLowerCase.includes(valueLowerCase));
+      }),
     }));
   };
 
