@@ -32,7 +32,7 @@ export class App extends React.Component<{}, State> {
         return movie;
       }
 
-      return undefined;
+      return null;
     });
 
     return (
