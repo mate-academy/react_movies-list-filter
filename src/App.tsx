@@ -27,12 +27,8 @@ export class App extends React.Component<{}, State> {
       const lowerDescription = movie.description.toLowerCase();
       const lowerQuery = query.toLowerCase();
 
-      if (lowerTitle.includes(lowerQuery)
-        || lowerDescription.includes(lowerQuery)) {
-        return movie;
-      }
-
-      return null;
+      return lowerTitle.includes(lowerQuery)
+      || lowerDescription.includes(lowerQuery);
     });
 
     return (
