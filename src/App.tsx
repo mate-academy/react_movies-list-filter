@@ -21,7 +21,10 @@ export class App extends React.Component<{}, State> {
   };
 
   checkMovies = (...args: string[]) => {
-    return args.some(movie => movie.toLowerCase().includes(this.state.query.toLowerCase()));
+    const { query } = this.state;
+    const normalize = query.toLowerCase();
+
+    return args.some(movie => movie.toLowerCase().includes(normalize));
   };
 
   render() {
