@@ -44,16 +44,6 @@ export class App extends React.Component<{}, State> {
                   />
                 </div>
               </label>
-
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  onChange={(event) => this.searchQuery(event)}
-                />
-              </div>
             </div>
           </div>
 
