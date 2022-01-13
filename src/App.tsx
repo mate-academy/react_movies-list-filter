@@ -18,15 +18,15 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: value });
   };
 
-  filterMovies = () => {
+  filteredMovies = () => {
     return (
       moviesFromServer.filter((movie) => {
-        const titleToLC = movie.title.toLowerCase();
-        const descriptionToLC = movie.description.toLowerCase();
-        const queryToLC = this.state.query.toLowerCase();
+        const title = movie.title.toLowerCase();
+        const description = movie.description.toLowerCase();
+        const query = this.state.query.toLowerCase();
 
         return (
-          titleToLC.includes(queryToLC) || descriptionToLC.includes(queryToLC)
+          title.includes(query) || description.includes(query)
         );
       })
     );
@@ -34,7 +34,6 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { query } = this.state;
-    const visibleMovies = this.filterMovies();
 
     return (
       <div className="page">
@@ -57,7 +56,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={visibleMovies} />
+          <MoviesList movies={this.filteredMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
