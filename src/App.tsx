@@ -27,7 +27,7 @@ export class App extends React.Component<{}, State> {
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <form className="control">
+              <div className="control">
                 <label htmlFor="search-query" className="label">
                   Search Movie
                   <input
@@ -43,7 +43,7 @@ export class App extends React.Component<{}, State> {
                     placeholder="Type search word"
                   />
                 </label>
-              </form>
+              </div>
             </div>
           </div>
           <MoviesList movies={visibleMovies} />
