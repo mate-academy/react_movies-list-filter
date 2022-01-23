@@ -3,10 +3,33 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+interface State {
+  search: string,
+}
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state: State = {
+    search: '',
+  };
+
+  controlChanges = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({
+      search: event.currentTarget.value,
+    });
+  };
+
+  visibleMovies = () => {
+    const isTitleIncludes = (movieTitle: string) => movieTitle
+      .toLowerCase()
+      .includes(this.state.search.toLowerCase());
+
+    const isBodyIncludes = (movieBody: string) => movieBody
+      .toLowerCase()
+      .includes(this.state.search.toLowerCase());
+
+    return moviesFromServer.filter((movie) => isTitleIncludes(movie.title)
+    || isBodyIncludes(movie.description));
+  };
 
   render() {
     return (
@@ -16,20 +39,23 @@ export class App extends React.Component<{}, State> {
             <div className="field">
               <label htmlFor="search-query" className="label">
                 Search movie
-              </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
+                <div className="control">
+                  <input
+                    type="text"
+                    className="input"
+                    placeholder="Type search word"
+                    id="search-query"
+                    name="search"
+                    value={this.state.search}
+                    onChange={this.controlChanges}
+                  />
+                </div>
+              </label>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.visibleMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
