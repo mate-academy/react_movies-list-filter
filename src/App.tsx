@@ -17,12 +17,8 @@ export class App extends React.Component<{}, State> {
       const title = movie.title.toLowerCase();
       const description = movie.description.toLowerCase();
 
-      if (title.includes(this.state.query.toLowerCase())
-      || description.includes(this.state.query.toLowerCase())) {
-        return true;
-      }
-
-      return false;
+      return title.includes(this.state.query.toLowerCase())
+      || description.includes(this.state.query.toLowerCase());
     });
   };
 
