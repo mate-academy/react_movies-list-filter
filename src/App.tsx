@@ -14,9 +14,10 @@ export class App extends React.PureComponent<{}, State> {
   };
 
   handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+    const { name, value } = event.target;
+    const key = name as keyof State;
 
-    this.setState({ query: value });
+    this.setState({ [key]: value });
   };
 
   render() {
