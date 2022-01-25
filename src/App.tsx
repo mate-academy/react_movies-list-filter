@@ -42,7 +42,7 @@ export class App extends React.Component<{}, State> {
                     className="input"
                     placeholder="Type search word"
                     value={this.state.inputValue}
-                    onChange={(event) => this.changeInput(event.target.value)}
+                    onChange={event => this.changeInput(event.target.value)}
                   />
                 </div>
               </label>
