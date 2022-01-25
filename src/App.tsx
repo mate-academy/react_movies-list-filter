@@ -13,10 +13,13 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const visibleMovies = moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-      || movie.description.toLowerCase().includes(this.state.query.toLowerCase())
-    ));
+    const visibleMovies = moviesFromServer.filter(movie => {
+      const query = this.state.query.toLowerCase();
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
+
+      return title.includes(query) || description.includes(query);
+    });
 
     return (
       <div className="page">
