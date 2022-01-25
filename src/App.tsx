@@ -24,7 +24,7 @@ export class App extends React.PureComponent<{}, State> {
     const { query } = this.state;
     const visibleMovies: Movie[] = [...moviesFromServer].filter(movie => (
       movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-      || movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+      || movie.description.toLocaleLowerCase().includes(query.toLocaleLowerCase())
     ));
 
     return (
@@ -43,7 +43,6 @@ export class App extends React.PureComponent<{}, State> {
                   className="input"
                   name="query"
                   placeholder="Type search word"
-                  value={query}
                   onChange={this.handleOnChange}
                 />
               </div>
