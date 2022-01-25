@@ -22,8 +22,10 @@ export class App extends React.Component<{}, State> {
     const { query } = this.state;
 
     const visibleMovies = [...moviesFromServer].filter(movie => {
-      return movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase());
+      const lowerCaseQuery = query.toLowerCase();
+
+      return movie.title.toLowerCase().includes(lowerCaseQuery)
+        || movie.description.toLowerCase().includes(lowerCaseQuery);
     });
 
     return (
