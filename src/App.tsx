@@ -12,6 +12,15 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
+  getVisibleMovies = (movies: Movie[], str: string): Movie[] => {
+    return movies.filter(movie => {
+      const lowerCaseQuery = str.toLowerCase();
+
+      return movie.title.toLowerCase().includes(lowerCaseQuery)
+        || movie.description.toLowerCase().includes(lowerCaseQuery);
+    });
+  };
+
   changeSearchInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       query: event?.target.value,
@@ -20,13 +29,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { query } = this.state;
-
-    const visibleMovies = [...moviesFromServer].filter(movie => {
-      const lowerCaseQuery = query.toLowerCase();
-
-      return movie.title.toLowerCase().includes(lowerCaseQuery)
-        || movie.description.toLowerCase().includes(lowerCaseQuery);
-    });
+    const visibleMovies = this.getVisibleMovies(moviesFromServer, query);
 
     return (
       <div className="page">
