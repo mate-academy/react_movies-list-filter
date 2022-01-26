@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 type State = {
-  query:string;
+  query: string;
 };
 
 export class App extends React.Component<{}, State> {
@@ -18,11 +18,15 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
-    const visibleMovies = [...moviesFromServer].filter(movie => (
+  getVisibleMovies = () => {
+    return [...moviesFromServer].filter(movie => (
       movie.title.toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())
       || movie.description.toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())
     ));
+  };
+
+  render() {
+    const visibleMovies = this.getVisibleMovies();
 
     return (
       <div className="page">
