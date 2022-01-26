@@ -18,14 +18,20 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  getVisibleMovies = (movies: Movie[]) => {
     const { query } = this.state;
-    const visibleMovies = moviesFromServer.filter(movie => {
+
+    return movies.filter(movie => {
       const { title, description } = movie;
 
       return title.toLowerCase().includes(query.toLocaleLowerCase())
         || description.toLowerCase().includes(query.toLocaleLowerCase());
     });
+  };
+
+  render() {
+    const { query } = this.state;
+    const visibleMovies = this.getVisibleMovies(moviesFromServer);
 
     return (
       <div className="page">
