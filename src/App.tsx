@@ -5,13 +5,11 @@ import moviesFromServer from './api/movies.json';
 
 type State = {
   query: string,
-  movies: Movie[],
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
-    movies: moviesFromServer,
   };
 
   search = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,10 +19,9 @@ export class App extends React.Component<{}, State> {
   };
 
   filteredMovies = () => {
-    const copyMovies = [...this.state.movies];
     const query = this.state.query.toLowerCase();
 
-    return copyMovies.filter(movie => (
+    return moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(query)
       || movie.description.toLowerCase().includes(query)
     ));
