@@ -18,13 +18,24 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: event.target.value });
   };
 
+  findInTitle = (movie: Movie, query: string) => (
+    movie.title.toLowerCase().includes(query.toLowerCase())
+  );
+
+  findInDescription = (movie: Movie, query: string) => (
+    movie.description.toLowerCase().includes(query.toLowerCase())
+  );
+
+  getVisibleMovies = (movies: Movie[], query: string) => (
+    movies.filter(movie => (
+      this.findInTitle(movie, query) || this.findInDescription(movie, query)
+    ))
+  );
+
   render() {
     const { query, movies } = this.state;
 
-    const visibleMovies = movies.filter(movie => (
-      movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase())
-    ));
+    const visibleMovies = this.getVisibleMovies(movies, query);
 
     return (
       <div className="page">
