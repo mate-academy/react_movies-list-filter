@@ -12,13 +12,15 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  filterMovies = () => {
+  getFilterMovies = () => {
+    const { query } = this.state;
+
     return moviesFromServer.filter(movie => {
       const title = movie.title.toLowerCase();
       const description = movie.description.toLowerCase();
 
-      return title.includes(this.state.query.toLowerCase())
-      || description.includes(this.state.query.toLowerCase());
+      return title.includes(query.toLowerCase())
+      || description.includes(query.toLowerCase());
     });
   };
 
@@ -29,7 +31,7 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const visibleMovies = this.filterMovies();
+    const visibleMovies = this.getFilterMovies();
 
     return (
       <div className="page">
