@@ -22,6 +22,8 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
+    const visibleMovies = this.filteredMovies();
+
     return (
       <div className="page">
         <div className="page-content">
@@ -46,7 +48,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={this.filteredMovies()} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
