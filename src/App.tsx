@@ -13,19 +13,25 @@ export class App extends React.PureComponent<{}, State> {
     query: '',
   };
 
-  handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const key = name as keyof State;
 
     this.setState({ [key]: value });
   };
 
-  render() {
+  getVisibleMovies = (movies: Movie[]) => {
     const { query } = this.state;
-    const visibleMovies: Movie[] = [...moviesFromServer].filter(movie => (
+
+    return [...movies].filter(movie => (
       movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
       || movie.description.toLocaleLowerCase().includes(query.toLocaleLowerCase())
     ));
+  };
+
+  render() {
+    const { query } = this.state;
+    const visibleMovies: Movie[] = this.getVisibleMovies(moviesFromServer);
 
     return (
       <div className="page">
@@ -43,7 +49,8 @@ export class App extends React.PureComponent<{}, State> {
                   className="input"
                   name="query"
                   placeholder="Type search word"
-                  onChange={this.handleOnChange}
+                  value={query}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
