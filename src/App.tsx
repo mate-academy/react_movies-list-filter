@@ -13,10 +13,19 @@ export class App extends React.Component<{}, State> {
   };
 
   filterCallback = (movie: Movie) => {
+    const { title, description } = movie;
+    const lowerCaseQuery = this.state.query.toLowerCase();
+
     return (
-      movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-      || movie.description.toLowerCase().includes(this.state.query.toLowerCase())
+      title.toLowerCase().includes(lowerCaseQuery)
+      || description.toLowerCase().includes(lowerCaseQuery)
     );
+  };
+
+  handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
   };
 
   render() {
@@ -34,11 +43,7 @@ export class App extends React.Component<{}, State> {
                     type="text"
                     id="search-query"
                     value={this.state.query}
-                    onChange={(event) => {
-                      this.setState({
-                        query: event.target.value,
-                      });
-                    }}
+                    onChange={this.handleChangeQuery}
                     className="input"
                     placeholder="Type search word"
                   />
