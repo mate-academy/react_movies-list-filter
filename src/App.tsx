@@ -18,15 +18,17 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  movies = () => {
-    return moviesFromServer.filter(movie => {
-      return movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-      || movie.description.toLowerCase().includes(this.state.query.toLowerCase());
+  getVisibleMovies = () => {
+    return moviesFromServer.filter(({ title, description }) => {
+      const lowerCaseQuery = this.state.query.toLowerCase();
+
+      return title.toLowerCase().includes(lowerCaseQuery)
+      || description.toLowerCase().includes(lowerCaseQuery);
     });
   };
 
   render() {
-    const visibleMovies = this.movies();
+    const visibleMovies = this.getVisibleMovies();
 
     return (
 
