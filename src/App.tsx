@@ -7,20 +7,22 @@ type State = {
   query: string,
 };
 
+const getMovies = (movies: Movie[], query: string) => {
+  return [...movies].filter(({ title, description }) => {
+    const lowerCaseQuery = query.toLowerCase();
+
+    return title.toLowerCase().includes(lowerCaseQuery)
+      || description.toLowerCase().includes(lowerCaseQuery);
+  });
+};
+
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
   };
 
   render() {
-    const visibleMovies = moviesFromServer.filter((movie) => {
-      if (movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-        || movie.description.toLowerCase().includes(this.state.query.toLowerCase())) {
-        return true;
-      }
-
-      return false;
-    });
+    const visibleMovies = getMovies(moviesFromServer, this.state.query);
 
     return (
       <div className="page">
