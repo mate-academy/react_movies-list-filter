@@ -5,13 +5,11 @@ import moviesFromServer from './api/movies.json';
 
 type State = {
   query: string,
-  // movies: Movie[],
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     query: '',
-    // movies: [...moviesFromServer],
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,14 +18,20 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
+  getVisibleMovies = (movies: Movie[]) => {
+    return movies.filter(movie => {
+      const { title, description } = movie;
+      const lowerCaseQuery = this.state.query.toLowerCase();
+
+      return (
+        title.toLowerCase().includes(lowerCaseQuery)
+        || description.toLowerCase().includes(lowerCaseQuery)
+      );
+    });
+  };
+
   render() {
-    const filteredMovies = moviesFromServer
-      .filter(movie => {
-        return (
-          movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-          || movie.description.toLowerCase().includes(this.state.query.toLowerCase())
-        );
-      });
+    const filteredMovies = this.getVisibleMovies(moviesFromServer);
 
     return (
       <div className="page">
