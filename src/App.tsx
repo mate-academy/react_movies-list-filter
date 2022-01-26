@@ -6,13 +6,13 @@ import moviesFromServer from './api/movies.json';
 type Props = {};
 
 type State = {
-  allMovies: Movie[];
+  movies: Movie[];
   query: string;
 };
 
 export class App extends React.Component<Props, State> {
   state: State = {
-    allMovies: moviesFromServer,
+    movies: moviesFromServer,
     query: '',
   };
 
@@ -22,11 +22,11 @@ export class App extends React.Component<Props, State> {
     this.setState({ query: value });
   };
 
-  filtredMoves = () => {
-    const { allMovies, query } = this.state;
+  getVisibleMovies = () => {
+    const { movies, query } = this.state;
     const lowerCaseQuery = query.toLowerCase();
 
-    return allMovies.filter(
+    return movies.filter(
       movie => movie.title.toLowerCase().includes(lowerCaseQuery)
         || movie.description.toLowerCase().includes(lowerCaseQuery),
     );
@@ -34,7 +34,7 @@ export class App extends React.Component<Props, State> {
 
   render() {
     const { query } = this.state;
-    const visibleMovies = this.filtredMoves();
+    const visibleMovies = this.getVisibleMovies();
 
     return (
       <div className="page">
