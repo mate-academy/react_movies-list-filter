@@ -7,3 +7,7 @@ interface Movie {
   imdbUrl: string;
   imdbId: string;
 }
+
+type State = {
+  query: string;
+};
