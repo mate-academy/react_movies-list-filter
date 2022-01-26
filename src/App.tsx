@@ -18,13 +18,18 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: event.target.value });
   };
 
-  render() {
+  getVisibleMovies = () => {
     const { movies, query } = this.state;
+    const queryLoverCase = query.toLowerCase();
 
-    const visibleMovies = movies.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase()),
-    );
+    return movies.filter(movie => (
+      movie.description.toLowerCase().includes(queryLoverCase)
+      || movie.title.toLowerCase().includes(queryLoverCase)));
+  };
+
+  render() {
+    const { query } = this.state;
+    const visibleMovies = this.getVisibleMovies();
 
     return (
       <div className="page">
