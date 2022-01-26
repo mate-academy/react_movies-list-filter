@@ -29,16 +29,12 @@ export class App extends React.Component<{}, State> {
   getVisibleMovies = (): Movie[] => {
     const { query } = this.state;
 
-    const visibleMovies = moviesFromServer.filter(movie => {
-      if (
-        movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase())
-      ) {
-        return true;
-      }
+    const queryInLoweCase = query.toLowerCase();
 
-      return false;
-    });
+    const visibleMovies = moviesFromServer.filter(movie => (
+      movie.title.toLowerCase().includes(queryInLoweCase)
+      || movie.description.toLowerCase().includes(queryInLoweCase)
+    ));
 
     return visibleMovies;
   };
