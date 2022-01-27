@@ -12,14 +12,19 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
-  search = () => {
+  getVisibleMovies = () => {
     const { query } = this.state;
 
-    /* eslint-disable */
-    return moviesFromServer.filter(movie =>
-      movie.title.toUpperCase().includes(query.toUpperCase())
-      || movie.description.toUpperCase().includes(query.toUpperCase()));
-    /* eslint-disable */
+    return moviesFromServer.filter(
+      movie => movie.title.toUpperCase().includes(query.toUpperCase())
+      || movie.description.toUpperCase().includes(query.toUpperCase()),
+    );
+  };
+
+  setQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
   };
 
   render() {
@@ -39,17 +44,13 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.setQuery}
                 />
               </div>
             </div>
           </div>
 
-          <MoviesList movies={this.search()} />
+          <MoviesList movies={this.getVisibleMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
