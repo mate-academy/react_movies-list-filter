@@ -4,14 +4,12 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 type State = {
-  movies: Movie[];
   visibleMovies: Movie[];
   inputFilter: string;
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
-    movies: [...moviesFromServer],
     visibleMovies: [...moviesFromServer],
     inputFilter: '',
   };
@@ -19,10 +17,10 @@ export class App extends React.Component<{}, State> {
   search = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    this.setState((state) => ({
+    this.setState({
       inputFilter: value,
-      visibleMovies: this.filterMovie(state.movies, value),
-    }));
+      visibleMovies: this.filterMovie(moviesFromServer, value),
+    });
   };
 
   filterMovie = (movies: Movie[], value: string) => {
