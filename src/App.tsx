@@ -19,10 +19,12 @@ export class App extends React.Component<{}, State> {
   };
 
   getVisibleMovies = () => {
-    return [...moviesFromServer].filter(movie => (
-      movie.title.toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())
-      || movie.description.toLocaleLowerCase().includes(this.state.query.toLocaleLowerCase())
-    ));
+    return [...moviesFromServer].filter(({ title, description }) => {
+      const lowerCaseQuery = this.state.query.toLowerCase();
+
+      return title.toLowerCase().includes(lowerCaseQuery)
+        || description.toLowerCase().includes(lowerCaseQuery);
+    });
   };
 
   render() {
