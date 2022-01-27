@@ -12,6 +12,15 @@ export class App extends React.Component<{}, State> {
     searchInput: '',
   };
 
+  getVisibleMovies = (movies: Movie[], searchInput: string): Movie[] => {
+    return movies.filter(movie => {
+      const lowerCaseSearchInput = searchInput.toLowerCase();
+
+      return movie.title.toLowerCase().includes(lowerCaseSearchInput)
+        || movie.description.toLowerCase().includes(lowerCaseSearchInput);
+    });
+  };
+
   handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       searchInput: event.target.value,
@@ -20,10 +29,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { searchInput } = this.state;
-    const visibleMovies = moviesFromServer.filter(movie => {
-      return movie.title.toLowerCase().includes(searchInput.toLowerCase())
-        || movie.description.toLowerCase().includes(searchInput.toLowerCase());
-    });
+    const visibleMovies = this.getVisibleMovies(moviesFromServer, searchInput);
 
     return (
       <div className="page">
