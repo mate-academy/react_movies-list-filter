@@ -18,16 +18,20 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
-    // eslint-disable-next-line no-console
-    console.log(this.state.query);
+  getVisibleMovies = () => {
+    const lowerCaseQuery = this.state.query.toLowerCase();
 
+    return (
+      moviesFromServer.filter(({ title, description }) => {
+        return title.toLowerCase().includes(lowerCaseQuery)
+        || description.toLowerCase().includes(lowerCaseQuery);
+      }));
+  };
+
+  render() {
     const { query } = this.state;
 
-    const visibleMovies = moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase())
-    ));
+    const visibleMovies = this.getVisibleMovies();
 
     return (
       <div className="page">
@@ -40,7 +44,7 @@ export class App extends React.Component<{}, State> {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={this.state.query}
+                  value={query}
                   onChange={this.changeHandler}
                 />
               </div>
