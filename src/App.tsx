@@ -6,38 +6,28 @@ import { MoviesList } from './components/MoviesList';
 
 type State = {
   inputValue: string,
-  filteredMovies: Movie[],
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     inputValue: '',
-    filteredMovies: moviesFromServer,
   };
 
-  changeInput = (text: string) => {
-    this.setState({ inputValue: text });
+  changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
 
-    this.getFilteredMovies();
+    this.setState({ inputValue: value });
   };
 
-  getFilteredMovies = () => {
-    const { inputValue } = this.state;
-
-    this.setState({
-      filteredMovies: moviesFromServer.filter(movie => {
-        if (movie.title.toLowerCase().includes(inputValue.toLowerCase())
-        || movie.description.toLowerCase().includes(inputValue.toLowerCase())) {
-          return movie;
-        }
-
-        return false;
-      }),
-    });
+  getFilteredMovies = (inputValue: string) => {
+    return (moviesFromServer.filter(movie => movie.title.toLowerCase()
+      .includes(inputValue.toLowerCase())
+      || movie.description.toLowerCase().includes(inputValue.toLowerCase())) || null);
   };
 
   render() {
-    const { filteredMovies } = this.state;
+    const { inputValue } = this.state;
+    const moviesToShow = this.getFilteredMovies(inputValue);
 
     return (
       <div className="page">
@@ -52,15 +42,15 @@ export class App extends React.Component<{}, State> {
                     id="search-query"
                     className="input"
                     placeholder="Type search word"
-                    value={this.state.inputValue}
-                    onChange={event => this.changeInput(event.target.value)}
+                    value={inputValue}
+                    onChange={this.changeInput}
                   />
                 </div>
               </label>
             </div>
           </div>
 
-          <MoviesList movies={filteredMovies} />
+          <MoviesList movies={moviesToShow} />
         </div>
         <div className="sidebar">
           Sidebar goes here
