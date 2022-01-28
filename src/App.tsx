@@ -15,9 +15,6 @@ export class App extends React.Component<{}, State> {
   getFilteredMovies = () => {
     const lowerCaseSearchWord = this.state.searchWord.toLocaleLowerCase();
 
-    // eslint-disable-next-line no-console
-    console.log(this.state.searchWord);
-
     return moviesFromServer.filter(
       movie => movie.title.toLowerCase().includes(lowerCaseSearchWord)
       || movie.description.toLowerCase().includes(lowerCaseSearchWord),
