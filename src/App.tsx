@@ -12,17 +12,26 @@ export class App extends React.Component<{}, State> {
     searchWord: '',
   };
 
-  filteredMovies = () => {
-    const { searchWord } = this.state;
+  getFilteredMovies = () => {
+    const lowerCaseSearchWord = this.state.searchWord.toLocaleLowerCase();
+
+    // eslint-disable-next-line no-console
+    console.log(this.state.searchWord);
 
     return moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(searchWord.toLocaleLowerCase())
-      || movie.description.toLowerCase().includes(searchWord.toLocaleLowerCase()),
+      movie => movie.title.toLowerCase().includes(lowerCaseSearchWord)
+      || movie.description.toLowerCase().includes(lowerCaseSearchWord),
     );
   };
 
+  searchBarHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      searchWord: event?.target.value,
+    });
+  }
+
   render() {
-    const visibleMovies = this.filteredMovies();
+    const visibleMovies = this.getFilteredMovies();
 
     return (
       <div className="page">
@@ -36,9 +45,7 @@ export class App extends React.Component<{}, State> {
                     type="text"
                     id="search-query"
                     onChange={(event) => {
-                      this.setState({
-                        searchWord: event?.target.value,
-                      });
+                      this.searchBarHandler(event);
                     }}
                     className="input"
                     placeholder="Type search word"
