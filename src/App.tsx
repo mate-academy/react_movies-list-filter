@@ -18,7 +18,7 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  visibleMovies = () => {
+  getVisibleMovies = () => {
     return (
       moviesFromServer.filter(
         movie => movie.title.toLowerCase().includes(this.state.query)
@@ -27,6 +27,8 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
+    const visibleMovies = this.getVisibleMovies();
+
     return (
       <div className="page">
         <div className="page-content">
@@ -48,7 +50,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={this.visibleMovies()} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
