@@ -3,10 +3,30 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+type State = {
+  query: string,
+};
 
 export class App extends React.Component<{}, State> {
-  state: State = {};
+  state: State = {
+    query: '',
+  };
+
+  handleChange = (event: React.FormEvent<HTMLInputElement>) => this.setState({
+    query: event.currentTarget.value,
+  });
+
+  isIncludes = (text: string) => text.toLowerCase().includes(this.state.query.toLowerCase());
+
+  visibleMovies = () => {
+    const isTitleFind = (title: string) => this.isIncludes(title);
+
+    const isDescriptionFind = (description: string) => description.toLowerCase()
+      .includes(this.state.query.toLowerCase());
+
+    return moviesFromServer.filter((movie) => isTitleFind(movie.title)
+      || isDescriptionFind(movie.description));
+  };
 
   render() {
     return (
@@ -16,20 +36,23 @@ export class App extends React.Component<{}, State> {
             <div className="field">
               <label htmlFor="search-query" className="label">
                 Search movie
-              </label>
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
+                <div className="control">
+                  <input
+                    type="text"
+                    id="search-query"
+                    className="input"
+                    placeholder="Type search word"
+                    name="query"
+                    value={this.state.query}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </label>
             </div>
           </div>
 
-          <MoviesList movies={moviesFromServer} />
+          <MoviesList movies={this.visibleMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
