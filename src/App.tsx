@@ -21,8 +21,7 @@ export class App extends React.Component<{}, State> {
   visibleMovies = () => {
     const isTitleFind = (title: string) => this.isIncludes(title);
 
-    const isDescriptionFind = (description: string) => description.toLowerCase()
-      .includes(this.state.query.toLowerCase());
+    const isDescriptionFind = (description: string) => this.isIncludes(description);
 
     return moviesFromServer.filter((movie) => isTitleFind(movie.title)
       || isDescriptionFind(movie.description));
