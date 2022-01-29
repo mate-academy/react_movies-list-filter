@@ -29,7 +29,7 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const visibleMovies = this.getVisibleMovies;
+    const visibleMovies = this.getVisibleMovies();
 
     return (
       <div className="page">
