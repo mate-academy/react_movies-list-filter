@@ -18,21 +18,19 @@ export class App extends React.Component<{}, State> {
     this.setState({ query: input });
   };
 
-  getCorrectMovies = (movies: Movie[]) => {
+  getVisibleMovies = (movies: Movie[]) => {
     const queryLower = this.state.query.toLowerCase();
     const correctMovies = movies.filter(movie => {
-      if (movie.title.toLowerCase().includes(queryLower)
-        || movie.description.toLowerCase().includes(queryLower)) {
-        return true;
-      }
-
-      return false;
+      return movie.title.toLowerCase().includes(queryLower)
+        || movie.description.toLowerCase().includes(queryLower);
     });
 
     return correctMovies;
   };
 
   render() {
+    const visibleMovies = this.getVisibleMovies(moviesFromServer);
+
     return (
       <div className="page">
         <div className="page-content">
@@ -56,7 +54,7 @@ export class App extends React.Component<{}, State> {
             </div>
           </div>
 
-          <MoviesList movies={this.getCorrectMovies(moviesFromServer)} />
+          <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
           Sidebar goes here
