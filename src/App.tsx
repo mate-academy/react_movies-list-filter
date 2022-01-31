@@ -5,34 +5,28 @@ import moviesFromServer from './api/movies.json';
 
 type State = {
   query: string;
-  filteredMovies: Movie[],
 };
 
 export class App extends React.PureComponent<{}, State> {
   state: State = {
     query: '',
-    filteredMovies: [...moviesFromServer],
   };
 
-  changeInput = (someText: string) => {
-    this.setState({ query: someText });
-
-    this.getFilteredMovies();
+  changeInput = (query: string) => {
+    this.setState({ query });
   };
 
   getFilteredMovies = () => {
     const { query } = this.state;
+    const queryToLowerCase: string = query.toLowerCase();
 
-    this.setState({
-      filteredMovies: moviesFromServer.filter(movie => movie.title.toLowerCase()
-        .includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase())),
-
-    });
+    return moviesFromServer.filter(movie => movie.title.toLowerCase().includes(queryToLowerCase)
+    || movie.description.toLowerCase().includes(queryToLowerCase));
   };
 
   render() {
-    const { query, filteredMovies } = this.state;
+    const { query } = this.state;
+    const filteredMovies = this.getFilteredMovies();
 
     return (
       <div className="page">
