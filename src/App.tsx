@@ -19,15 +19,17 @@ export class App extends React.Component<{}, State> {
     this.setState({ inputValue: value });
   };
 
-  getFilteredMovies = (inputValue: string) => {
-    return (moviesFromServer.filter(movie => movie.title.toLowerCase()
-      .includes(inputValue.toLowerCase())
-      || movie.description.toLowerCase().includes(inputValue.toLowerCase())) || null);
+  getFilteredMovies = () => {
+    const input = this.state.inputValue.toLowerCase();
+
+    return moviesFromServer.filter(movie => (
+      movie.title.toLowerCase().includes(input) || movie.description.toLowerCase().includes(input)
+    ));
   };
 
   render() {
     const { inputValue } = this.state;
-    const moviesToShow = this.getFilteredMovies(inputValue);
+    const moviesToShow = this.getFilteredMovies();
 
     return (
       <div className="page">
