@@ -18,9 +18,10 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  getVisibleMovies = (movies: Movie[]) => {
     const { query } = this.state;
-    const visibleMovies = moviesFromServer.filter((value) => {
+
+    return movies.filter((value) => {
       const title = value.title.toLowerCase();
       const description = value.description.toLowerCase();
       const lowerCaseQuery = query.toLowerCase();
@@ -31,6 +32,10 @@ export class App extends React.Component<{}, State> {
 
       return false;
     });
+  };
+
+  render() {
+    const visibleMovies = this.getVisibleMovies(moviesFromServer);
 
     return (
       <div className="page">
@@ -52,7 +57,6 @@ export class App extends React.Component<{}, State> {
               </label>
             </div>
           </div>
-
           <MoviesList movies={visibleMovies} />
         </div>
         <div className="sidebar">
