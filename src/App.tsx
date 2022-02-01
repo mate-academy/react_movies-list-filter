@@ -14,16 +14,22 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
+  handleMovieChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
+  };
+
   getVisibleMovies = () => {
+    const searchQuery = this.state.query.toLowerCase();
+
     return this.state.movies.filter(
-      movie => movie.title.toLowerCase().includes(this.state.query.toLowerCase())
-      || movie.description.toLowerCase().includes(this.state.query.toLowerCase()),
+      movie => movie.title.toLowerCase().includes(searchQuery)
+      || movie.description.toLowerCase().includes(searchQuery),
     );
   };
 
   render() {
-    const visibleMovies = this.getVisibleMovies();
-
     return (
       <div className="page">
         <div className="page-content">
@@ -37,17 +43,13 @@ export class App extends React.Component<{}, State> {
                   className="input"
                   placeholder="Type search word"
                   value={this.state.query}
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
+                  onChange={this.handleMovieChange}
                 />
               </label>
             </div>
           </div>
 
-          <MoviesList movies={visibleMovies} />
+          <MoviesList movies={this.getVisibleMovies()} />
         </div>
         <div className="sidebar">
           Sidebar goes here
