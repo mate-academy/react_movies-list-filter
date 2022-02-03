@@ -12,12 +12,24 @@ export class App extends React.Component<{}, State> {
     query: '',
   };
 
+  inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      query: event.target.value,
+    });
+  };
+
+  filterMovies = (movies: Movie[]) => {
+    this.state.query.toLowerCase();
+
+    return movies.filter(
+      movie => movie.title.toLowerCase().includes(this.state.query)
+    || movie.description.toLowerCase().includes(this.state.query),
+    );
+  };
+
   render() {
     const { query } = this.state;
-    const visibleMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase()),
-    );
+    const visibleMovies = this.filterMovies(moviesFromServer);
 
     return (
       <div className="page">
@@ -33,9 +45,7 @@ export class App extends React.Component<{}, State> {
                     className="input"
                     placeholder="Type search word"
                     value={query}
-                    onChange={(event) => {
-                      this.setState({ query: event.target.value });
-                    }}
+                    onChange={this.inputHandler}
                   />
                 </div>
               </label>
