@@ -20,11 +20,11 @@ export class App extends React.Component<{}, State> {
 
   getVisibleMovies = (movies: Movie[]) => {
     const { query } = this.state;
+    const lowerCaseQuery = query.toLowerCase();
 
     return movies.filter((value) => {
       const title = value.title.toLowerCase();
       const description = value.description.toLowerCase();
-      const lowerCaseQuery = query.toLowerCase();
 
       if (title.includes(lowerCaseQuery) || description.includes(lowerCaseQuery)) {
         return true;
