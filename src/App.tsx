@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
@@ -25,14 +26,14 @@ export class App extends React.Component<{}, State> {
         <div className="page-content">
           <div className="box">
             <div className="field">
-              <label htmlFor="search-query" className="label">
+              <label htmlFor={query} className="label">
                 Search movie
               </label>
 
               <div className="control">
                 <input
                   type="text"
-                  id="search-query"
+                  id={query}
                   className="input"
                   placeholder="Type search word"
                   value={query}
