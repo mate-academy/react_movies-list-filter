@@ -9,7 +9,7 @@ export const App: React.FC = () => {
 
   const visibleMovies = moviesFromServer.filter(movie => {
     return movie.title.toLowerCase().includes(query.toLowerCase())
-  || movie.description.toLowerCase().includes(query.toLowerCase());
+    || movie.description.toLowerCase().includes(query.toLowerCase());
   });
 
   return (
@@ -17,14 +17,14 @@ export const App: React.FC = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            <label htmlFor={query} className="label">
+            <label htmlFor="query" className="label">
               Search movie
             </label>
 
             <div className="control">
               <input
                 type="text"
-                id={query}
+                id="query"
                 className="input"
                 placeholder="Type search word"
                 value={query}
