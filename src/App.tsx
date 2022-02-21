@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -15,13 +15,9 @@ function getVisibleMovies(movies: Movie[], query: string) {
 
 export function App() {
   const [query, setQuery] = useState('');
-  const [movies, setMovies] = useState(moviesFromServer);
+  const [movies] = useState(moviesFromServer);
 
   const visibleMovies = getVisibleMovies(movies, query);
-
-  useEffect(() => {
-    setMovies(moviesFromServer);
-  }, [query]);
 
   return (
     <div className="page">
