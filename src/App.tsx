@@ -6,7 +6,15 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [visibleFilms, setFilms] = useState([...moviesFromServer]);
+  const [visibleFilms, setvisibleFilms] = useState([...moviesFromServer]);
+  const filt = (keyWord: string) => {
+    setvisibleFilms([...moviesFromServer].filter((movie) => {
+      const { title, description } = movie;
+
+      return title.toLocaleLowerCase().includes(keyWord.toLowerCase())
+        || description.toLowerCase().includes(keyWord.toLowerCase());
+    }));
+  };
 
   return (
     <div className="page">
@@ -26,13 +34,7 @@ export const App: React.FC = () => {
                     const keyWord = event.target.value;
 
                     setQuery(keyWord);
-                    setFilms([...moviesFromServer]
-                      .filter(movie => {
-                        const { title, description } = movie;
-
-                        return title.toLowerCase().includes(keyWord.toLowerCase())
-                        || description.toLowerCase().includes(keyWord.toLowerCase());
-                      }));
+                    filt(keyWord);
                   }}
                 />
               </label>
