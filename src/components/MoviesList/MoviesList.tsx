@@ -11,8 +11,8 @@ export const MoviesList: React.FC<Props> = ({ movies, visibleMovies }) => (
   <div className="movies">
     {movies.filter(mov => {
       const visibleMovie = visibleMovies.toLowerCase();
-      const titleMov = mov.title.toLowerCase();
-      const descriptionMov = mov.description.toLowerCase();
+      const titleMovie = movie.title.toLowerCase();
+      const descriptionMovie = movie.description.toLowerCase();
 
       return titleMov.includes(visibleMov) || descriptionMov.includes(visibleMov);
     })
