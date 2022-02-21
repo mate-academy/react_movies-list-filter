@@ -10,7 +10,7 @@ interface Props {
 export const MoviesList: React.FC<Props> = ({ movies, visibleMovies }) => (
   <div className="movies">
     {movies.filter(mov => {
-      const visibleMov = visibleMovies.toLowerCase();
+      const visibleMovie = visibleMovies.toLowerCase();
       const titleMov = mov.title.toLowerCase();
       const descriptionMov = mov.description.toLowerCase();
 
