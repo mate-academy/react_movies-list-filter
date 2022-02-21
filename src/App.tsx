@@ -5,14 +5,23 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState<string>('');
+  const [visibleMovies, setVisibleMovies] = useState<Movie[]>(moviesFromServer);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+    const { value } = event.target;
+
+    setQuery(value);
+    setVisibleMovies(() => moviesFromServer.filter((movie) => {
+      const { title, description } = movie;
+
+      return title.toLowerCase().includes(value.toLowerCase())
+      || description.toLowerCase().includes(value.toLowerCase());
+    }));
   };
 
   const keyPressHandler = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      setSearch('');
+      setQuery('');
     }
   };
 
@@ -32,7 +41,7 @@ export const App: React.FC = () => {
                   id="search-query"
                   className="input"
                   placeholder="Type search word"
-                  value={search}
+                  value={query}
                   onChange={changeHandler}
                   onKeyPress={keyPressHandler}
                 />
@@ -41,10 +50,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={moviesFromServer}
-          visibleMovies={search}
-        />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
