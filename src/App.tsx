@@ -1,40 +1,57 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+function getVisibleMovies(movies: Movie[], query: string) {
+  const lowQuery = query.toLowerCase();
+  const visibleMovies = movies
+    .filter((movie) => movie.title.toLowerCase().includes(lowQuery)
+    || movie.description.toLowerCase().includes(lowQuery));
 
-export class App extends React.Component<{}, State> {
-  state: State = {};
+  return visibleMovies;
+}
 
-  render() {
-    return (
-      <div className="page">
-        <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
+export function App() {
+  const [query, setQuery] = useState('');
+  const [movies, setMovies] = useState(moviesFromServer);
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                />
-              </div>
+  const visibleMovies = getVisibleMovies(movies, query);
+
+  useEffect(() => {
+    setMovies(moviesFromServer);
+  }, [query]);
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                value={query}
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setQuery(event.currentTarget.value);
+                }}
+              />
             </div>
           </div>
+        </div>
 
-          <MoviesList movies={moviesFromServer} />
-        </div>
-        <div className="sidebar">
-          Sidebar goes here
-        </div>
+        <MoviesList movies={visibleMovies} />
       </div>
-    );
-  }
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
+    </div>
+  );
 }
