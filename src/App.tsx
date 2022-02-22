@@ -3,7 +3,7 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(movie => {
@@ -49,5 +49,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;
