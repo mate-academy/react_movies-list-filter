@@ -12,7 +12,7 @@ export const App: React.FC = () => {
     || movie.description.toLowerCase().includes(query.toLowerCase())),
   );
 
-  const handler = (event: React.MouseEvent<HTMLInputElement>) => {
+  const handler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
