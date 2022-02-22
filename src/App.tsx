@@ -1,57 +1,54 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {
-  query: string,
-};
+export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
 
-export class App extends React.Component<{}, State> {
-  state: State = {
-    query: '',
-  };
+  const visibleMovies = moviesFromServer.filter(
+    movie => {
+      const lowerQuery = query.toLowerCase();
+      const lowerTitle = movie.title.toLowerCase();
+      const lowerDescription = movie.description.toLowerCase();
 
-  render() {
-    const { query } = this.state;
-    const visibleMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase()),
-    );
+      const title = lowerTitle.includes(lowerQuery);
+      const description = lowerDescription.includes(lowerQuery);
 
-    return (
-      <div className="page">
-        <div className="page-content">
-          <div className="box">
-            <div className="field">
-              <label htmlFor="search-query" className="label">
-                Search movie
-              </label>
+      return title || description;
+    },
+  );
 
-              <div className="control">
-                <input
-                  type="text"
-                  id="search-query"
-                  className="input"
-                  placeholder="Type search word"
-                  value={query}
-                  onChange={(event) => {
-                    this.setState({
-                      query: event.target.value,
-                    });
-                  }}
-                />
-              </div>
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                value={query}
+                onChange={(
+                  event: React.ChangeEvent<HTMLInputElement>,
+                ) => setQuery(event.target.value)}
+              />
             </div>
           </div>
+        </div>
 
-          <MoviesList movies={visibleMovies} />
-        </div>
-        <div className="sidebar">
-          Sidebar goes here
-        </div>
+        <MoviesList movies={visibleMovies} />
       </div>
-    );
-  }
-}
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
+    </div>
+  );
+};
