@@ -4,6 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(movie => (
@@ -28,14 +29,18 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+
                 value={query}
                 onChange={(el) => setQuery(el.target.value)}
+
               />
             </div>
           </div>
         </div>
 
+
         <MoviesList movies={visibleMovies} />
+
       </div>
       <div className="sidebar">
         Sidebar goes here
