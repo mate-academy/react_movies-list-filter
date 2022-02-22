@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import './App.scss';
+// import './App.scss';
 import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
 
