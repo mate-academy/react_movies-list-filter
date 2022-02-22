@@ -5,12 +5,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getVisibleMovies(movies: Movie[], query: string): Movie[] {
-  const queryLower = query.toLowerCase();
+  const lowerCaseQuery = query.toLowerCase();
 
-  return movies.filter(m => (
-    m.title.toLowerCase().includes(queryLower)
-    || m.description.toLowerCase().includes(queryLower)
-  ));
+  return movies.filter(m => {
+    const lowerCaseTitle = m.title.toLowerCase();
+    const lowerCaseDesc = m.description.toLowerCase();
+
+    return lowerCaseTitle.includes(lowerCaseQuery)
+    || lowerCaseDesc.includes(lowerCaseQuery);
+  });
 }
 
 export const App: React.FC = () => {
