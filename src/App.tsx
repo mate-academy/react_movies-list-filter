@@ -6,9 +6,14 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  // eslint-disable-next-line max-len
-  const visibleMovies = moviesFromServer.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase()));
+  const visibleMovies = moviesFromServer.filter(
+    movie => movie.title.toLowerCase().includes(query.toLowerCase())
+    || movie.description.toLowerCase().includes(query.toLowerCase()),
+  );
+
+  const handler = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -23,7 +28,7 @@ export const App: React.FC = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={handler}
                 type="text"
                 id="search-query"
                 className="input"
