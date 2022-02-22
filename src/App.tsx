@@ -10,26 +10,12 @@ export const App: React.FC = () => {
     setQuery(event.target.value);
   };
 
-  const filterMovie = () => {
-    const filteredMovie = moviesFromServer.filter(movie => {
-      const { title, description } = movie;
-      const upQuery = query.toUpperCase();
-      const upTitle = title.toUpperCase();
-      const upDescription = description.toUpperCase();
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const { title, description } = movie;
 
-      if (upQuery.length === 0) {
-        return true;
-      }
-
-      if (upTitle.includes(upQuery) || upDescription.includes(upQuery)) {
-        return true;
-      }
-
-      return false;
-    });
-
-    return filteredMovie;
-  };
+    return title.toLowerCase().includes(query.toLowerCase())
+      || description.toLowerCase().includes(query.toLowerCase());
+  });
 
   return (
     <div className="page">
@@ -53,7 +39,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={filterMovie()} />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
