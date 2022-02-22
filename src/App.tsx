@@ -7,7 +7,7 @@ import { MoviesList } from './components/MoviesList';
 const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const VisibleMovieFromServer = () => {
+  const filteredMovieFromServer = () => {
     const filteredMoviesList
       = moviesFromServer.filter((movie: Movie) => {
         const { title, description } = movie;
@@ -53,7 +53,7 @@ const App: React.FC = () => {
           </div>
         </div>
         <MoviesList
-          movies={VisibleMovieFromServer()}
+          movies={filteredMovieFromServer()}
         />
       </div>
       <div className="sidebar">
