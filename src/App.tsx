@@ -7,11 +7,12 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(
-    movie => movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase()),
+    movie => (
+      movie.title.toLowerCase().includes(query.toLowerCase())
+    || movie.description.toLowerCase().includes(query.toLowerCase())),
   );
 
-  const handler = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const handler = (event: React.MouseEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
