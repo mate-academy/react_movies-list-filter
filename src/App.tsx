@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const filteredMovieFromServer = () => {
@@ -62,5 +62,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;
