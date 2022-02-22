@@ -1,15 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { MoviesList } from './components/MoviesList';
 
 const App: React.FC = () => {
   const [query, setQuery] = useState('');
-
-  const Search = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
 
   const VisibleMovieFromServer = () => {
     const filteredMoviesList
@@ -29,6 +25,10 @@ const App: React.FC = () => {
       });
 
     return filteredMoviesList;
+  };
+
+  const Search = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
   };
 
   return (
