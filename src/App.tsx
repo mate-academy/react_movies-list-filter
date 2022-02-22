@@ -1,40 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {};
+export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = moviesFromServer.filter(({ description, title }) => {
+    const normDesc = description.toLowerCase();
+    const normTitle = title.toLowerCase();
+    const normQuery = query.toLowerCase();
 
-export class App extends React.Component<{}, State> {
-  state: State = {};
+    return (normDesc.includes(normQuery) || normTitle.includes(normQuery));
+  });
 
-  render() {
-    return (
-      <div className="page">
-        <div className="page-content">
-          <div className="box">
-            <div className="field">
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            <div className="control">
               <label htmlFor="search-query" className="label">
                 Search movie
-              </label>
 
-              <div className="control">
                 <input
                   type="text"
                   id="search-query"
+                  name="search-query"
+                  value={query}
+                  onChange={(event) => (
+                    setQuery(event.target.value)
+                  )}
                   className="input"
                   placeholder="Type search word"
                 />
-              </div>
+              </label>
             </div>
           </div>
+        </div>
 
-          <MoviesList movies={moviesFromServer} />
-        </div>
-        <div className="sidebar">
-          Sidebar goes here
-        </div>
+        <MoviesList movies={visibleMovies} />
       </div>
-    );
-  }
-}
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
+    </div>
+  );
+};
