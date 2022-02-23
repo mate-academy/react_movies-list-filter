@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
@@ -7,28 +6,15 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const movieSearch = (event: any) => {
+  const visibleMovies = moviesFromServer.filter(movie => {
+    return (
+      movie.title.toLowerCase().includes(query.toLowerCase())
+      || movie.description.toLowerCase().includes(query.toLowerCase())
+    );
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
-  };
-
-  const filterMovieFromServer = () => {
-    const filteredMoviesList
-      = moviesFromServer.filter((movie: Movie) => {
-        const { title, description } = movie;
-
-        if (query.length === 0) {
-          return true;
-        }
-
-        if (title.toLowerCase().includes(query.trim().toLowerCase())
-          || description.toLowerCase().includes(query.trim().toLowerCase())) {
-          return true;
-        }
-
-        return false;
-      });
-
-    return filteredMoviesList;
   };
 
   return (
@@ -38,24 +24,21 @@ export const App: React.FC = () => {
           <div className="field">
             <label htmlFor="search-query" className="label">
               Search movie
+              <div className="control">
+                <input
+                  type="text"
+                  id="search-query"
+                  className="input"
+                  placeholder="Type search word"
+                  value={query}
+                  onChange={handleChange}
+                />
+              </div>
             </label>
-
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-                value={query}
-                onChange={movieSearch}
-              />
-            </div>
           </div>
         </div>
 
-        <MoviesList
-          movies={filterMovieFromServer()}
-        />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
