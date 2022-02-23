@@ -6,6 +6,10 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  function updateQuerty(event: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(event.target.value);
+  }
+
   return (
     <div className="page">
       <div className="page-content">
@@ -23,9 +27,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={(event) => updateQuerty(event)}
               />
             </div>
           </div>
