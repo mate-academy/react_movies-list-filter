@@ -9,11 +9,7 @@ export const App: React.FC = () => {
   // Optional list to render
   const visibleMovies = moviesFromServer
     .filter(movie => (
-      movie.title
-        .toLowerCase()
-        .includes(searchValue.toLowerCase())
-
-      || movie.description
+      (movie.title + movie.description)
         .toLowerCase()
         .includes(searchValue.toLowerCase())
     ));
