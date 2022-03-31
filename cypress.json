@@ -2,7 +2,6 @@
   "baseUrl": "http://localhost:3000",
   "video": true,
   "pluginsFile": false,
-  "supportFile": false,
   "viewportHeight": 1920,
   "viewportWidth": 1080,
   "screenshotOnRunFailure": true,

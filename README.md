@@ -10,3 +10,9 @@ You are given movies list and a search field. Implement filtering using a `useSt
 2. Create a `visibleMovies` variable in with the filtered movies
 3. Check if `movie.title` or `movie.description` contains `query`
 4. Search should be case insensitive (`Inception` can be found by entering `inc` or `Inc` or even `iNC`)
+
+## REQUIREMENTS
+- `search field` should have `data-cy="search-field"` attribute  
+- `movie-card` should have `data-cy="movie-card"` attribute
+- `movies titles` should have `data-cy="movie-title"` attribute  
+- `movies content` should have `data-cy="movie-content"` attribute
