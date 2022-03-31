@@ -1,32 +1,50 @@
-import React from 'react';
 import './App.scss';
+import { ChangeEvent, FC, useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
+export const App: FC = () => {
+  const [query, setQuery] = useState('');
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
+  const visibleMovies
+      = moviesFromServer.filter(({ title, description }) => {
+        const lowerCaseQuery = query.toLowerCase();
+        const lowerCaseTitle = title.toLowerCase();
+        const lowerCaseDescription = description.toLowerCase();
+
+        return lowerCaseTitle.includes(lowerCaseQuery)
+        || lowerCaseDescription.includes(lowerCaseQuery);
+      });
+
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
-            </label>
 
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-              />
-            </div>
+              <div className="control">
+                <input
+                  type="text"
+                  id="search-query"
+                  className="input"
+                  placeholder="Type search word"
+                  value={query}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
+
       <div className="sidebar">
         Sidebar goes here
       </div>
