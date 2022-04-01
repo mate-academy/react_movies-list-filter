@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,28 +6,24 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
 
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setSearchValue(value);
   };
 
-  const toFilterMovies = () => {
-    return moviesFromServer.filter(movie => {
+  const toFilterMovies = useMemo(() => (
+    moviesFromServer.filter(movie => {
       const title = movie.title.toLowerCase();
       const description = movie.description.toLowerCase();
       const query = searchValue.toLowerCase();
 
-      if (title.includes(query) || description.includes(query)) {
-        return true;
-      }
-
-      return false;
-    });
-  };
+      return title.includes(query) || description.includes(query);
+    })
+  ), [searchValue]);
 
   const visibleMovies = searchValue
-    ? toFilterMovies()
+    ? toFilterMovies
     : moviesFromServer;
 
   return (
@@ -47,7 +43,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={searchValue}
-                onChange={changeHandler}
+                onChange={handleChange}
               />
             </div>
           </div>
