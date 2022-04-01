@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import { Movie } from './types/Movie';
 
@@ -17,13 +17,11 @@ export const App: React.FC = () => {
     setVisibleMovies(moviesFromServer);
   }, []);
 
-  const filterList = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-
-    setVisibleMovies([...moviesFromServer].filter((movie) => {
+  const filterList = (value: string) => {
+    setVisibleMovies(moviesFromServer.filter((movie) => {
       const title = singleCaseQuery(movie.title);
       const description = singleCaseQuery(movie.description);
-      const searchValue = singleCaseQuery(event.target.value);
+      const searchValue = singleCaseQuery(value);
 
       return title.includes(searchValue) || description.includes(searchValue);
     }));
@@ -46,7 +44,12 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={filterList}
+                onChange={(event) => {
+                  const { value } = event.target;
+
+                  filterList(value);
+                  setQuery(value);
+                }}
               />
             </div>
           </div>
