@@ -1,24 +1,30 @@
 import './App.scss';
-import { ChangeEvent, FC, useState } from 'react';
+import { debounce } from 'lodash';
+import {
+  FC, useState, useMemo, useCallback, memo,
+} from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: FC = () => {
+export const App: FC = memo(() => {
   const [query, setQuery] = useState('');
+  const [appliedQuery, setAppliedQuery] = useState('');
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
+  const applyQuery = useCallback(
+    debounce(setAppliedQuery, 1000),
+    [],
+  );
 
-  const visibleMovies
-      = moviesFromServer.filter(({ title, description }) => {
-        const lowerCaseQuery = query.toLowerCase();
-        const lowerCaseTitle = title.toLowerCase();
-        const lowerCaseDescription = description.toLowerCase();
+  const visibleMovies = useMemo(
+    () => moviesFromServer.filter(({ title, description }) => {
+      const lowerCaseQuery = query.toLowerCase();
+      const lowerCaseTitle = title.toLowerCase();
+      const lowerCaseDescription = description.toLowerCase();
 
-        return lowerCaseTitle.includes(lowerCaseQuery)
+      return lowerCaseTitle.includes(lowerCaseQuery)
         || lowerCaseDescription.includes(lowerCaseQuery);
-      });
+    }), [appliedQuery],
+  );
 
   return (
     <div className="page">
@@ -35,7 +41,10 @@ export const App: FC = () => {
                   className="input"
                   placeholder="Type search word"
                   value={query}
-                  onChange={handleInputChange}
+                  onChange={(({ target }) => {
+                    setQuery(target.value);
+                    applyQuery(target.value);
+                  })}
                 />
               </div>
             </label>
@@ -50,4 +59,4 @@ export const App: FC = () => {
       </div>
     </div>
   );
-};
+});

@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import './MovieCard.scss';
 
 interface Props {
   movie: Movie;
 }
 
-export const MovieCard: FC<Props> = ({ movie }) => {
+export const MovieCard: FC<Props> = memo(({ movie }) => {
   const {
     imdbUrl, imgUrl, description, title,
   } = movie;
@@ -43,4 +43,4 @@ export const MovieCard: FC<Props> = ({ movie }) => {
       </div>
     </div>
   );
-};
+});
