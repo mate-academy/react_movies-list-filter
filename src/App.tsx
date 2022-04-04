@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 import './App.scss';
 
-export const App: React.FC = () => {
-  const [query, setQuery] = useState('');
+interface SearchMovie {
+  description: string;
+  title: string;
+  imdbId: string;
+  imdbUrl: string;
+  imgUrl: string;
+}
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
+export const App: React.FC = () => {
+  const [searchValue, setSearchValue] = useState('');
+
+  const filteredMovies = (movies: SearchMovie[]) => {
+    return movies.filter(movie => movie.title
+      .toLowerCase()
+      .includes(searchValue.toLowerCase())
+  || movie.description
+    .toLowerCase()
+    .includes(searchValue.toLowerCase()));
   };
 
-  const visibleMovies = moviesFromServer
-    .filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase()));
+  const visibleMovies = useMemo(() => filteredMovies(moviesFromServer), [searchValue]);
 
   return (
     <div className="page">
@@ -30,8 +41,10 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={query}
-                onChange={onChange}
+                value={searchValue}
+                onChange={(event) => {
+                  setSearchValue(event.target.value);
+                }}
               />
             </div>
           </div>
