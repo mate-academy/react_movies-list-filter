@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { MoviesList } from './components/MoviesList';
-import { Movie } from './types/Movie';
 
 import moviesFromServer from './api/movies.json';
 import './App.scss';
 
-const singleCaseQuery = (query: string) => {
-  return query.toLowerCase();
-};
-
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisibleMovies] = useState<Movie[]>([]);
 
-  useEffect(() => {
-    setVisibleMovies(moviesFromServer);
-  }, []);
-
-  const filterList = (value: string) => {
-    setVisibleMovies(moviesFromServer.filter((movie) => {
-      const title = singleCaseQuery(movie.title);
-      const description = singleCaseQuery(movie.description);
-      const searchValue = singleCaseQuery(value);
+  const preparedMoviesList = () => {
+    return moviesFromServer.filter((movie) => {
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
+      const searchValue = query.toLowerCase();
 
       return title.includes(searchValue) || description.includes(searchValue);
-    }));
+    });
   };
+
+  const visibleMovies = useMemo(() => preparedMoviesList(), [query]);
 
   return (
     <div className="page">
@@ -44,12 +36,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  const { value } = event.target;
-
-                  filterList(value);
-                  setQuery(value);
-                }}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
