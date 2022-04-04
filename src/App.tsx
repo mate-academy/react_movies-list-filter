@@ -10,7 +10,7 @@ export const App: React.FC = () => {
     setQuery(event.target.value);
   };
 
-  const showMovie = (movies: Movie[]) => (
+  const showMovies = (movies: Movie[]) => (
     movies.filter(movie => {
       const lowerCaseTitle = movie.title.toLowerCase();
       const lowerCaseDescription = movie.description.toLowerCase();
@@ -21,7 +21,7 @@ export const App: React.FC = () => {
     })
   );
 
-  const visibleMovies = useMemo(() => showMovie(moviesFromServer), [query]);
+  const visibleMovies = useMemo(() => showMovies(moviesFromServer), [query]);
 
   return (
     <div className="page">
