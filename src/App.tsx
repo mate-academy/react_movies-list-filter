@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import './App.scss';
 
@@ -19,7 +19,7 @@ export const App: React.FC = () => {
     })
   );
 
-  const visibleMovies = prepareMovie([...moviesFromServer]);
+  const visibleMovies = useMemo(() => prepareMovie([...moviesFromServer]), [searchWords]);
 
   return (
     <div className="page">
