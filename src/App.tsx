@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,10 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(movie => {
-    return movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase());
-  });
+  const filteredMovies = () => {
+    return moviesFromServer.filter((movie) => {
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
+      const searchValue = query.toLowerCase();
+
+      return title.includes(searchValue) || description.includes(searchValue);
+    });
+  };
+
+  const visibleMovies = useMemo(() => filteredMovies(), [query]);
 
   return (
     <div className="page">
