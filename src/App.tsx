@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { Movie } from './types';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -10,8 +11,8 @@ export const App: React.FC = () => {
     setQuery(event.target.value);
   };
 
-  const visibleMovies = useMemo(() => (
-    [...moviesFromServer].filter(({ description, title }) => {
+  const filterMovies = (movies: Movie[]) => {
+    return movies.filter(({ description, title }) => {
       const searchQuery = query.toLowerCase();
 
       const byTitle = title.toLowerCase()
@@ -20,8 +21,10 @@ export const App: React.FC = () => {
         .includes(searchQuery);
 
       return byTitle || byDescription;
-    })
-  ), [query]);
+    });
+  };
+
+  const visibleMovies = useMemo(() => filterMovies(moviesFromServer), [query]);
 
   return (
     <div className="page">
