@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const filteredMovies = (movies: Movie[]) => (
+  const filterMovies = (movies: Movie[]) => (
     movies.filter(movie => {
       const movieTitleLowerCase = movie.title.toLowerCase();
       const movieDescriptionLowerCase = movie.description.toLowerCase();
@@ -16,7 +16,7 @@ export const App: React.FC = () => {
       || movieDescriptionLowerCase.includes(queryLowerCase);
     }));
 
-  const visibleMovies = useMemo(() => filteredMovies(moviesFromServer), [query]);
+  const filteredMovies = useMemo(() => filterMovies(moviesFromServer), [query]);
 
   return (
     <div className="page">
@@ -43,7 +43,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={filteredMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
