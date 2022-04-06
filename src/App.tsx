@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   const [text, setText] = useState('');
 
   useEffect(() => setFilterMovies(
-    [...moviesFromServer.filter(item => item.title.includes(text))],
+    [...moviesFromServer.filter(item => item.title.toLowerCase().includes(text.toLowerCase()))],
   ), [text]);
 
   return (
