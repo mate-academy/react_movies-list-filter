@@ -1,20 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [findMovie, setFindMovie] = useState('');
-  const copyMovie = [...moviesFromServer];
 
-  const findYourMovie = useMemo(() => copyMovie.filter(movie => {
+  const findYourMovie = useMemo(() => moviesFromServer.filter(movie => {
     const findTitle = movie.title.toLowerCase().includes(findMovie.toLowerCase());
     const findDescription = movie.description.toLowerCase().includes(findMovie.toLowerCase());
-    /* eslint-disable-next-line */
-    console.log(findMovie);
 
     return findTitle || findDescription;
-  }), [copyMovie]);
+  }), [findMovie]);
 
   return (
     <div className="page">
