@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
-    const visibleMovies = filteredMovies
+    const visibleMovies = moviesFromServer
       .filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
 
     setFilteredMovies(visibleMovies);
