@@ -36,9 +36,7 @@ export const App: React.FC = () => {
             </div>
           </div>
         </div>
-        {visibleMovies
-          ? <MoviesList movies={visibleMovies} />
-          : <MoviesList movies={moviesFromServer} />}
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
