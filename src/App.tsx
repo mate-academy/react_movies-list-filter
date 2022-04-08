@@ -1,48 +1,45 @@
-import React, { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
+export const App = () => {
   const [query, setQuery] = useState('');
-  const [visibleFilms, setvisibleFilms] = useState([...moviesFromServer]);
-  const thefilter = (keyWord: string) => {
-    setvisibleFilms([...moviesFromServer].filter((movie) => {
-      const { title, description } = movie;
 
-      return title.toLocaleLowerCase().includes(keyWord.toLowerCase())
-        || description.toLowerCase().includes(keyWord.toLowerCase());
-    }));
+  const filteredMovies = () => {
+    return moviesFromServer.filter((movie) => {
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
+      const searchValue = query.toLowerCase();
+
+      return title.includes(searchValue) || description.includes(searchValue);
+    });
   };
+
+  const visibleMovies = useMemo(() => filteredMovies(), [query]);
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            <div className="control">
-              { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-              <label className="label">
-                Search movie
+            <label htmlFor="search-query" className="label">
+              Search movie
+              <div className="control">
                 <input
                   type="text"
                   id="search-query"
                   className="input"
-                  value={query}
                   placeholder="Type search word"
-                  onChange={(event) => {
-                    const keyWord = event.target.value;
-
-                    setQuery(keyWord);
-                    thefilter(keyWord);
-                  }}
+                  value={query}
+                  onChange={event => setQuery(event.target.value)}
                 />
-              </label>
-            </div>
+              </div>
+            </label>
           </div>
         </div>
 
-        <MoviesList movies={visibleFilms} />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
