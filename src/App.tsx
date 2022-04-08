@@ -9,7 +9,10 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     const visibleMovies = moviesFromServer
-      .filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+      .filter(item => (
+        item.title.toLowerCase().includes(query.toLowerCase())
+        || item.description.toLowerCase().includes(query.toLowerCase())
+      ));
 
     setFilteredMovies(visibleMovies);
   }, [query]);
