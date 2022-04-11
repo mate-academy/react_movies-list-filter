@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './MovieCard.scss';
 
 interface Props {
@@ -7,7 +8,10 @@ interface Props {
 
 export const MovieCard: React.FC<Props> = ({ movie }) => {
   const {
-    imdbUrl, imgUrl, description, title,
+    title,
+    description,
+    imgUrl,
+    imdbUrl,
   } = movie;
 
   return (
@@ -30,6 +34,7 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
               />
             </figure>
           </div>
+
           <div className="media-content">
             <p className="title is-8">{title}</p>
           </div>
