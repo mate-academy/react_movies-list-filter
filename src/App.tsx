@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import moviesFromServer from './api/movies.json';
 import { MovieList } from './components/MoviesList';
+
 import './App.scss';
 
 export const App = () => {
