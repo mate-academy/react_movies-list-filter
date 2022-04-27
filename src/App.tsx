@@ -13,7 +13,7 @@ export const App: React.FC = () => {
       || movie.description.toLowerCase().includes(searchQuery.toLowerCase())));
 
   // eslint-disable-next-line
-  const changeHandler = (event: { target: { value: any; }; }) => {
+  const changeHandler = (event: { target: { value: string; }; }) => {
     const { value } = event.target;
 
     setQuery(value);
