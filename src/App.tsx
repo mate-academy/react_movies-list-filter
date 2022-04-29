@@ -8,9 +8,9 @@ export const App: React.FC = () => {
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const changeMoviesList = (searchQuery: string) => (moviesFromServer
-    .filter(movie => movie.title.toLowerCase()
+    .filter(movie => (movie.title + movie.descriptioin).toLowerCase()
       .includes(searchQuery.toLowerCase())
-      || movie.description.toLowerCase().includes(searchQuery.toLowerCase())));
+    );
 
   // eslint-disable-next-line
   const changeHandler = (event: { target: { value: string; }; }) => {
