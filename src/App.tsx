@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  const changeMoviesList = (searchQuery: string) => ([...moviesFromServer]
+  const changeMoviesList = (searchQuery: string) => (moviesFromServer
     .filter(movie => movie.title.toLowerCase()
       .includes(searchQuery.toLowerCase())
       || movie.description.toLowerCase().includes(searchQuery.toLowerCase())));
