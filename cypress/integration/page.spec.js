@@ -43,5 +43,4 @@ describe('Page', () => {
     cy.get('#search-query')
       .type('{selectAll}{backspace}');
   });
-
 });
