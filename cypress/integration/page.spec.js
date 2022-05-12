@@ -23,7 +23,7 @@ describe('Page', () => {
       .type('{selectAll}{backspace}');
   });
   
-  it('should search for coincidence in movie content', () => {
+  it('should search for a match in movie content', () => {
     cy.get('#search-query')
       .type('daring');
     cy.get('.content')
@@ -32,7 +32,7 @@ describe('Page', () => {
       .type('{selectAll}{backspace}');
   });
   
-  it('should search for partly coincidence', () => {
+  it('should search partial match', () => {
     cy.get('#search-query')
       .type('pla');
     cy.get('.card')
