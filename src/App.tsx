@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  const filteredMovies = () => {
-    setVisibleMovies([...moviesFromServer].filter(movie => {
-      const { title, description } = movie;
-      const queryToLC = query.toLowerCase();
+  const visibleMovies = useMemo(() => moviesFromServer.filter(movie => {
+    const { title, description } = movie;
+    const queryToLC = query.toLowerCase();
 
-      return title.toLowerCase().includes(queryToLC)
+    return title.toLowerCase().includes(queryToLC)
       || description.toLowerCase().includes(queryToLC);
-    }));
-  };
+  }), [query]);
 
   return (
     <div className="page">
@@ -36,7 +33,6 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 onChange={(event) => {
                   setQuery(event.target.value);
-                  filteredMovies();
                 }}
               />
             </div>
