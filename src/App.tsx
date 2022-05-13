@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { MovieDescriptioin } from './interfaces/MovieDescription';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [catchServerData]
+  = useState<Array<MovieDescriptioin>>(moviesFromServer);
+  const [searchFieldPattern, setSearchFieldPattern] = useState<string>('');
+
+  const filteredData = useMemo(() => {
+    const loverRegisterPattern = searchFieldPattern.toLowerCase();
+
+    return catchServerData.filter(movieDescr => (
+      movieDescr.title.toLowerCase().includes(loverRegisterPattern)
+      || movieDescr.description.toLowerCase().includes(loverRegisterPattern)));
+  }, [searchFieldPattern]);
+
+  const handleChangeEvent = (event: React.FormEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+
+    setSearchFieldPattern(value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +39,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={searchFieldPattern}
+                onChange={handleChangeEvent}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={filteredData} />
       </div>
       <div className="sidebar">
         Sidebar goes here
