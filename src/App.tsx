@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+
+  const visibleMovies = [...moviesFromServer].filter((movie) => (
+    movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+    || movie.description.toLocaleLowerCase()
+      .includes(query.toLocaleLowerCase())
+  ));
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +28,17 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                name="query"
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
