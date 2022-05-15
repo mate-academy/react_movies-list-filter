@@ -12,8 +12,8 @@ export const App: React.FC = () => {
   }) => {
     const lowQuery = query.toLowerCase();
 
-    return title.includes(lowQuery)
-      || description.includes(lowQuery);
+    return title.toLowerCase().includes(lowQuery)
+      || description.toLowerCase().includes(lowQuery);
   }), [query]);
 
   return (
