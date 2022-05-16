@@ -1,3 +1,11 @@
-.card-image img {
-  object-fit: contain;
+.card {
+  &:hover {
+    transform: scale(1.01);
+    transition: 0.3s;
+    box-shadow: 0 0.5em 1em -0.13em;
+  }
+
+  &-image img {
+    object-fit: contain;
+  }
 }
