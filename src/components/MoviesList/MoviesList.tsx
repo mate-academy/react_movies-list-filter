@@ -12,7 +12,7 @@ export const MoviesList: React.FC<Props> = ({ movies, serchSrt }) => (
     {movies.map(movie => {
       if (movie.title.toLowerCase().includes(serchSrt)
           || movie.description.toLowerCase().includes(serchSrt)
-        ) {
+      ) {
         return <MovieCard key={movie.imdbId} movie={movie} />;
       }
 
