@@ -1,4 +1,4 @@
-import { FC, useState} from 'react';
+import { FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -7,13 +7,13 @@ export const App: FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter((movie) => {
-    const queryInTitle = movie.title.toLowerCase()
+    const isQueryInTitle = movie.title.toLowerCase()
       .includes(query.toLowerCase());
 
-    const queryInDescription = movie.description.toLowerCase()
+    const isQueryInDescription = movie.description.toLowerCase()
       .includes(query.toLowerCase());
 
-    return queryInTitle || queryInDescription;
+    return isQueryInTitle || isQueryInDescription;
   });
 
   return (
