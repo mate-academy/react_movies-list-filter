@@ -12,7 +12,7 @@ export const App: React.FC = () => {
   );
 
   const search = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value.trim());
+    setQuery(event.target.value);
   };
 
   return (
