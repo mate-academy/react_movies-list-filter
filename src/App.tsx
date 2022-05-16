@@ -7,10 +7,8 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(movie => {
-    query.toLowerCase();
-
-    return (movie.title.toLowerCase().includes(query)
-      || movie.description.toLowerCase().includes(query));
+    return (movie.title.toLowerCase().includes(query.toLowerCase())
+      || movie.description.toLowerCase().includes(query.toLowerCase()));
   });
 
   return (
