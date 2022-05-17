@@ -6,11 +6,14 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = [...moviesFromServer].filter((movie) => (
-    movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-    || movie.description.toLocaleLowerCase()
-      .includes(query.toLocaleLowerCase())
-  ));
+  const visibleMovies = moviesFromServer.filter((movie) => {
+    const titleIncludes = movie.title.toLocaleLowerCase()
+      .includes(query.toLocaleLowerCase());
+    const discriptionIncludes = movie.description.toLocaleLowerCase()
+      .includes(query.toLocaleLowerCase());
+
+    return titleIncludes || discriptionIncludes;
+  });
 
   return (
     <div className="page">
