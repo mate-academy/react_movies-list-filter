@@ -9,14 +9,9 @@ export const App: React.FC = () => {
   const filteredMovies = moviesFromServer.filter(movie => {
     const title = movie.title.toLocaleLowerCase();
     const description = movie.description.toLocaleLowerCase();
+    const loverValue = value.toLowerCase();
 
-    value.toLowerCase();
-
-    if (title.includes(value) || description.includes(value)) {
-      return movie;
-    }
-
-    return '';
+    return title.includes(loverValue) || description.includes(loverValue);
   });
 
   return (
