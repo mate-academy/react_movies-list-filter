@@ -29,7 +29,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => setQuery(event.target.value.toLowerCase())}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
