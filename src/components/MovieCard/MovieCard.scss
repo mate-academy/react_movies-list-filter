@@ -1,3 +1,28 @@
+.card {
+  animation: animate 3s infinite linear;
+  transition: all 1s;
+
+  &:hover {
+    animation: scale 3s infinite linear;
+  }
+}
+
 .card-image img {
   object-fit: contain;
+}
+
+@keyframes scale {
+  to {
+    transform: Scale(1.05);
+  }
+}
+
+@keyframes animate {
+  0% {
+    box-shadow: 0 0 0 0 rgba(195, 208, 252, 0.4);
+  }
+  
+  100% {
+    box-shadow: 0 0 5px 3px rgba(214, 200, 247, 0);
+  }
 }

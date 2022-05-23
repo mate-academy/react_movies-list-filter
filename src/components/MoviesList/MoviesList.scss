@@ -2,4 +2,16 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+
+  animation: yLeft 2s alternate-reverse both ease-in-out;
+}
+
+@keyframes yLeft {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(-150px) scale(0.1);
+  }
 }

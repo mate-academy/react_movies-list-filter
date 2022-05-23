@@ -9,9 +9,24 @@
   padding: 20px;
 }
 
+.box {
+  transition: all 1s;
+
+  &:hover {
+    transition: all 1s;
+    box-shadow: 0 0 4px 3px rgb(199, 199, 255);
+  }
+}
+
 .sidebar {
   padding: 20px;
   border-left: 1px solid lightgray;
+
+  transition: all 1s;
+
+  &:hover {
+    background-color: rgb(214, 251, 251);
+  }
 }
 
 .movies {
