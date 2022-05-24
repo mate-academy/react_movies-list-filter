@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [searchedMovie, setSearchedMovie] = useState('');
+
+  const preparedMovie = [...moviesFromServer];
+
+  const movieSearch = useMemo(() => preparedMovie.filter(movie => {
+    const findTitle = movie.title.toLowerCase().includes(searchedMovie.toLowerCase());
+
+    const findDescription = movie.description.toLowerCase().includes(searchedMovie.toLowerCase());
+
+    return findTitle || findDescription;
+  }), [preparedMovie]);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +32,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={searchedMovie}
+                onChange={(event) => setSearchedMovie(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={movieSearch} />
       </div>
       <div className="sidebar">
         Sidebar goes here
