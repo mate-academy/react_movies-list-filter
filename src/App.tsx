@@ -1,9 +1,18 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+
+  const searchResult = moviesFromServer.filter(movie => {
+    return (movie.title.toLowerCase()
+      .includes(query.toLowerCase())
+        || movie.description.toLowerCase().includes(query.toLowerCase()));
+  });
+
   return (
     <div className="page">
       <div className="page-content">
@@ -13,19 +22,20 @@ export const App: React.FC = () => {
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
-
             <div className="control">
               <input
                 type="text"
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={searchResult} />
       </div>
       <div className="sidebar">
         Sidebar goes here
