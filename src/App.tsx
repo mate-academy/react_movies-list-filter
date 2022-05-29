@@ -1,28 +1,18 @@
 import React, {
   ChangeEvent, useCallback,
-  useEffect,
   useState,
 } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
-import moviesFromServer from './api/movies.json';
-import { Movie } from './models/models';
+import { useMovies } from './hooks/useMovies';
 
 export const App: React.FC = () => {
   const [searchWords, setSearchWords] = useState('');
 
-  const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
-
-  useEffect(() => {
-    const filtered = moviesFromServer
-      .filter(movie => (movie.title + movie.description)
-        .toLowerCase().includes(searchWords.toLowerCase()));
-
-    setFilteredMovies(filtered);
-  }, [searchWords]);
+  const filteredMovies = useMovies(searchWords);
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setSearchWords(event.currentTarget.value);
+    setSearchWords(event.target.value);
   }, []);
 
   return (
