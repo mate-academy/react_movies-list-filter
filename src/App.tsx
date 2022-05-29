@@ -1,9 +1,30 @@
-import React from 'react';
+import React, {
+  ChangeEvent, useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { Movie } from './models/models';
 
 export const App: React.FC = () => {
+  const [searchWords, setSearchWords] = useState('');
+
+  const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    const filtered = moviesFromServer
+      .filter(movie => (movie.title + movie.description)
+        .toLowerCase().includes(searchWords.toLowerCase()));
+
+    setFilteredMovies(filtered);
+  }, [searchWords]);
+
+  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setSearchWords(event.currentTarget.value);
+  }, []);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -17,15 +38,18 @@ export const App: React.FC = () => {
             <div className="control">
               <input
                 type="text"
+                value={searchWords}
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                onChange={handleChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={filteredMovies} />
+
       </div>
       <div className="sidebar">
         Sidebar goes here
