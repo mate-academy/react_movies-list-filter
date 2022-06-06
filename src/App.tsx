@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 function filterMovies(filterValue : string, list : Movie[]) {
   return (list.filter((movie : Movie) => {
     const loweredTitle = movie.title.toLowerCase();
-    const loweredDescription = movie.title.toLowerCase();
+    const loweredDescription = movie.description.toLowerCase();
 
     if ((loweredTitle.search(filterValue) !== -1)
     || (loweredDescription.search(filterValue) !== -1)) {
