@@ -8,7 +8,8 @@ export const App: React.FC = () => {
 
   function visibleMovies(movies: Movie[], queryy: string) {
     const filteredMovies = movies.filter(movie => (
-      movie.title.includes(query) || movie.description.includes(queryy)
+      movie.title.toLowerCase().includes(queryy)
+      || movie.description.toLowerCase().includes(queryy)
     ));
 
     return filteredMovies;
@@ -30,11 +31,10 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={query}
+                value={query.toLowerCase()}
                 onChange={(event) => {
                   setQuery(() => event.target.value);
-                }
-                }
+                }}
               />
             </div>
           </div>
