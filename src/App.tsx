@@ -8,8 +8,8 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const { title, description } = movie;
 
-    return title.toLowerCase().includes(query.toLowerCase())
-    || description.toLowerCase().includes(query.toLowerCase());
+    return title.toLowerCase().includes(query)
+    || description.toLowerCase().includes(query);
   });
 
   return (
@@ -29,7 +29,7 @@ export const App: React.FC = () => {
                 className="input"
                 value={query}
                 placeholder="Type search word"
-                onChange={event => setQuery(event.target.value)}
+                onChange={event => setQuery(event.target.value.toLowerCase())}
               />
             </div>
           </div>
