@@ -4,7 +4,6 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-
   const [query, queryChange] = useState('');
 
   function handleChange(value: string) {
@@ -28,7 +27,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={({target}) => handleChange(target.value)}
+                onChange={({ target }) => handleChange(target.value)}
               />
             </div>
           </div>
