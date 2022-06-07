@@ -31,11 +31,11 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
             </figure>
           </div>
           <div className="media-content">
-            <p className="title is-8">{title}</p>
+            <p className="title is-4">{title}</p>
           </div>
         </div>
 
-        <div className="content">
+        <div className="content subtitle is-6">
           {description}
           <br />
           <a href={imdbUrl}>IMDB</a>
