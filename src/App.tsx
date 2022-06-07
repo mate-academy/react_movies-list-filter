@@ -1,16 +1,35 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setSearchMovie] = useState('');
+
+  const searchHandler = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setSearchMovie(event.target.value);
+  };
+
+  const visibleMovies = moviesFromServer.filter(
+    movie => {
+      const querySmall = query.toLowerCase();
+      const isInTitle = movie.title.toLowerCase().includes(querySmall);
+      const isInDescript = movie.description.toLowerCase().includes(querySmall);
+
+      return isInTitle || isInDescript;
+    },
+  );
+
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
+            <label
+              htmlFor="search-query"
+              className="label"
+            >
               Search movie
             </label>
 
@@ -20,12 +39,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={searchHandler}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
