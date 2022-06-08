@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
@@ -6,19 +5,6 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [inputedValue, setInputedValue] = useState('');
-
-  const filterMovies = (value: string) => {
-    return [...moviesFromServer].filter(
-      movie => movie.title.toUpperCase().includes(value.toUpperCase())
-      || movie.description.toUpperCase().includes(value.toUpperCase()),
-    );
-  };
-
-  const moviesFiltered = filterMovies(inputedValue);
-
-  console.log(inputedValue);
-
-  console.log(moviesFiltered);
 
   return (
     <div className="page">
@@ -45,7 +31,10 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFiltered} />
+        <MoviesList
+          movies={moviesFromServer}
+          inputedValue={inputedValue}
+        />
       </div>
       <div className="sidebar">
         Sidebar goes here
