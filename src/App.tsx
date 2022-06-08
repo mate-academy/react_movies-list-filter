@@ -5,12 +5,6 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = moviesFromServer.filter(movie => {
-    const { title, description } = movie;
-
-    return title.toLowerCase().includes(query)
-    || description.toLowerCase().includes(query);
-  });
 
   return (
     <div className="page">
@@ -35,7 +29,10 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={query === '' ? moviesFromServer : visibleMovies} />
+        <MoviesList
+          movies={moviesFromServer}
+          currentQuery={query}
+        />
       </div>
       <div className="sidebar">
         Sidebar goes here
