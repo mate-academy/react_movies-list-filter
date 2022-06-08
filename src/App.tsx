@@ -11,7 +11,7 @@ export const App: React.FC = () => {
       || movie.title.toUpperCase().includes(query.toUpperCase()),
   );
 
-  const QueryChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const queryChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
@@ -29,7 +29,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={QueryChangeHandler}
+                onChange={queryChangeHandler}
               />
             </div>
           </div>
