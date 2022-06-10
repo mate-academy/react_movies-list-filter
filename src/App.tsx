@@ -3,20 +3,6 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function filterMovies(filterValue : string, list : Movie[]) {
-  return (list.filter((movie : Movie) => {
-    const loweredTitle = movie.title.toLowerCase();
-    const loweredDescription = movie.description.toLowerCase();
-
-    if ((loweredTitle.search(filterValue) !== -1)
-    || (loweredDescription.search(filterValue) !== -1)) {
-      return movie;
-    }
-
-    return undefined;
-  }));
-}
-
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
@@ -43,12 +29,7 @@ export const App: React.FC = () => {
             </div>
           </div>
         </div>
-        {
-          (query === '')
-            ? <MoviesList movies={moviesFromServer} />
-            : <MoviesList movies={filterMovies(query, moviesFromServer)} />
-        }
-
+        <MoviesList movies={moviesFromServer} query={query} />
       </div>
       <div className="sidebar">
         Sidebar goes here
