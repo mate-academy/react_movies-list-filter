@@ -8,13 +8,13 @@ import { Movie } from './Types/Movie';
 export const App: React.FC = () => {
   const [visibleMovies, setVisibleMovies] = useState<Movie[]>(moviesFromServer);
 
-  const getFilteredMovieList = (input: string) => {
-    const inputNormalized = input.toLocaleLowerCase();
+  const getFilteredMovieList = (query: string) => {
+    const queryNormalized = query.toLocaleLowerCase();
 
     const filteredMovieList: Movie[] = moviesFromServer.filter(
       ({ title, description }) => {
-        return (title.toLocaleLowerCase().includes(inputNormalized)
-          || description.toLocaleLowerCase().includes(inputNormalized));
+        return (title.toLocaleLowerCase().includes(queryNormalized)
+          || description.toLocaleLowerCase().includes(queryNormalized));
       },
     );
 
