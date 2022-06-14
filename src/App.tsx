@@ -24,7 +24,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(event) => {
-                  setQuery(event.target.value.toLowerCase());
+                  setQuery(event.target.value);
                 }}
               />
             </div>
