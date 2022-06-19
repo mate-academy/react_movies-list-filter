@@ -3,8 +3,18 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function FilterMovies(movies: Movie[], query: string) {
+  const loverCaseQuery = query.toLowerCase();
+
+  return movies.filter(movie => (
+    movie.title.toLowerCase().includes(loverCaseQuery)
+    || movie.description.toLowerCase().includes(loverCaseQuery)
+  ));
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const visibleMovies = FilterMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -30,8 +40,7 @@ export const App: React.FC = () => {
         </div>
 
         <MoviesList
-          movies={moviesFromServer}
-          query={query}
+          movies={visibleMovies}
         />
       </div>
       <div className="sidebar">
