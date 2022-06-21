@@ -9,7 +9,7 @@ interface Props {
 
 export const MoviesList: React.FC<Props> = ({ movies, query }) => {
   const filterMovies = movies.filter((movie) => (
-    (movie.title + movie.description)
+    (movie.title || movie.description)
       .toLowerCase()
       .includes(query.toLowerCase())
   ));
