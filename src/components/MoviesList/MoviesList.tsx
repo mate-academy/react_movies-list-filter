@@ -7,15 +7,25 @@ interface Props {
   query: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, query }) => (
-  <div className="movies">
-    {movies.map(movie => {
-      if (movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase())) {
-        return <MovieCard key={movie.imdbId} movie={movie} />;
-      }
+const filterList = (array: Movie[], string: string) => {
+  const lowQuery = string.toLowerCase();
 
-      return null;
-    })}
-  </div>
-);
+  return array.filter((movie: Movie) => {
+    return movie.title.toLowerCase().includes(lowQuery)
+      || movie.description.toLowerCase().includes(lowQuery);
+  });
+};
+
+export const MoviesList: React.FC<Props> = ({ movies, query }) => {
+  const filteredMovie = filterList(movies, query);
+
+  return (
+    <div className="movies">
+      {filteredMovie.map(movie => {
+        return (
+          <MovieCard key={movie.imdbId} movie={movie} />
+        );
+      })}
+    </div>
+  );
+};
