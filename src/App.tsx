@@ -6,6 +6,12 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const filterMovies = moviesFromServer.filter((movie) => (
+    (movie.title || movie.description)
+      .toLowerCase()
+      .includes(query.toLowerCase())
+  ));
+
   return (
     <div className="page">
       <div className="page-content">
@@ -30,7 +36,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} query={query} />
+        <MoviesList movies={filterMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
