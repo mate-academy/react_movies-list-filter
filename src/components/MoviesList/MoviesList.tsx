@@ -8,14 +8,14 @@ interface Props {
 }
 
 export const MoviesList: React.FC<Props> = ({ movies, query }) => {
-  const filtered = movies.filter((movie) => (
+  const visibleMovies = movies.filter((movie) => (
     movie.title.toLowerCase().includes(query.toLowerCase())
     || movie.description.toLowerCase().includes(query.toLowerCase())
   ));
 
   return (
     <div className="movieList">
-      {filtered.map(movie => (
+      {visibleMovies.map(movie => (
         <MovieCard key={movie.imdbId} movie={movie} />
       ))}
     </div>
