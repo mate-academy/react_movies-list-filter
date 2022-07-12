@@ -10,10 +10,16 @@ export const App: React.FC = () => {
     setQuery(value);
   };
 
-  const moviesArr = moviesFromServer.filter(movie => {
-    return movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase());
-  });
+  let visibleMovies = moviesFromServer;
+
+  if (query.length) {
+    const queryForFiltration = query.toLowerCase();
+
+    visibleMovies = moviesFromServer.filter(movie => {
+      return movie.title.toLowerCase().includes(queryForFiltration)
+        || movie.description.toLowerCase().includes(queryForFiltration);
+    });
+  }
 
   return (
     <div className="page">
@@ -38,7 +44,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesArr} />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
