@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  function caseInsensitiveSearch(firstStr: string, secondtStr: string) {
+    return firstStr.toLowerCase().includes(secondtStr.toLowerCase());
+  }
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => (
+    setSearchQuery(event.target.value)
+  );
+
+  const visibleMovies = moviesFromServer.filter(movie => (
+    caseInsensitiveSearch(movie.title, searchQuery)
+    || caseInsensitiveSearch(movie.description, searchQuery)
+  ));
+
   return (
     <div className="page">
       <div className="page-content">
@@ -18,6 +33,8 @@ export const App: React.FC = () => {
               <input
                 type="text"
                 id="search-query"
+                value={searchQuery}
+                onChange={handleChange}
                 className="input"
                 placeholder="Type search word"
               />
@@ -25,7 +42,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
