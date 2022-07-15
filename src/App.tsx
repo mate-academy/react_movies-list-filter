@@ -7,8 +7,8 @@ export const App: React.FC = () => {
   const [search, setSearh] = useState('');
   const visibleMovies = [...moviesFromServer]
     .filter(movie => (
-      movie.title.toLowerCase().startsWith(search.toLowerCase())
-      || movie.description.toLowerCase().startsWith(search.toLowerCase())
+      movie.title.toLowerCase().includes(search.toLowerCase())
+      || movie.description.toLowerCase().includes(search.toLowerCase())
     ));
 
   return (
