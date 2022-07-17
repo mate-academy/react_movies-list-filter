@@ -7,11 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const filterQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input = event.currentTarget.value;
-
-    setQuery(() => {
-      return input;
-    });
+    setQuery(event.currentTarget.value);
   };
 
   return (
