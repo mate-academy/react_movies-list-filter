@@ -12,10 +12,14 @@ export const App: React.FC = () => {
 
   const queryForFiltration = query.toLowerCase();
 
-  const visibleMovies = moviesFromServer.filter(movie => movie.title
-    .toLowerCase().includes(queryForFiltration)
-    || movie.description
-      .toLowerCase().includes(queryForFiltration));
+  function caseInsensitiveSearch(movieTitle: string, queryServer: string) {
+    return movieTitle.toLowerCase().includes(queryServer);
+  }
+
+  const visibleMovies = moviesFromServer.filter(movie => (
+    caseInsensitiveSearch(movie.title, queryForFiltration)
+    || caseInsensitiveSearch(movie.description, queryForFiltration)
+  ));
 
   return (
     <div className="page">
