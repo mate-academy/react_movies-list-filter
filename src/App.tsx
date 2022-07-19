@@ -4,12 +4,14 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: FC = () => {
-  const [SearchText, setSearchText] = useState('');
+  const [searchText, setsearchText] = useState('');
+  const normalizedIncludesQuery = (value: string) => {
+    return value.toLowerCase().includes(searchText.toLowerCase());
+  };
+
   const visibleMovies = moviesFromServer.filter(
-    ({ description, title }) => (
-      title.toLocaleLowerCase().includes(SearchText)
-      || description.toLocaleLowerCase().includes(SearchText)
-    ),
+    movie => normalizedIncludesQuery(movie.title)
+      || normalizedIncludesQuery(movie.description),
   );
 
   return (
@@ -26,11 +28,7 @@ export const App: FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={
-                  ({ target }) => setSearchText(
-                    () => target.value.toLocaleLowerCase(),
-                  )
-                }
+                onChange={(event) => setsearchText(event.target.value)}
               />
             </div>
           </div>
