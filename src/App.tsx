@@ -15,9 +15,8 @@ export const App: React.FC = () => {
       || searcherToLowerCase(movie.description),
   );
 
-  const handleSearch = (event:
-  { target: { value: React.SetStateAction<string>; }; }) => {
-    return setQuery(event.target.value);
+  const handleSearch = ({ ...even }) => {
+    return setQuery(even.target.value);
   };
 
   return (
