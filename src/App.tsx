@@ -7,15 +7,13 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const handleChange = (value: string) => {
-    setQuery(value);
+    setQuery(value.toLocaleLowerCase());
   };
 
-  const visibleMovies = [...moviesFromServer].filter(movie => {
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
     return (
-      movie.title
-        .toLocaleLowerCase().includes(query.toLocaleLowerCase())
-      || movie.description
-        .toLocaleLowerCase().includes(query.toLocaleLowerCase())
+      title.toLocaleLowerCase().includes(query)
+      || description.toLocaleLowerCase().includes(query)
     );
   });
 
