@@ -6,11 +6,15 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState(moviesFromServer);
 
+  function includesQuery(value: string) {
+    const uppQuery = query.toUpperCase();
+
+    return value.toUpperCase().includes(uppQuery);
+  }
+
   const visibleMovies = () => {
-    const uppQuery = query.toLocaleUpperCase();
     const filterMovie = moviesFromServer.filter(movie => {
-      return movie.title.toLocaleUpperCase().includes(uppQuery)
-        || movie.description.toLocaleUpperCase().includes(uppQuery);
+      return includesQuery(movie.title) || includesQuery(movie.description);
     });
 
     return filterMovie;
