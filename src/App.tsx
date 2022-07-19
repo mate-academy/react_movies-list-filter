@@ -9,8 +9,10 @@ export const App: React.FC = () => {
   const searchedQuery = query.toLowerCase();
 
   const visibleMovies = (query.length > 0) ? moviesFromServer
-    .filter(movie => movie.title.toLowerCase().includes(searchedQuery)
-    || movie.description.toLowerCase().includes(searchedQuery))
+    .filter(
+      ({ title, description }) => title.toLowerCase().includes(searchedQuery)
+    || description.toLowerCase().includes(searchedQuery),
+    )
     : moviesFromServer;
 
   return (
