@@ -5,13 +5,14 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [search, searching] = useState('');
+  const normalSearch = search.toLowerCase();
 
   const visibleMovies = moviesFromServer.filter(movie => {
     const normalTitle = movie.title.toLowerCase();
     const normalDescription = movie.description.toLowerCase();
 
-    return normalTitle.includes(search.toLowerCase())
-    || normalDescription.includes(search.toLowerCase());
+    return normalTitle.includes(normalSearch)
+    || normalDescription.includes(normalSearch);
   });
 
   return (
