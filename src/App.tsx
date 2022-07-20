@@ -7,15 +7,21 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const lowerQuery = query.toLowerCase();
-  
+
+  const getPreparedSearch = (textFrom: string) => {
+    return textFrom.toLowerCase().includes(lowerQuery)
+  }
+
   const moviesToShow = moviesFromServer.filter(movie => {
-    return movie.title.toLowerCase().includes(lowerQuery)
-  || movie.description.toLowerCase().includes(lowerQuery);
+    const { title, description } = movie;
+
+    return getPreparedSearch(title)
+  || getPreparedSearch(description);
   });
 
   const handleQuerySelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
-  }
+  };
 
   return (
     <div className="page">
