@@ -6,11 +6,16 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [filterName, setFilterName] = useState('');
 
+  const containsString = (text: string) => text
+    .includes(filterName.toLowerCase());
+
   const visibleMovies = moviesFromServer
-    .filter(movie => movie.title.toLowerCase()
-      .includes(filterName.toLowerCase())
-    || movie.description.toLowerCase()
-      .includes(filterName.toLowerCase()));
+    .filter(movie => {
+      const hasTitle = containsString(movie.title.toLowerCase());
+      const hasDescription = containsString(movie.description.toLowerCase());
+
+      return hasTitle || hasDescription;
+    });
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
