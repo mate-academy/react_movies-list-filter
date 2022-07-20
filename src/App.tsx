@@ -8,11 +8,13 @@ export const App: React.FC = () => {
   const visibleMovies = [...moviesFromServer]
     .filter(movieSearch => {
       const normalizeSearch = search.toLowerCase();
+
       const normalizeTitle = movieSearch.title.toLowerCase();
+
       const normalizeDescription = movieSearch.description.toLowerCase();
 
-      return normalizeTitle.toLowerCase().includes(normalizeSearch)
-      || normalizeDescription.toLowerCase().includes(normalizeSearch);
+      return normalizeTitle.includes(normalizeSearch)
+      || normalizeDescription.includes(normalizeSearch);
     });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => (
