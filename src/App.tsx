@@ -13,10 +13,11 @@ interface Movie {
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const lowerCaseQuery = query.toLowerCase();
 
   function matchQuery(movie: Movie) {
-    if (movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase())) {
+    if (movie.title.toLowerCase().includes(lowerCaseQuery)
+    || movie.description.toLowerCase().includes(lowerCaseQuery)) {
       return movie;
     }
 
