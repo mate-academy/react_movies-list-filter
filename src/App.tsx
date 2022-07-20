@@ -3,12 +3,28 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+interface Movie {
+  title: string,
+  description: string,
+  imgUrl: string,
+  imdbUrl: string,
+  imdbId: string,
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = [...moviesFromServer]
-    .filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase()));
+  function matchQuery(movie: Movie) {
+    if (movie.title.toLowerCase().includes(query.toLowerCase())
+    || movie.description.toLowerCase().includes(query.toLowerCase())) {
+      return movie;
+    }
+
+    return null;
+  }
+
+  const visibleMovies = moviesFromServer
+    .filter(movie => matchQuery(movie));
 
   return (
     <div className="page">
