@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,17 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const searcherToLowerCase = (value: string) => {
+  const containsQuery = (value: string) => {
     return value.toLowerCase().includes(query.toLowerCase());
   };
 
   const viewMovies = moviesFromServer.filter(
-    movie => searcherToLowerCase(movie.title)
-      || searcherToLowerCase(movie.description),
+    movie => containsQuery(movie.title)
+      || containsQuery(movie.description),
   );
 
-  const handleSearch = ({ ...even }) => {
-    return setQuery(even.target.value);
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    return setQuery(event.target.value);
   };
 
   return (
