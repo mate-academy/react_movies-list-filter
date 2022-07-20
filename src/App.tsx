@@ -6,10 +6,14 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [search, setSearh] = useState('');
   const visibleMovies = [...moviesFromServer]
-    .filter(movie => (
-      movie.title.toLowerCase().includes(search.toLowerCase())
-      || movie.description.toLowerCase().includes(search.toLowerCase())
-    ));
+    .filter(movieSearch => {
+      const normalizeSearch = search.toLowerCase();
+      const normalizeTitle = movieSearch.title.toLowerCase();
+      const normalizeDescription = movieSearch.description.toLowerCase();
+
+      return normalizeTitle.toLowerCase().includes(normalizeSearch)
+      || normalizeDescription.toLowerCase().includes(normalizeSearch);
+    });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => (
     setSearh(event.target.value)
