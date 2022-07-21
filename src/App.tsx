@@ -8,12 +8,13 @@ export const App: React.FC = () => {
 
   const searchedQuery = query.toLowerCase();
 
-  const visibleMovies = (query.length > 0) ? moviesFromServer
-    .filter(
-      ({ title, description }) => title.toLowerCase().includes(searchedQuery)
-    || description.toLowerCase().includes(searchedQuery),
-    )
-    : moviesFromServer;
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
+    const hasTitle = title.toLocaleLowerCase().includes(searchedQuery);
+
+    const hasDescript = description.toLocaleLowerCase().includes(searchedQuery);
+
+    return hasTitle || hasDescript;
+  });
 
   return (
     <div className="page">
