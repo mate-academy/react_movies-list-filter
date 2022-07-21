@@ -10,9 +10,12 @@ export const App: React.FC = () => {
     setQuery(event.target.value.toLowerCase());
   };
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLocaleLowerCase().includes(query)
-    || movie.description.toLocaleLowerCase().includes(query)
+  const includesQuery = (property: string) => {
+    return property.toLocaleLowerCase().includes(query);
+  };
+
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => (
+    includesQuery(title) || includesQuery(description)
   ));
 
   return (
