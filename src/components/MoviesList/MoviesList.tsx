@@ -8,19 +8,19 @@ interface Props {
 }
 
 export const MoviesList: React.FC<Props> = ({ movies, inputText }) => {
-  const validMovie = (movie: Movie) => {
-    if (movie.title.toUpperCase().includes(inputText.toUpperCase())
-      || movie.description.toUpperCase().includes(inputText.toUpperCase())) {
-      return true;
-    }
+  const standardize = (word : string) => {
+    return word.toLowerCase().trim();
+  };
 
-    return false;
+  const isMovieFit = (movie: Movie) => {
+    return standardize(movie.title).includes(standardize(inputText))
+      || standardize(movie.description).includes(standardize(inputText));
   };
 
   return (
     <div className="movies">
       {movies.map(movie => (
-        validMovie(movie)
+        isMovieFit(movie)
           ? <MovieCard key={movie.imdbId} movie={movie} />
           : null
       ))}

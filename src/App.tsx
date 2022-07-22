@@ -32,7 +32,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} inputText={query} />
+        <MoviesList movies={[...moviesFromServer]} inputText={query} />
       </div>
       <div className="sidebar">
         Sidebar goes here
