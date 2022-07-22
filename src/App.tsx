@@ -7,6 +7,23 @@ export const App: React.FC = () => {
   const [visibleMovies, setVisibleMovies] = useState([...moviesFromServer]);
   const [query, setQuery] = useState('');
 
+  const handlerQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = event.target.value;
+
+    setQuery(newQuery);
+    if (!newQuery.trim()) {
+      setVisibleMovies([...moviesFromServer]);
+    }
+
+    setVisibleMovies(moviesFromServer.filter(movie => {
+      const searchArea = (
+        movie.title + movie.description)
+        .toLowerCase();
+
+      return searchArea.includes(newQuery.trim().toLowerCase());
+    }));
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -23,22 +40,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  const newQuery = event.target.value;
-
-                  setQuery(newQuery);
-                  if (!newQuery.trim()) {
-                    setVisibleMovies([...moviesFromServer]);
-                  }
-
-                  setVisibleMovies(moviesFromServer.filter(movie => {
-                    const searchArea = (
-                      movie.title + movie.description)
-                      .toLowerCase();
-
-                    return searchArea.includes(newQuery.trim().toLowerCase());
-                  }));
-                }}
+                onChange={handlerQuery}
               />
             </div>
           </div>
