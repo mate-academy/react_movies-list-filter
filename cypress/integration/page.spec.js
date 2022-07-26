@@ -4,7 +4,7 @@ describe('Page', () => {
   beforeEach(() => {
     cy.visit('/');
   });
-  
+
   it('should search lowercase title "rogue one"', () => {
     cy.get('#search-query')
       .type('rogue one');
@@ -13,7 +13,7 @@ describe('Page', () => {
     cy.get('#search-query')
       .type('{selectAll}{backspace}');
   });
-  
+
   it('should search uppercase title "ROGUE ONE"', () => {
     cy.get('#search-query')
       .type('ROGUE ONE');
@@ -22,7 +22,7 @@ describe('Page', () => {
     cy.get('#search-query')
       .type('{selectAll}{backspace}');
   });
-  
+
   it('should search for a match in movie content', () => {
     cy.get('#search-query')
       .type('daring');
@@ -31,7 +31,7 @@ describe('Page', () => {
     cy.get('#search-query')
       .type('{selectAll}{backspace}');
   });
-  
+
   it('should search partial match', () => {
     cy.get('#search-query')
       .type('pla');
