@@ -6,12 +6,9 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [search, setSearch] = useState('');
 
-  const listCopy = [...moviesFromServer
-    .map(object => JSON.parse(JSON.stringify(object)))]
-    .filter(el => {
-      return el.title.toLocaleLowerCase().includes(search)
-        || el.description.toLocaleLowerCase().includes(search);
-    });
+  const listCopy = [...moviesFromServer]
+    .filter(el => el.title.toLocaleLowerCase().includes(search)
+        || el.description.toLocaleLowerCase().includes(search));
 
   return (
     <div className="page">
