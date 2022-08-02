@@ -8,24 +8,16 @@ export const App: React.FC = () => {
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const searchMovie = (arg:string) => {
-    const movies = [];
-
     if (arg === '') {
       setVisibleMovies(moviesFromServer);
     }
 
-    for (let i = 0; i < moviesFromServer.length; i += 1) {
-      const lowerCaseString = arg.toLocaleLowerCase();
+    const movies = moviesFromServer.filter(movie => (
+      movie.title.toLocaleLowerCase().includes(arg.toLocaleLowerCase())
+      || movie.description.toLocaleLowerCase().includes(arg.toLocaleLowerCase())
+    ));
 
-      if (moviesFromServer[i].title.toLocaleLowerCase()
-        .includes(lowerCaseString)
-        || moviesFromServer[i].description.toLocaleLowerCase()
-          .includes(lowerCaseString)
-      ) {
-        movies.push(moviesFromServer[i]);
-        setVisibleMovies(movies);
-      }
-    }
+    setVisibleMovies(movies);
   };
 
   return (
