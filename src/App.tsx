@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+
+const checkContains = (movieItem: string, inputValue: string): boolean => {
+  return movieItem.toLowerCase().includes(inputValue.toLowerCase());
+};
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -10,12 +14,12 @@ export const App: React.FC = () => {
     setQuery(event.target.value)
   );
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase())
-  ));
-
-  console.log(query); // eslint-disable-line
+  const visibleMovies = useMemo(() => (
+    moviesFromServer.filter(({ title, description }) => (
+      checkContains(title, query)
+      || checkContains(description, query)
+    ))
+  ), [query]);
 
   return (
     <div className="page">
