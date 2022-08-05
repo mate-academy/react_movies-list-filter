@@ -1,19 +1,26 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const checkQuery = (movie: string, query: string) => (
+  movie.toLowerCase().includes(query.toLowerCase())
+);
+
+const filterMovies = (query: string) => (moviesFromServer.filter(
+  ({ title, description }) => (
+    checkQuery(title, query) || checkQuery(description, query)
+  ),
+));
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const checkQuery = (movie: string) => movie.toLowerCase().includes(query);
-  const visibleMovies = moviesFromServer.filter(
-    ({ title, description }) => checkQuery(title) || checkQuery(description),
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => (
+    setQuery(event.target.value)
   );
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => (
-    setQuery(event.target.value.toLowerCase())
-  );
+  const visibleMovies = useMemo(() => filterMovies(query), [query]);
 
   return (
     <div className="page">
