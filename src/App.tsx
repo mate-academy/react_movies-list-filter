@@ -29,7 +29,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => setQuery(event.target.value)}
+                onChange={event => setQuery(event.target.value.trim())}
               />
             </div>
           </div>
