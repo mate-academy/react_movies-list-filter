@@ -5,8 +5,9 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const sortedMoviesList = moviesFromServer.filter(movie => {
-    return movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+  const visibleMovies = moviesFromServer.filter(movie => {
+    return movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      || movie.description.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   return (
@@ -14,7 +15,6 @@ export const App: React.FC = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={sortedMoviesList} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
