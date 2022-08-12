@@ -3,16 +3,19 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const filterMovies = (query: string) => {
+  return () => {
+    return moviesFromServer.filter(movie => movie.title.toLowerCase()
+      .includes(query.toLowerCase())
+        || movie.description.toLowerCase()
+          .includes(query.toLowerCase()));
+  };
+};
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = useMemo(() => {
-    return moviesFromServer.filter(movie => {
-      return movie.title.toLowerCase()
-        .includes(query.toLowerCase())
-        || movie.description.toLowerCase()
-          .includes(query.toLowerCase());
-    });
-  }, [query]);
+
+  const visibleMovies = useMemo(filterMovies(query), [query]);
 
   return (
     <div className="page">
