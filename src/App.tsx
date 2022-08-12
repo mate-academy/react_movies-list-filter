@@ -30,8 +30,10 @@ export const App: React.FC = () => {
             </div>
           </div>
         </div>
+        {visibleMovies.length === 0
+          ? <strong> Nothing was found </strong>
+          : <MoviesList movies={visibleMovies} />}
 
-        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
