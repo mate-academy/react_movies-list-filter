@@ -8,7 +8,10 @@ export const App: React.FC = () => {
 
   const filterMovies = (currentMovies: Movie[]) => {
     return currentMovies.filter(curentMovie => (
-      curentMovie.title.toLowerCase().includes(searchQuery.toLowerCase().trim())
+      // eslint-disable-next-line max-len
+      (curentMovie.title.toLowerCase().includes(searchQuery.toLowerCase().trim()))
+      // eslint-disable-next-line max-len
+      || (curentMovie.description.toLowerCase().includes(searchQuery.toLowerCase().trim()))
     ));
   };
 
