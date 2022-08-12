@@ -5,9 +5,11 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+
   const isQueryInclude = (field: string) => (
     field.toLowerCase().includes(query.toLowerCase())
   );
+
   const getVisibleMovies = () => {
     return moviesFromServer.filter(
       movie => (isQueryInclude(movie.title)
