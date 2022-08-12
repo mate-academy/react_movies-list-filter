@@ -6,9 +6,6 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [value, setValue] = useState('');
 
-  // eslint-disable-next-line no-console
-  console.log(value);
-
   return (
     <div className="page">
       <div className="page-content">
