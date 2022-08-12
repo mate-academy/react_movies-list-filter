@@ -4,12 +4,10 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 const filterMovies = (query: string) => {
-  return () => {
-    return moviesFromServer.filter(movie => movie.title.toLowerCase()
-      .includes(query.toLowerCase())
-        || movie.description.toLowerCase()
-          .includes(query.toLowerCase()));
-  };
+  return () => moviesFromServer.filter(movie => movie.title.toLowerCase()
+    .includes(query.toLowerCase())
+      || movie.description.toLowerCase()
+        .includes(query.toLowerCase()));
 };
 
 export const App: React.FC = () => {
