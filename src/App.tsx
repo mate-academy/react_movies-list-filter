@@ -3,12 +3,12 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const getFilterText = (text: string, searchQuery: string) => {
+  return text.toLowerCase().includes(searchQuery.trim().toLowerCase());
+};
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-
-  const getFilterText = (text: string, searchQuery: string) => {
-    return text.toLowerCase().includes(searchQuery.trim().toLowerCase());
-  };
 
   const filterMovies = moviesFromServer
     .filter(({ title, description }) => (
