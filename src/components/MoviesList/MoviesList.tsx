@@ -12,19 +12,12 @@ interface Movie {
 
 interface Props {
   movies: Movie[];
-  value: string;
 }
 
-function visibleMovies(item:Movie, input:string) {
-  return item.title.toLowerCase().includes(input.toLocaleLowerCase())
-    || item.description.toLowerCase().includes(input.toLocaleLowerCase());
-}
-
-export const MoviesList: React.FC<Props> = ({ movies, value }) => (
+export const MoviesList: React.FC<Props> = ({ movies }) => (
   <div className="movies">
     {movies.map(movie => (
-      visibleMovies(movie, value)
-        && <MovieCard key={movie.imdbId} movie={movie} />
+      <MovieCard key={movie.imdbId} movie={movie} />
     ))}
   </div>
 );

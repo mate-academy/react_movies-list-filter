@@ -6,6 +6,14 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [value, setValue] = useState('');
 
+  function visibleMovies() {
+    const filterMovies = [...moviesFromServer].filter(movie => (
+      movie.title.toLowerCase().includes(value.toLocaleLowerCase())
+      || movie.description.toLowerCase().includes(value.toLocaleLowerCase())));
+
+    return filterMovies;
+  }
+
   return (
     <div className="page">
       <div className="page-content">
@@ -31,7 +39,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} value={value} />
+        <MoviesList movies={visibleMovies()} />
       </div>
 
       <div className="sidebar">
