@@ -7,8 +7,10 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    return title.toLowerCase().includes(query.toLowerCase())
-      || description.toLowerCase().includes(query.toLowerCase());
+    const queryToLower = query.toLowerCase();
+
+    return title.toLowerCase().includes(queryToLower)
+      || description.toLowerCase().includes(queryToLower);
   });
 
   return (
@@ -28,8 +30,8 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
+                onChange={(event) => {
+                  setQuery(event.target.value);
                 }}
               />
             </div>
