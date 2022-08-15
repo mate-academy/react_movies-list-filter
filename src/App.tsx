@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,16 +6,9 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const filteredmoviesFromServer = moviesFromServer.filter((movie) => {
-    if (movie.title.toLowerCase().includes(query.toLowerCase())) {
-      return movie;
-    }
-
-    if (movie.description.toLowerCase().includes(query.toLowerCase())) {
-      return movie;
-    }
-
-    return 0;
+  const filteredMoviesFromServer = moviesFromServer.filter((movie) => {
+    return movie.title.toLowerCase().includes(query.toLowerCase())
+    || movie.description.toLowerCase().includes(query.toLowerCase());
   });
 
   return (
@@ -43,7 +36,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={filteredmoviesFromServer} />
+        <MoviesList movies={filteredMoviesFromServer} />
       </div>
 
       <div className="sidebar">
