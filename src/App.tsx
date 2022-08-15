@@ -8,8 +8,8 @@ export const App: React.FC = () => {
   let visibleMovies = [...moviesFromServer];
 
   visibleMovies = visibleMovies.filter(movie => {
-    return movie.description.toLowerCase().includes(query.toLowerCase())
-    || movie.title.toLowerCase().includes(query.toLowerCase());
+    return movie.description.toLowerCase().includes(query.toLowerCase().trim())
+    || movie.title.toLowerCase().includes(query.toLowerCase().trim());
   });
 
   return (
