@@ -43,7 +43,7 @@ export const App: React.FC = () => {
 
         <div className="movies">
           {movies.map(movie => (
-            <div className="card">
+            <div className="card" key={movie.imdbId}>
               <div className="card-image">
                 <figure className="image is-4by3">
                   <img
