@@ -7,7 +7,6 @@ interface Props {
   query: string;
 }
 
-
 export const MoviesList: React.FC<Props> = ({ movies, query }) => {
   const queryToLowerCase = query.toLocaleLowerCase();
   const visibleMovies = movies.filter(
