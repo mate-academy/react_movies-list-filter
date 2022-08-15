@@ -7,16 +7,12 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const getVisibleMovies = (): Movie[] => {
-    return [...moviesFromServer]
+    return moviesFromServer
       .filter(movie => {
         const movieInfo = movie.title + movie.description;
         const searchQueryToLower = query.trim().toLowerCase();
 
-        if (movieInfo.toLowerCase().includes(searchQueryToLower)) {
-          return true;
-        }
-
-        return false;
+        return movieInfo.toLowerCase().includes(searchQueryToLower);
       });
   };
 
