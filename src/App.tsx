@@ -6,11 +6,14 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  let id;
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 300);
+    id = setTimeout(() => setIsLoading(false), 300);
   }, [query]);
+
+  clearTimeout(id);
 
   const visibleMovies = moviesFromServer.filter(movie => {
     return (
