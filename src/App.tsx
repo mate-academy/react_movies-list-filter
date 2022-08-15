@@ -9,12 +9,14 @@ export const App: React.FC = () => {
     setQuery(event.target.value);
   };
 
-  let movies = [...moviesFromServer];
+  let movies = moviesFromServer;
 
   if (query) {
-    movies = moviesFromServer.filter(movie => (
-      movie.title.toLocaleLowerCase().includes(query.toLowerCase())
-    || movie.description.toLocaleLowerCase().includes(query.toLowerCase())
+    const queryLoverCase = query.toLowerCase();
+
+    movies = movies.filter(movie => (
+      movie.title.toLowerCase().includes(queryLoverCase)
+    || movie.description.toLowerCase().includes(queryLoverCase)
     ));
   }
 
