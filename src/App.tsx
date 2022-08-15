@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
@@ -9,6 +8,15 @@ export const App: React.FC = () => {
   const handlerSearcValue = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
+
+  let movies = [...moviesFromServer];
+
+  if (query) {
+    movies = moviesFromServer.filter(movie => (
+      movie.title.toLocaleLowerCase().includes(query.toLowerCase())
+    || movie.description.toLocaleLowerCase().includes(query.toLowerCase())
+    ));
+  }
 
   return (
     <div className="page">
@@ -33,7 +41,42 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList querySearch={query} movies={moviesFromServer} />
+        <div className="movies">
+          {movies.map(movie => (
+            <div className="card">
+              <div className="card-image">
+                <figure className="image is-4by3">
+                  <img
+                    src={movie.imgUrl}
+                    alt="Film logo"
+                  />
+                </figure>
+              </div>
+              <div className="card-content">
+                <div className="media">
+                  <div className="media-left">
+                    <figure className="image is-48x48">
+                      <img
+                        src="images/imdb-logo.jpeg"
+                        alt="imdb"
+                      />
+                    </figure>
+                  </div>
+                  <div className="media-content">
+                    <p className="title is-8">{movie.title}</p>
+                  </div>
+                </div>
+
+                <div className="content">
+                  {movie.description}
+                  <br />
+                  <a href={movie.imdbUrl}>IMDB</a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
 
       <div className="sidebar">
