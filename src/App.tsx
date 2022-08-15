@@ -4,14 +4,16 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [filter, setFilter] = useState('');
+  const [query, setQuery] = useState('');
+
+  const getFilterText = (text: string, searchQuery: string) => {
+    return text.toLowerCase().includes(searchQuery.trim().toLowerCase());
+  };
 
   const filterMovies = moviesFromServer
     .filter(({ title, description }) => (
-      title.toLowerCase().startsWith(filter.trim().toLowerCase())
-      || description.split(' ')
-        .find(word => word
-          .toLowerCase().startsWith(filter.trim().toLowerCase()))));
+      getFilterText(title, query)
+      || getFilterText(description, query)));
 
   return (
     <div className="page">
@@ -29,14 +31,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={filter}
-                onChange={(event) => setFilter(event.target.value)}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
         {filterMovies.length > 0
-          ? <MoviesList movies={filterMovies} filter={filter} />
+          ? <MoviesList movies={filterMovies} filter={query} />
           : <h2 className="no-movies">No movies found for your query</h2>}
 
       </div>

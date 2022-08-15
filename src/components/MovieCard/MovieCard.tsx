@@ -1,32 +1,32 @@
 import React, { useCallback } from 'react';
 import './MovieCard.scss';
 
-function hightlight(filter: string, str: string) {
+function hightlight(filter: string, text: string) {
   if (!filter) {
-    return str;
+    return text;
   }
 
   const regexp = new RegExp(filter, 'ig');
-  const matchValue = str.match(regexp);
+  const matchValue = text.match(regexp);
 
   if (matchValue) {
-    return str.split(regexp).map((s, index, array) => {
+    return text.split(regexp).map((symbol, index, array) => {
       if (index < array.length - 1) {
-        const c = matchValue.shift();
+        const matchSymbol = matchValue.shift();
 
         return (
           <>
-            {s}
-            <span className="hightlight">{c}</span>
+            {symbol}
+            <span className="hightlight">{matchSymbol}</span>
           </>
         );
       }
 
-      return s;
+      return symbol;
     });
   }
 
-  return str;
+  return text;
 }
 
 interface Props {
@@ -39,8 +39,8 @@ export const MovieCard: React.FC<Props> = (props) => {
     imdbUrl, imgUrl, description, title,
   } = props.movie;
 
-  const light = useCallback((str: string) => {
-    return hightlight(props.filter, str);
+  const light = useCallback((text: string) => {
+    return hightlight(props.filter, text);
   }, [props.filter]);
 
   return (
