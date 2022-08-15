@@ -9,7 +9,7 @@ const moviesFilter = (query: string) => moviesFromServer
     const descriptToLowerCase = movie.description.toLowerCase();
     const queryToLowerCase = query.toLowerCase();
 
-    const titleIncludes = titleToLowerCase.includes(queryToLowerCase);
+    const titleIncludes = titleToLowerCase.includes(queryToLowerCase.trim());
     const descriptIncludes = descriptToLowerCase.includes(queryToLowerCase);
 
     return titleIncludes || descriptIncludes;
