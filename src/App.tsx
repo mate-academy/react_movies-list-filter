@@ -7,10 +7,10 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(({ title, description }) => (
-    title.toLowerCase().includes(query.toLowerCase())
-    || description.toLowerCase().includes(query.toLowerCase())
+    title.toLowerCase().includes(query.toLowerCase().trim())
+    || description.toLowerCase().includes(query.toLowerCase().trim())
   ));
-  
+
   return (
     <div className="page">
       <div className="page-content">
