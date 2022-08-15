@@ -5,25 +5,13 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const list = document
-      .querySelector('.wrapper')?.children[0].children;
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 300);
+  }, [query]);
 
-    if (list !== undefined) {
-      for (let i = 0; i < list.length; i += 1) {
-        list[i].classList.add('animate__animated');
-        list[i].classList.add('animate__flash');
-      }
-
-      setTimeout(() => {
-        for (let i = 0; i < list.length; i += 1) {
-          list[i].classList.remove('animate__animated');
-          list[i].classList.remove('animate__flash');
-        }
-      }, 500);
-    }
-  });
   const visibleMovies = moviesFromServer.filter(movie => {
     return (
       movie.title.toLowerCase().includes(query.toLowerCase())
@@ -56,7 +44,7 @@ export const App: React.FC = () => {
           </div>
         </div>
         <div
-          className="wrapper"
+          className={`wrapper animate__animated ${isLoading ? 'animate__flash' : ''}`}
         >
           <MoviesList movies={visibleMovies} />
         </div>
