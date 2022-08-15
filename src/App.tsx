@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState<string>('');
 
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    const formattedQuery = query.toUpperCase();
+    const formattedQuery = query.toUpperCase().trim();
 
     return (
       title.toUpperCase().includes(formattedQuery)
