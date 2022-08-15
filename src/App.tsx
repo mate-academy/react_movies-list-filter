@@ -5,13 +5,12 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const prettyQuery = searchQuery.toLowerCase().trim();
 
   const filterMovies = (currentMovies: Movie[]) => {
     return currentMovies.filter(curentMovie => (
-      // eslint-disable-next-line max-len
-      (curentMovie.title.toLowerCase().includes(searchQuery.toLowerCase().trim()))
-      // eslint-disable-next-line max-len
-      || (curentMovie.description.toLowerCase().includes(searchQuery.toLowerCase().trim()))
+      (curentMovie.title.toLowerCase().includes(prettyQuery))
+      || (curentMovie.description.toLowerCase().includes(prettyQuery))
     ));
   };
 
