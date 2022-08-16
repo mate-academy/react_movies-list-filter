@@ -17,3 +17,14 @@ onChange={(changeEvent) => setVariable(changeEvent.target.value)}
 ```
 
 2. [CODE STYLE] - Don't repeat yourself. If you see that you copy/paste some block code, maybe, it's time to create a separate variable/function
+3. [CODE KNOWLEDGE] - If you are using a non-mutating array method, you **don't** need to create a copy of the array
+
+BAD EXAMPLE:
+```jsx
+const filteredCats = [...cats].filter(cat => cat.age > 6);
+```
+
+GOOD EXAMPLE:
+```jsx
+const filteredCats = cats.filter(cat => cat.age > 6);
+```
