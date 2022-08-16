@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const isQueryIncluded = (field: string) => (
-    field.toLowerCase().includes(query.toLowerCase())
+    field.toLowerCase().includes(query.toLowerCase().trim())
   );
 
   const getVisibleMovies = () => {
