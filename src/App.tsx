@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const [movies, setMovies] = useState(moviesFromServer);
+
+  function includesQuery(value: string) {
+    const uppQuery = query.toUpperCase();
+
+    return value.toUpperCase().includes(uppQuery);
+  }
+
+  const visibleMovies = () => {
+    const filterMovie = moviesFromServer.filter(movie => {
+      return includesQuery(movie.title) || includesQuery(movie.description);
+    });
+
+    return filterMovie;
+  };
+
+  useEffect(() => {
+    setMovies(visibleMovies());
+  }, [query]);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +40,49 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <div className="movies">
+          {movies.map(movie => (
+            <div className="card" key={movie.imdbId}>
+              <div className="card-image">
+                <figure className="image is-4by3">
+                  <img
+                    src={movie.imgUrl}
+                    alt="Film logo"
+                  />
+                </figure>
+              </div>
+              <div className="card-content">
+                <div className="media">
+                  <div className="media-left">
+                    <figure className="image is-48x48">
+                      <img
+                        src="images/imdb-logo.jpeg"
+                        alt="imdb"
+                      />
+                    </figure>
+                  </div>
+                  <div className="media-content">
+                    <p className="title is-8">{movie.title}</p>
+                  </div>
+                </div>
+
+                <div className="content">
+                  {movie.description}
+                  <br />
+                  <a href={movie.imdbUrl}>IMDB</a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="sidebar">
