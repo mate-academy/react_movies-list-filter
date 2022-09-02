@@ -2,6 +2,8 @@
 
 The `App`contains a `MoviesList` and a search field. Implement filtering using a `useState` hook.
 
+> Here is [the working version](https://mate-academy.github.io/react_movies-list-filter/)
+
 - On every change save the input value into the `query`;
 - create a `visibleMovies` variable containing filtered movies;
 - check if `movie.title` or `movie.description` contains `query`;

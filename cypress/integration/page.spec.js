@@ -1,29 +1,35 @@
 const page = {
   searchField: () => cy.get('#search-query'),
   movies: () => cy.get('.card'),
+
+  assertMovieTitle: (index, title) => {
+    page.movies().eq(index).find('.title').should('have.text', title);
+  }
 }
+
+let failed = false;
+
+Cypress.on('fail', (e) => {
+  failed = true;
+  throw e;
+});
 
 describe('Page', () => {
   beforeEach(() => {
-    cy.visit('/');
+    if (failed) Cypress.runner.stop();
+
+    cy.visit('/')
   });
 
   it('should have an empty search field', () => {
-    page.searchField()
-      .should('have.value', '');
+    page.searchField().should('have.value', '');
   });
 
   it('should show all the movies by default', () => {
-    page.movies()
-      .should('have.length', 5);
+    page.movies().should('have.length', 5);
 
-    page.movies().eq(0)
-      .find('.title')
-      .should('have.text', 'Inception');
-
-    page.movies().eq(4)
-      .find('.title')
-      .should('have.text', 'The Holiday');
+    page.assertMovieTitle(0, 'Inception');
+    page.assertMovieTitle(4, 'The Holiday');
   });
 
   it('should allow to enter some text', () => {
@@ -40,105 +46,72 @@ describe('Page', () => {
   });
   
   it('should search by exact title', () => {
-    page.searchField()
-      .type('Love Actually');
+    page.searchField().type('Love Actually');
 
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'Love Actually');
+    page.movies().should('have.length', 1);
+    page.assertMovieTitle(0, 'Love Actually');
   });
 
   it('should search by a start of a title', () => {
-    page.searchField()
-      .type('Rogue');
+    page.searchField().type('Rogue');
 
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'Rogue One');
+    page.movies().should('have.length', 1);
+    page.assertMovieTitle(0, 'Rogue One');
   });
 
   it('should search by a part of a title', () => {
-    page.searchField()
-      .type('Day After');
+    page.searchField().type('Day After');
     
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'The Day After Tomorrow');
+    page.movies().should('have.length', 1);
+    page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by a lower case part of a title', () => {
-    page.searchField()
-      .type('day after');
+    page.searchField().type('day after');
     
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'The Day After Tomorrow');
+    page.movies().should('have.length', 1);
+    page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by an upper case part of a title', () => {
-    page.searchField()
-      .type('DAY AFTER');
+    page.searchField().type('DAY AFTER');
     
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'The Day After Tomorrow');
+    page.movies().should('have.length', 1)
+    page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by a mixed case part of a title', () => {
-    page.searchField()
-      .type('DaY aFTer');
+    page.searchField().type('DaY aFTer');
     
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'The Day After Tomorrow');
+    page.movies().should('have.length', 1);
+    page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by a part of a description', () => {
-    page.searchField()
-      .type('interrelated tales');
+    page.searchField().type('interrelated tales');
     
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'Inception');
+    page.movies().should('have.length', 1);
+    page.assertMovieTitle(0, 'Inception');
   });
 
   it('should search by a mixed case part of a description', () => {
-    page.searchField()
-      .type('interRELATED taLES');
+    page.searchField().type('interRELATED taLES');
     
-    page.movies()
-      .should('have.length', 1)
-      .eq(0)
-      .find('.title')
-      .should('have.text', 'Inception');
+    page.movies().should('have.length', 1);
+    page.assertMovieTitle(0, 'Inception');
   });
 
   it('should show all the matched movies', () => {
-    page.searchField()
-      .type('love');
+    page.searchField().type('love');
     
     page.movies().should('have.length', 3)
       
-    page.movies().eq(0).find('.title').should('have.text', 'Inception');
-    page.movies().eq(1).find('.title').should('have.text', 'Love Actually');
-    page.movies().eq(2).find('.title').should('have.text', 'The Holiday');
+    page.assertMovieTitle(0, 'Inception');
+    page.assertMovieTitle(1, 'Love Actually');
+    page.assertMovieTitle(2, 'The Holiday');
   });
 
-  it('should update movies on type', () => {
+  it('should update search results on type', () => {
     page.searchField().type('love');
     page.movies().should('have.length', 3);
 
