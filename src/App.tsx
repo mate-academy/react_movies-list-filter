@@ -4,12 +4,12 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, filtered] = useState('');
+  const [query, setQuery] = useState('');
 
   const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    filtered(value);
+    setQuery(value);
   };
 
   const visibleMovies = moviesFromServer
