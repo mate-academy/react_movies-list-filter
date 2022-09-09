@@ -16,7 +16,7 @@ export const App: React.FC = () => {
     ));
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => (
-    setQuery(event.target.value.trim())
+    setQuery(event.target.value)
   );
 
   return (
@@ -34,6 +34,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
                 onChange={handleChange}
               />
             </div>
