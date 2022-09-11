@@ -24,7 +24,7 @@ export class App extends React.Component {
     this.setState({ query: input.target.value });
   };
 
-  filterList = (list: Movie[]) => {
+  filterMovies = (list: Movie[]) => {
     const { query } = this.state;
     const filteredList = [...list];
 
@@ -35,7 +35,7 @@ export class App extends React.Component {
   };
 
   render() {
-    const filteredList = this.filterList(moviesFromServer);
+    const visibleMovies = this.filterMovies(moviesFromServer);
 
     return (
       <div className="page">
@@ -59,7 +59,7 @@ export class App extends React.Component {
             </div>
           </div>
 
-          <MoviesList movies={filteredList} />
+          <MoviesList movies={visibleMovies} />
         </div>
 
         <div className="sidebar">
