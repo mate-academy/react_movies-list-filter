@@ -11,9 +11,9 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = [...moviesFromServer]
-    .filter((movie) => (
-      lowerCompare(movie.description, query)
-      || lowerCompare(movie.title, query)
+    .filter(({ description, title }) => (
+      lowerCompare(description, query)
+      || lowerCompare(title, query)
     ));
 
   const querySetter = (event: React.ChangeEvent<HTMLInputElement>) => {
