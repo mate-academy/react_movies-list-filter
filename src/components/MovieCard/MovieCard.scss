@@ -1,3 +1,15 @@
 .card-image img {
   object-fit: contain;
 }
+
+.title::selection {
+  background-color: bisque;
+}
+
+.content::selection {
+  background-color: bisque;
+}
+
+.hightlight {
+  background-color: rgb(244, 196, 136);
+}
