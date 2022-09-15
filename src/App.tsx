@@ -10,7 +10,7 @@ function lowerCompare(state1: string, state2: string): boolean {
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = [...moviesFromServer]
+  const visibleMovies = moviesFromServer
     .filter(({ description, title }) => (
       lowerCompare(description, query)
       || lowerCompare(title, query)
