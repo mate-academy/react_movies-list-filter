@@ -6,10 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const stringContainsCaseInsensitive = (movie: string) => {
+    return (
+      movie.toLowerCase().includes(query.toLowerCase())
+    );
+  };
+
   const getVisibleMovies = () => {
-    return moviesFromServer.filter(movie => movie
-      .title.toLowerCase().includes(query.toLocaleLowerCase())
-      || movie.description.toLowerCase().includes(query.toLocaleLowerCase()));
+    return moviesFromServer.filter(
+      movie => stringContainsCaseInsensitive(movie.title)
+      || stringContainsCaseInsensitive(movie.description),
+    );
   };
 
   const visibleMovies = getVisibleMovies();
