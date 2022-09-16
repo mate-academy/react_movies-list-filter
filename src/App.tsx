@@ -3,15 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function contentCheck(value: string, query: string) {
+function checkContent(value: string, query: string) {
   return value.toLowerCase().includes(query.toLowerCase());
 }
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(
-    ({ title, description }) => contentCheck(title, query)
-    || contentCheck(description, query),
+    ({ title, description }) => checkContent(title, query)
+    || checkContent(description, query),
   );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
