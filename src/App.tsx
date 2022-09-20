@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { Movie } from './components/types/Movie';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+
+export function checkLetter(text: string, query: string): boolean {
+  return text.toLowerCase().includes(query.toLowerCase())
+}
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  function filtreMoviesList(movie: Movie): boolean {
-    const { title, description } = movie;
-    const queryToDown = query.toLocaleLowerCase();
-    const titleToDown = title.toLocaleLowerCase();
-    const descriptionToDown = description.toLocaleLowerCase();
-
-    if (titleToDown.includes(queryToDown)
-    || descriptionToDown.includes(queryToDown)) {
-      return true;
-    }
-
-    return false;
-  }
-
-  const filtredMovies = moviesFromServer.filter(filtreMoviesList);
+  const filtredMovies = moviesFromServer.filter(({ title, description }) => (
+    checkLetter(title, query)) || checkLetter(description, query));
 
   return (
     <div className="page">
