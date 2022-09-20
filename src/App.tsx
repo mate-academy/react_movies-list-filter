@@ -3,8 +3,9 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export function checkQuery(content:string, query:string) {
-  return content.toLowerCase().includes(query.toLowerCase());
+export function checkQuery(query:string, ...contentBlocks:string[]) {
+  return (contentBlocks.map(content => content).join('').toLowerCase())
+    .includes(query.toLowerCase());
 }
 
 export const App: React.FC = () => {
@@ -12,8 +13,7 @@ export const App: React.FC = () => {
 
   const visibleMovies = moviesFromServer
     .filter(({ title, description }) => (
-      checkQuery(title, query)
-      || checkQuery(description, query)
+      checkQuery(query, title, description)
     ));
 
   const handleChange = (
