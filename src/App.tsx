@@ -5,9 +5,7 @@ import moviesFromServer from './api/movies.json';
 // import { event } from 'cypress/types/jquery';
 
 export function getVisibleMovies(movies: Movie[], query: string) {
-  const visibleMovies = [...movies];
-
-  return visibleMovies.filter(movie => {
+  return movies.filter(movie => {
     const { title, description } = movie;
 
     return (
