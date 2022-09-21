@@ -12,18 +12,14 @@ export const App: React.FC = () => {
     setQuery(value);
   };
 
+  function searchBy(value: string, request: string) {
+    return value.toLowerCase().includes(request.toLowerCase());
+  }
+
   const visibleMovies = moviesFromServer.filter(film => {
     const { title, description } = film;
 
-    const searchByTitle = title
-      .toLowerCase()
-      .includes(query.toLowerCase());
-
-    const searchByDescription = description
-      .toLowerCase()
-      .includes(query.toLowerCase());
-
-    return searchByTitle || searchByDescription;
+    return searchBy(title + description, query);
   });
 
   return (
