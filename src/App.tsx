@@ -14,12 +14,14 @@ export const App: React.FC = () => {
       setQuery(event.target.value);
     };
 
+  const handleQueryInclude = (text: string, searchQuery: string) => {
+    return text.toLowerCase().includes(searchQuery);
+  };
+
   const searchWord = query.toLowerCase();
   const visibleMovies = moviesFromServer
-    .filter(
-      (movie) => movie.title.toLowerCase().includes(searchWord)
-        || movie.description.toLowerCase().includes(searchWord),
-    );
+    .filter((movie) => handleQueryInclude(movie.title, searchWord)
+    || handleQueryInclude(movie.description, searchWord));
 
   return (
     <div className="page">
