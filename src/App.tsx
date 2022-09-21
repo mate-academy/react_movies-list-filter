@@ -38,7 +38,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => setFilter(event.target.va)}
+                onChange={(event) => setFilter(event.target.value)}
               />
             </div>
           </div>
