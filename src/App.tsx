@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export function getVisibleMovies(movies: Movie[], query: string) {
-  return moviesFromServer.filter((movie) => {
+  return movies.filter((movie) => {
     const { title, description } = movie;
 
     const titleOfMovie = title
