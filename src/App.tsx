@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const lowerText = query.toLowerCase();
 
-  const selectedMovie = moviesFromServer.filter(({ title, description }) => (
+  const filteredMovies = moviesFromServer.filter(({ title, description }) => (
     title.toLowerCase().includes(lowerText)
     || description.toLowerCase().includes(lowerText)
   ));
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={selectedMovie} />
+        <MoviesList movies={filteredMovies} />
       </div>
 
       <div className="sidebar">
