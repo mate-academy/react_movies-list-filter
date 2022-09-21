@@ -11,14 +11,10 @@ export const App: React.FC = () => {
   };
 
   const visibleMovies = moviesFromServer.filter(movie => {
-    if (movie.title.toLocaleLowerCase()
-      .includes(query.toLocaleLowerCase())
-    || movie.description.toLocaleLowerCase()
-      .includes(query.toLocaleLowerCase())) {
-      return true;
-    }
+    const { title, description } = movie;
 
-    return false;
+    return title.toLowerCase().includes(query.toLowerCase())
+      || description.toLowerCase().includes(query.toLowerCase());
   });
 
   return (
