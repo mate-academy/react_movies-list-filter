@@ -11,9 +11,12 @@ export const App: React.FC = () => {
     setquery(event.target.value);
   };
 
+  function filterMove(event: string) {
+    return event.toLowerCase().includes(query.toLowerCase());
+  }
+
   const visibleMovies = moviesFromServer
-    .filter(move => move.title.toLowerCase().includes(query.toLowerCase())
-    || move.description.toLowerCase().includes(query.toLowerCase()));
+    .filter(move => filterMove(move.title) || filterMove(move.description));
 
   return (
     <div className="page">
