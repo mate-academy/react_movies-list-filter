@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-// import { event } from 'cypress/types/jquery';
 
 export function getFilterMovies(
   movies: Movie[], query: string,
