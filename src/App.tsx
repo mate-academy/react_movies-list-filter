@@ -3,12 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+export function getValue(firstValue: string, secondValue: string) {
+  return firstValue.toLowerCase().includes(secondValue.toLowerCase());
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase())
+    getValue(movie.title, query) || getValue(movie.description, query)
   ));
 
   return (
