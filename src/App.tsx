@@ -3,13 +3,17 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function includesСharacters(text: string, characters: string) {
+  return text.toLowerCase().includes(characters);
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const lowerText = query.toLowerCase();
 
   const filteredMovies = moviesFromServer.filter(({ title, description }) => (
-    title.toLowerCase().includes(lowerText)
-    || description.toLowerCase().includes(lowerText)
+    includesСharacters(title, lowerText)
+    || includesСharacters(description, lowerText)
   ));
 
   return (
