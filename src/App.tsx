@@ -16,6 +16,10 @@ export const App: React.FC = () => {
     || includesСharacters(description, lowerText)
   ));
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -31,9 +35,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => (
-                  setQuery(event.target.value)
-                )}
+                onChange={handleChange}
               />
             </div>
           </div>
