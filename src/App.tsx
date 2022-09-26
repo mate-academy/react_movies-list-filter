@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const titleLower = movie.title.toLowerCase();
     const descLower = movie.description.toLowerCase();
-    const inputLower = inputValue.toLowerCase().trim();
+    const inputLower = inputValue.toLowerCase();
 
     return (titleLower.includes(inputLower)
       || descLower.includes(inputLower)
