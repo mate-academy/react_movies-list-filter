@@ -8,9 +8,13 @@ interface Props {
 }
 
 export const MoviesList: React.FC<Props> = ({ movies, searchValue }) => {
+  const includesCheck = (text: string) => {
+    return text.toLowerCase().includes(searchValue.toLowerCase());
+  };
+
   const visibleMovies = movies.filter((movie) => (
-    movie.description.toLowerCase().includes(searchValue.toLowerCase())
-    || movie.title.toLowerCase().includes(searchValue.toLowerCase())
+    includesCheck(movie.description)
+    || includesCheck(movie.title)
   ));
 
   return (

@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [value, setValue] = useState('');
+  const [query, setQuery] = useState('');
 
   return (
     <div className="page">
@@ -22,16 +22,16 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={value}
+                value={query}
                 onChange={(event) => {
-                  setValue(event.target.value);
+                  setQuery(event.target.value);
                 }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} searchValue={value} />
+        <MoviesList movies={moviesFromServer} searchValue={query} />
       </div>
 
       <div className="sidebar">
