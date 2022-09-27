@@ -12,16 +12,16 @@ export const App: React.FC = () => {
     setQuery(value);
   };
 
+  function movieSearch(value: string) {
+    return value.toLowerCase().includes(query.toLowerCase());
+  }
+
   const visibleMovies = moviesFromServer.filter(film => {
     const { title, description } = film;
 
-    const searchByTitle = title
-      .toLowerCase()
-      .includes(query.toLowerCase());
+    const searchByTitle = movieSearch(title);
 
-    const seachByDescription = description
-      .toLowerCase()
-      .includes(query.toLowerCase());
+    const seachByDescription = movieSearch(description);
 
     return searchByTitle || seachByDescription;
   });
