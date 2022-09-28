@@ -5,12 +5,28 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+type Movie = {
+  title: string;
+  description: string;
+  imgUrl: string;
+  imdbUrl: string;
+  imdbId: string;
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+
+  const hasTitle = (movie: Movie) => {
+    return movie.title.toLowerCase().includes(query.toLowerCase())
+  };
+
+  const hasDescr = (movie: Movie) => {
+    return movie.description.toLowerCase().includes(query.toLowerCase())
+  };
+
   const visibleMovies = moviesFromServer
     .filter(movie => {
-      return movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase());
+      return hasTitle(movie) || hasDescr(movie);
     });
 
   return (
