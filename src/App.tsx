@@ -5,6 +5,10 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [search, setSearch] = useState('');
+  const moviesForVisible = moviesFromServer.filter(movie => {
+    return movie.title.toLowerCase().includes(search.toLowerCase())
+        || movie.description.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <div className="page">
@@ -33,8 +37,7 @@ export const App: React.FC = () => {
         </div>
 
         <MoviesList
-          movies={moviesFromServer}
-          search={search}
+          movies={moviesForVisible}
         />
       </div>
 
