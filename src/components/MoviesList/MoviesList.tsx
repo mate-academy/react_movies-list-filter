@@ -3,7 +3,7 @@ import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
 interface Props {
-  movies: Movie[];
+  movies: Movie[],
 }
 
 export const MoviesList: React.FC<Props> = ({ movies }) => (
