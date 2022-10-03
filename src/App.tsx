@@ -3,11 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function searchText(whereSearch: string, whatSearch: string) {
+  return whereSearch.toLowerCase().includes(whatSearch.toLowerCase());
+}
+
 export const App: React.FC = () => {
   const [search, setSearch] = useState('');
   const moviesForVisible = moviesFromServer.filter(movie => {
-    return movie.title.toLowerCase().includes(search.toLowerCase())
-        || movie.description.toLowerCase().includes(search.toLowerCase());
+    return searchText(movie.title, search)
+        || searchText(movie.description, search);
   });
 
   return (
