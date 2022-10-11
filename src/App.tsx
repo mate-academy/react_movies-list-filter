@@ -1,8 +1,10 @@
 import React from 'react';
-import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 import { useState } from 'react';
+import './App.scss';
+import { MoviesList } from './components/MoviesList';
+
+
 
 
 export const App: React.FC = () => {
