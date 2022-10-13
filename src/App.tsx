@@ -6,13 +6,10 @@ import { MoviesList } from './components/MoviesList';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const getvisibleMovies = () => {
-    return moviesFromServer.filter(movie => movie.title.toLowerCase()
+  const visibleMovies = moviesFromServer
+    .filter(movie => movie.title.toLowerCase()
       .includes(query.toLowerCase()) || movie.description.toLowerCase()
       .includes(query.toLowerCase()));
-  };
-
-  const visibleMovies = getvisibleMovies();
 
   return (
     <div className="page">
