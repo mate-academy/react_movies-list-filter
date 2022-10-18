@@ -6,10 +6,12 @@ import './App.scss';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const toLowerCase = query.toLowerCase();
+
   const visibleMovies = moviesFromServer
     .filter(movie => movie.title.toLowerCase()
-      .includes(query.toLowerCase()) || movie.description.toLowerCase()
-      .includes(query.toLowerCase()));
+      .includes(toLowerCase) || movie.description.toLowerCase()
+      .includes(toLowerCase));
 
   return (
     <div className="page">
