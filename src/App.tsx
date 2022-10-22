@@ -4,29 +4,17 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  // const [movies, setMovies] = useState(moviesFromServer);
-  const [input, setInput] = useState('');
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
+  const [query, setQuery] = useState('');
+  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  const handleChange = (event: any) => {
-    // setInput(event.target.value.trim());
-    const { value } = event.target;
+  const searchMovie = (input: string) => {
+    const movies = moviesFromServer.filter(movie => (
+      movie.title.includes(input)
+      || movie.description.includes(input)
+    ));
 
-    setInput(value);
-
-    //   setInput(type === 'checkbox'
-    //   ? checked
-    //   : value,
-    // );
-
-    console.log(input);
+    setVisibleMovies(movies);
   };
-
-  // const handleSubmit = (event) => {
-  //   setInput(event.target.value.trim());
-  //   console.log(input);
-  // };
 
   return (
     <div className="page">
@@ -44,51 +32,17 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={input}
-                // defaultValue={input}
-                // onChange={(event) => {
-                // setInput(event.target.value.trim());
-                // console.log(event.target.value);
-                // console.log(input);
-                // }}
-                onChange={handleChange}
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  searchMovie(query);
+                }}
               />
-
-              {/* <form onSubmit={(event) => {
-                event.preventDefault();
-                console.log(password, username)
-              }}
-              >
-                <input
-                  type="text"
-                  placeholder="username"
-                  value={username}
-                  // onChange={(event) => {
-                  //   setUsername(event.target.value);
-                  // }}
-                  onChange={handleSubmit}
-                />
-                <input
-                  type="password"
-                  placeholder="password"
-                  value={password}
-                  // onChange={(event) => {
-                  //   setPassword(event.target.value);
-                  // }}
-                  onChange={handleSubmit}
-
-                />
-                <button
-                  type="submit"
-                >
-                  click here
-                </button>
-              </form> */}
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
