@@ -5,22 +5,22 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>(moviesFromServer);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
+    const filterByQuery = (movie: Movie, param: keyof Movie, query: string) => {
+      return movie[param].toLowerCase().includes((query));
+    };
+
     setMovies(() => {
-      const newState = [...moviesFromServer].filter((movie) => (movie
-        .title
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()))
-        || movie
-          .description
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()));
+      const newState = [...moviesFromServer].filter((movie) => (
+        filterByQuery(movie, 'title', searchQuery)
+          || filterByQuery(movie, 'description', searchQuery)));
 
       return newState;
     });
-  }, [searchQuery]);
+  },
+  [searchQuery]);
 
   return (
     <div className="page">
@@ -38,7 +38,8 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(e) => setSearchQuery(e.currentTarget.value)}
+                onChange={(e) => setSearchQuery(e.currentTarget.value
+                  .toLowerCase())}
                 value={searchQuery}
               />
             </div>
