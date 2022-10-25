@@ -6,7 +6,7 @@ import { MoviesList } from './components/MoviesList';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = [...moviesFromServer].filter(movie => {
+  const visibleMovies = moviesFromServer.filter(movie => {
     const titleToLower = movie.title.toLowerCase();
     const descriptionToLower = movie.description.toLowerCase();
     const queryToLower = query.toLowerCase();
