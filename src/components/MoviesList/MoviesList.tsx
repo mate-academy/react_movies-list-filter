@@ -7,9 +7,11 @@ interface Props {
 }
 
 export const MoviesList: React.FC<Props> = ({ movies }) => (
-  <div className="movies">
+  <ul className="movies">
     {movies.map(movie => (
-      <MovieCard key={movie.imdbId} movie={movie} />
+      <li className="card">
+        <MovieCard key={movie.imdbId} movie={movie} />
+      </li>
     ))}
-  </div>
+  </ul>
 );
