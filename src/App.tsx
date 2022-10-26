@@ -20,7 +20,7 @@ export const App: React.FC = () => {
     setVisibleMovies(movies);
   }, [query]);
 
-  const handleChane = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
@@ -39,7 +39,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 value={query}
-                onChange={handleChane}
+                onChange={handleChange}
                 placeholder="Type search word"
               />
             </div>
