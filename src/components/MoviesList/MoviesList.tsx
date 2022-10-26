@@ -17,9 +17,12 @@ export const MoviesList: React.FC<Props> = ({ movies, query }) => {
 
   return (
     <div className="movies">
-      {filteredMovies.map((movie) => {
-        return <MovieCard key={movie.imdbId} movie={movie} />;
-      })}
+      {filteredMovies.map((movie) => (
+        <MovieCard
+          key={movie.imdbId}
+          movie={movie}
+        />
+      ))}
     </div>
   );
 };
