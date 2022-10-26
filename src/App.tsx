@@ -3,15 +3,16 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function isContains(string: string, substring: string): boolean {
+  return string.toLocaleLowerCase().includes(substring.toLocaleLowerCase());
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(
-    movie => movie.title.toLocaleLowerCase().includes(
-      query.toLocaleLowerCase(),
-    ) || movie.description.toLocaleLowerCase().includes(
-      query.toLocaleLowerCase(),
-    ),
+    movie => isContains(movie.title, query)
+     || isContains(movie.description, query),
   );
 
   return (
