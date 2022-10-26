@@ -33,7 +33,7 @@ export const App: FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(e) => handleInputChange(e.target.value)}
+                onChange={(event) => handleInputChange(event.target.value)}
               />
             </div>
           </div>
