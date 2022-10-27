@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [movies, setNewMovies] = useState(moviesFromServer);
+  const [movies, setNewMovies] = useState<Movie[]>(moviesFromServer);
+
+  useEffect(() => {
+    const queryTolowerCase = query.toLowerCase();
+
+    setNewMovies(moviesFromServer.filter(movie => {
+      const { description, title } = movie;
+
+      return title.toLowerCase().includes(queryTolowerCase)
+        || description.toLowerCase().includes(queryTolowerCase);
+    }));
+  }, [query]);
 
   return (
     <div className="page">
@@ -33,10 +44,7 @@ export const App: React.FC = () => {
         </div>
 
         <MoviesList
-          allMovies={moviesFromServer}
           visibleMovies={movies}
-          changeMovies={setNewMovies}
-          query={query}
         />
       </div>
 
