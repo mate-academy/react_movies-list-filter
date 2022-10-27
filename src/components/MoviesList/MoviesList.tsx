@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-interface Props {
-  movies: Movie[];
-  query: string;
+interface Movie {
+  title: string;
+  description: string;
+  imgUrl: string;
+  imdbUrl: string;
+  imdbId: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, query }) => {
-  const queryTolowerCase = query.toLowerCase();
-  const visibleMovies = movies.filter(movie => {
-    const { description, title } = movie;
+type Props = {
+  allMovies: Movie[];
+  visibleMovies: Movie[];
+  query: string;
+  changeMovies: (movie: Movie[]) => void;
+};
 
-    return title.toLowerCase().includes(queryTolowerCase)
-      || description.toLowerCase().includes(queryTolowerCase);
-  });
+export const MoviesList: React.FC<Props> = ({
+  allMovies,
+  visibleMovies,
+  query,
+  changeMovies,
+}) => {
+  useEffect(() => {
+    const queryTolowerCase = query.toLowerCase();
+
+    changeMovies(allMovies.filter(movie => {
+      const { description, title } = movie;
+
+      return title.toLowerCase().includes(queryTolowerCase)
+        || description.toLowerCase().includes(queryTolowerCase);
+    }));
+  }, [query]);
 
   return (
     <div className="movies">

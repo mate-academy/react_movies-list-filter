@@ -5,6 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const [movies, setNewMovies] = useState(moviesFromServer);
 
   return (
     <div className="page">
@@ -32,7 +33,9 @@ export const App: React.FC = () => {
         </div>
 
         <MoviesList
-          movies={moviesFromServer}
+          allMovies={moviesFromServer}
+          visibleMovies={movies}
+          changeMovies={setNewMovies}
           query={query}
         />
       </div>
