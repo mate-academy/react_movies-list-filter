@@ -38,7 +38,11 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={filterByInput(query)} />
+        <MoviesList
+          movies={filterByInput(
+            query.toLowerCase(),
+          )}
+        />
       </div>
 
       <div className="sidebar">
