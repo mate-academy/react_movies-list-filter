@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const getFilteredMovies = (movie: Movie, search: string) => {
-  const searchBy = search.toLowerCase();
-  const title = movie.title.toLowerCase();
-  const description = movie.description.toLowerCase();
+const getFilteredMovies = (movies: Movie[], search: string) => {
+  return movies.filter(movie => {
+    const searchBy = search.toLowerCase();
+    const title = movie.title.toLowerCase();
+    const description = movie.description.toLowerCase();
 
-  return title.includes(searchBy) || description.includes(searchBy);
+    return title.includes(searchBy) || description.includes(searchBy);
+  });
 };
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const [visibleMovies, setVisibleMovies] = useState<Movie[]>(moviesFromServer);
 
-  const visibleMovies = moviesFromServer
-    .filter(movies => getFilteredMovies(movies, query));
+  useEffect(() => {
+    setVisibleMovies(getFilteredMovies(moviesFromServer, query));
+  }, [query]);
 
   return (
     <div className="page">
@@ -35,7 +39,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={event => {
-                  setQuery(event.target.value)
+                  setQuery(event.target.value);
                 }}
               />
             </div>
