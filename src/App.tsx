@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const [visibleMovies, setVisibleMovies] = useState<Movie[]>(moviesFromServer);
 
-  const filterMovies = (movie: Movie, field: string) => {
-    const fieldForFilter = field.toLowerCase();
-    const movieTitle = movie.title.toLowerCase();
-    const movieDescription = movie.description.toLowerCase();
+  const filterMovies = (movies: Movie[], field: string) => {
+    return movies.filter(movie => {
+      const fieldForFilter = field.toLowerCase();
+      const movieTitle = movie.title.toLowerCase();
+      const movieDescription = movie.description.toLowerCase();
 
-    return movieTitle.includes(fieldForFilter)
-      || movieDescription.includes(fieldForFilter);
+      return movieTitle.includes(fieldForFilter)
+        || movieDescription.includes(fieldForFilter);
+    });
   };
 
-  const visibleMovies = moviesFromServer
-    .filter(movie => filterMovies(movie, query));
+  useEffect(() => {
+    setVisibleMovies(filterMovies(moviesFromServer, query));
+  }, [query]);
 
   return (
     <div className="page">
