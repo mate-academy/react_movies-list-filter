@@ -10,11 +10,22 @@ export const App: FC = () => {
     setQuery(newValue);
   };
 
-  const visibleMovies = moviesFromServer
-    .filter(movie => (
-      movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase())
-    ));
+  const filterMovies = (movies: Movie[]) => {
+    const loweredQuery = query.toLowerCase();
+
+    return movies.filter(({ title, description }) => {
+      const isTitleMatch = title
+        .toLowerCase()
+        .includes(loweredQuery);
+      const isDescriptionMatch = description
+        .toLowerCase()
+        .includes(loweredQuery);
+
+      return isTitleMatch || isDescriptionMatch;
+    });
+  };
+
+  const visibleMovies = filterMovies(moviesFromServer);
 
   return (
     <div className="page">
@@ -33,7 +44,7 @@ export const App: FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => handleInputChange(event.target.value)}
+                onChange={event => handleInputChange(event.target.value)}
               />
             </div>
           </div>
