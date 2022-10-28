@@ -1,19 +1,36 @@
-import { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const debounce = (
+  callback: React.Dispatch<React.SetStateAction<string>>, delay: number,
+) => {
+  let timerId: number | undefined;
+
+  return (...args: string[]) => {
+    clearTimeout(timerId);
+    timerId = setTimeout(callback, delay, ...args);
+  };
+};
+
 export const App: FC = () => {
   const [query, setQuery] = useState('');
+  const [appliedQuery, setAppliedQuery] = useState('');
+
+  const applyQuery = useCallback(debounce(
+    setAppliedQuery, 1000,
+  ), []);
 
   const handleInputChange = (newValue: string) => {
     setQuery(newValue);
+    applyQuery(newValue.trim());
   };
 
-  const filterMovies = (movies: Movie[]) => {
-    const loweredQuery = query.toLowerCase();
+  const getMovies = (newMovies: Movie[]) => {
+    const loweredQuery = appliedQuery.toLowerCase();
 
-    return movies.filter(({ title, description }) => {
+    return newMovies.filter(({ title, description }) => {
       const isTitleMatch = title
         .toLowerCase()
         .includes(loweredQuery);
@@ -25,7 +42,7 @@ export const App: FC = () => {
     });
   };
 
-  const visibleMovies = filterMovies(moviesFromServer);
+  const visibleMovies = getMovies(moviesFromServer);
 
   return (
     <div className="page">
@@ -44,7 +61,7 @@ export const App: FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => handleInputChange(event.target.value)}
+                onChange={(event) => handleInputChange(event.target.value)}
               />
             </div>
           </div>
