@@ -5,9 +5,15 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+
+  const doesTitleMatch = (movie: Movie) => (
+    movie.title.toLowerCase().includes(query.toLowerCase().trim()));
+
+  const doesDescriptionMatch = (movie: Movie) => (
+    movie.description.toLowerCase().includes(query.toLowerCase().trim()));
+
   const visibleMovies = moviesFromServer.filter(
-    (movie => movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase())),
+    (movie => doesTitleMatch(movie) || doesDescriptionMatch(movie)),
   );
 
   return (
