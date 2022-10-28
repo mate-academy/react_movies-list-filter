@@ -9,12 +9,14 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const { title, description } = movie;
 
-    const lowerCaseTitle = title.toLowerCase();
-    const lowerCaseDescription = description.toLowerCase();
-    const lowerCaseQuery = query.toLowerCase();
+    const doesTitleMatch = title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const doesDescriptionMatch = description
+      .toLowerCase()
+      .includes(query.toLowerCase());
 
-    return lowerCaseTitle.includes(lowerCaseQuery)
-      || lowerCaseDescription.includes(lowerCaseQuery);
+    return doesTitleMatch || doesDescriptionMatch;
   });
 
   return (
