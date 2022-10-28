@@ -19,11 +19,14 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [appliedQuery, setAppliedQuery] = useState(query);
   const getVisibleMovies = () => (
-    moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(appliedQuery.toLowerCase())
-        || movie.description.toLowerCase().includes(appliedQuery.toLowerCase())
-    ))
-  );
+    moviesFromServer.filter(movie => {
+      const isQueryInTitle = movie.title
+        .toLowerCase().includes(appliedQuery.trim().toLowerCase());
+      const isQueryInDescription = movie.description
+        .toLowerCase().includes(appliedQuery.trim().toLowerCase());
+
+      return isQueryInTitle || isQueryInDescription;
+    }));
 
   const applyQuery = useCallback(debounce(setAppliedQuery, 1000), []);
   const visibleMovies = useMemo(getVisibleMovies,
