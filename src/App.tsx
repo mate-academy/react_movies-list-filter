@@ -13,11 +13,9 @@ const getLowerCase = (expression: string) => (
 );
 
 const handleQueryChange = (query: string) => {
-  const filteredMovies = [...moviesFromServer];
-
   const queryLowerCase = getLowerCase(query);
 
-  return filteredMovies.filter(movie => {
+  return moviesFromServer.filter(movie => {
     return (
       getLowerCase(movie.title)
         .includes(queryLowerCase)
@@ -34,7 +32,7 @@ export const App: FC = () => {
     setquery(event.target.value);
   };
 
-  const filteredMovies = handleQueryChange(query);
+  const visibleMovies = handleQueryChange(query);
 
   return (
     <div className="page">
@@ -59,7 +57,7 @@ export const App: FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={filteredMovies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
