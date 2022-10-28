@@ -8,21 +8,27 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+interface Movie {
+  title: string;
+  description: string;
+  imgUrl: string;
+  imdbUrl: string;
+  imdbId: string;
+}
+
 const getLowerCase = (expression: string) => (
   expression.toLocaleLowerCase()
 );
 
-const handleQueryChange = (query: string) => {
+const handleQueryChange = (query: string): Movie[] => {
   const queryLowerCase = getLowerCase(query);
 
-  return moviesFromServer.filter(movie => {
-    return (
-      getLowerCase(movie.title)
-        .includes(queryLowerCase)
-      || getLowerCase(movie.description)
-        .includes(queryLowerCase)
-    );
-  });
+  return moviesFromServer.filter((movie: Movie) => (
+    getLowerCase(movie.title)
+      .includes(queryLowerCase)
+    || getLowerCase(movie.description)
+      .includes(queryLowerCase)
+  ));
 };
 
 export const App: FC = () => {
