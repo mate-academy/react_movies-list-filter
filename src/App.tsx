@@ -4,18 +4,22 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, setQuery] = useState<string>('');
+  const [query, setQuery] = useState('');
+
   const visibleMovies = moviesFromServer.filter(movie => (
     movie.title.toLowerCase().search(query.toLowerCase()) > -1
     || movie.description.toLowerCase().search(query.toLowerCase()) > -1
   ));
+
+  const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -27,7 +31,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => (setQuery(event.target.value))}
+                onChange={handleQuery}
               />
             </div>
           </div>
