@@ -8,6 +8,10 @@ export const App: React.FC = () => {
 
   const visibleMovies = [...moviesFromServer];
 
+  const setQueries = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -25,9 +29,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={setQueries}
               />
             </div>
           </div>
