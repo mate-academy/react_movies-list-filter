@@ -8,14 +8,12 @@ export const App: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>(moviesFromServer);
   const [query, setQuery] = useState('');
 
+  const propLower = (prop: string) => prop.toLowerCase();
+
   useEffect(() => {
     const filteredMovies = moviesFromServer.filter(movie => (
-      movie.title
-        .toLowerCase()
-        .includes(query.toLowerCase())
-        || movie.description
-          .toLowerCase()
-          .includes(query.toLowerCase())
+      propLower(movie.title).includes(propLower(query))
+        || propLower(movie.description).includes(propLower(query))
     ));
 
     setMovies(filteredMovies);
