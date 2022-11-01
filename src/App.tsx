@@ -8,21 +8,13 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-interface Movie {
-  title: string;
-  description: string;
-  imgUrl: string;
-  imdbUrl: string;
-  imdbId: string;
-}
-
 const handleQueryChange = (query: string): Movie[] => {
   return moviesFromServer.filter((movie: Movie) => {
     const { title, description } = movie;
     const queryLowerCase = query.toLocaleLowerCase();
 
     return title.toLocaleLowerCase().includes(queryLowerCase)
-      || description.toLocaleLowerCase().includes(queryLowerCase);
+      || description?.toLocaleLowerCase().includes(queryLowerCase);
   });
 };
 
