@@ -16,19 +16,14 @@ interface Movie {
   imdbId: string;
 }
 
-const getLowerCase = (expression: string) => (
-  expression.toLocaleLowerCase()
-);
-
 const handleQueryChange = (query: string): Movie[] => {
-  const queryLowerCase = getLowerCase(query);
+  return moviesFromServer.filter((movie: Movie) => {
+    const { title, description } = movie;
+    const queryLowerCase = query.toLocaleLowerCase();
 
-  return moviesFromServer.filter((movie: Movie) => (
-    getLowerCase(movie.title)
-      .includes(queryLowerCase)
-    || getLowerCase(movie.description)
-      .includes(queryLowerCase)
-  ));
+    return title.toLocaleLowerCase().includes(queryLowerCase)
+      || description.toLocaleLowerCase().includes(queryLowerCase);
+  });
 };
 
 export const App: FC = () => {
