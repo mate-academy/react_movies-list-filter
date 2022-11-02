@@ -8,6 +8,10 @@ The `App`contains a `MoviesList` and a search field. Implement filtering using a
 - create a `visibleMovies` variable containing filtered movies;
 - check if `movie.title` or `movie.description` contains `query`;
 - search should be case insensitive (`Inception` can be found by entering `inc` or `Inc` or even `iNC`).
+- При кожній зміні зберігати введене значення в `запиті query`;
+- створити змінну `visibleMovies`, яка містить відфільтровані фільми;
+- перевірити, чи містить `movie.title` або `movie.description` `query`;
+- пошук має бути нечутливим до регістру (`Inception` можна знайти, ввівши `inc` або `Inc` або навіть `iNC`).
 
 ## Instructions
 
