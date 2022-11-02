@@ -6,10 +6,12 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(({ title, description }) => (
-    title.toLowerCase().includes(query.toLowerCase())
-      || description.toLowerCase().includes(query.toLowerCase())
-  ));
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
+    const loweredQuery = query.toLowerCase();
+
+    return title.toLowerCase().includes(loweredQuery)
+      || description.toLowerCase().includes(loweredQuery);
+  });
 
   return (
     <div className="page">
