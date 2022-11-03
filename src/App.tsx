@@ -9,15 +9,14 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     const queryToCheck = query.toLowerCase();
-    const filtredMovies = moviesFromServer.filter(({ title, description }) => {
+
+    setVisibleMovies(moviesFromServer.filter(({ title, description }) => {
       const titleToCheck = title.toLowerCase();
       const descriptionToCheck = description.toLowerCase();
 
       return (titleToCheck.includes(queryToCheck)
         || descriptionToCheck.includes(queryToCheck));
-    });
-
-    setVisibleMovies(filtredMovies);
+    }));
   }, [query]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
