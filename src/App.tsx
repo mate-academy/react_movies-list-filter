@@ -7,14 +7,18 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [movies, setNewMovies] = useState<Movie[]>(moviesFromServer);
 
+  const handlerQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
   useEffect(() => {
-    const queryTolowerCase = query.toLowerCase();
-
     setNewMovies(moviesFromServer.filter(movie => {
-      const { description, title } = movie;
+      const movieTitle = movie.title.toLowerCase();
+      const movieDiscription = movie.description.toLowerCase();
+      const movieQuery = query.toLowerCase();
 
-      return title.toLowerCase().includes(queryTolowerCase)
-        || description.toLowerCase().includes(queryTolowerCase);
+      return movieTitle.includes(movieQuery)
+      || movieDiscription.includes(movieQuery);
     }));
   }, [query]);
 
@@ -35,9 +39,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={handlerQuery}
               />
             </div>
           </div>
