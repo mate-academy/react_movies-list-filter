@@ -12,6 +12,12 @@ export const App: React.FC = () => {
     setQuery(event.target.value);
   };
 
+  const queryLowerCase = query.toLowerCase();
+  const filteredMovies = visibleMovies.filter((movie) => (
+    movie.title.toLowerCase().includes(queryLowerCase)
+    || movie.description.toLowerCase().includes(queryLowerCase)
+  ));
+
   return (
     <div className="page">
       <div className="page-content">
@@ -36,8 +42,7 @@ export const App: React.FC = () => {
         </div>
 
         <MoviesList
-          movies={visibleMovies}
-          query={query}
+          movies={filteredMovies}
         />
       </div>
 
