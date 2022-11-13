@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [searchResult, setSearchReasult] = useState('');
+  const [searchResult, setSearchResult] = useState('');
 
   const search = searchResult.toLowerCase();
 
@@ -31,7 +31,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Search..."
                 value={searchResult}
-                onChange={(event) => setSearchReasult(event.target.value)}
+                onChange={(event) => setSearchResult(event.target.value)}
               />
             </div>
           </div>
