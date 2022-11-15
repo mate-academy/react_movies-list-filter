@@ -13,8 +13,9 @@ type Movie = {
 
 function filterMovies(movies: Movie[], query: string) {
   const visibleMovies = movies.filter(movie => {
-    const titleExists = movie.title.toLowerCase().includes(query);
-    const descriptionExists = movie.description.toLowerCase().includes(query);
+    const term = query.toLowerCase();
+    const titleExists = movie.title.toLowerCase().includes(term);
+    const descriptionExists = movie.description.toLowerCase().includes(term);
 
     return titleExists || descriptionExists;
   });
@@ -45,7 +46,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(event) => {
-                  setQuery(event.target.value.toLowerCase());
+                  setQuery(event.target.value);
                 }}
               />
             </div>
