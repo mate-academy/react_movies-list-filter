@@ -8,7 +8,7 @@ export const App: React.FC = () => {
 
   const visibleMovies = [...moviesFromServer];
 
-  const setQueries = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSetQueries = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={setQueries}
+                onChange={handleSetQueries}
               />
             </div>
           </div>
