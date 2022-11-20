@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+// import debounce from 'lodash.debounce';
+import { debounce } from 'lodash';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, setSearchWord] = useState('');
-
+  const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer
     .filter((movie) => {
-      let { title, description } = movie;
+      let {
+        title,
+        description,
+      } = movie;
       const searchWordToLow = query.toLowerCase();
 
       title = title.toLowerCase();
@@ -17,6 +21,8 @@ export const App: React.FC = () => {
       return title.includes(searchWordToLow)
         || description.includes(searchWordToLow);
     });
+
+  const debounceQuery = debounce((value) => setQuery(value), 1000);
 
   return (
     <div className="page">
@@ -34,9 +40,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setSearchWord(event.target.value);
-                }}
+                onChange={(event) => debounceQuery(event.target.value)}
               />
             </div>
           </div>
