@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+type Movie = {
+  title: string,
+  description: string,
+  imgUrl: string,
+  imdbUrl: string,
+  imdbId: string,
+};
+
+export function filteredFilms(
+  movies: Movie[],
+  query: string,
+) {
+  let visibleFilms = [...movies];
+
+  visibleFilms = visibleFilms.filter((movie) => {
+    if (movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
+      return 1;
+    }
+
+    // eslint-disable-next-line max-len
+    if (movie.description.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+  return visibleFilms;
+}
+
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+
   return (
     <div className="page">
       <div className="page-content">
@@ -17,6 +49,10 @@ export const App: React.FC = () => {
             <div className="control">
               <input
                 type="text"
+                defaultValue={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
@@ -25,7 +61,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={filteredFilms(moviesFromServer, query)} />
       </div>
 
       <div className="sidebar">
