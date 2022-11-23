@@ -8,11 +8,11 @@ export const App: React.FC = () => {
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const searchMovie = (input: string) => {
-    const inputtolowercase = input.toLocaleLowerCase();
+    const inputToLowerCase = input.toLocaleLowerCase();
 
     const movies = moviesFromServer.filter(movie => (
-      movie.title.toLocaleLowerCase().includes(inputtolowercase)
-      || movie.description.toLocaleLowerCase().includes(inputtolowercase)
+      movie.title.toLocaleLowerCase().includes(inputToLowerCase)
+      || movie.description.toLocaleLowerCase().includes(inputToLowerCase)
     ));
 
     setVisibleMovies(movies);
