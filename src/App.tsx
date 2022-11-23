@@ -17,13 +17,17 @@ export function filteredFilms(
 ) {
   let visibleFilms = [...movies];
 
-  visibleFilms = visibleFilms.filter((movie) => {
-    if (movie.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
+  function isInsclude(obj: string): number {
+    if (obj.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
       return 1;
     }
 
-    // eslint-disable-next-line max-len
-    if (movie.description.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
+    return 0;
+  }
+
+  visibleFilms = visibleFilms.filter((movie) => {
+    if (isInsclude(movie.title) === 1
+    || isInsclude(movie.description) === 1) {
       return 1;
     }
 
@@ -35,6 +39,10 @@ export function filteredFilms(
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+
+  function handleSet(event: string) {
+    setQuery(event);
+  }
 
   return (
     <div className="page">
@@ -51,7 +59,7 @@ export const App: React.FC = () => {
                 type="text"
                 defaultValue={query}
                 onChange={(event) => {
-                  setQuery(event.target.value);
+                  handleSet(event.target.value);
                 }}
                 id="search-query"
                 className="input"
