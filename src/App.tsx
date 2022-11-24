@@ -17,22 +17,13 @@ export function filteredFilms(
 ) {
   let visibleFilms = [...movies];
 
-  function isInsclude(obj: string): number {
-    if (obj.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
-      return 1;
-    }
-
-    return 0;
+  function isInsclude(str: string): boolean {
+    return str.toLocaleLowerCase().includes(query.toLocaleLowerCase());
   }
 
-  visibleFilms = visibleFilms.filter((movie) => {
-    if (isInsclude(movie.title) === 1
-    || isInsclude(movie.description) === 1) {
-      return 1;
-    }
-
-    return 0;
-  });
+  visibleFilms = visibleFilms.filter((movie) => (
+    isInsclude(movie.title) || isInsclude(movie.description)
+  ));
 
   return visibleFilms;
 }
