@@ -10,11 +10,12 @@ export const App: React.FC = () => {
     setQuery(e.target.value);
   };
 
+  const isMatch = (str: string) => (
+    str.toLowerCase().includes(query.toLowerCase())
+  );
+
   const visibleMovies = moviesFromServer.filter(
-    ({ title, description }) => (
-      title.toLowerCase().includes(query.toLowerCase())
-      || description.toLowerCase().includes(query.toLowerCase())
-    ),
+    ({ title, description }) => (isMatch(title) || isMatch(description)),
   );
 
   return (
@@ -34,7 +35,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
               />
             </div>
           </div>
