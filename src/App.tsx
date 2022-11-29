@@ -1,7 +1,7 @@
 import { useState, FC } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { MoviesList } from './components/MoviesList';
 
 export const App: FC = () => {
   const [query, setQuery] = useState('');
