@@ -2,10 +2,23 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { Movie } from './types/Movie';
+// import { Movie } from './types/Movie';
 
-export const findVisibleMovies = (movies: Movie[], query: string): Movie[] => {
-  return movies.filter(movie => {
+// export const findVisibleMovies = (movies: Movie[], query: string): Movie[] => {
+//   return movies.filter(movie => {
+//     const { description, title } = movie;
+
+//     return description.toLocaleLowerCase()
+//       .includes(query.trim().toLocaleLowerCase())
+//     || title.toLocaleLowerCase()
+//       .includes(query.trim().toLocaleLowerCase());
+//   });
+// };
+
+export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+
+  const visibleMovies = moviesFromServer.filter(movie => {
     const { description, title } = movie;
 
     return description.toLocaleLowerCase()
@@ -13,15 +26,9 @@ export const findVisibleMovies = (movies: Movie[], query: string): Movie[] => {
     || title.toLocaleLowerCase()
       .includes(query.toLocaleLowerCase());
   });
-};
 
-export const App: React.FC = () => {
-  const [query, setQuery] = useState('');
-
-  const visibleMovies = findVisibleMovies(moviesFromServer, query);
-
-  const hendleChangeQuery = ((event: React.ChangeEvent<HTMLInputElement>) => (
-    setQuery(event.target.value)));
+  // const hendleChangeQuery = ((event: React.ChangeEvent<HTMLInputElement>) => (
+  //   setQuery(event.target.value)));
 
   return (
     <div className="page">
@@ -40,7 +47,9 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={hendleChangeQuery}
+                onChange={(event => (
+                  setQuery(event.target.value))
+                )}
               />
             </div>
           </div>
