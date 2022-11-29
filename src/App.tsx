@@ -16,11 +16,19 @@ export const App: React.FC = () => {
   //     return null;
   //   },
   // );
+  const copmairingItems = (
+    item1: string,
+  ) => item1.toLowerCase().includes(insensitiveQuery);
 
   const visibleMovies = moviesFromServer.filter(
-    movie => movie.title.toLowerCase().includes(insensitiveQuery)
-    || movie.description.toLowerCase().includes(insensitiveQuery),
+    movie => copmairingItems(movie.title)
+    || copmairingItems(movie.description),
   );
+
+  // const visibleMovies = moviesFromServer.filter(
+  //   movie => movie.title.toLowerCase().includes(insensitiveQuery)
+  //   || movie.description.toLowerCase().includes(insensitiveQuery),
+  // );
 
   return (
     <div className="page">
