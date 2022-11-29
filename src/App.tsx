@@ -2,18 +2,6 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-// import { Movie } from './types/Movie';
-
-// export const findVisibleMovies = (movies: Movie[], query: string): Movie[] => {
-//   return movies.filter(movie => {
-//     const { description, title } = movie;
-
-//     return description.toLocaleLowerCase()
-//       .includes(query.trim().toLocaleLowerCase())
-//     || title.toLocaleLowerCase()
-//       .includes(query.trim().toLocaleLowerCase());
-//   });
-// };
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -26,9 +14,6 @@ export const App: React.FC = () => {
     || title.toLocaleLowerCase()
       .includes(query.toLocaleLowerCase());
   });
-
-  // const hendleChangeQuery = ((event: React.ChangeEvent<HTMLInputElement>) => (
-  //   setQuery(event.target.value)));
 
   return (
     <div className="page">
