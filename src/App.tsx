@@ -5,30 +5,15 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  // const insensitiveQuery = query.toLowerCase().trim();
-  // const visibleMovies = [...moviesFromServer].filter(
-  //   movie => {
-  //     if (movie.title.toLowerCase().includes(insensitiveQuery)
-  //       || movie.description.toLowerCase().includes(insensitiveQuery)) {
-  //       return movie;
-  //     }
 
-  //     return null;
-  //   },
-  // );
   const copmairingItems = (
-    item1: string,
-  ) => item1.toLowerCase().trim().includes(query.toLowerCase());
+    movieFrom: string,
+  ) => movieFrom.toLowerCase().includes(query.trim().toLowerCase());
 
   const visibleMovies = moviesFromServer.filter(
     movie => copmairingItems(movie.title)
     || copmairingItems(movie.description),
   );
-
-  // const visibleMovies = moviesFromServer.filter(
-  //   movie => movie.title.toLowerCase().includes(insensitiveQuery)
-  //   || movie.description.toLowerCase().includes(insensitiveQuery),
-  // );
 
   return (
     <div className="page">
