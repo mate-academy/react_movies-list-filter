@@ -5,7 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const insensitiveQuery = query.toLowerCase().trim();
+  // const insensitiveQuery = query.toLowerCase().trim();
   // const visibleMovies = [...moviesFromServer].filter(
   //   movie => {
   //     if (movie.title.toLowerCase().includes(insensitiveQuery)
@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   // );
   const copmairingItems = (
     item1: string,
-  ) => item1.toLowerCase().includes(insensitiveQuery);
+  ) => item1.toLowerCase().trim().includes(query.toLowerCase());
 
   const visibleMovies = moviesFromServer.filter(
     movie => copmairingItems(movie.title)
