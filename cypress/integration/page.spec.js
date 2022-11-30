@@ -44,7 +44,7 @@ describe('Page', () => {
       .type('{selectAll}{backspace}')
       .should('have.value', '');
   });
-  
+
   it('should search by exact title', () => {
     page.searchField().type('Love Actually');
 
@@ -61,62 +61,70 @@ describe('Page', () => {
 
   it('should search by a part of a title', () => {
     page.searchField().type('Day After');
-    
+
     page.movies().should('have.length', 1);
     page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by a lower case part of a title', () => {
     page.searchField().type('day after');
-    
+
     page.movies().should('have.length', 1);
     page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by an upper case part of a title', () => {
     page.searchField().type('DAY AFTER');
-    
+
     page.movies().should('have.length', 1)
     page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by a mixed case part of a title', () => {
     page.searchField().type('DaY aFTer');
-    
+
     page.movies().should('have.length', 1);
     page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
   it('should search by a part of a description', () => {
     page.searchField().type('interrelated tales');
-    
+
     page.movies().should('have.length', 1);
     page.assertMovieTitle(0, 'Inception');
   });
 
   it('should search by a mixed case part of a description', () => {
     page.searchField().type('interRELATED taLES');
-    
+
     page.movies().should('have.length', 1);
     page.assertMovieTitle(0, 'Inception');
   });
 
   it('should show all the matched movies', () => {
     page.searchField().type('love');
-    
+
     page.movies().should('have.length', 3)
-      
+
     page.assertMovieTitle(0, 'Inception');
     page.assertMovieTitle(1, 'Love Actually');
     page.assertMovieTitle(2, 'The Holiday');
   });
 
   it('should update search results on type', () => {
+    page.searchField().type('l');
+    page.movies().should('have.length', 5);
+
+    page.searchField().type('lo');
+    page.movies().should('have.length', 4);
+
     page.searchField().type('love');
     page.movies().should('have.length', 3);
+  });
 
-    page.searchField().type(' ');
-    page.movies().should('have.length', 2);
+  it('should work if user types extra spaces before or after the query', () => {
+    page.searchField().type('   love     ');
+    page.movies().should('have.length', 3);
   });
 
   it('should show no movies if query does not match any title or description', () => {
