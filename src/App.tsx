@@ -9,10 +9,16 @@ export const App: React.FC = () => {
   const filterMovies = () => {
     const filter = query.toLowerCase();
 
-    return moviesFromServer.filter((movie) => (
+    if (filter.length > 1) {
+      filter.trim();
+    }
+
+    return moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(filter)
       || movie.description.toLowerCase().includes(filter)));
   };
+
+  const visibleMovies = filterMovies();
 
   return (
     <div className="page">
@@ -37,7 +43,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={filterMovies()} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
