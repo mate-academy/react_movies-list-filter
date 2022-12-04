@@ -9,10 +9,10 @@ const includesQueryText = (text: string, query: string) => (
 );
 
 export const App: React.FC = () => {
-  const [query, search] = useState('');
+  const [query, searchQuery] = useState('');
 
   const visibleMovies
-    = [...moviesFromServer].filter(({ title, description }) => (
+    = moviesFromServer.filter(({ title, description }) => (
       includesQueryText(title, query)
       || includesQueryText(description, query)
     ));
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(e) => {
-                  search(e.target.value);
+                  searchQuery(e.target.value);
                 }}
               />
             </div>
