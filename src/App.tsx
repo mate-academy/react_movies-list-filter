@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const filterMovies = () => {
-    const filter = query.toLowerCase().trim();
+    const filter = query.toLowerCase();
 
     return moviesFromServer.filter(movie => (
       movie.title.toLowerCase().includes(filter)
