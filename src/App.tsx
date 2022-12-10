@@ -4,14 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  let query = '';
-  const [visibleMovies, setVisibleMovies] = useState([...moviesFromServer]);
+  const [query, setQuery] = useState('');
 
-  const filteredMovies = (movieList: Movie[], searchQuery: string) => {
-    return [...movieList].filter(movie => (
-      movie.description.toLowerCase().includes(searchQuery.toLowerCase())
-      || movie.title.toLowerCase().includes(searchQuery.toLowerCase())));
-  };
+  const isIncludes = (someString: string) => (
+    someString.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const visibleMovies = [...moviesFromServer].filter(movie => (
+    isIncludes(movie.description) || isIncludes(movie.title)
+  ));
 
   return (
     <div className="page">
@@ -29,9 +30,9 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
                 onChange={(event) => {
-                  query = event.target.value;
-                  setVisibleMovies(filteredMovies(moviesFromServer, query));
+                  setQuery(event.target.value);
                 }}
               />
             </div>
