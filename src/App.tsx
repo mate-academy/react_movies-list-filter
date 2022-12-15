@@ -22,6 +22,7 @@ export const App: React.FC = () => {
 
             <div className="control">
               <input
+                type="text"
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
