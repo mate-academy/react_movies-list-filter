@@ -6,11 +6,10 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, newQuery] = useState('');
 
-  const isIncludes = (value: string) => {
-    return value.toLowerCase().includes(query.toLowerCase());
-  };
+  const isIncludes = (value: string) => value
+    .toLowerCase().includes(query.toLowerCase());
 
-  const visibleMovies = [...moviesFromServer].filter(movie => (
+  const visibleMovies = moviesFromServer.filter(movie => (
     isIncludes(movie.title) || isIncludes(movie.description)
   ));
 
@@ -30,9 +29,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  newQuery(event.target.value);
-                }}
+                onChange={(event) => newQuery(event.target.value)}
               />
             </div>
           </div>
