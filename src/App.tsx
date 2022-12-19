@@ -7,15 +7,12 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter((movie) => {
-    if (
-      movie.title.toLowerCase().includes(query.toString()
-        .toLowerCase()) || movie.description.toLowerCase()
-        .includes(query.toString().toLowerCase())
-    ) {
-      return movie;
-    }
+    const compareTitle = movie.title.toString().toLowerCase()
+      .indexOf(query.toLowerCase()) !== -1;
+    const compareDescription = movie.description.toString().toLowerCase()
+      .indexOf(query.toLowerCase()) !== -1;
 
-    return false;
+    return (compareTitle || compareDescription);
   });
 
   return (
@@ -33,8 +30,7 @@ export const App: React.FC = () => {
                 type="text"
                 id="search-query"
                 className="input"
-                defaultValue={query}
-                // value={filter}
+                value={query}
                 onChange={(event) => {
                   setQuery(event.target.value);
                 }}
