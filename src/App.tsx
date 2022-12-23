@@ -10,8 +10,8 @@ export const App: React.FC = () => {
   const getSortedMovies = (keyword: string) => {
     if (keyword) {
       return visibleMovies.filter((movie) => {
-        return movie.title.toLowerCase().includes(keyword)
-        || movie.description.toLowerCase().includes(keyword);
+        return movie.title.toLowerCase().includes(keyword.toLowerCase())
+        || movie.description.toLowerCase().includes(keyword.toLowerCase());
       });
     }
 
@@ -34,7 +34,8 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => setQuery(event.target.value.toLowerCase())}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
