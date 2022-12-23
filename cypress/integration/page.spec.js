@@ -115,10 +115,10 @@ describe('Page', () => {
     page.searchField().type('l');
     page.movies().should('have.length', 5);
 
-    page.searchField().type('lo');
+    page.searchField().type('o');
     page.movies().should('have.length', 4);
 
-    page.searchField().type('love');
+    page.searchField().type('ve');
     page.movies().should('have.length', 3);
   });
 
