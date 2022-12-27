@@ -37,7 +37,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => handleChange(event)}
+                onChange={handleChange}
               />
             </div>
           </div>
