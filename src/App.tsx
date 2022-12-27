@@ -8,17 +8,25 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value.trim().toLowerCase());
+    setQuery(event.target.value);
   };
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title
+  const visibleMovies = moviesFromServer.filter(
+    (movie) => movie.title
       .toLowerCase()
-      .includes(query)
-    || movie.description
-      .toLowerCase()
-      .includes(query)
-  ));
+      .includes(
+        query
+          .trim()
+          .toLowerCase(),
+      )
+      || movie.description
+        .toLowerCase()
+        .includes(
+          query
+            .trim()
+            .toLowerCase(),
+        ),
+  );
 
   return (
     <div className="page">
