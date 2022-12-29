@@ -31,7 +31,9 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
             </figure>
           </div>
           <div className="media-content">
-            <p className="title is-8">{title}</p>
+            <p className="title is-8">
+              {title}
+            </p>
           </div>
         </div>
 
