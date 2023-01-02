@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const filterMovies = () => {
-    const filteredMovies = [...moviesFromServer].filter((movie) => {
+    const filteredMovies = moviesFromServer.filter((movie) => {
       return movie.title.toLocaleLowerCase().includes(query)
       || movie.description.toLocaleLowerCase().includes(query);
     });
@@ -14,14 +14,13 @@ export const App: React.FC = () => {
     return filteredMovies;
   };
 
-  const visibleMovies = filterMovies();
+  useMemo(() => filterMovies(), []);
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -42,7 +41,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={filterMovies()} />
       </div>
 
       <div className="sidebar">
