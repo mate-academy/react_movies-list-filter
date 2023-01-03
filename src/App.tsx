@@ -11,7 +11,7 @@ export const App: React.FC = () => {
     const normalizedQuery = query
       .toLowerCase()
       .split(' ')
-      .filter(element => element.length > 0)
+      .filter(Boolean)
       .join(' ');
 
     return stringToCheck.includes(normalizedQuery);
