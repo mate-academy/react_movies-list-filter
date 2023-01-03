@@ -7,14 +7,15 @@ export const App: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value.toLowerCase());
+    setSearchValue(event.target.value);
   };
 
   const visibleMovies = moviesFromServer.filter(movie => {
     const title = movie.title.toLowerCase();
     const description = movie.description.toLowerCase();
+    const part = searchValue.toLowerCase().trim();
 
-    return title.includes(searchValue) || description.includes(searchValue);
+    return title.includes(part) || description.includes(part);
   });
 
   return (
