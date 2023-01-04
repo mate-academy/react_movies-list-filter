@@ -11,7 +11,11 @@ export const App: React.FC = () => {
   }
 
   const visibleMovies = moviesFromServer.filter(movie => {
-    const lowerCaseInput = query.trim().toLowerCase();
+    const lowerCaseInput = query
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .join(' ');
     const lowerMovieTitle = movie.title.toLowerCase();
     const lowerMovieDescription = movie.description.toLowerCase();
 
