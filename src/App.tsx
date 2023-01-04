@@ -6,24 +6,9 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  // const debounce = (fn: () => {}, ms: number) => {
-  //   let timeout: any;
-  //
-  //   return function ():void {
-  //     const fnCall = () => {
-  //       fn.apply(this, arguments);
-  //     };
-  //
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(fnCall, ms);
-  //   };
-  // };
-
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setQuery(event.currentTarget.value);
   }
-
-  // const handleChanged = debounce(handleChange, 500);
 
   const visibleMovies = moviesFromServer.filter(movie => {
     const lowerCaseInput = query.trim().toLowerCase();
