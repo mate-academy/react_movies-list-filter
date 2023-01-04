@@ -2,18 +2,12 @@ import { FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { filterMoviesByQuery } from './utils/filterMoviesByQuery';
 
 export const App: FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    const normalizeTitle = title.toLowerCase().trim();
-    const normalizeDescription = description.toLowerCase().trim();
-    const normalizeSearchQuery = searchQuery.toLowerCase().trim();
-
-    return normalizeTitle.includes(normalizeSearchQuery)
-      || normalizeDescription.includes(normalizeSearchQuery);
-  });
+  const visibleMovies = filterMoviesByQuery(moviesFromServer, searchQuery);
 
   return (
     <div className="page">
