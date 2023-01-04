@@ -7,7 +7,18 @@ export const App: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+    setSearchValue(prev => {
+      const current = event.target.value;
+
+      if (prev.length > 0) {
+        if (prev[prev.length - 1] === ' '
+          && current[current.length - 1] === ' ') {
+          return prev;
+        }
+      }
+
+      return current;
+    });
   };
 
   const visibleMovies = moviesFromServer.filter(movie => {
