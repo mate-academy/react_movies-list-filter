@@ -15,8 +15,6 @@ export const App: FC = () => {
         .toLowerCase()
         .replace(/ /g, '');
 
-      window.console.log(mergedParams);
-
       return mergedParams.includes(inputValue);
     })
     : moviesFromServer;
