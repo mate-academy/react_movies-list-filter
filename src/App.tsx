@@ -9,16 +9,15 @@ export const App: FC = () => {
     ? moviesFromServer.filter(movie => {
       const inputValue = query
         .toLowerCase()
-        .trim();
+        .replace(/ /g, '');
 
-      const title = movie.title
+      const mergedParams = `${movie.title} ${movie.description}`
         .toLowerCase()
-        .includes(inputValue);
-      const description = movie.description
-        .toLowerCase()
-        .includes(inputValue);
+        .replace(/ /g, '');
 
-      return title || description;
+      window.console.log(mergedParams);
+
+      return mergedParams.includes(inputValue);
     })
     : moviesFromServer;
 
