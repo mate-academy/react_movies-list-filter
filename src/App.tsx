@@ -7,24 +7,16 @@ export const App: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(prev => {
-      const current = event.target.value;
-
-      if (prev.length > 0) {
-        if (prev[prev.length - 1] === ' '
-          && current[current.length - 1] === ' ') {
-          return prev;
-        }
-      }
-
-      return current;
-    });
+    setSearchValue(event.target.value);
   };
 
   const visibleMovies = moviesFromServer.filter(movie => {
     const title = movie.title.toLowerCase();
     const description = movie.description.toLowerCase();
-    const part = searchValue.toLowerCase().trim();
+    const part = searchValue.toLowerCase().trim()
+      .split(' ')
+      .filter(el => el)
+      .join(' ');
 
     return title.includes(part) || description.includes(part);
   });
