@@ -9,7 +9,7 @@ export const App: React.FC = () => {
 
   const visibleMovies = movies.filter(movie => {
     const { title, description } = movie;
-    const queryRegex = new RegExp(query, 'i');
+    const queryRegex = new RegExp(query.trim(), 'i');
 
     return queryRegex.test(title) || queryRegex.test(description);
   });
