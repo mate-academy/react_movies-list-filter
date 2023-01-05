@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, setGuery] = useState('');
+  const [query, setQuery] = useState('');
   const filteredMovies = moviesFromServer.filter(movie => {
     const movieTitle = movie.title.toLowerCase();
     const movieDescription = movie.description.toLowerCase();
@@ -33,7 +33,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => setGuery(event.target.value)}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
