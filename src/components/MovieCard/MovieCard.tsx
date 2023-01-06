@@ -1,4 +1,5 @@
 import React from 'react';
+import { Movie } from '../../types/movie';
 import './MovieCard.scss';
 
 interface Props {
@@ -7,7 +8,10 @@ interface Props {
 
 export const MovieCard: React.FC<Props> = ({ movie }) => {
   const {
-    imdbUrl, imgUrl, description, title,
+    imdbUrl,
+    imgUrl,
+    description,
+    title,
   } = movie;
 
   return (
