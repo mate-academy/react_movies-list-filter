@@ -11,6 +11,7 @@ export const App: React.FC = () => {
     const filmDescription = movie.description.toLowerCase();
     const partOfquery = query
       .toLowerCase()
+      .trim()
       .split(' ')
       .join(' ');
 
