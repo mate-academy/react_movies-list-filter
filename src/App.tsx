@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import Cosmo from './static/cosmolot.png';
 
 interface Movie {
   title: string;
@@ -55,7 +56,7 @@ export const App: React.FC = () => {
       </div>
 
       <div className="sidebar">
-        Sidebar goes here
+        <img src={Cosmo} alt="" />
       </div>
     </div>
   );
