@@ -7,6 +7,7 @@ iframe {
   grid-template: auto / 1fr 400px;
   column-gap: 20px;
   min-height: 100vh;
+  background: #222;
 }
 
 .page-content {
@@ -15,15 +16,25 @@ iframe {
 
 .sidebar {
   padding: 20px;
-  border-left: 1px solid lightgray;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.48);
+  background: #111;
 }
 
-.movies {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+.box {
+  background: #111;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.48);
 }
 
-.card-image img {
-  object-fit: contain;
+.label {
+  color: #ddd;
+}
+
+.input {
+  background: #222;
+  border: none;
+  color: #fff;
+
+  &::placeholder {
+    color: #aaa;
+  }
 }

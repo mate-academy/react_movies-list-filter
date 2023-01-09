@@ -1,3 +1,20 @@
+.card {
+  padding-top: 20px;
+  background: #111;
+}
+
 .card-image img {
   object-fit: contain;
+}
+
+.title,
+.content {
+  color: #aaa;
+}
+
+.content {
+
+  &__link {
+    color: #c060a1;
+  }
 }
