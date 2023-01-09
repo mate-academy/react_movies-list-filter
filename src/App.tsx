@@ -6,6 +6,10 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value.toLowerCase().trim());
+  };
+
   const visibleMovies = moviesFromServer
     .filter(movie => movie.title.toLowerCase().includes(query)
       || movie.description.toLowerCase().includes(query));
@@ -26,9 +30,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={
-                  (event) => setQuery(event.target.value.toLowerCase().trim())
-                }
+                onChange={handleInput}
               />
             </div>
           </div>
