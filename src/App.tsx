@@ -6,13 +6,15 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [searchMovie, setSearchMovie] = useState('');
 
+  const isInclude = (value: string) => Boolean(
+    value.toLowerCase().includes(
+      searchMovie.toLowerCase().trim(),
+    ),
+  );
+
   const visibleMovies = moviesFromServer.filter((movie) => (
-    movie.title.toLowerCase().includes(
-      searchMovie.toLowerCase().trim(),
-    )
-    || movie.description.toLowerCase().includes(
-      searchMovie.toLowerCase().trim(),
-    )
+    isInclude(movie.title)
+    || isInclude(movie.description)
   ));
 
   return (
