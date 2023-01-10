@@ -30,11 +30,7 @@ export const App: FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  setQuery(
-                    event.target.value,
-                  );
-                }}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
