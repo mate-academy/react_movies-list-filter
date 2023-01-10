@@ -10,15 +10,8 @@ export const App: React.FC = () => {
     const description = movie.description.toLowerCase();
     const queryLowerCase = query.toLowerCase().trim();
 
-    if (title.includes(queryLowerCase)) {
-      return true;
-    }
-
-    if (description.includes(queryLowerCase)) {
-      return true;
-    }
-
-    return false;
+    return title.includes(queryLowerCase)
+      || description.includes(queryLowerCase);
   });
 
   return (
