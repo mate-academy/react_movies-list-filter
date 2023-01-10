@@ -1,3 +1,17 @@
-.card-image img {
-  object-fit: contain;
+.card {
+  background: radial-gradient(ellipse at top, #be7575, transparent),
+    radial-gradient(ellipse at bottom, #7a7a7a, transparent);
+
+  font-family: "Raleway", sans-serif;
+  color: #eee;
+
+  &-image img {
+    margin-top: 10px;
+    object-fit: contain;
+  }
+}
+
+.is-8 {
+  font-size: 24px;
+  margin-top: 10px;
 }
