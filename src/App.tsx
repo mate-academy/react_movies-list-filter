@@ -10,9 +10,14 @@ export const App: React.FC = () => {
     setQuery(event.currentTarget.value);
   }
 
-  const visibleMovies = moviesFromServer.filter(movie => movie
-    .title.includes(query)
-    || movie.description.includes(query));
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const movieTitle = movie.title.toLowerCase();
+    const movieDescription = movie.description.toLowerCase();
+    const inputValue = query.toLowerCase().trim();
+
+    return movieTitle.includes(inputValue)
+    || movieDescription.includes(inputValue);
+  });
 
   return (
     <div className="page">
