@@ -7,13 +7,15 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(movie => {
-    const movieText = `${movie.title} ${movie.description}`.toLowerCase();
+    const movieTextFields = `${movie.title} ${movie.description}`.toLowerCase();
 
     const normalizedQuery = query
-      .trim()
-      .toLowerCase();
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .join(' ');
 
-    return movieText.includes(normalizedQuery);
+    return movieTextFields.includes(normalizedQuery);
   });
 
   return (
