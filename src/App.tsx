@@ -9,12 +9,12 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const filmTitle = movie.title.toLowerCase();
     const filmDescription = movie.description.toLowerCase();
-    const partOfquery = query
+    const normalizedQuery = query
       .toLowerCase()
       .trim();
 
-    return filmTitle.includes(partOfquery)
-    || filmDescription.includes(partOfquery);
+    return filmTitle.includes(normalizedQuery)
+    || filmDescription.includes(normalizedQuery);
   });
 
   return (
