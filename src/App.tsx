@@ -12,14 +12,8 @@ export const App: React.FC = () => {
     } = movie;
     const lowerQuery = query.toLowerCase().trim();
 
-    if (
-      title.toLowerCase().includes(lowerQuery)
-        || description.toLowerCase().includes(lowerQuery)
-    ) {
-      return true;
-    }
-
-    return false;
+    return title.toLowerCase().includes(lowerQuery)
+        || description.toLowerCase().includes(lowerQuery);
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
