@@ -7,8 +7,8 @@ export const App: React.FC = () => {
   const [searchMovie, setSearchMovie] = useState('');
 
   const isMovieIncludeQuery = (value: string) => Boolean(
-    value.toLowerCase().includes(
-      searchMovie.toLowerCase().trim(),
+    value.toLowerCase().replace(/\s/g, '').includes(
+      searchMovie.toLowerCase().replace(/\s/g, ''),
     ),
   );
 
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={searchMovie}
                 onChange={(event) => {
-                  setSearchMovie(event.target.value.replace('  ', ' '));
+                  setSearchMovie(event.target.value);
                 }}
               />
             </div>
