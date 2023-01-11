@@ -15,9 +15,9 @@ export const App: React.FC = () => {
   const visibleMoviesOnList = moviesFromServer.filter(movie => {
     const title = movie.title.toLowerCase();
     const description = movie.description.toLowerCase();
-    const name = movieName.toLowerCase().trim();
+    const preparedName = movieName.toLowerCase().trim();
 
-    return title.includes(name) || description.includes(name);
+    return title.includes(preparedName) || description.includes(preparedName);
   });
 
   return (
