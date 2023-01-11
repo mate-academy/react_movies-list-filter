@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import validator from 'validator';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export function checkIfIncludes(movieProperty: string, query: string) {
-  return movieProperty.toLowerCase().includes(query.toLowerCase());
-}
+const checkIfIncludes = (movieProperty: string, query: string) => {
+  return movieProperty.toLowerCase().includes(query.trim().toLowerCase());
+};
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-
-  const validate = (input: string) => {
-    setQuery(validator.trim(input));
-  };
 
   const visibleMovies = moviesFromServer.filter(movie => (
     checkIfIncludes(movie.title, query)
@@ -36,9 +31,9 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                defaultValue={query}
+                value={query}
                 onChange={(event) => {
-                  validate(event.target.value);
+                  setQuery(event.target.value);
                 }}
               />
             </div>
