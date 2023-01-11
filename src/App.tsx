@@ -5,7 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.currentTarget.value);
   };
 
@@ -41,7 +41,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={handleChange}
+                onChange={handleChangeQuery}
               />
             </div>
           </div>
