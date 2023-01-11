@@ -7,13 +7,11 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const normalisedQuery = query.toLowerCase().trim();
 
-  const visibleMovies = moviesFromServer.filter(
-    movie => {
+  const visibleMovies = moviesFromServer.filter(movie => {
       const allInfo = `${movie.description} ${movie.title}`.toLowerCase();
 
       return (allInfo.includes(normalisedQuery));
-    },
-  );
+  });
 
   return (
     <div className="page">
