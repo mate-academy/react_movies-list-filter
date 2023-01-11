@@ -6,15 +6,15 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const MoviesThatIncludeQuery = (value: string) => Boolean(
+  const getMovieThatIncludeQuery = (value: string) => Boolean(
     value.toLowerCase().replace(/\s/g, '').includes(
       searchQuery.toLowerCase().replace(/\s/g, ''),
     ),
   );
 
   const visibleMovies = moviesFromServer.filter((movie) => (
-    MoviesThatIncludeQuery(movie.title)
-    || MoviesThatIncludeQuery(movie.description)
+    getMovieThatIncludeQuery(movie.title)
+    || getMovieThatIncludeQuery(movie.description)
   ));
 
   return (
