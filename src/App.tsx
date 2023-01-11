@@ -1,9 +1,14 @@
-import React from 'react';
+// import React, { useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setValue] = useState('');
+
+  const filterdMovies = <MoviesList movies={moviesFromServer} value={query} />;
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +25,17 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={(event) => {
+                  setValue(event.target.value);
+                }}
               />
             </div>
           </div>
-        </div>
+          {query === '' && filterdMovies}
 
-        <MoviesList movies={moviesFromServer} />
+          {query && filterdMovies}
+        </div>
       </div>
 
       <div className="sidebar">
