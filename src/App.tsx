@@ -30,14 +30,14 @@ export const App: React.FC = () => {
                 type="text"
                 id="search-query"
                 className="input"
+                placeholder="Type search word"
                 onChange={(event) => {
-                  const lowerCaseSearch = event.target.value
+                  const lowerCaseSearchTerm = event.target.value
                     .toLowerCase()
                     .trim();
 
-                  setSearchTerm(lowerCaseSearch);
+                  setSearchTerm(lowerCaseSearchTerm);
                 }}
-                placeholder="Type search word"
               />
             </div>
           </div>
