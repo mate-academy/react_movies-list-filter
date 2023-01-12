@@ -11,11 +11,13 @@ type Movies = {
   imdbId: string,
 };
 
+function searchInMovie(movie: Movies, search: string) {
+  return movie.title.toLowerCase().includes(search.trim().toLowerCase())
+    || movie.description.toLowerCase().includes(search.trim().toLowerCase());
+}
+
 function getVisibleMovies(movies: Movies[], search: string): Movies[] {
-  return movies.filter(
-    (movie) => movie.title.toLowerCase().includes(search.trim().toLowerCase())
-    || movie.description.toLowerCase().includes(search.trim().toLowerCase()),
-  );
+  return movies.filter(movie => searchInMovie(movie, search));
 }
 
 export const App: React.FC = () => {
