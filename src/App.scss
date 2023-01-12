@@ -7,6 +7,9 @@ iframe {
   grid-template: auto / 1fr 400px;
   column-gap: 20px;
   min-height: 100vh;
+  background: linear-gradient(#000, #154357);
+  font-family: "Raleway", sans-serif;
+  color: #eee;
 }
 
 .page-content {
@@ -26,4 +29,14 @@ iframe {
 
 .card-image img {
   object-fit: contain;
+}
+
+.box {
+  background: transparent;
+  box-shadow: 2px 2px 2px 1px rgba(255, 255, 255, 0.2);
+}
+
+.label {
+  font-family: "Raleway", sans-serif;
+  color: #eee;
 }
