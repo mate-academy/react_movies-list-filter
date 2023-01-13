@@ -6,19 +6,18 @@ import moviesFromServer from './api/movies.json';
 export const App: FC = () => {
   const [filterValue, setFilterValue] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(({
+  const displayedMovies = moviesFromServer.filter(({
     title,
     description,
   }) => {
-    const filterArgs = [
+    const filterParams = [
       `${title} ${description}`,
       filterValue.trim(),
-    ]
-      .map(string => string.toLowerCase());
+    ].map(string => string.toLowerCase());
 
-    const [titleAndDescription, query] = filterArgs;
+    const [titleAndDescription, search] = filterParams;
 
-    return titleAndDescription.includes(query);
+    return titleAndDescription.includes(search);
   });
 
   return (
@@ -27,7 +26,10 @@ export const App: FC = () => {
         <div className="box">
           <div className="field">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
+            <label
+              htmlFor="search-query"
+              className="label"
+            >
               Search movie
             </label>
 
@@ -46,7 +48,7 @@ export const App: FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={displayedMovies} />
       </div>
 
       <div className="sidebar">
