@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
@@ -6,8 +5,6 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setValue] = useState('');
-
-  const filterdMovies = <MoviesList movies={moviesFromServer} value={query} />;
 
   return (
     <div className="page">
@@ -32,9 +29,7 @@ export const App: React.FC = () => {
               />
             </div>
           </div>
-          {query === '' && filterdMovies}
-
-          {query && filterdMovies}
+          <MoviesList movies={moviesFromServer} value={query} />
         </div>
       </div>
 
