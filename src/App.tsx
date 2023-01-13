@@ -12,7 +12,7 @@ export const App: React.FC = () => {
       .includes(query.toLowerCase().trim())
     || movie.description
       .toLowerCase()
-      .includes(query.toLowerCase()),
+      .includes(query.toLowerCase().trim()),
   );
 
   return (
