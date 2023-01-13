@@ -11,13 +11,13 @@ export const MovieCard: React.FC<Props> = ({ movie, value }) => {
     imdbUrl, imgUrl, description, title,
   } = movie;
 
-  const valueTrimedLowered = value.trim().toLocaleLowerCase();
+  const finalQuery = value.trim().toLocaleLowerCase();
 
-  const check = valueTrimedLowered === title.toLocaleLowerCase()
-  || title.toLocaleLowerCase().includes(valueTrimedLowered)
-  || description.toLocaleLowerCase().includes(valueTrimedLowered);
+  const isMovieSelected = finalQuery === title.toLocaleLowerCase()
+  || title.toLocaleLowerCase().includes(finalQuery)
+  || description.toLocaleLowerCase().includes(finalQuery);
 
-  if (check) {
+  if (isMovieSelected) {
     return (
       <div className="card">
         <div className="card-image">
