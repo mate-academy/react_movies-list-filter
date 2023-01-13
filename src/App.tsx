@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+type Movie = {
+  title: string,
+  description: string,
+  imgUrl: string,
+  imdbUrl: string,
+  imdbId: string,
+};
+
+export function filteredFilms(
+  movies: Movie[],
+  query: string,
+) {
+  let visibleFilms = [...movies];
+
+  function isIncluded(str: string): boolean {
+    return str
+      .toLocaleLowerCase()
+      .includes(query.trim().toLocaleLowerCase());
+  }
+
+  visibleFilms = visibleFilms.filter((movie) => (
+    isIncluded(movie.title) || isIncluded(movie.description)
+  ));
+
+  return visibleFilms;
+}
+
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+
+  function handleSet(event: string) {
+    setQuery(event);
+  }
+
   return (
     <div className="page">
       <div className="page-content">
@@ -17,6 +50,10 @@ export const App: React.FC = () => {
             <div className="control">
               <input
                 type="text"
+                defaultValue={query}
+                onChange={(event) => {
+                  handleSet(event.target.value);
+                }}
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
@@ -25,7 +62,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={filteredFilms(moviesFromServer, query)} />
       </div>
 
       <div className="sidebar">
