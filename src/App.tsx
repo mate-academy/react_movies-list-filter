@@ -12,14 +12,16 @@ export const App: React.FC = () => {
 
     setSearchValue(inputValue);
 
+    const removeSpaces = (str: string) => str.toLowerCase().split(' ').join('');
+
     const filteredMovies = moviesFromServer.filter((movie) => {
+      const titleWithoutSpaces = removeSpaces(movie.title);
+      const descriptionWithoutSpaces = removeSpaces(movie.description);
+      const inputValueWithoutSpaces = removeSpaces(inputValue);
+
       return (
-        movie.title.toLowerCase()
-          .split(' ').join('')
-          .includes(inputValue.toLowerCase().split(' ').join(''))
-        || movie.description.toLowerCase()
-          .split(' ').join('')
-          .includes(inputValue.toLowerCase().split(' ').join(''))
+        titleWithoutSpaces.includes(inputValueWithoutSpaces)
+        || descriptionWithoutSpaces.includes(inputValueWithoutSpaces)
       );
     });
 
