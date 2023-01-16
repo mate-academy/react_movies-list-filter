@@ -15,7 +15,7 @@ export function filteredFilms(
   movies: Movie[],
   query: string,
 ) {
-  let visibleFilms = [...movies];
+  let visibleFilms = movies;
 
   function isIncluded(str: string): boolean {
     return str
@@ -33,10 +33,6 @@ export function filteredFilms(
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  function handleSet(event: string) {
-    setQuery(event);
-  }
-
   return (
     <div className="page">
       <div className="page-content">
@@ -52,7 +48,7 @@ export const App: React.FC = () => {
                 type="text"
                 defaultValue={query}
                 onChange={(event) => {
-                  handleSet(event.target.value);
+                  setQuery(event.target.value);
                 }}
                 id="search-query"
                 className="input"
