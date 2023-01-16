@@ -13,12 +13,12 @@ export const App: React.FC = () => {
 
   const filteredMovies
     = moviesFromServer.filter(movie => {
-      const isTitleIncludes = movie.title.toLocaleLowerCase()
+      const isTitleIncludesQuery = movie.title.toLocaleLowerCase()
         .includes(formattedSearchQuery);
-      const isDescriptionIncludes = movie.description.toLocaleLowerCase()
+      const isDescriptionIncludesQuery = movie.description.toLocaleLowerCase()
         .includes(formattedSearchQuery);
 
-      return (isTitleIncludes || isDescriptionIncludes);
+      return (isTitleIncludesQuery || isDescriptionIncludesQuery);
     });
 
   return (
