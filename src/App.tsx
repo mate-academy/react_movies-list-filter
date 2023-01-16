@@ -4,11 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, setQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(movie => {
     const normalizedTitle = movie.title.toLowerCase();
     const normalizedDescription = movie.description.toLowerCase();
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = searchQuery
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .join(' ');
 
     return normalizedTitle.includes(normalizedQuery)
       || normalizedDescription.includes(normalizedQuery);
@@ -20,20 +24,20 @@ export const App: React.FC = () => {
         <div className="box">
           <div className="field">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
+            <label htmlFor="search-searchQuery" className="label">
               Search movie
             </label>
 
             <div className="control">
               <input
                 type="text"
-                id="search-query"
+                id="search-searchQuery"
                 className="input"
                 placeholder="Type search word"
-                name="query"
-                value={query}
+                name="searchQuery"
+                value={searchQuery}
                 onChange={(event) => {
-                  setQuery(event.target.value);
+                  setSearchQuery(event.target.value);
                 }}
               />
             </div>
