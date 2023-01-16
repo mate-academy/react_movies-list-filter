@@ -6,14 +6,20 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const formattedSearchQuery = searchQuery.toLocaleLowerCase().trim();
+  const formattedSearchQuery = searchQuery.toLocaleLowerCase()
+    .split(' ')
+    .filter(Boolean)
+    .join(' ');
+
   const filteredMovies
-    = moviesFromServer.filter(movie =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      movie.title.toLocaleLowerCase()
-        .includes(formattedSearchQuery)
-      || movie.description.toLocaleLowerCase()
-        .includes(formattedSearchQuery));
+    = moviesFromServer.filter(movie => {
+      const isTitleIncludes = movie.title.toLocaleLowerCase()
+        .includes(formattedSearchQuery);
+      const isDescriptionIncludes = movie.description.toLocaleLowerCase()
+        .includes(formattedSearchQuery);
+
+      return (isTitleIncludes || isDescriptionIncludes);
+    });
 
   return (
     <div className="page">
