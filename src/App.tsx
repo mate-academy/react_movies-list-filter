@@ -9,8 +9,13 @@ export function getVisibleMovies(
 ) {
   const normalQuery = query.toLowerCase();
 
-  // eslint-disable-next-line max-len
-  return movies.filter(movie => movie.title.toLowerCase().includes(normalQuery) || movie.description.toLowerCase().includes(normalQuery));
+  return movies.filter(movie => {
+    const titleLower = movie.title.toLowerCase().includes(normalQuery);
+    const descriptionLower
+    = movie.description.toLowerCase().includes(normalQuery);
+
+    return titleLower || descriptionLower;
+  });
 }
 
 export const App: React.FC = () => {
