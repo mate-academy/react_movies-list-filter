@@ -13,8 +13,8 @@ export const App: React.FC = () => {
       const lowerQuery = query.toLowerCase().trim();
 
       return (
-        lowerTitle.includes(lowerQuery.toLowerCase())
-        || lowerDesc.includes(lowerQuery.toLowerCase())
+        lowerTitle.includes(lowerQuery)
+        || lowerDesc.includes(lowerQuery)
       );
     });
 
