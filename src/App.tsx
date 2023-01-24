@@ -4,16 +4,16 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredMovies = moviesFromServer.filter(movie => {
-    const lowerCaseTitle = movie.title.toLowerCase();
-    const lowerCaseDescription = movie.description.toLowerCase();
-    const lowerCaseInputValue = inputValue.toLowerCase().trim();
+    const lowerTitle = movie.title.toLowerCase();
+    const lowerDescription = movie.description.toLowerCase();
+    const lowerQuery = searchQuery.toLowerCase().trim();
 
     return (
-      lowerCaseTitle.includes(lowerCaseInputValue)
-      || lowerCaseDescription.includes(lowerCaseInputValue)
+      lowerTitle.includes(lowerQuery)
+      || lowerDescription.includes(lowerQuery)
     );
   });
 
@@ -33,7 +33,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => setInputValue(event.target.value)}
+                onChange={(event) => setSearchQuery(event.target.value)}
               />
             </div>
           </div>
