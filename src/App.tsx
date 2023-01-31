@@ -1,31 +1,19 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { SearchBar } from './components/SearchBar';
+import { getVisibleMovies } from './utils';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
+export const App: FC = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = getVisibleMovies(moviesFromServer, query);
+
   return (
     <div className="page">
       <div className="page-content">
-        <div className="box">
-          <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
-              Search movie
-            </label>
-
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-              />
-            </div>
-          </div>
-        </div>
-
-        <MoviesList movies={moviesFromServer} />
+        <SearchBar query={query} onChange={setQuery} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
