@@ -6,6 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const preparedQuery = query.toLowerCase().trim();
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
+    const preparedTitle = title.toLowerCase();
+    const preparedDescription = description.toLowerCase();
+
+    const isIncludeTitle = preparedTitle.includes(preparedQuery);
+    const isIncludeDesription = preparedDescription.includes(preparedQuery);
+
+    return isIncludeTitle || isIncludeDesription;
+  });
+
   return (
     <div className="page">
       <div className="page-content">
@@ -32,7 +43,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} filterItem={query} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
