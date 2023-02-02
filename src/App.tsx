@@ -6,12 +6,18 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [searchParam, setSearchParam] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase()
-      .includes(searchParam.trim().toLowerCase())
-    || movie.description.toLowerCase()
-      .includes(searchParam.trim().toLowerCase())
-  ));
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const titleInLowerCase = movie.title.toLowerCase();
+    const searchParamInLowerCase = searchParam.toLowerCase().trim();
+    const descriptionInLowerCase = movie.description.toLowerCase();
+
+    if (titleInLowerCase.includes(searchParamInLowerCase)
+      || descriptionInLowerCase.includes(searchParamInLowerCase)) {
+      return movie;
+    }
+
+    return undefined;
+  });
 
   return (
     <div className="page">
