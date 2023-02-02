@@ -12,11 +12,13 @@ export const App: React.FC = () => {
     setQuery(value);
   };
 
+  const preparedQuery = query.trim().toLowerCase();
+
   const visibleMovies = moviesFromServer.filter((movie) => {
     const sutib1 = movie.description.toLowerCase()
-      .includes(query.trim().toLowerCase());
+      .includes(preparedQuery);
     const sutib2 = movie.title.toLowerCase()
-      .includes(query.trim().toLowerCase());
+      .includes(preparedQuery);
 
     return sutib1 || sutib2;
   });
