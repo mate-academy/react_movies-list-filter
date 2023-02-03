@@ -4,7 +4,6 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function filterMoviesList(value: string, moviesList: Movie[]): Movie[] {
-  if (value.length > 1) {
     return moviesList.filter(movie => {
       return (
         movie.title.toLocaleLowerCase().includes(value.toLocaleLowerCase())
@@ -12,9 +11,6 @@ function filterMoviesList(value: string, moviesList: Movie[]): Movie[] {
           .toLocaleLowerCase().includes(value.toLocaleLowerCase())
       );
     });
-  }
-
-  return moviesList;
 }
 
 export const App: React.FC = () => {
