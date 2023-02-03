@@ -12,9 +12,7 @@ export const App: React.FC = () => {
     const searchValueInLowerCase = searchValue.toLocaleLowerCase().trim();
 
     return titleInLowerCase.includes(searchValueInLowerCase)
-      || descriptionInLowerCase.includes(searchValueInLowerCase)
-      ? movie
-      : null;
+      || descriptionInLowerCase.includes(searchValueInLowerCase);
   });
 
   return (
