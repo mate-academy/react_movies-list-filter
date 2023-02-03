@@ -6,18 +6,16 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = [...moviesFromServer];
-  const visibleMoviesFilterByTitle = visibleMovies.filter((movie) => (
-    movie.title.toLocaleLowerCase().includes(
-      query.toLocaleLowerCase(),
-    )));
-  const visibleMoviesFilterByDiscription = visibleMovies.filter((movie) => (
-    movie.description.toLocaleLowerCase().includes(
-      query.toLocaleLowerCase(),
-    )
-  ));
-  const visibleMoviesOnRequest
-    = visibleMoviesFilterByTitle
-    || visibleMoviesFilterByDiscription;
+  const formatQuery = visibleMovies.filter((movie) => {
+    const filterByTitle = movie.title.toLocaleLowerCase().includes(
+      query.toLocaleLowerCase().trim(),
+    );
+    const filterByDescription = movie.description.toLocaleLowerCase().includes(
+      query.toLocaleLowerCase().trim(),
+    );
+
+    return filterByTitle || filterByDescription;
+  });
 
   return (
     <div className="page">
@@ -44,7 +42,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMoviesOnRequest} />
+        <MoviesList movies={formatQuery} />
       </div>
 
       <div className="sidebar">
