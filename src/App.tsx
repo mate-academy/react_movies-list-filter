@@ -15,9 +15,9 @@ export const App: React.FC = () => {
       qery.toLocaleLowerCase(),
     )
   ));
-  const visibleMoviesOnRequest = 
-    visibleMoviesFilterByTitle ||
-    visibleMoviesFilterByDiscription;
+  const visibleMoviesOnRequest
+    = visibleMoviesFilterByTitle
+    || visibleMoviesFilterByDiscription;
 
   return (
     <div className="page">
