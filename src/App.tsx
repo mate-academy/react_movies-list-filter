@@ -6,11 +6,13 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(movie => {
-    const title = movie.title.trim().toUpperCase();
-    const description = movie.description.trim().toUpperCase();
+    const title = movie.title.toUpperCase();
+    const description = movie.description.toUpperCase();
+    const queryInUpperCase = query.trim().toUpperCase();
 
-    return description.includes(query.toUpperCase())
-    || title.includes(query.toUpperCase());
+
+    return description.includes(queryInUpperCase)
+    || title.includes(queryInUpperCase);
   });
 
   return (
