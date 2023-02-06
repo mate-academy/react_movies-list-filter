@@ -10,11 +10,18 @@ export const App: React.FC = () => {
       const preparedQuery = query.toLowerCase().trim();
       const title = movie.title.toLowerCase();
       const description = movie.description.toLowerCase();
+      const stringToCheck = `
+      ${title}
+      ${description}
+      `;
 
-      return title.includes(preparedQuery)
-       || description.includes(preparedQuery);
+      return stringToCheck.includes(preparedQuery);
     },
   );
+
+  const handlerQuerry = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -33,7 +40,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => setQuery(event.target.value)}
+                onChange={handlerQuerry}
               />
             </div>
           </div>
