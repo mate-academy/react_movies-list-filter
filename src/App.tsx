@@ -15,7 +15,7 @@ export const App: React.FC = () => {
       || titleToLowerCase.includes(queryToLowerCase);
   };
 
-  const foundMovies = moviesFromServer.filter(searchMovie);
+  const visibleMovies = moviesFromServer.filter(searchMovie);
 
   return (
     <div className="page">
@@ -40,7 +40,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={foundMovies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
