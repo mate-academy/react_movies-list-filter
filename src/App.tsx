@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,16 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [search, setSearch] = useState('');
 
-  const visiableMovies = moviesFromServer.filter(film => (
-    film.title
-      .toLowerCase()
-      .split(search.toLowerCase().trim())
-      .length > 1
-    || film.description
-      .toLowerCase()
-      .split(search.toLowerCase().trim())
-      .length > 1
-  ));
+  const normalizedSearch = search.toLowerCase().trim();
+  const visiableMovies = moviesFromServer.filter(film => {
+    const stringToCheck = `
+    ${film.title}
+     ${film.description}`;
+
+    return stringToCheck.toLowerCase().includes(normalizedSearch);
+  });
+  const handleInput = (event: ChangeEvent<HTMLInputElement>) => (
+    setSearch(event.target.value)
+  );
 
   return (
     <div className="page">
@@ -34,9 +35,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={search}
-                onChange={(event) => (
-                  setSearch(event.target.value)
-                )}
+                onChange={handleInput}
               />
             </div>
           </div>
