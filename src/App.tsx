@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import { FC, useState, ChangeEvent } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
+export const App: FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(
     movie => {
       const { title, description } = movie;
       const normalizedQuery = query.toLowerCase().trim();
-      const normalizedTitle = title.toLowerCase();
-      const normalizedDescription = description.toLowerCase();
+      const checkerString = (title + description).toLowerCase();
 
-      return (normalizedTitle.includes(normalizedQuery)
-        || normalizedDescription.includes(normalizedQuery)
-      );
+      return checkerString.includes(normalizedQuery);
     },
+  );
+  const handleInput = (event: ChangeEvent<HTMLInputElement>) => (
+    setQuery(event.target.value)
   );
 
   return (
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => (setQuery(event.target.value))}
+                onChange={handleInput}
               />
             </div>
           </div>
