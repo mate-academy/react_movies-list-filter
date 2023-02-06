@@ -6,17 +6,15 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const filterMovies = moviesFromServer.filter(movie => {
-    const lowerQuery = query.toLowerCase().trim();
-    const lowerTitle = movie.title.toLowerCase().trim();
-    const lowerDescription = movie.description.toLowerCase().trim();
+  const findQuery = (queryElement: string, searchedElement: string):boolean => {
+    const lowerQuery = queryElement.toLowerCase().trim();
+    const lowSearchElement = searchedElement.toLowerCase().trim();
 
-    return lowerDescription.includes(lowerQuery)
-      || lowerTitle.includes(lowerQuery);
-  });
+    return lowSearchElement.includes(lowerQuery);
+  };
 
-  // eslint-disable-next-line no-console
-  console.log(query);
+  const filterMovies = moviesFromServer.filter(movie => (
+    findQuery(query, movie.title) || findQuery(query, movie.description)));
 
   return (
     <div className="page">
