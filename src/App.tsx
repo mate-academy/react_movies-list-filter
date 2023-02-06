@@ -9,10 +9,6 @@ export const App: React.FC = () => {
   const visibleMovies = () => {
     const queryNormilize = query.toLowerCase().trim();
 
-    if (query.length === 0) {
-      return [...moviesFromServer];
-    }
-
     return (moviesFromServer.filter(movie => {
       const movieTitle = movie.title.toLowerCase();
       const movieDescription = movie.description.toLowerCase();
