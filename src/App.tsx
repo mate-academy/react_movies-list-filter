@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, SetQuery] = useState('');
-  const [visibleMovies, SetVisibleMovies] = useState([...moviesFromServer]);
 
-  const filterFilms = (inputValue:string) => {
-    const queryNormilize = inputValue.toLowerCase().trim();
+  const visibleMovies = () => {
+    const queryNormilize = query.toLowerCase().trim();
 
-    if (inputValue.length === 0) {
-      SetVisibleMovies([...moviesFromServer]);
+    if (query.length === 0) {
+      return [...moviesFromServer];
     }
 
-    SetVisibleMovies(moviesFromServer.filter(movie => {
+    return (moviesFromServer.filter(movie => {
       const movieTitle = movie.title.toLowerCase();
       const movieDescription = movie.description.toLowerCase();
 
@@ -23,10 +22,6 @@ export const App: React.FC = () => {
       );
     }));
   };
-
-  useEffect(() => {
-    filterFilms(query);
-  }, [query]);
 
   return (
     <div className="page">
@@ -53,7 +48,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={visibleMovies()} />
       </div>
 
       <div className="sidebar">
