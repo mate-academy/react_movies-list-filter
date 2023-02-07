@@ -6,9 +6,6 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  // eslint-disable-next-line no-console
-  console.log('2222');
-
   const onChangeSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
