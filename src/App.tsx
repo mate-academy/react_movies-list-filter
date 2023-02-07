@@ -9,20 +9,19 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const { title, description } = movie;
 
-    const changeToLowerCase = (word: string) => {
-      return word
-        .split('')
-        .map(letter => letter.toLocaleLowerCase())
-        .join('');
-    };
+    const changeToLowerCase = (word: string) => word.toLowerCase();
 
     const titleToLowerCase = changeToLowerCase(title);
     const descriptionToLowerCase = changeToLowerCase(description);
     const queryToLowerCase = changeToLowerCase(query.trim());
 
-    return titleToLowerCase.includes(queryToLowerCase)
-      || descriptionToLowerCase.includes(queryToLowerCase);
+    return (titleToLowerCase + descriptionToLowerCase)
+      .includes(queryToLowerCase);
   });
+
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -41,9 +40,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => {
-                  setQuery(event.target.value);
-                }}
+                onChange={handleInput}
               />
             </div>
           </div>
