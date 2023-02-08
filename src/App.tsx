@@ -7,14 +7,14 @@ type State = {
   query: string;
 };
 
-export function filter(array: Movie[], query:string) {
+function filter(array: Movie[], query:string) {
   if (query === '') {
     return moviesFromServer;
   }
 
   const valueToFind = query.toLowerCase().trim();
 
-  return [...array].filter(movie => {
+  return array.filter(movie => {
     const title = movie.title
       .toLowerCase()
       .includes(valueToFind);
