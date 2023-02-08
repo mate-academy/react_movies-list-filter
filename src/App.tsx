@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const inputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.currentTarget.value.trim());
   };
 
@@ -14,8 +14,8 @@ export const App: React.FC = () => {
 
   const filteredMovies = () => {
     return [...moviesFromServer].filter(movie => {
-      return normalize(movie.title).includes(query.toLocaleLowerCase())
-        || normalize(movie.description).includes(query.toLocaleLowerCase());
+      return normalize(movie.title).includes(normalize(query))
+        || normalize(movie.description).includes(normalize(query));
     });
   };
 
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={inputHandle}
+                onChange={handleInputChange}
               />
             </div>
           </div>
