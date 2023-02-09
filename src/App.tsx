@@ -21,7 +21,7 @@ export const App: React.FC = () => {
           return movies;
         }
 
-        const regex = new RegExp(input, 'ig');
+        const regex = new RegExp(input.trim(), 'ig');
 
         return (
           title.match(regex)
