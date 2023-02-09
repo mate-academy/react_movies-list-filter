@@ -21,9 +21,11 @@ export const App: React.FC = () => {
           return movies;
         }
 
+        const regex = new RegExp(input, 'ig');
+
         return (
-          title.toLowerCase().includes(input.toLowerCase().trim())
-          || description.toLowerCase().includes(input.toLowerCase().trim())
+          title.match(regex)
+          || description.match(regex)
         );
       },
     );
