@@ -2,35 +2,10 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-
-type Movies = {
-  title: string,
-  description: string,
-  imgUrl: string,
-  imdbUrl: string,
-  imdbId: string,
-};
+import { findMovies } from './helpers/FindMovies';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-
-  function findMovies(movies: Movies[], input: string) {
-    return movies.filter(
-      ({ title, description }) => {
-        if (input === '') {
-          return movies;
-        }
-
-        const regex = new RegExp(input.trim(), 'ig');
-
-        return (
-          title.match(regex)
-          || description.match(regex)
-        );
-      },
-    );
-  }
-
   const visibleMovies = findMovies(moviesFromServer, query);
 
   return (
