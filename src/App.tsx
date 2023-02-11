@@ -14,12 +14,6 @@ function search(el1: string, el2: string, input: string) {
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  // function handleChange(event: any) {
-  //   let { name, value } = event.target;
-
-  //   return setQuery([name] = value);
-  // }
-
   const visibleMovies = moviesFromServer.filter(
     (movie => search(movie.title, movie.description, query)),
   );
