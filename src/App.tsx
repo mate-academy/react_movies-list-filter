@@ -7,8 +7,8 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   return (
-    <div className="card">
-      <div className="card-content">
+    <div className="page">
+      <div className="page-content">
         <div className="box">
           <div className="field">
             <label htmlFor="search-query" className="label">
