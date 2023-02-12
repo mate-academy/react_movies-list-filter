@@ -8,10 +8,14 @@ interface Props {
 }
 
 export const MoviesList: React.FC<Props> = ({ movies, query }) => {
-  const lowerQuery = query.toLowerCase();
-  const visibleMovies = movies
-    .filter(movie => movie.title.toLowerCase().includes(lowerQuery)
-    || movie.description.toLowerCase().includes(lowerQuery));
+  const isQueryMatch = (text: string) => text
+    .toLowerCase()
+    .includes(query.toLowerCase());
+
+  const visibleMovies = movies.filter(({
+    title,
+    description,
+  }) => isQueryMatch(title) || isQueryMatch(description));
 
   return (
     <div className="movies">
