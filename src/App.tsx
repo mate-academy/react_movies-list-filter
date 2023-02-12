@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -9,12 +9,16 @@ export const App: React.FC = () => {
   const formatedQuery = query.toLowerCase().trim();
 
   const visibleMovies = moviesFromServer.filter(movie => {
-    const formatedTitle = movie.title.toLowerCase();
-    const formatedDescription = movie.description.toLowerCase();
+    const stringToCheck = `
+      ${movie.title}
+        ${movie.description}`;
 
-    return formatedTitle.includes(formatedQuery)
-      || formatedDescription.includes(formatedQuery);
+    return stringToCheck.toLowerCase().includes(formatedQuery);
   });
+
+  const handleInput = (event: ChangeEvent<HTMLInputElement>) => (
+    setQuery(event.target.value)
+  );
 
   return (
     <div className="page">
@@ -34,7 +38,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 name="search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={handleInput}
               />
             </div>
           </div>
