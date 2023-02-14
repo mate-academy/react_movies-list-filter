@@ -7,9 +7,13 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  function setName(name: string) {
+  function setWords(name: string) {
     return (name.toLocaleUpperCase().slice(0, 1)
     + name.toLocaleLowerCase().slice(1));
+  }
+
+  function setName(name: string) {
+    return name.split(' ').map(words => setWords(words)).join(' ');
   }
 
   function setMovie(name: string) {
