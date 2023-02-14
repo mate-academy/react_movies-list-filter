@@ -3,25 +3,16 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function setMovie(movieTitle: string) {
+  return moviesFromServer.filter(
+    (movie) => movie.title.toLocaleLowerCase().includes(movieTitle)
+    || movie.description.toLocaleLowerCase().includes(movieTitle),
+  );
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
-
-  function setWords(words: string) {
-    return (words.toLocaleUpperCase().slice(0, 1)
-    + words.toLocaleLowerCase().slice(1));
-  }
-
-  function setName(name: string) {
-    return name.split(' ').map(words => setWords(words)).join(' ');
-  }
-
-  function setMovie(name: string) {
-    return moviesFromServer.filter(
-      (movie) => movie.title.includes(name)
-      || movie.description.includes(name),
-    );
-  }
+  const visibleMovies = setMovie(query);
 
   return (
     <div className="page">
@@ -40,15 +31,17 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  setQuery(setName(event.target.value));
-                  setVisibleMovies(setMovie(query));
+                  setQuery((event.target.value).toLocaleLowerCase());
                 }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={
+          visibleMovies.length ? visibleMovies : moviesFromServer
+        }
+        />
       </div>
 
       <div className="sidebar">
