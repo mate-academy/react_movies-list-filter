@@ -38,10 +38,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={
-          visibleMovies.length ? visibleMovies : moviesFromServer
-        }
-        />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
