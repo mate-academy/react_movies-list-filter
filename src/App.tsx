@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState<string>('');
+
+  const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+
+    setQuery(value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +28,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={handleChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={moviesFromServer} query={query} />
       </div>
 
       <div className="sidebar">
