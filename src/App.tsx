@@ -5,8 +5,9 @@ import moviesFromServer from './api/movies.json';
 
 function setMovie(movieTitle: string) {
   return moviesFromServer.filter(
-    (movie) => movie.title.toLocaleLowerCase().includes(movieTitle)
-    || movie.description.toLocaleLowerCase().includes(movieTitle),
+    (movie) => ((movie.title.toLocaleLowerCase().includes(movieTitle)
+    || movie.description.toLocaleLowerCase().includes(movieTitle))
+    ),
   );
 }
 
