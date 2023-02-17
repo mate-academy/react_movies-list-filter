@@ -9,9 +9,9 @@ export const App: React.FC = () => {
     const queryLowerCase = query.toLowerCase().trim();
     const titleLowerCase = title.toLowerCase();
     const descriptionLowerCase = description.toLowerCase();
+    const stringToCheck = titleLowerCase + descriptionLowerCase;
 
-    return titleLowerCase.includes(queryLowerCase)
-      || descriptionLowerCase.includes(queryLowerCase);
+    return stringToCheck.includes(queryLowerCase);
   });
 
   return (
