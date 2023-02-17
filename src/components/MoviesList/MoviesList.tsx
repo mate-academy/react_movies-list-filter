@@ -8,11 +8,11 @@ interface Props {
 }
 
 export const MoviesList: React.FC<Props> = ({ movies, filter }) => {
-  const [copyList, setCopyList] = useState(([...movies]));
+  const [visibleMovies, setVisibleMovies] = useState(([...movies]));
 
   useEffect(() => {
     if (filter) {
-      setCopyList(movies.filter((el: Movie) => {
+      setVisibleMovies(movies.filter((el: Movie) => {
         if (
           el.title.toLocaleLowerCase()
             .includes(filter)
@@ -25,13 +25,13 @@ export const MoviesList: React.FC<Props> = ({ movies, filter }) => {
         return null;
       }));
     } else {
-      setCopyList([...movies]);
+      setVisibleMovies([...movies]);
     }
   }, [filter]);
 
   return (
     <div className="movies">
-      {copyList.map(movie => (
+      {visibleMovies.map(movie => (
         <MovieCard key={movie.imdbId} movie={movie} />
       ))}
     </div>
