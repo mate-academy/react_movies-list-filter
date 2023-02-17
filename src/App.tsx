@@ -4,13 +4,13 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function isInclude(word: string, part: string) {
+function getWordPart(word: string, part: string) {
   return word.toLowerCase().includes(part.toLowerCase().trim());
 }
 
 function getFilteredList(movieList: Movie[], keyWord: string) {
   const visibleMovies = movieList.filter(movie => (
-    isInclude(movie.title, keyWord) || isInclude(movie.description, keyWord)
+    getWordPart(movie.title, keyWord) || getWordPart(movie.description, keyWord)
   ));
 
   return visibleMovies;
@@ -19,13 +19,11 @@ function getFilteredList(movieList: Movie[], keyWord: string) {
 export const App: React.FC = () => {
   const [query, setStateQuery] = useState('');
 
-  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQuaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStateQuery(e.target.value);
   };
 
   const visibleMovies = getFilteredList(moviesFromServer, query);
-
-  console.log(visibleMovies);
 
   return (
     <div className="page">
@@ -44,7 +42,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={handlerChange}
+                onChange={handleQuaryChange}
               />
             </div>
           </div>
