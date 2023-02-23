@@ -30,7 +30,8 @@ export const App: React.FC = () => {
                 type="text"
                 id="search-query"
                 className="input"
-                placeholder={query}
+                placeholder="Type search word"
+                value={query}
                 onChange={elem => setQuery(elem.target.value)}
               />
             </div>
