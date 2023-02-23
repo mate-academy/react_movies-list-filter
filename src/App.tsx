@@ -7,8 +7,8 @@ export const App: React.FC = () => {
   const [nameMovies, setSearch] = useState('');
 
   const visibleMovies = moviesFromServer.filter(list => (
-    list.title.toLowerCase().includes(nameMovies)
-    || list.description.toLowerCase().includes(nameMovies)
+    list.title.toLowerCase().includes(nameMovies.toLowerCase())
+    || list.description.toLowerCase().includes(nameMovies.toLowerCase())
   ));
 
   return (
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={nameMovies.toLowerCase()}
+                value={nameMovies}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
