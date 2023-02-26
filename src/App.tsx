@@ -3,16 +3,17 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getLowerCase(str: string, name: string) {
-  return str.toLowerCase().trim().includes(name.toLowerCase().trim());
+function isIncluded(mainString: string, checkString: string) {
+  return mainString.toLowerCase().trim()
+    .includes(checkString.toLowerCase().trim());
 }
 
 export const App: React.FC = () => {
-  const [nameMovies, setSearch] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(list => (
-    getLowerCase(list.title, nameMovies)
-    || getLowerCase(list.description, nameMovies)
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => (
+    isIncluded(title, searchQuery)
+    || isIncluded(description, searchQuery)
   ));
 
   return (
@@ -31,8 +32,8 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={nameMovies}
-                onChange={(e) => setSearch(e.target.value)}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
