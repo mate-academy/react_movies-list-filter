@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+  };
 
   return (
     <div className="page">
@@ -22,7 +26,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={handleSearch}
                 placeholder="Type search word"
               />
             </div>
