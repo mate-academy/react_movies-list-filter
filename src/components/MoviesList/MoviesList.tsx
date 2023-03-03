@@ -4,28 +4,30 @@ import { MovieCard } from '../MovieCard';
 
 interface Props {
   movies: Movie[];
-  selectedMovies: string;
+  query: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, selectedMovies }) => {
-  const filtered = (allMovies: Movie[]) => {
-    return allMovies.filter(e => {
-      const lowerCaseOrigin = e.title.toLocaleLowerCase();
-      const lowerCaseSelected = selectedMovies.toLocaleLowerCase();
+const filtered = (moviesList: Movie[], query: string) => {
+  if (!query) {
+    return moviesList;
+  }
 
-      return lowerCaseOrigin.includes(lowerCaseSelected);
-    });
-  };
+  return moviesList.filter(e => {
+    const lowerTitle = e.title.toLocaleLowerCase();
+    const lowerQuery = query.toLocaleLowerCase();
+
+    return lowerTitle.includes(lowerQuery);
+  });
+};
+
+export const MoviesList: React.FC<Props> = ({ movies, query }) => {
+  const visibleMovies = filtered(movies, query);
 
   return (
     <div className="movies">
-      {selectedMovies
-        ? filtered(movies).map(movie => (
-          <MovieCard key={movie.imdbId} movie={movie} />
-        ))
-        : movies.map(movie => (
-          <MovieCard key={movie.imdbId} movie={movie} />
-        ))}
+      {visibleMovies.map(movie => (
+        <MovieCard key={movie.imdbId} movie={movie} />
+      ))}
     </div>
   );
 };

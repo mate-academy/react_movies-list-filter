@@ -5,23 +5,19 @@ import { Search } from './components/Search/Search';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [selectedMovies, setSelectedMovies] = useState('');
-
-  const changeMovies = (value: string) => {
-    setSelectedMovies(value);
-  };
+  const [query, setQuery] = useState('');
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <Search
-            selectedMovies={selectedMovies}
-            changeMovies={changeMovies}
+            query={query}
+            setQuery={setQuery}
           />
         </div>
 
-        <MoviesList selectedMovies={selectedMovies} movies={moviesFromServer} />
+        <MoviesList query={query} movies={moviesFromServer} />
       </div>
 
       <div className="sidebar">

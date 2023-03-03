@@ -1,13 +1,13 @@
 import React from 'react';
 
 type Props = {
-  selectedMovies: string;
-  changeMovies: (value: string) => void;
+  query: string;
+  setQuery: (value: string) => void;
 };
 
 export const Search: React.FC<Props> = ({
-  selectedMovies,
-  changeMovies,
+  query,
+  setQuery,
 }) => {
   return (
     <div className="field">
@@ -18,9 +18,9 @@ export const Search: React.FC<Props> = ({
 
       <div className="control">
         <input
-          value={selectedMovies}
+          value={query}
           onChange={(e) => {
-            changeMovies(e.target.value);
+            setQuery(e.target.value);
           }}
           type="text"
           id="search-query"
