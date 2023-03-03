@@ -9,6 +9,10 @@ export const Search: React.FC<Props> = ({
   query,
   setQuery,
 }) => {
+  const changeQuery = (e: React.SyntheticEvent) => {
+    setQuery((e.target as HTMLInputElement).value);
+  };
+
   return (
     <div className="field">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -19,9 +23,7 @@ export const Search: React.FC<Props> = ({
       <div className="control">
         <input
           value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
+          onChange={changeQuery}
           type="text"
           id="search-query"
           className="input"
