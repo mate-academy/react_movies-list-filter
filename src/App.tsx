@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -27,30 +27,33 @@ export const App: React.FC = () => {
     return false;
   };
 
-  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
-    setQuery(event.currentTarget.value);
+  useEffect(() => {
     const filterInputAsk = query.trim().toLowerCase().split('');
     const isClear = query === '';
 
     if (isClear) {
-      setVisibleMovies(
-        moviesFromServer.filter((oneOfFilms) => {
-          const titleFormatText = oneOfFilms.title.toLowerCase().split('');
-          const descrFormatText = oneOfFilms.description
-            .toLowerCase()
-            .split('');
-
-          return (
-            isFinded(titleFormatText, filterInputAsk)
-              || isFinded(descrFormatText, filterInputAsk)
-          );
-        }),
-      );
+      setVisibleMovies(moviesFromServer);
     } else {
-      setVisibleMovies([...moviesFromServer]);
+      const visibleSingleMovies = moviesFromServer.filter((oneOfFilms) => {
+        const titleFormatText = oneOfFilms.title.toLowerCase().split('');
+        const descrFormatText = oneOfFilms.description
+          .toLowerCase()
+          .split('');
+
+        return (
+          isFinded(titleFormatText, filterInputAsk)
+            || isFinded(descrFormatText, filterInputAsk)
+        );
+      });
+
+      setVisibleMovies(visibleSingleMovies);
     }
+  }, [query]);
+
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    setQuery(event.currentTarget.value);
   };
 
   return (
