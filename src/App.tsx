@@ -4,11 +4,8 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, inputAskEdit] = useState('');
-
-  const inputInfo: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    inputAskEdit(event.currentTarget.value);
-  };
+  const [query, setQuery] = useState('');
+  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const isFinded = (whereSearch: string[], whatSearch: string[]) => {
     for (let t = 0; t <= whereSearch.length; t += 1) {
@@ -30,25 +27,30 @@ export const App: React.FC = () => {
     return false;
   };
 
-  const searchHandler = () => {
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    setQuery(event.currentTarget.value);
     const filterInputAsk = query.trim().toLowerCase().split('');
     const isClear = query === '';
-    const visibleMovies = isClear
-      ? [...moviesFromServer]
-      : moviesFromServer.filter((oneOfFilms) => {
-        const titleFormatText = oneOfFilms.title.toLowerCase().split('');
-        const descrFormatText = oneOfFilms.description.toLowerCase().split('');
 
-        return isFinded(
-          titleFormatText,
-          filterInputAsk,
-        ) || isFinded(
-          descrFormatText,
-          filterInputAsk,
-        );
-      });
+    if (isClear) {
+      setVisibleMovies(
+        moviesFromServer.filter((oneOfFilms) => {
+          const titleFormatText = oneOfFilms.title.toLowerCase().split('');
+          const descrFormatText = oneOfFilms.description
+            .toLowerCase()
+            .split('');
 
-    return visibleMovies;
+          return (
+            isFinded(titleFormatText, filterInputAsk)
+              || isFinded(descrFormatText, filterInputAsk)
+          );
+        }),
+      );
+    } else {
+      setVisibleMovies([...moviesFromServer]);
+    }
   };
 
   return (
@@ -67,12 +69,12 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={inputInfo}
+                onChange={handleInputChange}
               />
             </div>
           </div>
         </div>
-        <MoviesList movies={searchHandler()} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
