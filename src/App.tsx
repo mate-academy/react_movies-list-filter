@@ -33,7 +33,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(event) => {
-                  return setQuery(event.target.value);
+                  return setQuery(event.target.value.trim());
                 }}
               />
             </div>
