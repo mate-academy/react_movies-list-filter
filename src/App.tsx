@@ -1,15 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
+
+  useEffect(() => {
+    const isClear = query === '';
+
+    if (isClear) {
+      setVisibleMovies(moviesFromServer);
+    } else {
+      const visibleSingleMovies = moviesFromServer.filter((oneOfFilms) => {
+        const { title, description } = oneOfFilms;
+        const preparedTitle = title.toLowerCase();
+        const preparedDescription = description.toLowerCase();
+        const preparedQuery = query.trim().toLowerCase();
+
+        return (
+          preparedTitle.includes(preparedQuery)
+          || preparedDescription.includes(preparedQuery)
+        );
+      });
+
+      setVisibleMovies(visibleSingleMovies);
+    }
+  }, [query]);
+
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    setQuery(event.currentTarget.value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -20,17 +50,16 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={handleInputChange}
               />
             </div>
           </div>
         </div>
-
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <div className="sidebar">
-        Sidebar goes here
-      </div>
+      <div className="sidebar">Sidebar goes here</div>
     </div>
   );
 };
