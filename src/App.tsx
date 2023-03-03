@@ -6,8 +6,12 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = [...moviesFromServer].filter((movie) => {
-    if (movie.title.toLowerCase().search(query.toLowerCase()) !== -1
-      || movie.description.toLowerCase().search(query.toLowerCase()) !== -1) {
+    const correctQuery = query.toLowerCase().trim();
+
+    if (movie.title.toLowerCase()
+      .search(correctQuery) !== -1
+      || movie.description.toLowerCase()
+        .search(correctQuery) !== -1) {
       return true;
     }
 
@@ -33,7 +37,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(event) => {
-                  return setQuery(event.target.value.trim());
+                  return setQuery(event.target.value);
                 }}
               />
             </div>
