@@ -7,42 +7,21 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  const isFinded = (whereSearch: string[], whatSearch: string[]) => {
-    for (let t = 0; t <= whereSearch.length; t += 1) {
-      if (whereSearch[t] === whatSearch[0]) {
-        for (let i = 0; i <= whatSearch.length; i += 1) {
-          if (i === whatSearch.length) {
-            return true;
-          }
-
-          if (whereSearch[t + i] !== whatSearch[i]) {
-            break;
-          }
-        }
-      } else if (t === whereSearch.length) {
-        return false;
-      }
-    }
-
-    return false;
-  };
-
   useEffect(() => {
-    const filterInputAsk = query.trim().toLowerCase().split('');
     const isClear = query === '';
 
     if (isClear) {
       setVisibleMovies(moviesFromServer);
     } else {
       const visibleSingleMovies = moviesFromServer.filter((oneOfFilms) => {
-        const titleFormatText = oneOfFilms.title.toLowerCase().split('');
-        const descrFormatText = oneOfFilms.description
-          .toLowerCase()
-          .split('');
+        const { title, description } = oneOfFilms;
+        const preparedTitle = title.toLowerCase();
+        const preparedDescription = description.toLowerCase();
+        const preparedQuery = query.trim().toLowerCase();
 
         return (
-          isFinded(titleFormatText, filterInputAsk)
-            || isFinded(descrFormatText, filterInputAsk)
+          preparedTitle.includes(preparedQuery)
+          || preparedDescription.includes(preparedQuery)
         );
       });
 
