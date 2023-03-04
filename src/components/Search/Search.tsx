@@ -9,8 +9,8 @@ export const Search: React.FC<Props> = ({
   query,
   setQuery,
 }) => {
-  const changeQuery = (e: React.SyntheticEvent) => {
-    setQuery((e.target as HTMLInputElement).value);
+  const changeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
   return (

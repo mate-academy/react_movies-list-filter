@@ -8,11 +8,12 @@ interface Props {
 }
 
 const filtered = (moviesList: Movie[], query: string) => {
-  return moviesList.filter(e => {
-    const lowerTitle = e.title.toLocaleLowerCase();
+  return moviesList.filter(movie => {
+    const lowerDesc = movie.description.toLocaleLowerCase();
+    const lowerTitle = movie.title.toLocaleLowerCase();
     const lowerQuery = query.toLocaleLowerCase();
 
-    return lowerTitle.includes(lowerQuery);
+    return lowerTitle.includes(lowerQuery) || lowerDesc.includes(lowerQuery);
   });
 };
 
