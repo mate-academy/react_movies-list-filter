@@ -26,7 +26,6 @@ export const App: React.FC = () => {
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
-              {query}
             </label>
 
             <div className="control">
