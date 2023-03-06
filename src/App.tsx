@@ -22,7 +22,6 @@ function filterMovies(query: string, films: Props[]) {
 
 export const App: React.FC = () => {
   const [query, setNewQuery] = useState('');
-
   const visibleMovies = filterMovies(query, moviesFromServer);
 
   return (
