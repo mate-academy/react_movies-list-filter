@@ -3,6 +3,13 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const hasMatch = (text: string, query: string) => {
+  const lowercasedText = text.toLowerCase();
+  const lowercasedQuery = query.toLowerCase().trim(); // overkill?
+
+  return lowercasedText.includes(lowercasedQuery);
+};
+
 const prepareMovies = (query: string) => {
   return moviesFromServer.filter(movie => {
     const {
@@ -10,17 +17,7 @@ const prepareMovies = (query: string) => {
       description,
     } = movie;
 
-    const lowercasedQuery = query.toLowerCase().trim();
-
-    const matchTitle = title
-      .toLowerCase()
-      .includes(lowercasedQuery);
-
-    const matchDescription = description
-      .toLowerCase()
-      .includes(lowercasedQuery);
-
-    return matchTitle || matchDescription;
+    return hasMatch(title, query) || hasMatch(description, query);
   });
 };
 
