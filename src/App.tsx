@@ -14,11 +14,13 @@ export const App: React.FC = () => {
     return handleText(string).includes(handleText(substring));
   };
 
-  const visibleMovies = moviesFromServer.filter((movie) => {
-    const { title, description } = movie;
+  const visibleMovies = query
+    ? moviesFromServer.filter((movie) => {
+      const { title, description } = movie;
 
-    return isMatched(query, title) || isMatched(query, description);
-  });
+      return isMatched(query, title) || isMatched(query, description);
+    })
+    : moviesFromServer;
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
