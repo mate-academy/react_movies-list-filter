@@ -14,23 +14,21 @@ type Movies = {
 };
 
 export function getFilteredMovies(movies: Movies[], filter: string) {
-  const visibleMovies = [...movies];
-
-  return visibleMovies.filter(movie => movie.title
+  return movies.filter(movie => movie.title
     .toLowerCase()
     .includes(filter.toLowerCase().trim())
     || movie.description.toLowerCase().includes(filter.toLowerCase().trim()));
 }
 
 export const App: React.FC = () => {
-  const [movieListState, setMovieListState] = useState<State>('');
+  const [query, setQuery] = useState<State>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setMovieListState(e.target.value);
+    setQuery(e.target.value);
   };
 
-  const visibleMovies = getFilteredMovies(moviesFromServer, movieListState);
+  const visibleMovies = getFilteredMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -48,7 +46,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={movieListState}
+                value={query}
                 onChange={handleChange}
               />
             </div>
