@@ -12,10 +12,13 @@ type Props = {
 };
 
 function filterMovies(query: string, films: Props[]) {
-  const lowCaseQuery = query.toLowerCase();
+  const lowCaseQuery = query.toLowerCase().trim();
+
+  const includesQuery
+  = (string: string) => string.toLowerCase().includes(lowCaseQuery);
   const visibleMovies
-    = films.filter((movie) => movie.title.toLowerCase().includes(lowCaseQuery)
-    || movie.description.toLowerCase().includes(lowCaseQuery));
+    = films.filter(({ title, description }) => includesQuery(title)
+    || includesQuery(description));
 
   return visibleMovies;
 }
