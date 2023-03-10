@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -11,7 +11,7 @@ interface Movie {
   imdbId: string;
 }
 
-export const App: React.FC = () => {
+export const App: FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies: Movie[] = [...moviesFromServer]
