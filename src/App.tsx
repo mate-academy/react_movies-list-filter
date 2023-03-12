@@ -13,12 +13,13 @@ interface Movie {
 
 export function filterMovies(movies: Movie[], query: string): Movie[] {
   const visibleMovies = movies.filter(movie => {
-    const prepareTitle = movie.title.toLowerCase();
-    const prepareDescription = movie.description.toLowerCase();
-    const prepareQuery = query.toLowerCase().trim();
+    const { title, description } = movie;
 
-    return prepareTitle.includes(prepareQuery)
-      || prepareDescription.includes(prepareQuery);
+    const checkString = (string: string) => string
+      .toLowerCase()
+      .includes(query.toLowerCase().trim());
+
+    return checkString(title) || checkString(description);
   });
 
   return visibleMovies;
