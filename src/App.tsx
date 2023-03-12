@@ -27,7 +27,7 @@ export function filterMovies(movies: Movie[], query: string): Movie[] {
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const search = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.currentTarget.value);
   };
 
@@ -50,7 +50,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => search(event)}
+                onChange={handleSearch}
               />
             </div>
           </div>
