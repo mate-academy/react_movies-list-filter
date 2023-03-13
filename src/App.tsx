@@ -4,21 +4,18 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [movies, setMovie] = useState([...moviesFromServer]);
   const [input, setInput] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setInput(value);
-
-    const filteredMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().includes(value.toLowerCase().trim())
-      || movie.description.toLowerCase().includes(value.toLowerCase().trim()),
-    );
-
-    setMovie(filteredMovies);
   };
+
+  const filteredMovies = moviesFromServer.filter(
+    movie => movie.title.toLowerCase().includes(input.toLowerCase().trim())
+    || movie.description.toLowerCase().includes(input.toLowerCase().trim()),
+  );
 
   return (
     <div className="page">
@@ -43,7 +40,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={movies} />
+        <MoviesList movies={filteredMovies} />
       </div>
 
       <div className="sidebar">
