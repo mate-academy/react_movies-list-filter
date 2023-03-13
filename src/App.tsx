@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { FC } from 'react';
 
 interface Movie {
   title: string;
@@ -11,7 +12,7 @@ interface Movie {
   imdbId: string;
 }
 
-export const App: React.FC = () => {
+export const App: FC = () => {
   const [query, setQuery] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,11 +21,11 @@ export const App: React.FC = () => {
     setQuery(value);
   };
 
-  const visibleMovies: Movie[] = [...moviesFromServer].filter(
+  const visibleMovies: Movie[] = moviesFromServer.filter(
     ({ title, description }: Movie) => {
       const keyWord = query.toLowerCase().trim();
-      const titleIncludes = title.toLowerCase().trim().includes(keyWord);
-      const descrIncludes = description.toLowerCase().trim().includes(keyWord);
+      const titleIncludes = title.toLowerCase().includes(keyWord);
+      const descrIncludes = description.toLowerCase().includes(keyWord);
 
       return descrIncludes || titleIncludes;
     },
