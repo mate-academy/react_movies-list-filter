@@ -1,9 +1,39 @@
-import React from 'react';
+import { useState, FC } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
+interface Movie {
+  title: string;
+  description: string;
+  imgUrl: string;
+  imdbUrl: string;
+  imdbId: string;
+}
+
+export const App: FC = () => {
+  const [query, setQuery] = useState('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    setQuery(value);
+  };
+
+  function filterByKeyword(property: string, keyword: string) {
+    const validatedProperty = property.toLowerCase();
+    const validatedKeyword = keyword.toLowerCase().trim();
+
+    return validatedProperty.includes(validatedKeyword);
+  }
+
+  const visibleMovies: Movie[] = moviesFromServer.filter(
+    ({ title, description }: Movie) => {
+      return filterByKeyword(title, query)
+    || filterByKeyword(description, query);
+    },
+  );
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +50,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={handleChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
