@@ -2,17 +2,13 @@ import { ChangeEvent, FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { findMovies } from './helpers/helpers';
 
 export const App: FC = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    const lowerCasedTitle = title.toLowerCase();
-    const lowerCasedQuery = query.toLowerCase().trim();
-    const lowerCasedDescription = description.toLowerCase();
-
-    return lowerCasedTitle.includes(lowerCasedQuery)
-      || lowerCasedDescription.includes(lowerCasedQuery);
+    return findMovies(title, query) || findMovies(description, query);
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
