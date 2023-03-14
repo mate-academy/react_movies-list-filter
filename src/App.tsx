@@ -11,14 +11,18 @@ interface Movie {
   imdbId: string;
 }
 
+function isPresentInString(value: string, keyword: string) {
+  return value.toLowerCase().includes(keyword.toLowerCase());
+}
+
 export const App: FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies: Movie[] = [...moviesFromServer]
+  const visibleMovies = moviesFromServer
     .filter(({ title, description }: Movie) => {
-      const keyword = query.toLowerCase().trim();
-      const isInTitle = title.toLowerCase().includes(keyword);
-      const isInDescription = description.toLowerCase().includes(keyword);
+      const keyword = query.trim();
+      const isInTitle = isPresentInString(title, keyword);
+      const isInDescription = isPresentInString(description, keyword);
 
       return isInTitle || isInDescription;
     });
