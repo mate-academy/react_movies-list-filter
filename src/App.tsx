@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { FC } from 'react';
 
 interface Movie {
   title: string;
@@ -21,13 +20,17 @@ export const App: FC = () => {
     setQuery(value);
   };
 
+  function filterByKeyword(property: string, keyword: string) {
+    const validatedProperty = property.toLowerCase();
+    const validatedKeyword = keyword.toLowerCase().trim();
+
+    return validatedProperty.includes(validatedKeyword);
+  }
+
   const visibleMovies: Movie[] = moviesFromServer.filter(
     ({ title, description }: Movie) => {
-      const keyWord = query.toLowerCase().trim();
-      const titleIncludes = title.toLowerCase().includes(keyWord);
-      const descrIncludes = description.toLowerCase().includes(keyWord);
-
-      return descrIncludes || titleIncludes;
+      return filterByKeyword(title, query)
+    || filterByKeyword(description, query);
     },
   );
 
@@ -57,7 +60,9 @@ export const App: FC = () => {
         <MoviesList movies={visibleMovies} />
       </div>
 
-      <div className="sidebar">Sidebar goes here</div>
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
     </div>
   );
 };
