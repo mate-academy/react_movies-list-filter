@@ -3,8 +3,8 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function filterBySubstr(string: string, substring: string) {
-  const validatedStr = string.toLowerCase();
+function filterBySubstr(title: string, substring: string) {
+  const validatedStr = title.toLowerCase();
   const validatedSubstr = substring.toLowerCase().trim();
 
   return validatedStr.includes(validatedSubstr);
@@ -21,7 +21,7 @@ function prepareMovies(query: string) {
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const hadleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
@@ -44,7 +44,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={hadleChange}
+                onChange={handleChange}
               />
             </div>
           </div>
