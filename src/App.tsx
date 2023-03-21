@@ -3,14 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function hasContainQuery(searchWithin: string, query: string): boolean {
+  return searchWithin.toLowerCase().includes(query.trim().toLowerCase());
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(movie => (
-    query === ''
-    || (
-      movie.title.toLowerCase().includes(query.trim().toLowerCase())
-      || movie.description.toLowerCase().includes(query.trim().toLowerCase())
-    )
+    hasContainQuery(movie.title, query)
+    || hasContainQuery(movie.description, query)
   ));
 
   return (
