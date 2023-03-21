@@ -18,14 +18,15 @@ export const filterMovies = (
   const normalizedQuery = query.toLowerCase().trim();
 
   return movies
-    .filter(movie => {
-      const { title, description } = movie;
+    .filter(({ title, description }) => {
       const normalizedTitle = title.toLowerCase();
       const normalizedDescription = description.toLowerCase();
 
-      return (normalizedTitle.includes(normalizedQuery)
-        || normalizedDescription.includes(normalizedQuery)
-      );
+      const foundInTitle = normalizedTitle.includes(normalizedQuery);
+      const foundInDescription
+        = normalizedDescription.includes(normalizedQuery);
+
+      return foundInTitle || foundInDescription;
     });
 };
 
