@@ -7,6 +7,13 @@ interface Props {
   query: string;
 }
 
+const isMatchQuery = (text: string, query: string): boolean => {
+  const normalizedText = text.toLowerCase();
+  const normalizedQuery = query.toLowerCase().trim();
+
+  return normalizedText.includes(normalizedQuery);
+};
+
 export const filterMovies = (
   movies: Movie[],
   query: string,
@@ -15,16 +22,10 @@ export const filterMovies = (
     return movies;
   }
 
-  const normalizedQuery = query.toLowerCase().trim();
-
   return movies
     .filter(({ title, description }) => {
-      const normalizedTitle = title.toLowerCase();
-      const normalizedDescription = description.toLowerCase();
-
-      const foundInTitle = normalizedTitle.includes(normalizedQuery);
-      const foundInDescription
-        = normalizedDescription.includes(normalizedQuery);
+      const foundInTitle = isMatchQuery(title, query);
+      const foundInDescription = isMatchQuery(description, query);
 
       return foundInTitle || foundInDescription;
     });
