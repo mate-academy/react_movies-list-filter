@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 import { Movie } from './types/Movie';
 
-const filterByQuery = (queryText: string) => (
+const filterByQuery = (queryText: string): Movie[] => (
   moviesFromServer.filter(({ title, description }) => (
     title.toLowerCase().includes(queryText)
     || description.toLowerCase().includes(queryText)))
@@ -12,8 +12,9 @@ const filterByQuery = (queryText: string) => (
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies: Movie[] = query !== ''
-    ? filterByQuery(query.trim().toLowerCase())
+  const trimedQuery = query.trim();
+  const visibleMovies: Movie[] = trimedQuery !== ''
+    ? filterByQuery(trimedQuery.toLowerCase())
     : [...moviesFromServer];
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
