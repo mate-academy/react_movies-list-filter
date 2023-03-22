@@ -11,12 +11,17 @@ interface Movie {
   imdbId: string;
 }
 
+function isSubstring(text: string, query: string): boolean {
+  return text.toLowerCase().includes(query);
+}
+
 function filterMovies(query: string): Movie[] {
   return moviesFromServer.filter(movie => {
     const { title, description } = movie;
-    const regex = new RegExp(query.trim(), 'i');
+    const correctQuery = query.toLowerCase().trim();
 
-    return regex.test(title) || regex.test(description);
+    return isSubstring(title, correctQuery)
+      || isSubstring(description, correctQuery);
   });
 }
 
