@@ -4,7 +4,10 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function hasContainQuery(searchWithin: string, query: string): boolean {
-  return searchWithin.toLowerCase().includes(query.trim().toLowerCase());
+  const searchWithinNormalized = searchWithin.toLowerCase();
+  const queryNormalized = query.trim().toLowerCase();
+
+  return searchWithinNormalized.includes(queryNormalized);
 }
 
 export const App: React.FC = () => {
@@ -13,6 +16,10 @@ export const App: React.FC = () => {
     hasContainQuery(movie.title, query)
     || hasContainQuery(movie.description, query)
   ));
+
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => (
+    setQuery(event.target.value)
+  );
 
   return (
     <div className="page">
@@ -31,7 +38,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={handleQueryChange}
               />
             </div>
           </div>
