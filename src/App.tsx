@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 const containQuery = (text: string, query: string): boolean => {
-  return text.toLowerCase().includes(query.toLowerCase());
+  return text.toLowerCase().includes(query.trim().toLowerCase());
 };
 
 export const App: React.FC = () => {
@@ -13,8 +13,8 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const { title, description } = movie;
 
-    return containQuery(title, query.trim())
-      || containQuery(description, query.trim());
+    return containQuery(title, query)
+      || containQuery(description, query);
   });
 
   return (
