@@ -3,7 +3,7 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const containQuery = (text: string, query: string) => {
+const containQuery = (text: string, query: string): boolean => {
   return text.toLowerCase().includes(query.toLowerCase());
 };
 
@@ -34,9 +34,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
