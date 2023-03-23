@@ -3,18 +3,21 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const containsQuery = (title: string, searchTerm: string): boolean => {
+  return title.toLowerCase().includes(searchTerm.toLowerCase().trim());
+};
+
 export const App: FC = () => {
   const [query, setQuery] = useState('');
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeQuery = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.currentTarget.value);
   };
 
-  const containsQuery = (title: string, searchTerm: string) => {
-    return title.toLowerCase().includes(searchTerm.toLowerCase().trim());
-  };
-
-  const visibleMovies = moviesFromServer.filter(({ title, description }) => (
+  const visibleMovies = moviesFromServer.filter(({
+    title,
+    description,
+  }): boolean => (
     containsQuery(title, query) || containsQuery(description, query)
   ));
 
@@ -31,7 +34,7 @@ export const App: FC = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={handleOnChange}
+                onChange={handleChangeQuery}
                 type="text"
                 id="search-query"
                 className="input"
