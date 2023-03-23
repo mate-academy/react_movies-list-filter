@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+interface Movie {
+  title: string,
+  description: string,
+  imgUrl: string,
+  imdbUrl: string,
+  imdbId: string,
+}
+
+export function getVisibleMovies(
+  movies: Movie[],
+  query: string,
+): Movie[] {
+  const normalisedQuerry = query.toLowerCase().trim();
+
+  const visibleMovies = movies.filter((movie) => {
+    const normalisedTitle = movie.title.toLowerCase();
+    const normalisedDescription = movie.description.toLowerCase();
+
+    return normalisedTitle.includes(normalisedQuerry)
+      || normalisedDescription.includes(normalisedQuerry);
+  });
+
+  return visibleMovies;
+}
+
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = getVisibleMovies(moviesFromServer, query);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +48,13 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
