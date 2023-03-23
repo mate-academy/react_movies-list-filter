@@ -1,32 +1,26 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { checkTextIncludes } from './helpers/helpers';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const formattedToLowerCase = (string: string): string => {
-    return string.toLocaleLowerCase();
-  };
-
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    const formattedQuery = query.trim();
-
-    const foundTitle = formattedToLowerCase(title)
-      .includes(formattedToLowerCase(formattedQuery));
-    const foundInDescription = formattedToLowerCase(description)
-      .includes(formattedToLowerCase(formattedQuery));
-
-    return foundTitle || foundInDescription;
+    return checkTextIncludes(title, query)
+      || checkTextIncludes(description, query);
   });
+
+  const handleChangeQuery = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value.trim());
+  };
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -37,9 +31,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={handleChangeQuery}
               />
             </div>
           </div>
