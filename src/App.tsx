@@ -3,11 +3,7 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-type State = {
-  query: string;
-};
-
-export const App: React.FC<State> = () => {
+export const App: React.FC<{}> = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter(movie => (
