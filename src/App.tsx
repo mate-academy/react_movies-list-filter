@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
-import { checkMovie } from './functions/checkMovie';
+import { checkMovie } from './helpers/checkMovie';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
@@ -26,7 +26,6 @@ export const App: React.FC = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label
               htmlFor="search-query"
               className="label"
