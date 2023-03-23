@@ -7,6 +7,7 @@ iframe {
   grid-template: auto / 1fr 400px;
   column-gap: 20px;
   min-height: 100vh;
+  background-color: #f8f5e4;
 }
 
 .page-content {
@@ -14,8 +15,29 @@ iframe {
 }
 
 .sidebar {
+  background-image: url("./img/hyulo.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   padding: 20px;
   border-left: 1px solid lightgray;
+  color: white;
+}
+
+.box {
+  background-color: #3f497f;
+}
+
+.label {
+  color: #539165;
+}
+
+.input {
+  background-color: #f7c04a;
+}
+
+.input::placeholder {
+  color: #539165;
 }
 
 .movies {
