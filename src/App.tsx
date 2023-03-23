@@ -10,8 +10,12 @@ export const App: React.FC = () => {
     const formattedQuery = query.trim().toLowerCase();
 
     return (
-      title.toLowerCase().includes(formattedQuery)
-      || description.toLowerCase().includes(formattedQuery)
+      title
+        .toLowerCase()
+        .includes(formattedQuery)
+    || description
+      .toLowerCase()
+      .includes(formattedQuery)
     );
   });
 
