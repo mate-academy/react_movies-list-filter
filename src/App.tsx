@@ -59,10 +59,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={visibleMovies}
-          // query={query}
-        />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
