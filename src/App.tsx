@@ -6,16 +6,24 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const preparedQuery = query.toLowerCase().trim();
-  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    const preparedTitle = title.toLowerCase();
-    const preparedDescription = description.toLowerCase();
+  const prepareTextBeforeChecking = (
+    string: string,
+    substring: string,
+  ): boolean => {
+    return string.toLowerCase().includes(substring.toLowerCase().trim());
+  };
 
-    const isIncludeTitle = preparedTitle.includes(preparedQuery);
-    const isIncludeDesription = preparedDescription.includes(preparedQuery);
+  const visibleMovies = moviesFromServer.filter(
+    ({ title, description }): boolean => {
+      const isIncludeTitle = prepareTextBeforeChecking(title, query);
+      const isIncludeDescription = prepareTextBeforeChecking(
+        description,
+        query,
+      );
 
-    return isIncludeTitle || isIncludeDesription;
-  });
+      return isIncludeTitle || isIncludeDescription;
+    },
+  );
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
