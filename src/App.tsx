@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setGuery] = useState('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    return setGuery(value);
+  };
+
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const loverCaseMovieTitle = movie.title.toLocaleLowerCase();
+    const loverCaseMovieDescription = movie.description.toLocaleLowerCase();
+    const loverCaseQuery = query.toLocaleLowerCase().trim();
+
+    return loverCaseMovieTitle.includes(loverCaseQuery)
+      || loverCaseMovieDescription.includes(loverCaseQuery);
+  });
+
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -20,16 +36,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={handleChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
-      </div>
-
-      <div className="sidebar">
-        Sidebar goes here
+        <MoviesList movies={visibleMovies} />
       </div>
     </div>
   );
