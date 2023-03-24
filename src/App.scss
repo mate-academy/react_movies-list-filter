@@ -2,14 +2,16 @@ $base-color: rgba(9,9,121,1);
 $base-text-color: #fff;
 $secondary-txt-color: rgb(165, 165, 165);
 
-
 iframe {
   display: none;
 }
 
 body {
-  background: rgb(34,193,195);
-  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(49,50,155,1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(34,193,195,1) 0%,
+    rgba(49,50,155,1) 100%
+  );
 }
 
 .box {
@@ -47,6 +49,11 @@ body {
 .card {
   background: $base-color;
   color: $base-text-color;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.06);
+  }
 }
 
 .title {
