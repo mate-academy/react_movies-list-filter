@@ -49,6 +49,7 @@ body {
 .card {
   background: $base-color;
   color: $base-text-color;
+  cursor: pointer;
   transition: transform 0.3s ease;
 
   &:hover {
