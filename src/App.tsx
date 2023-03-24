@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const prepareTextBeforeChecking = (
+  const isTextIncluded = (
     string: string,
     substring: string,
   ): boolean => {
@@ -15,13 +15,8 @@ export const App: React.FC = () => {
 
   const visibleMovies = moviesFromServer.filter(
     ({ title, description }): boolean => {
-      const isIncludeTitle = prepareTextBeforeChecking(title, query);
-      const isIncludeDescription = prepareTextBeforeChecking(
-        description,
-        query,
-      );
-
-      return isIncludeTitle || isIncludeDescription;
+      return isTextIncluded(title, query)
+        || isTextIncluded(description, query);
     },
   );
 
