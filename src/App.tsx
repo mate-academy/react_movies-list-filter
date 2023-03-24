@@ -3,12 +3,19 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC<{}> = () => {
+export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const isInQuery = (arg: string) => {
+    if (arg.toLowerCase().includes(query.toLowerCase())) {
+      return true;
+    }
+
+    return false;
+  };
+
   const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase())
+    isInQuery(movie.title) || isInQuery(movie.description)
   ));
 
   return (
@@ -36,7 +43,7 @@ export const App: React.FC<{}> = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} visibleMovies={visibleMovies} />
+        <MoviesList visibleMovies={visibleMovies} />
       </div>
 
       <div className="sidebar">
