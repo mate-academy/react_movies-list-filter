@@ -1,5 +1,24 @@
+$base-color: rgba(9,9,121,1);
+$base-text-color: #fff;
+$secondary-txt-color: rgb(165, 165, 165);
+
+
 iframe {
   display: none;
+}
+
+body {
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(49,50,155,1) 100%);
+}
+
+.box {
+  background-color: $base-color;
+}
+
+.label {
+  color: $base-text-color;
+  background-color: $base-color;
 }
 
 .page {
@@ -15,7 +34,8 @@ iframe {
 
 .sidebar {
   padding: 20px;
-  border-left: 1px solid lightgray;
+  border-left: 1px solid $secondary-txt-color;
+  color: $secondary-txt-color;
 }
 
 .movies {
@@ -24,6 +44,16 @@ iframe {
   gap: 20px;
 }
 
+.card {
+  background: $base-color;
+  color: $base-text-color;
+}
+
+.title {
+  color: $secondary-txt-color;
+}
+
 .card-image img {
+  padding-top: 10px;
   object-fit: contain;
 }
