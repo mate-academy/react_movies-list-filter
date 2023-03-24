@@ -3,13 +3,19 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const filterFilms = (query: string) => {
-  const moviesCopy = [...moviesFromServer];
-  const fixedQuery = query.toLowerCase().trim();
+const getLowerText = (text: string): string => {
+  return text.toLowerCase();
+};
 
-  return moviesCopy.filter(movie => movie.title
-    .toLowerCase().includes(fixedQuery)
-    || movie.description.toLowerCase().includes(fixedQuery));
+const filterFilms = (query: string) => {
+  const fixedQuery = getLowerText(query).trim();
+
+  return moviesFromServer.filter(movie => {
+    const { title, description } = movie;
+
+    return getLowerText(title).includes(fixedQuery)
+    || getLowerText(description).includes(fixedQuery);
+  });
 };
 
 export const App: React.FC = () => {
@@ -20,7 +26,6 @@ export const App: React.FC = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -33,6 +38,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
+                aria-label="Search movie"
               />
             </div>
           </div>
