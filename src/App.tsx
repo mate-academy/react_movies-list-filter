@@ -3,16 +3,17 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const filterFilms = (text: string) => {
+const filterFilms = (query: string) => {
   const moviesCopy = [...moviesFromServer];
+  const fixedQuery = query.toLowerCase().trim();
 
   return moviesCopy.filter(movie => movie.title
-    .toLowerCase().includes(text.toLowerCase())
-    || movie.description.toLowerCase().includes(text.toLowerCase()));
+    .toLowerCase().includes(fixedQuery)
+    || movie.description.toLowerCase().includes(fixedQuery));
 };
 
 export const App: React.FC = () => {
-  const [text, setText] = useState('');
+  const [query, setQuery] = useState('');
 
   return (
     <div className="page">
@@ -30,14 +31,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={text}
-                onChange={(event) => setText(event.target.value)}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={filterFilms(text)} />
+        <MoviesList movies={filterFilms(query)} />
       </div>
 
       <div className="sidebar">
