@@ -15,8 +15,12 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    setVisibleMovies(movies.filter(({ title }) => {
-      return title.toLowerCase().includes(query.toLowerCase());
+    setVisibleMovies(movies.filter(({ title, description }) => {
+      const isContainingQuery = (text: string) => {
+        return text.toLowerCase().includes(query.toLowerCase().trim());
+      };
+
+      return isContainingQuery(title) || isContainingQuery(description);
     }));
   }, [query]);
 
