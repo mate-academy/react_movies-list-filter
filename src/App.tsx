@@ -7,7 +7,7 @@ function isIncludes(value: string, searchValue: string) {
   return value.toLowerCase().includes(searchValue);
 }
 
-function filterMovies(movieList: Movie[], query: string) {
+function filterMovies(movieList: Movie[], query: string): Movie[] {
   const searchValue = query.toLowerCase().trim();
 
   return [...movieList].filter((movie) => {
