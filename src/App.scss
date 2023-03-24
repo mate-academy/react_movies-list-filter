@@ -4,12 +4,18 @@ iframe {
 
 .page {
   display: grid;
-  grid-template: auto / 1fr 400px;
+  grid-template-columns: 1fr 75% 1fr;
   column-gap: 20px;
   min-height: 100vh;
+  background-image: url("./images/backgroundIMG.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
 }
 
 .page-content {
+  grid-column: 2 / -2;
   padding: 20px;
 }
 
@@ -24,6 +30,20 @@ iframe {
   gap: 20px;
 }
 
-.card-image img {
-  object-fit: contain;
+.box {
+  background: none;
+  box-shadow: 7px 7px 18px rgb(86, 17, 17);
+}
+
+.label {
+  color: aliceblue;
+  text-shadow: 3px 4px 4px rgb(86, 17, 17);
+}
+
+.input {
+  background: none;
+  color: aliceblue;
+  &::placeholder {
+    color: rgba(240, 248, 255, 0.36);
+  }
 }

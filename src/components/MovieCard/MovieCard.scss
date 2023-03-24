@@ -1,3 +1,23 @@
 .card-image img {
   object-fit: contain;
+  padding-top: 5px;
+}
+
+.card {
+  background: none;
+  box-shadow: 7px 7px 18px rgb(86, 17, 17);
+  transition: 350ms;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.title {
+  color: aliceblue;
+}
+
+.content {
+  color: aliceblue;
+  text-align: center;
 }
