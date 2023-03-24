@@ -7,6 +7,17 @@ function isIncludes(value: string, searchValue: string) {
   return value.toLowerCase().includes(searchValue);
 }
 
+function filterMovies(movieList: Movie[], query: string) {
+  const searchValue = query.toLowerCase().trim();
+
+  return [...movieList].filter((movie) => {
+    return (
+      isIncludes(movie.title, searchValue)
+      || isIncludes(movie.description, searchValue)
+    );
+  });
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
@@ -14,16 +25,7 @@ export const App: React.FC = () => {
     setQuery(event.target.value);
   };
 
-  const filterMovies = (movieList: Movie[]) => {
-    const searchValue = query.toLowerCase().trim();
-
-    return [...movieList].filter((movie) => {
-      return isIncludes(movie.title, searchValue)
-        || isIncludes(movie.description, searchValue);
-    });
-  };
-
-  const filteredListOfMovies = filterMovies(moviesFromServer);
+  const filteredListOfMovies = filterMovies(moviesFromServer, query);
 
   return (
     <div className="page">
