@@ -18,7 +18,7 @@ const filteredMovies = (query: string) => {
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMatch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
@@ -40,7 +40,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={handleChange}
+                onChange={handleChangeMatch}
               />
             </div>
           </div>
