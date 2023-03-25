@@ -1,3 +1,12 @@
+.card {
+  background-color: #000;
+  border-radius: 1.25rem;
+
+  &-content {
+    color: #fff;
+  }
+}
+
 .card-image img {
   object-fit: contain;
 }
