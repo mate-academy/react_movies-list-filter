@@ -7,7 +7,10 @@ interface Props {
 
 export const MovieCard: React.FC<Props> = ({ movie }) => {
   const {
-    imdbUrl, imgUrl, description, title,
+    imdbUrl,
+    imgUrl,
+    description,
+    title,
   } = movie;
 
   return (
@@ -38,7 +41,9 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
         <div className="content">
           {description}
           <br />
-          <a href={imdbUrl}>IMDB</a>
+          <a href={imdbUrl}>
+            IMDB
+          </a>
         </div>
       </div>
     </div>
