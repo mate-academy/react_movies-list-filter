@@ -10,13 +10,16 @@ export const App: React.FC = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    setQuery(value);
-    setVisibleMovies(
-      moviesFromServer.filter(({ title, description }) => (
-        title.toLowerCase().includes(value.toLowerCase().trim())
-        || description.toLowerCase().includes(value.toLowerCase().trim())
-      )),
+    const hasStringValue = (text: string) => (
+      text.toLowerCase().includes(value.toLowerCase().trim())
     );
+
+    const filteredMovies = moviesFromServer.filter(({ title, description }) => (
+      hasStringValue(title) || hasStringValue(description)
+    ));
+
+    setQuery(value);
+    setVisibleMovies(filteredMovies);
   };
 
   return (
