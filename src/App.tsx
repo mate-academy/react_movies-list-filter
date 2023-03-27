@@ -11,15 +11,17 @@ interface Movie {
   imdbId: string
 }
 
-function getVisibleMovies(query: string, movies: Movie[]) {
+function getVisibleMovies(query: string, movies: Movie[]):Movie[] {
   return movies.filter(movie => {
-    return (
-      movie.title
+    function checkForFilter(text: string) {
+      return text
         .toLowerCase()
-        .includes(query.toLowerCase().trim())
-    || movie.description
-      .toLowerCase()
-      .includes(query.toLowerCase().trim())
+        .includes(query.toLowerCase().trim());
+    }
+
+    return (
+      checkForFilter(movie.title)
+    || checkForFilter(movie.description)
     );
   });
 }
