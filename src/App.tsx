@@ -6,15 +6,14 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleFilms = moviesFromServer.filter(film => {
-    const description = film.description.toLowerCase();
-    const title = film.title.toLowerCase();
-    const queryChecked = query.toLowerCase().trim();
+  function handler(event: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(event.target.value.toLowerCase().trim());
+  }
 
-    return (
-      description.includes(queryChecked)
-      || title.includes(queryChecked));
-  });
+  const visible = moviesFromServer
+    // eslint-disable-next-line max-len
+    .filter(({ description, title }) => description.toLowerCase().includes(query)
+      || title.toLowerCase().includes(query));
 
   return (
     <div className="page">
@@ -32,14 +31,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={handler}
                 placeholder="Type search word"
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleFilms} />
+        <MoviesList movies={visible} />
       </div>
 
       <div className="sidebar">
