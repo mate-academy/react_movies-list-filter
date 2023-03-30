@@ -1,13 +1,14 @@
-/* eslint-disable no-sequences */
 import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function filteredMovies(moviesServer: Movie[], mainstr: string): Movie[] {
-  const visibleMovies: Movie[] = moviesServer.filter((film: Movie) => film
-    .title.toLowerCase().includes(mainstr.toLowerCase().trim())
-    || film.description.toLowerCase().includes(mainstr.toLowerCase().trim()));
+function filteredMovies(movies: Movie[], query: string): Movie[] {
+  const fixedQuery = query.toLowerCase().trim();
+
+  const visibleMovies: Movie[] = movies.filter((film: Movie) => film
+    .title.toLowerCase().includes(fixedQuery)
+    || film.description.toLowerCase().includes(fixedQuery));
 
   return visibleMovies;
 }
