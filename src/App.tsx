@@ -8,8 +8,10 @@ export const App: React.FC = () => {
   const visibleMovies = query === ''
     ? moviesFromServer
     : moviesFromServer.filter(movie => {
-      return movie.title.toLowerCase().trim().includes(query)
-      || movie.description.toLowerCase().trim().includes(query);
+      return movie.title.toLowerCase().trim()
+        .includes(query.toLowerCase().trim())
+      || movie.description.toLowerCase().trim()
+        .includes(query.toLowerCase().trim());
     });
 
   const handlerQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
