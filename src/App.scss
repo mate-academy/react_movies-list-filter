@@ -3,27 +3,18 @@ iframe {
 }
 
 .page {
-  display: grid;
-  grid-template: auto / 1fr 400px;
-  column-gap: 20px;
   min-height: 100vh;
+  background-image: url("./images/360_F_286323187_mDk3N4nGDaPkUmhNcdBe3RjSOfKqx4nZ.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.box {
+  width: 65vw;
+  margin: 30px auto;
 }
 
 .page-content {
   padding: 20px;
-}
-
-.sidebar {
-  padding: 20px;
-  border-left: 1px solid lightgray;
-}
-
-.movies {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.card-image img {
-  object-fit: contain;
+  margin: 0 auto;
 }
