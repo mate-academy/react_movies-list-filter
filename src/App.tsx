@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { searchQueryIn } from './helpers';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -10,18 +11,14 @@ export const App: React.FC = () => {
     setQuery(event.target.value);
   };
 
-  const searchQueryIn = (field: string) => (
-    field.toLowerCase().includes(query.toLowerCase().trim())
-  );
-
   const visibleMovies = moviesFromServer.filter(
     ({ title, description }) => (
-      searchQueryIn(title) || searchQueryIn(description)
+      searchQueryIn(title, query) || searchQueryIn(description, query)
     ),
   );
 
   return (
-    <div className="page s s">
+    <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field ">
