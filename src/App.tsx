@@ -5,16 +5,17 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [movie, setMovie] = useState(moviesFromServer);
+  const [movies, setMovie] = useState(moviesFromServer);
 
   useEffect(() => {
     const filtred = moviesFromServer.filter(movie => {
       const { title, description } = movie;
       const lowerCasedTitle = title.toLowerCase();
-      const lowerCasedDescription  = description.toLowerCase();
+      const lowerCasedDescription = description.toLowerCase();
       const lowerCasedQuery = query.toLowerCase().trim();
 
-      return lowerCasedTitle.includes(lowerCasedQuery) || lowerCasedDescription.includes(lowerCasedQuery)
+      return lowerCasedTitle.includes(lowerCasedQuery)
+        || lowerCasedDescription.includes(lowerCasedQuery);
     });
 
     setMovie(filtred);
@@ -43,7 +44,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={movie} />
+        <MoviesList movies={movies} />
       </div>
       <div className="sidebar">
         Sidebar goes here
