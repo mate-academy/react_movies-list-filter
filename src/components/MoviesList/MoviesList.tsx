@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const MoviesList: React.FC<Props> = ({ movies, query }) => {
-  function getString(str: string) {
+  function getCheckQuery(str: string) {
     return str.toUpperCase().includes(query.toUpperCase().trim());
   }
 
@@ -16,7 +16,7 @@ export const MoviesList: React.FC<Props> = ({ movies, query }) => {
     <div className="movies">
       {
         movies.filter(
-          item => getString(item.title) || getString(item.description),
+          item => getCheckQuery(item.title) || getCheckQuery(item.description),
         ).map(movie => (
           <MovieCard key={movie.imdbId} movie={movie} />
         ))
