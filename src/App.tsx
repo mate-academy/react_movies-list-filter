@@ -6,12 +6,19 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  function getCheckQuery(str: string) {
+    return str.toUpperCase().includes(query.toUpperCase().trim());
+  }
+
+  const visibleMovies = moviesFromServer.filter(
+    item => getCheckQuery(item.title) || getCheckQuery(item.description),
+  );
+
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -29,7 +36,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} query={query} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
