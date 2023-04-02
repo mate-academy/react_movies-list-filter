@@ -3,34 +3,31 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-interface Movie {
-  title: string,
-  description: string,
-  imgUrl: string,
-  imdbUrl: string,
-  imdbId: string,
-}
-
-type Query = {
-  visibleMovies: Movie[],
-  searchResults: string,
-};
-
-export const App: React.FC<Query> = () => {
-  const [allMovies, setVisible] = useState<Query>({
+export const App: React.FC = () => {
+  const [allMovies, setVisible] = useState({
     visibleMovies: moviesFromServer,
+  });
+
+  const [query, setQuery] = useState({
     searchResults: '',
   });
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchResults = e.target.value;
-    const visibleMovies = moviesFromServer.filter(movie => (
-      movie.description.includes(searchResults)
-      || movie.title.toLocaleLowerCase()
-        .includes(searchResults.toLocaleLowerCase())
-    ));
+    setQuery({
+      searchResults: e.target.value,
+    });
 
-    setVisible({ visibleMovies, searchResults });
+    function filterMovies(movies: Movie[]) {
+      return movies.filter(movie => (
+        movie.description.toLowerCase().includes(query.searchResults)
+        || movie.title.toLowerCase()
+          .includes(query.searchResults.toLowerCase())
+      ));
+    }
+
+    const visibleMovies = filterMovies(moviesFromServer);
+
+    setVisible({ visibleMovies });
   };
 
   return (
@@ -38,7 +35,6 @@ export const App: React.FC<Query> = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -49,7 +45,7 @@ export const App: React.FC<Query> = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={allMovies.searchResults}
+                value={query.searchResults}
                 onChange={handleSearchChange}
               />
             </div>
