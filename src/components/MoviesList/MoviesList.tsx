@@ -11,22 +11,12 @@ export const MoviesList: React.FC<Props> = ({ movies, filter }) => {
   const [visibleMovies, setVisibleMovies] = useState(([...movies]));
 
   useEffect(() => {
-    if (filter) {
-      setVisibleMovies(movies.filter((el: Movie) => {
-        if (
-          el.title.toLocaleLowerCase()
-            .includes(filter)
-          || el.description.toLocaleLowerCase()
-            .includes(filter)
-        ) {
-          return el;
-        }
-
-        return null;
-      }));
-    } else {
-      setVisibleMovies([...movies]);
-    }
+    setVisibleMovies(movies.filter((el: Movie) => {
+      return el.title.toLocaleLowerCase()
+        .includes(filter)
+        || el.description.toLocaleLowerCase()
+          .includes(filter);
+    }));
   }, [filter]);
 
   return (
