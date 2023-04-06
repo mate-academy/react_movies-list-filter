@@ -10,6 +10,14 @@ export const App: React.FC = () => {
     setQuery(event.target.value)
   );
 
+  function findMovie(str: string) {
+    return str.toLowerCase().includes(query.trim().toLowerCase());
+  }
+
+  const visibleMovies = moviesFromServer.filter(movie => (
+    findMovie(movie.title) || findMovie(movie.description)
+  ));
+
   return (
     <div className="page">
       <div className="page-content">
@@ -33,10 +41,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={moviesFromServer}
-          filter={query.trim().toLowerCase()}
-        />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
