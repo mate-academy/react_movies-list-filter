@@ -13,9 +13,13 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const { description, title } = movie;
 
+    const formattedQuery = query.trim().toLowerCase();
+    const formattedTitle = title.toLowerCase();
+    const formattedDescription = description.toLowerCase();
+
     return (
-      title.toLowerCase().includes(query.trim().toLowerCase())
-    || description.toLowerCase().includes(query.trim().toLowerCase())
+      formattedTitle.includes(formattedQuery)
+        || formattedDescription.includes(formattedQuery)
     );
   });
 
