@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const filter = (str: string, searchStr: string) => {
-  const adaptQuery = searchStr.toLowerCase();
+const filterMoviesByQuery = (movies: Movie[], query: string) => {
+  if (query.length < 3) {
+    return movies;
+  }
 
-  return str.toLowerCase().includes(adaptQuery);
+  const doesStrIncludesQuery = (str: string) => {
+    const lowercasedQuery = query.toLowerCase();
+
+    return str.toLowerCase().includes(lowercasedQuery);
+  };
+
+  return movies.filter(movie => {
+    return doesStrIncludesQuery(movie.title)
+      || doesStrIncludesQuery(movie.description);
+  });
 };
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  let foundMovies;
-
-  if (query.length < 3) {
-    foundMovies = moviesFromServer;
-  } else {
-    foundMovies = moviesFromServer.filter(movie => {
-      return filter(movie.title, query) || filter(movie.description, query);
-    });
-  }
+  const visibleMovies = useMemo(
+    () => filterMoviesByQuery(moviesFromServer, query),
+    [moviesFromServer, query],
+  );
 
   return (
     <div className="page">
@@ -43,7 +49,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={foundMovies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
