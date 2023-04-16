@@ -3,12 +3,16 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const foundQuery = (value: string, query: string) => (
+  value.toLowerCase().includes(query.toLowerCase().trim())
+);
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const variablesMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(query.toLowerCase().trim())
-    || movie.description.toLowerCase().includes(query.toLowerCase().trim())
+    foundQuery(movie.title, query)
+    || foundQuery(movie.description, query)
   ));
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
