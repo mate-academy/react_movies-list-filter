@@ -10,7 +10,7 @@ const foundQuery = (value: string, query: string) => (
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const variablesMovies = moviesFromServer.filter(movie => (
+  const foundMovies = moviesFromServer.filter(movie => (
     foundQuery(movie.title, query)
     || foundQuery(movie.description, query)
   ));
@@ -41,7 +41,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={variablesMovies} />
+        <MoviesList movies={foundMovies} />
       </div>
 
       <div className="sidebar">
