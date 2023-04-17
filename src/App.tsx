@@ -16,19 +16,22 @@ export const App: React.FC = () => {
     return str.toLowerCase();
   };
 
-  const handleSearchFilms = (films: Movie[]) => {
+  const searchText = (text: string): boolean => {
     const lowerQuery = getLowerString(query).trim();
 
+    return text.includes(lowerQuery);
+  };
+
+  const getFilteredMovies = (films: Movie[]): Movie[] | [] => {
     return films.filter(({ title, description }: Movie) => {
       const lowerTitle = getLowerString(title);
       const lowerDescription = getLowerString(description);
 
-      return lowerTitle.includes(lowerQuery)
-        || lowerDescription.includes(lowerQuery);
+      return searchText(lowerTitle) || searchText(lowerDescription);
     });
   };
 
-  const visibleMovies = handleSearchFilms(moviesFromServer);
+  const visibleMovies = getFilteredMovies(moviesFromServer);
 
   return (
     <div className="page">
