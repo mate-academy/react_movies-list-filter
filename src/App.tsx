@@ -3,7 +3,38 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+type Movie = {
+  title: string
+  description: string
+  imgUrl: string
+  imdbUrl: string
+  imdbId: string
+};
+
 export const App: React.FC = () => {
+  const [visiblemovies, setVisibleMovies] = React.useState(moviesFromServer);
+  const [query, setQuery] = React.useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value.toLowerCase());
+  };
+
+  React.useEffect(() => {
+    setVisibleMovies((prevMovies = []): Movie[] => {
+      if (!query) {
+        return moviesFromServer;
+      }
+
+      return prevMovies.filter((movie: Movie) => movie.title
+        .toLowerCase().includes(query)
+        || movie.description.toLowerCase().includes(query));
+    });
+  }, [query]);
+
+  React.useEffect(() => {
+    setVisibleMovies(moviesFromServer as Movie[]);
+  }, []);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -16,6 +47,7 @@ export const App: React.FC = () => {
 
             <div className="control">
               <input
+                onChange={handleChange}
                 type="text"
                 id="search-query"
                 className="input"
@@ -24,8 +56,7 @@ export const App: React.FC = () => {
             </div>
           </div>
         </div>
-
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visiblemovies} />
       </div>
 
       <div className="sidebar">
