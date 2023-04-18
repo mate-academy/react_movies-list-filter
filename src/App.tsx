@@ -16,7 +16,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = React.useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value.toLowerCase());
+    setQuery(e.target.value.trim().toLowerCase());
   };
 
   React.useEffect(() => {
