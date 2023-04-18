@@ -9,12 +9,12 @@ export const App: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    setQuery(value);
+    setQuery(value.toLowerCase().trim());
   };
 
   const moviesData = [...moviesFromServer].filter(movie => {
-    return movie.description.toLowerCase().includes(query)
-    || movie.title.toLowerCase().includes(query);
+    return movie.description.toLowerCase().trim().includes(query)
+    || movie.title.toLowerCase().trim().includes(query);
   });
 
   return (
