@@ -37,9 +37,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={filteredMovies}
-        />
+        <MoviesList movies={filteredMovies} />
       </div>
 
       <div className="sidebar">
