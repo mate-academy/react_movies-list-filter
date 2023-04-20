@@ -31,10 +31,6 @@ export const App: React.FC = () => {
     });
   }, [query]);
 
-  React.useEffect(() => {
-    setVisibleMovies(moviesFromServer as Movie[]);
-  }, []);
-
   return (
     <div className="page">
       <div className="page-content">
@@ -56,7 +52,7 @@ export const App: React.FC = () => {
             </div>
           </div>
         </div>
-        <MoviesList movies={visiblemovies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
