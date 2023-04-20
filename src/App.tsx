@@ -12,7 +12,7 @@ type Movie = {
 };
 
 export const App: React.FC = () => {
-  const [visiblemovies, setVisibleMovies] = React.useState(moviesFromServer);
+  const [visibleMovies, setVisibleMovies] = React.useState(moviesFromServer);
   const [query, setQuery] = React.useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
