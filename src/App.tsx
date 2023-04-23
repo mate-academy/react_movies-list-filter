@@ -31,7 +31,7 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(e) => {
-                  setQuery(e.currentTarget.value);
+                  setQuery(e.target.value);
                 }}
               />
             </div>
