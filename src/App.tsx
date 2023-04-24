@@ -29,6 +29,7 @@ export const App: React.FC = () => {
               <input
                 type="text"
                 id="search-query"
+                value={query}
                 onChange={handleQueryChange}
                 className="input"
                 placeholder="Type search word"
