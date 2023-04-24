@@ -11,7 +11,7 @@ export const MoviesList: React.FC<Props> = ({ movies, query }) => {
   const visibleMovies = movies.filter((movie) => {
     const formattedTitle = movie.title.toLowerCase();
     const formattedDescription = movie.description.toLowerCase();
-    const formattedQuery = query.toLowerCase();
+    const formattedQuery = query.toLowerCase().trim();
 
     return formattedTitle.includes(formattedQuery)
       || formattedDescription.includes(formattedQuery);
