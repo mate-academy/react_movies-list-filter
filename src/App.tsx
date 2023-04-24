@@ -10,9 +10,11 @@ export const App: FC = () => {
     setQuery(event.target.value);
   };
 
+  const formattedQuery = query.trim().toLowerCase();
+
   const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(query.trim().toLowerCase())
-    || movie.description.toLowerCase().includes(query.trim().toLowerCase())
+    movie.title.toLowerCase().includes(formattedQuery)
+    || movie.description.toLowerCase().includes(formattedQuery)
   ));
 
   return (
