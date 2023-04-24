@@ -15,7 +15,7 @@ export const App: React.FC = () => {
     });
   };
 
-  const [query, setSearch] = useState('');
+  const [query, setQuery] = useState('');
 
   return (
     <div className="page">
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => setSearch(event.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
