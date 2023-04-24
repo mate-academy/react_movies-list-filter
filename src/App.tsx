@@ -8,9 +8,10 @@ export const App: React.FC = () => {
 
   const searchFilter = (movie: Movie) => {
     const { title, description } = movie;
+    const searchLowerCase = search.toLowerCase().trim();
 
-    return title.toLowerCase().includes(search.toLowerCase())
-      || description.toLowerCase().includes(search.toLowerCase());
+    return title.toLowerCase().includes(searchLowerCase)
+      || description.toLowerCase().includes(searchLowerCase);
   };
 
   const filteredMovies = moviesFromServer.filter(searchFilter);
