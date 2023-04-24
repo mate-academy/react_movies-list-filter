@@ -9,12 +9,12 @@ interface Props {
 
 export const MoviesList: React.FC<Props> = ({ movies, query }) => {
   const visibleMovies = movies.filter((movie) => {
-    const filteredTitle = movie.title.toLowerCase();
-    const filteredDescription = movie.description.toLowerCase();
-    const filteredQuery = query.toLowerCase();
+    const formattedTitle = movie.title.toLowerCase();
+    const formattedDescription = movie.description.toLowerCase();
+    const formattedQuery = query.toLowerCase();
 
-    return filteredTitle.includes(filteredQuery)
-      || filteredDescription.includes(filteredQuery);
+    return formattedTitle.includes(formattedQuery)
+      || formattedDescription.includes(formattedQuery);
   });
 
   return (
