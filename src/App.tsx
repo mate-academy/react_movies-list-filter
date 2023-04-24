@@ -4,14 +4,18 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [queryInfo, setQueryInfo] = useState('');
+  const [queryInfo, setQueryInfo] = useState(' ');
+
+  const helperFunction = (text: string) => {
+    const query = queryInfo.trim().toUpperCase();
+
+    return text.toUpperCase().includes(query);
+  };
+
   const visableMovies = moviesFromServer.filter(movie => {
     const { description, title } = movie;
 
-    const query = queryInfo.trim().toUpperCase();
-
-    return description.toUpperCase().includes(query)
-      || title.toUpperCase().includes(query);
+    return helperFunction(title) || helperFunction(description);
   });
 
   return (
