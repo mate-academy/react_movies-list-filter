@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
-  const [query, setQuery] = React.useState('');
+export const App: FC = () => {
+  const [query, setQuery] = useState('');
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
