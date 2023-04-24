@@ -10,18 +10,19 @@ export const App: React.FC = () => {
     return movies.filter(movie => {
       const lowerTitle = movie.title.toLowerCase();
       const lowerDescription = movie.description.toLowerCase();
-      const lowerQuery = query.toLowerCase();
+      const lowerQuery = query.toLowerCase().trim();
 
       return lowerTitle.includes(lowerQuery)
         || lowerDescription.includes(lowerQuery);
     });
   };
 
-  const handleChange = (event: {
-    target:
-    { value: React.SetStateAction<string>;
-    };
-  }) => setQuery(event.target.value);
+  // eslint-disable-next-line max-len
+  const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    const { value } = event.target;
+
+    setQuery(value);
+  };
 
   const visibleMovies = filterMovies(moviesFromServer);
 
