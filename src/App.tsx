@@ -3,14 +3,18 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function validationOfString(givenString: string, searchQuery: string) {
+  const lowerQuery = searchQuery.toLowerCase().trim();
+
+  return givenString.toLowerCase().includes(lowerQuery);
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies: Movie[] = moviesFromServer
     .filter(({ title, description }) => {
-      const lowerQuery = query.toLowerCase().trim();
-
-      return title.toLowerCase().includes(lowerQuery)
-      || description.toLowerCase().includes(lowerQuery);
+      return validationOfString(title, query)
+      || validationOfString(description, query);
     });
 
   return (
