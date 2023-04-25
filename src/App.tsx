@@ -1,20 +1,24 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: FC = () => {
   const [query, setQuery] = useState('');
-  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
   const formattedQuery = query.trim().toLowerCase();
-  const queryChecker = ((text: string) => (
-    text.toLowerCase().includes(formattedQuery)
+
+  const doesMoviePropertyMatchQuery = ((movieProperty: string) => (
+    movieProperty.toLowerCase().includes(formattedQuery)
   ));
+
   const visibleMovies = moviesFromServer.filter(movie => (
-    queryChecker(movie.title) || queryChecker(movie.description)
+    doesMoviePropertyMatchQuery(movie.title)
+    || doesMoviePropertyMatchQuery(movie.description)
   ));
 
   return (
