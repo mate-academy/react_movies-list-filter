@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,19 +6,22 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const hasQuery = (text: string) => {
+    const lowerQuery = query.toLowerCase().trim();
+    const lowerText = text.toLowerCase();
+
+    return lowerText.includes(lowerQuery);
+  };
+
   const filterMovies = (movies: Movie[]) => {
     return movies.filter(movie => {
-      const lowerTitle = movie.title.toLowerCase();
-      const lowerDescription = movie.description.toLowerCase();
-      const lowerQuery = query.toLowerCase().trim();
+      const { title, description } = movie;
 
-      return lowerTitle.includes(lowerQuery)
-        || lowerDescription.includes(lowerQuery);
+      return hasQuery(title) || hasQuery(description);
     });
   };
 
-  // eslint-disable-next-line max-len
-  const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setQuery(value);
