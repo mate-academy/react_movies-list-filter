@@ -5,12 +5,16 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const isIncluded = (text: string) => (text.trim()
-    .toLowerCase()
-    .includes(query.trim().toLowerCase()))
+
+  const doesMoviePropertyMatchQuery = (movieProperty: string) => (
+    movieProperty
+      .trim()
+      .toLowerCase()
+      .includes(query.trim().toLowerCase()));
+
   const visibleMovies = moviesFromServer.filter(movie => (
-    isIncluded(movie.title)
-    || isIncluded(movie.description)
+    doesMoviePropertyMatchQuery(movie.title)
+    || doesMoviePropertyMatchQuery(movie.description)
   ));
 
   return (
