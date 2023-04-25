@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,23 +6,19 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
     setQuery(event.currentTarget.value);
   };
 
+  const handleIsQueryIncludes = (movieString: string) => movieString
+    .toLowerCase()
+    .includes(query.toLowerCase());
+
   const visibleMovies = moviesFromServer
     .filter(movie => {
-      const {
-        title,
-        description,
-      } = movie;
+      const { title, description } = movie;
 
-      return title
-        .toLowerCase()
-        .includes(query.toLowerCase())
-        || description
-          .toLowerCase()
-          .includes(query.toLowerCase());
+      return handleIsQueryIncludes(title) || handleIsQueryIncludes(description);
     });
 
   return (
