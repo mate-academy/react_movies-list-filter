@@ -10,11 +10,11 @@ export const App: React.FC = () => {
       return event.target.value;
     }
 
-    return setQuery(event.target.value.trim());
+    return setQuery(event.target.value);
   };
 
   const VisibleMovies = moviesFromServer.filter(movie => {
-    const queryLower = query.toLowerCase();
+    const queryLower = query.toLowerCase().trim();
 
     return movie.title.toLowerCase().includes(queryLower)
       || movie.description.toLowerCase().includes(queryLower);
