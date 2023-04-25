@@ -3,17 +3,25 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+interface Movie {
+  title: string;
+  description: string;
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(movie => {
+  const checkMovieMatch = (movie: Movie) => {
     const { title, description } = movie;
     const lowerTitle = title.toLowerCase();
     const lowerDesc = description.toLowerCase();
     const searchQuery = query.trim().toLowerCase();
 
     return lowerTitle.includes(searchQuery) || lowerDesc.includes(searchQuery);
-  });
+  };
+
+  const visibleMovies
+    = moviesFromServer.filter(movie => checkMovieMatch(movie));
 
   return (
     <div className="page">
