@@ -9,20 +9,11 @@ function includes(str: string, substr: string): boolean {
 
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [filteredMovies, setFilteredMovies] = React.useState(moviesFromServer);
 
-  const handleSearchQueryChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setSearchQuery(event.target.value);
-
-    setFilteredMovies(moviesFromServer.filter((movie) => {
-      const { title, description } = movie;
-
-      return includes(title, event.target.value)
-        || includes(description, event.target.value);
-    }));
-  };
+  const filteredMovies = moviesFromServer.filter(movie => (
+    includes(movie.title, searchQuery)
+    || includes(movie.description, searchQuery)
+  ));
 
   return (
     <div className="page">
@@ -40,7 +31,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={searchQuery}
-                onChange={handleSearchQueryChange}
+                onChange={(event) => setSearchQuery(event.target.value)}
               />
             </div>
           </div>
