@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const isIncludes = (string: string, subString: string) => {
+  const preparedString = string.toLowerCase();
+  const preparedSubString = subString.toLowerCase().trim();
+
+  return preparedString.includes(preparedSubString);
+};
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
-
-  const doesIncludeCaseInsensitive = (string: string, subString: string) => {
-    return string.toLowerCase().includes(subString.toLowerCase().trim());
-  };
-
-  useEffect(() => {
-    setVisibleMovies(moviesFromServer.filter(movie => {
-      const { title, description } = movie;
-
-      return (
-        doesIncludeCaseInsensitive(title, query)
-          || doesIncludeCaseInsensitive(description, query));
-    }));
-  }, [query]);
 
   return (
     <div className="page">
@@ -39,7 +32,17 @@ export const App: React.FC = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(event) => {
-                  setQuery(event.target.value);
+                  const { value } = event.target;
+
+                  setQuery(value);
+
+                  setVisibleMovies(moviesFromServer.filter(movie => {
+                    const { title, description } = movie;
+
+                    return (
+                      isIncludes(title, value)
+                        || isIncludes(description, value));
+                  }));
                 }}
               />
             </div>
