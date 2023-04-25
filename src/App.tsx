@@ -10,15 +10,19 @@ export const App: React.FC = () => {
     setSearchQuery(event.target.value);
   };
 
+  const сomplianceСheckFields = (field: string, query: string) => {
+    return field.toLowerCase().includes(query.toLowerCase().trim());
+  };
+
   const visibleMovies = moviesFromServer
     .filter(({ title, description }) => {
-      const toTitleLower = title.toLowerCase();
-      const toDescriptionLower = description.toLowerCase();
-      const toQueryLower = searchQuery.trim().toLowerCase();
+      // const toTitleLower = title.toLowerCase();
+      // const toDescriptionLower = description.toLowerCase();
+      // const toQueryLower = searchQuery.trim().toLowerCase();
 
       return (
-        toTitleLower.includes(toQueryLower)
-          || toDescriptionLower.includes(toQueryLower)
+        сomplianceСheckFields(title, searchQuery)
+          || сomplianceСheckFields(description, searchQuery)
       );
     });
 
