@@ -3,6 +3,10 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const doesFieldMatchQuery = (field: string, query: string) => {
+  return field.toLowerCase().includes(query.toLowerCase().trim());
+};
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
@@ -11,12 +15,9 @@ export const App: React.FC = () => {
   };
 
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    const titleLower = title.toLowerCase();
-    const descriptionLower = description.toLowerCase();
-    const queryLower = query.trim().toLowerCase();
-
     return (
-      titleLower.includes(queryLower) || descriptionLower.includes(queryLower)
+      doesFieldMatchQuery(title, query)
+      || doesFieldMatchQuery(description, query)
     );
   });
 
