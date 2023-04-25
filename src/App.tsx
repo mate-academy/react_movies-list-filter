@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { Movie } from './types/Movie';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [movies] = useState(moviesFromServer);
 
-  const visibleMovies = movies.filter((movie) => (
-    movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase())
-  ));
+  function checkMoviesProperty(movie: Movie, searchStr: string) {
+    return movie.title.toLowerCase().includes(searchStr.toLowerCase())
+      || movie.description.toLowerCase().includes(searchStr.toLowerCase());
+  }
+
+  const visibleMovies = moviesFromServer.filter((movie) => (
+    checkMoviesProperty(movie, query)));
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
