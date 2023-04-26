@@ -2,23 +2,22 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { Movie } from './types/Movie';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  function checkMoviesProperty(
-    movie: Movie,
-    propertyName: keyof Movie,
-    searchStr: string,
-  ) {
-    return movie[propertyName].toLowerCase().includes(searchStr.toLowerCase());
+  function checkMovieProperty(movieProperty: string) {
+    return movieProperty
+      .toLowerCase()
+      .includes(query.toLowerCase());
   }
 
-  const visibleMovies = moviesFromServer.filter((movie) => (
-    checkMoviesProperty(movie, 'title', query)
-    || checkMoviesProperty(movie, 'description', query)
-  ));
+  const visibleMovies = moviesFromServer.filter((movie) => {
+    const { title, description } = movie;
+
+    return checkMovieProperty(title)
+      || checkMovieProperty(description);
+  });
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.trim());
