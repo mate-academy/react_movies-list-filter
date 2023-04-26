@@ -7,13 +7,22 @@ import { Movie } from './types/Movie';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  function checkMoviesProperty(movie: Movie, searchStr: string) {
-    return movie.title.toLowerCase().includes(searchStr.toLowerCase())
-      || movie.description.toLowerCase().includes(searchStr.toLowerCase());
+  function checkMoviesProperty(
+    movie: Movie,
+    propertyName: keyof Movie,
+    searchStr: string,
+  ) {
+    return movie[propertyName].toLowerCase().includes(searchStr.toLowerCase());
   }
 
   const visibleMovies = moviesFromServer.filter((movie) => (
-    checkMoviesProperty(movie, query)));
+    checkMoviesProperty(movie, 'title', query)
+    || checkMoviesProperty(movie, 'description', query)
+  ));
+
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value.trim());
+  };
 
   return (
     <div className="page">
@@ -30,7 +39,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => setQuery(event.target.value.trim())}
+                onChange={handleQueryChange}
               />
             </div>
           </div>
