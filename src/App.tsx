@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -19,7 +19,7 @@ export const App: React.FC = () => {
       || checkMovieProperty(description);
   });
 
-  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.trim());
   };
 
