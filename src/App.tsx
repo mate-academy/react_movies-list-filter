@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, ChangeEvent, FC } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -7,14 +7,13 @@ function isValidFilm(filmProperty: string, query: string): boolean {
   return filmProperty.toLowerCase().includes(query.toLowerCase().trim());
 }
 
-export const App: React.FC = () => {
-  const [query, changeQuery] = useState('');
+export const App: FC = () => {
+  const [query, setQuery] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement> &
-  { target : HTMLButtonElement }) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    changeQuery(value);
+    setQuery(value);
   };
 
   const visibleMovies = moviesFromServer.filter(({ title, description }) => (
