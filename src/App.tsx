@@ -6,19 +6,18 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const getMovies = (movies: Movie[], userQuery: string) => {
-    const lowerCaseQuery = userQuery.toLowerCase().trim();
-
-    return movies.filter(movie => {
-      const lowerCaseTitle = movie.title.toLowerCase();
-      const lowerCaseDescription = movie.description.toLowerCase();
-
-      return lowerCaseTitle.includes(lowerCaseQuery)
-        || lowerCaseDescription.includes(lowerCaseQuery);
-    });
+  const isPropertyMatchQuery = (movieProperty: string) => {
+    return movieProperty.toLowerCase().includes(query.toLowerCase().trim());
   };
 
-  const visibleMovies = getMovies(moviesFromServer, query);
+  const getVisibleMovies = (movies: Movie[]) => {
+    return movies.filter(movie => (
+      isPropertyMatchQuery(movie.title)
+        || isPropertyMatchQuery(movie.description)
+    ));
+  };
+
+  const visibleMovies = getVisibleMovies(moviesFromServer);
 
   const handleUserQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
