@@ -3,19 +3,30 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function validationOfString(givenString: string, searchQuery: string) {
-  const lowerQuery = searchQuery.toLowerCase().trim();
+function doesStringMatchQuery(givenString: string, searchQuery: string) {
+  const normalizedQuery = searchQuery.toLowerCase().trim();
 
-  return givenString.toLowerCase().includes(lowerQuery);
+  return givenString.toLowerCase().includes(normalizedQuery);
 }
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies: Movie[] = moviesFromServer
-    .filter(({ title, description }) => {
-      return validationOfString(title, query)
-      || validationOfString(description, query);
+    .filter(({
+      title,
+      description,
+    }) => {
+      return doesStringMatchQuery(title, query)
+      || doesStringMatchQuery(description, query);
     });
+
+  const handlerChange = (event:
+  { target: {
+    value: React.SetStateAction<string>;
+  };
+  }) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -34,9 +45,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={handlerChange}
               />
             </div>
           </div>
