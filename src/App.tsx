@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -7,7 +7,9 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const isPropertyMatchQuery = (movieProperty: string) => {
-    return movieProperty.toLowerCase().includes(query.toLowerCase().trim());
+    return movieProperty
+      .toLowerCase()
+      .includes(query.toLowerCase().trim());
   };
 
   const getVisibleMovies = (movies: Movie[]) => {
@@ -19,7 +21,7 @@ export const App: React.FC = () => {
 
   const visibleMovies = getVisibleMovies(moviesFromServer);
 
-  const handleUserQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserQuery = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
