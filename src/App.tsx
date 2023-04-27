@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import { FC, ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
+const getNormalisedString = (string: string): string => {
+  return string.toLowerCase();
+};
+
+export const App: FC = () => {
   const [query, setInputText] = useState('');
   const visibleMovies = moviesFromServer.filter((movie) => {
-    const normalizeQuery = query.trim().toLowerCase();
-    const normalizeTitle = movie.title.toLowerCase();
-    const normalizeDescription = movie.description.toLowerCase();
+    const normalizedQuery = getNormalisedString(query).trim();
+    const normalizedTitle = getNormalisedString(movie.title);
+    const normalizedDescription = getNormalisedString(movie.description);
 
-    return normalizeTitle.includes(normalizeQuery)
-    || normalizeDescription.includes(normalizeQuery);
+    return normalizedTitle.includes(normalizedQuery)
+    || normalizedDescription.includes(normalizedQuery);
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
   };
 
