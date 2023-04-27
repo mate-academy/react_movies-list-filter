@@ -14,10 +14,10 @@ function isNeeded(movieInfo: string, query: string) {
 export const MoviesList: React.FC<Props> = ({ movies, query }) => (
   <div className="movies">
     {movies.map(movie => {
-      const isNeededTitle = isNeeded(movie.title, query);
-      const isNeededDesc = isNeeded(movie.description, query);
+      const doesMovieTitleMatchQuery = isNeeded(movie.title, query);
+      const doesMovieDescMatchQuery = isNeeded(movie.description, query);
 
-      return (isNeededTitle || isNeededDesc) && (
+      return (doesMovieTitleMatchQuery || doesMovieDescMatchQuery) && (
         <MovieCard key={movie.imdbId} movie={movie} />
       );
     })}
