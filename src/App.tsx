@@ -13,8 +13,8 @@ function checkSubstr(str: string, subStr: string): boolean {
 export const App: React.FC = () => {
   const [query, changeQuery] = useState('');
   const visibleMovies = moviesFromServer
-    .filter(({ description, title }) => (
-      checkSubstr(query, description) || checkSubstr(query, title)
+    .filter(({ description, title }: Movie) => (
+      checkSubstr(description, query) || checkSubstr(title, query)
     ));
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
