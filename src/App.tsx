@@ -3,23 +3,19 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-// type Movie = {
-//   title: string,
-//   description: string,
-//   imgUrl: string,
-//   imdbUrl: string,
-//   imdbId: string,
-// };
-
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [moviesToRender, setMoviesToRender] = useState(moviesFromServer);
 
-  useEffect(() => {
+  const filterMovie = () => {
     setMoviesToRender([...moviesFromServer].filter(({ title, description }) => {
       return title.toLowerCase().includes(query.toLowerCase().trim())
     || description.toLowerCase().includes(query.toLowerCase().trim());
     }));
+  };
+
+  useEffect(() => {
+    filterMovie();
   }, [query]);
 
   return (
