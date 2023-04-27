@@ -3,14 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const isMovieIncludes = (movieProps: string, query: string) => {
+  return movieProps.toLowerCase().includes(query.toLowerCase().trim());
+};
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const movieQuery = (movieProps: string) => {
-    return movieProps.toLowerCase().includes(query.toLowerCase().trim());
-  };
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    movieQuery(movie.title) || movieQuery(movie.description)
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => (
+    isMovieIncludes(title, query) || isMovieIncludes(description, query)
   ));
 
   return (
