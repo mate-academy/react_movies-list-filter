@@ -3,17 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const isMatchMovieQuery = (partOfMovie: string, query: string) => (
+  partOfMovie.toLowerCase().includes(query.toLowerCase().trim())
+);
+
 export const App: React.FC = () => {
   const [query, changeQuery] = useState('');
 
-  const lowerQuery = query.toLowerCase().trim();
-
-  const isMatchMovieQuery = (partOfMovie: string) => (
-    partOfMovie.toLowerCase().includes(lowerQuery)
-  );
-
   const visibleMovies = moviesFromServer.filter(({ title, description }) => (
-    isMatchMovieQuery(title) || isMatchMovieQuery(description)
+    isMatchMovieQuery(title, query) || isMatchMovieQuery(description, query)
   ));
 
   return (
