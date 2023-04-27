@@ -3,17 +3,22 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function includes(str: string, substr: string): boolean {
-  return str.toLowerCase().includes(substr.toLowerCase().trim());
+function isIncludes(str: string, substr: string): boolean {
+  const strLower = str.toLowerCase();
+  const substrLower = substr.toLowerCase().trim();
+
+  return strLower.includes(substrLower);
 }
 
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const filteredMovies = moviesFromServer.filter(movie => (
-    includes(movie.title, searchQuery)
-    || includes(movie.description, searchQuery)
-  ));
+  const filteredMovies = moviesFromServer.filter(movie => {
+    const { title, description } = movie;
+
+    return (isIncludes(title, searchQuery)
+      || isIncludes(description, searchQuery));
+  });
 
   return (
     <div className="page">
