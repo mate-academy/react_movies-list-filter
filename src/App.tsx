@@ -8,9 +8,17 @@ export const App: React.FC = () => {
 
   const normalizeQuery = query.toLowerCase().trim();
 
+  const isIncludes = (str: string, substr: string): boolean => {
+    const normalizeStr = str.toLowerCase();
+
+    return normalizeStr.includes(substr);
+  };
+
   const visibleMovies = moviesFromServer
-    .filter(movie => movie.title.toLowerCase().includes(normalizeQuery)
-      || movie.description.toLowerCase().includes(normalizeQuery));
+    .filter(({ title, description }) => {
+      return isIncludes(title, normalizeQuery)
+      || isIncludes(description, normalizeQuery);
+    });
 
   return (
     <div className="page">
