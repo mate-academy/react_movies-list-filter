@@ -7,15 +7,20 @@ const getNormalisedString = (string: string): string => {
   return string.toLowerCase();
 };
 
+const callback = (list: Movie, inputValue: string): boolean => {
+  const normalizedQuery = getNormalisedString(inputValue).trim();
+  const normalizedTitle = getNormalisedString(list.title);
+  const normalizedDescription = getNormalisedString(list.description);
+
+  return normalizedTitle.includes(normalizedQuery)
+    || normalizedDescription.includes(normalizedQuery);
+};
+
 export const App: FC = () => {
   const [query, setInputText] = useState('');
-  const visibleMovies = moviesFromServer.filter((movie) => {
-    const normalizedQuery = getNormalisedString(query).trim();
-    const normalizedTitle = getNormalisedString(movie.title);
-    const normalizedDescription = getNormalisedString(movie.description);
 
-    return normalizedTitle.includes(normalizedQuery)
-    || normalizedDescription.includes(normalizedQuery);
+  const visibleMovies = moviesFromServer.filter((movie) => {
+    return callback(movie, query);
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
