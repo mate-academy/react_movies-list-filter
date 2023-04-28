@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-// import { event } from 'cypress/types/jquery';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    return title.toLowerCase().includes(query.toLowerCase())
+    return title.toLowerCase().trim().includes(query.toLowerCase())
     || description.toLowerCase().includes(query.toLowerCase());
   });
 
