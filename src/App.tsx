@@ -6,14 +6,18 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [search, setSearch] = useState('');
 
-  const toOneCase = (str: string) => str.toLowerCase();
+  function isIncludes(str: string, substr: string): boolean {
+    const strLower = str.toLowerCase();
+    const substrLower = substr.toLowerCase().trim();
+
+    return strLower.includes(substrLower);
+  }
 
   const searchFilter = (movie: Movie) => {
     const { title, description } = movie;
-    const searchLowerCase = toOneCase(search.trim());
 
-    return toOneCase(title).includes(searchLowerCase)
-      || toOneCase(description).includes(searchLowerCase);
+    return (isIncludes(title, search)
+    || isIncludes(description, search));
   };
 
   const filteredMovies = moviesFromServer.filter(searchFilter);
