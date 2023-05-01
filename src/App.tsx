@@ -6,8 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    return title.toLowerCase().trim().includes(query.toLowerCase())
-    || description.toLowerCase().includes(query.toLowerCase());
+    function isIncludes(str: string, substr: string) {
+      return str.includes(substr);
+    }
+
+    const isCoincidence = isIncludes(
+      title.toLocaleLowerCase().trim(),
+      query.toLowerCase(),
+    )
+    || isIncludes(description.toLowerCase(), query.toLowerCase());
+
+    return isCoincidence;
   });
 
   return (
