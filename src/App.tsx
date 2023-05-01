@@ -3,18 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function isIncludes(str: string, substr: string) {
+  return str.toLocaleLowerCase().includes(substr.toLowerCase());
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    function isIncludes(str: string, substr: string) {
-      return str.includes(substr);
-    }
-
-    const isCoincidence = isIncludes(
-      title.toLocaleLowerCase().trim(),
-      query.toLowerCase(),
-    )
-    || isIncludes(description.toLowerCase(), query.toLowerCase());
+    const isCoincidence = isIncludes(title.trim(), query)
+    || isIncludes(description, query);
 
     return isCoincidence;
   });
