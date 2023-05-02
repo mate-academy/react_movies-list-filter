@@ -7,23 +7,22 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
   useEffect(() => {
-    if (query.length === 0) {
-      setVisibleMovies(moviesFromServer);
-    } else {
-      const filtered = moviesFromServer.filter(
-        ({ title, description }) => (
-          title.toLowerCase().includes(query.toLowerCase().trim())
-          || description.toLowerCase().includes(query.toLowerCase().trim())
-        ),
-      );
+    const filterByElement = (elem: string) => {
+      return elem.toLowerCase().includes(query.toLowerCase().trim());
+    };
 
-      setVisibleMovies(filtered);
-    }
+    const filtered = moviesFromServer.filter(
+      ({ title, description }) => (
+        filterByElement(title) || filterByElement(description)
+      ),
+    );
+
+    setVisibleMovies(filtered);
   }, [query]);
 
   return (
