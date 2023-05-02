@@ -3,6 +3,13 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const filterByElement = (elem: string, query: string) => {
+  const elemLow = elem.toLowerCase();
+  const queryLow = query.toLowerCase();
+
+  return elemLow.includes(queryLow.trim());
+};
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
@@ -12,13 +19,9 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const filterByElement = (elem: string) => {
-      return elem.toLowerCase().includes(query.toLowerCase().trim());
-    };
-
     const filtered = moviesFromServer.filter(
       ({ title, description }) => (
-        filterByElement(title) || filterByElement(description)
+        filterByElement(title, query) || filterByElement(description, query)
       ),
     );
 
