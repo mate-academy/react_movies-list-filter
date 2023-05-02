@@ -3,14 +3,14 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function isMatch(movieProperty: string, query: string): boolean {
+  const correctQuery = query.toLowerCase().trim();
+  const propertyValue = movieProperty.toLowerCase();
+
+  return propertyValue.includes(correctQuery);
+}
+
 export const App: React.FC = () => {
-  function isMatch(movieProperty: string, query: string): boolean {
-    const correctQuery = query.toLowerCase().trim();
-    const propertyValue = movieProperty.toLowerCase();
-
-    return propertyValue.includes(correctQuery);
-  }
-
   const getVisiableMovies = (query: string) => {
     return moviesFromServer.filter(movie => {
       const descriptionMatches = isMatch(movie.description, query);
