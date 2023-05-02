@@ -4,7 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, setQuery] = useState<string>('');
+  const [query, setQuery] = useState('');
+
+  const matchesQuery = (property: string, queryValue: string) => (
+    property.toLowerCase().includes(queryValue.toLowerCase().trim())
+  );
+
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => (
+    matchesQuery(title, query) || matchesQuery(description, query)
+  ));
 
   return (
     <div className="page">
@@ -31,7 +39,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} query={query} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
