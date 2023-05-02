@@ -7,14 +7,20 @@ interface Props {
   query: string;
 }
 
+const includesString = (str: string, substr: string) => {
+  const prettyStr = str.toLowerCase().trim();
+  const prettySubstr = substr.toLowerCase();
+
+  return prettyStr.includes(prettySubstr);
+};
+
 export const MoviesList: React.FC<Props> = ({ movies, query }) => {
   const visibleMovies = movies.filter(movie => {
-    const prettyQuery = query.toLowerCase().trim();
-    const prettyTitle = movie.title.toLocaleLowerCase();
-    const prettyDescription = movie.description.toLowerCase();
+    const prettyTitle = movie.title;
+    const prettyDescription = movie.description;
 
-    return prettyTitle.includes(prettyQuery)
-      || prettyDescription.includes(prettyQuery);
+    return includesString(prettyTitle, query)
+      || includesString(prettyDescription, query);
   });
 
   return (
