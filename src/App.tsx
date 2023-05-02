@@ -4,18 +4,27 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const visiableMovies = (query: string) => {
-    return moviesFromServer.filter(movie => {
-      const description = movie.description.toLocaleLowerCase();
-      const title = movie.title.toLocaleLowerCase();
-      const correctQuery = query.toLocaleLowerCase().trim();
+  function isMatch(movieProperty: string, query: string): boolean {
+    const correctQuery = query.toLowerCase().trim();
+    const propertyValue = movieProperty.toLowerCase();
 
-      return description.includes(correctQuery)
-        || title.includes(correctQuery);
+    return propertyValue.includes(correctQuery);
+  }
+
+  const getVisiableMovies = (query: string) => {
+    return moviesFromServer.filter(movie => {
+      const descriptionMatches = isMatch(movie.description, query);
+      const titleMatches = isMatch(movie.title, query);
+
+      return descriptionMatches || titleMatches;
     });
   };
 
   const [query, setQuery] = useState('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -34,13 +43,13 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => setQuery(event.target.value)}
+                onChange={handleInputChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visiableMovies(query)} />
+        <MoviesList movies={getVisiableMovies(query)} />
       </div>
 
       <div className="sidebar">
