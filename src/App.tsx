@@ -5,7 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 const includesString = (str: string, substr: string) => {
   const strTolower = str.toLocaleLowerCase();
-  const substrToLower = substr.toLocaleLowerCase();
+  const substrToLower = substr.toLocaleLowerCase().trim();
 
   return strTolower.includes(substrToLower);
 };
