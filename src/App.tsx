@@ -3,6 +3,10 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function isIncludes(findIn: string, find: string): boolean {
+  return findIn.toLowerCase().includes(find.toLowerCase().trim());
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,12 +17,10 @@ export const App: React.FC = () => {
     return setQuery(event.target.value);
   };
 
-  const VisibleMovies = moviesFromServer.filter(movie => {
-    const queryLower = query.toLowerCase().trim();
-
-    return movie.title.toLowerCase().includes(queryLower)
-      || movie.description.toLowerCase().includes(queryLower);
-  });
+  const VisibleMovies = moviesFromServer.filter(movie => (
+    isIncludes(movie.title, query)
+      || isIncludes(movie.description, query)
+  ));
 
   return (
     <div className="page">
