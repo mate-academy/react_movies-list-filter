@@ -3,28 +3,21 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const сomplianceСheckFields = (field: string, query: string) => {
+  return field.toLowerCase().includes(query.toLowerCase().trim());
+};
+
 export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
-  const сomplianceСheckFields = (field: string, query: string) => {
-    return field.toLowerCase().includes(query.toLowerCase().trim());
-  };
-
   const visibleMovies = moviesFromServer
-    .filter(({ title, description }) => {
-      // const toTitleLower = title.toLowerCase();
-      // const toDescriptionLower = description.toLowerCase();
-      // const toQueryLower = searchQuery.trim().toLowerCase();
-
-      return (
-        сomplianceСheckFields(title, searchQuery)
-          || сomplianceСheckFields(description, searchQuery)
-      );
-    });
+    .filter(({ title, description }) => (
+      сomplianceСheckFields(title, searchQuery)
+        || сomplianceСheckFields(description, searchQuery)
+    ));
 
   return (
     <div className="page">
