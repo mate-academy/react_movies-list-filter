@@ -13,7 +13,7 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer
     .filter(movie => {
       const { title, description } = movie;
-      const queryLower = query.toLowerCase();
+      const queryLower = query.toLowerCase().trim();
       const titleLower = title.toLowerCase();
       const descriptionLower = description.toLowerCase();
 
