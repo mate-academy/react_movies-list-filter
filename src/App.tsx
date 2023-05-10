@@ -4,15 +4,17 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App: React.FC = () => {
-  // eslint-disable-next-line
-  let [valueInput, valueFunc] = useState('');
+const searchText = (arr:string, text:string) => {
+  return arr.toLocaleLowerCase()
+    .includes(text.toLocaleLowerCase());
+};
 
-  const filterMovie = moviesFromServer.filter(movie => {
-    return movie.title.toLocaleLowerCase()
-      .indexOf(valueInput.toLocaleLowerCase()) >= 0
-    || movie.description.toLocaleLowerCase()
-      .indexOf(valueInput.toLocaleLowerCase()) >= 0;
+export const App: React.FC = () => {
+  const [searchValue, setSearchValue] = useState('');
+
+  const filteredMovies = moviesFromServer.filter(movie => {
+    return searchText(movie.title, searchValue)
+    || searchText(movie.description, searchValue);
   });
 
   return (
@@ -32,14 +34,14 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(e) => {
-                  valueFunc(valueInput = e.target.value);
+                  setSearchValue(e.target.value);
                 }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={filterMovie} />
+        <MoviesList movies={filteredMovies} />
       </div>
 
       <div className="sidebar">
