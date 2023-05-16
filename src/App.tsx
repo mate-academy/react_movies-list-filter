@@ -10,12 +10,14 @@ export const App: React.FC = () => {
     setQuery(e.target.value);
   };
 
-  const visibleMovies = moviesFromServer.filter(movie => {
-    const title = movie.title.toUpperCase();
-    const description = movie.description.toUpperCase();
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
+    const titleMovie = title.toUpperCase();
+    const descriptionMovie = description.toUpperCase();
     const queryMovie = query.toUpperCase().trim();
 
-    return title.includes(queryMovie) || description.includes(queryMovie);
+    return (
+      titleMovie.includes(queryMovie) || descriptionMovie.includes(queryMovie)
+    );
   });
 
   return (
