@@ -12,8 +12,12 @@ export const App: React.FC = () => {
       .filter(movie => {
         const lowerQuery = query.trim().toLowerCase();
 
-        return movie.description.toLowerCase().includes(lowerQuery)
-          || movie.title.toLowerCase().includes(lowerQuery);
+        const textToValidate = `
+          ${movie.description}
+          ${movie.title}
+        `.toLowerCase();
+
+        return textToValidate.includes(lowerQuery);
       }));
   }, [query]);
 
