@@ -11,10 +11,11 @@ export const App: React.FC = () => {
     setVisibleMovies(moviesFromServer
       .filter(movie => {
         const lowerQuery = query.trim().toLowerCase();
-
+        const { description, title } = movie;
+      
         const textToValidate = `
-          ${movie.description}
-          ${movie.title}
+          ${description}
+          ${title}
         `.toLowerCase();
 
         return textToValidate.includes(lowerQuery);
