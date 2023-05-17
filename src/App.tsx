@@ -10,10 +10,14 @@ export const App: React.FC = () => {
     setQuery(event.target.value.trimStart());
   };
 
+  const matchesQuery = (text: string, searchTerm: string) => {
+    return text.toLowerCase().includes(searchTerm.toLowerCase().trim());
+  };
+
   const visibleMovies = moviesFromServer.filter(movie => {
-    return (
-      movie.title.toLowerCase().includes(query.toLowerCase().trim())
-      || movie.description.toLowerCase().includes(query.toLowerCase().trim()));
+    const { title, description } = movie;
+
+    return matchesQuery(title, query) || matchesQuery(description, query);
   });
 
   return (
