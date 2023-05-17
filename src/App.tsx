@@ -10,18 +10,16 @@ export const App: React.FC = () => {
 
   const trimmedQuery = query.trim().replace(/\s+/g, ' ');
 
-  if (trimmedQuery) {
-    visibleMovies = visibleMovies.filter((movie) => {
-      const lowerQuery = trimmedQuery.toLowerCase();
+  visibleMovies = visibleMovies.filter(({ title, description }) => {
+    const lowerQuery = trimmedQuery.toLowerCase();
 
-      const names = `
-       ${movie.title}
-       ${movie.description || ''}
+    const names = `
+       ${title}
+       ${description || ''}
       `.toLowerCase();
 
-      return names.includes(lowerQuery);
-    });
-  }
+    return names.includes(lowerQuery);
+  });
 
   return (
     <div className="page">
