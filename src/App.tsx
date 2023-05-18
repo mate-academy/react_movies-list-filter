@@ -14,9 +14,9 @@ export const App: React.FC = () => {
     setQuery(input);
 
     setVisibleMovies(moviesFromServer
-      .filter(movie => movie.title.toLowerCase()
+      .filter(({ title, description }) => title.toLowerCase()
         .includes(trimmedInputLowerCased)
-      || movie.description.toLowerCase().includes(trimmedInputLowerCased)));
+      || description.toLowerCase().includes(trimmedInputLowerCased)));
   };
 
   return (
