@@ -8,19 +8,17 @@ export const App: React.FC = () => {
   let visibleMovies = moviesFromServer;
   const trimmedQuery = query.trim();
 
-  if (trimmedQuery) {
-    visibleMovies = visibleMovies.filter(
-      (movie) => {
-        const lowerQuery = trimmedQuery.toLowerCase();
-        const hasTitle = movie.title.toLowerCase()
-          .includes(lowerQuery);
-        const hasDescription = movie.description.toLowerCase()
-          .includes(lowerQuery);
+  visibleMovies = visibleMovies.filter(
+    (movie) => {
+      const lowerQuery = trimmedQuery.toLowerCase();
+      const hasTitle = movie.title.toLowerCase()
+        .includes(lowerQuery);
+      const hasDescription = movie.description.toLowerCase()
+        .includes(lowerQuery);
 
-        return hasTitle || hasDescription;
-      },
-    );
-  }
+      return hasTitle || hasDescription;
+    },
+  );
 
   return (
     <div className="page">
