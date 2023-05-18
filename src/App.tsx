@@ -6,17 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies]
-  = useState(moviesFromServer.map(el => el));
+  = useState(moviesFromServer);
 
   const filterMovies = (input:string) => {
-    const trimmedInput = input.trim();
+    const trimmedInputLowerCased = input.trim().toLowerCase();
 
     setQuery(input);
 
     setVisibleMovies(moviesFromServer
       .filter(movie => movie.title.toLowerCase()
-        .includes(trimmedInput.toLowerCase())
-      || movie.description.toLowerCase().includes(trimmedInput.toLowerCase())));
+        .includes(trimmedInputLowerCased)
+      || movie.description.toLowerCase().includes(trimmedInputLowerCased)));
   };
 
   return (
