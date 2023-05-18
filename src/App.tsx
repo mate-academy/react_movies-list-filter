@@ -3,16 +3,22 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+export function filterMovies(query: string) {
+  return (moviesFromServer.filter((movie) => {
+    const { title, description } = movie;
+
+    return (title.toLowerCase().includes(query.toLowerCase())
+    || description.toLowerCase().includes(query.toLowerCase()));
+  }));
+}
+
 export const App: React.FC = () => {
   const [visibleMovies, setMovies] = useState(moviesFromServer);
 
   const filterByQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value.trim(); // trim due to test 15, "should work if user types extra spaces before or after the query"
 
-    setMovies(moviesFromServer.filter((movie) => (
-      movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase())
-    )));
+    setMovies(filterMovies(query));
   };
 
   return (
