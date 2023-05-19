@@ -6,9 +6,12 @@ import moviesFromServer from './api/movies.json';
 export function filterMovies(query: string) {
   return (moviesFromServer.filter((movie) => {
     const { title, description } = movie;
+    const formattedTitle = title.toLowerCase();
+    const formattedDescription = description.toLowerCase();
+    const formattedQuery = query.toLowerCase();
 
-    return (title.toLowerCase().includes(query.toLowerCase())
-    || description.toLowerCase().includes(query.toLowerCase()));
+    return (formattedTitle.includes(formattedQuery)
+    || formattedDescription.toLowerCase().includes(formattedQuery));
   }));
 }
 
