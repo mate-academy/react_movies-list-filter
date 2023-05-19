@@ -6,9 +6,21 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const handleQueryChange = (event: React.SetStateAction<string>) => {
+  const handleQueryChange = (event: string) => {
     setQuery(event);
   };
+
+  const isIncludedInQuery = (search: string) => {
+    return search.toLocaleLowerCase().includes(
+      query.trim().toLocaleLowerCase(),
+    );
+  };
+
+  const visibleMovies
+  = moviesFromServer.filter(
+    movie => isIncludedInQuery(movie.title)
+    || isIncludedInQuery(movie.description),
+  );
 
   return (
     <div className="page">
@@ -33,7 +45,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
