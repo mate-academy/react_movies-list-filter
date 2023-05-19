@@ -6,14 +6,12 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [searchWord, setSearchWord] = useState('');
 
-  const visibleMobies = searchWord !== ''
-    ? moviesFromServer.filter(({ title, description }) => {
-      if (title.toLowerCase().includes(searchWord.toLowerCase())
-        || description.toLocaleLowerCase().includes(searchWord.toLowerCase())) {
-        return true;
-      }
-
-      return false;
+  const visibleMovies = searchWord !== ''
+    ? moviesFromServer.filter(movie => {
+      return (
+        movie.title.toLowerCase().includes(searchWord.toLowerCase())
+    || movie.description.toLowerCase().includes(searchWord.toLowerCase())
+      );
     })
     : [...moviesFromServer];
 
@@ -42,7 +40,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMobies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
