@@ -10,22 +10,22 @@ export const App: React.FC = () => {
     setInput(event.target.value);
   };
 
-  const trimmedInput = input
-    .trim()
-    .toLowerCase();
+  function filterMovie({ title, description }: Movie) {
+    const trimmedInput = input
+      .trim()
+      .toLowerCase();
 
-  const filteredMovies = moviesFromServer.filter(
-    (movie) => movie.title
-      .toLowerCase()
-      .includes(
-        trimmedInput,
-      )
-      || movie.description
+    return (
+      title
         .toLowerCase()
-        .includes(
-          trimmedInput,
-        ),
-  );
+        .includes(trimmedInput)
+      || description
+        .toLowerCase()
+        .includes(trimmedInput)
+    );
+  }
+
+  const filteredMovies = moviesFromServer.filter(filterMovie);
 
   return (
     <div className="page">
