@@ -11,7 +11,7 @@ export function filterMovies(query: string) {
     const formattedQuery = query.toLowerCase();
 
     return (formattedTitle.includes(formattedQuery)
-    || formattedDescription.toLowerCase().includes(formattedQuery));
+    || formattedDescription.includes(formattedQuery));
   }));
 }
 
