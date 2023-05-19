@@ -3,6 +3,13 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const filterByInput = (preparedInput:string) => {
+  return moviesFromServer
+    .filter(({ title, description }) => title.toLowerCase()
+      .includes(preparedInput)
+      || description.toLowerCase().includes(preparedInput));
+};
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies]
@@ -13,10 +20,7 @@ export const App: React.FC = () => {
 
     setQuery(input);
 
-    setVisibleMovies(moviesFromServer
-      .filter(({ title, description }) => title.toLowerCase()
-        .includes(trimmedInputLowerCased)
-      || description.toLowerCase().includes(trimmedInputLowerCased)));
+    setVisibleMovies(filterByInput(trimmedInputLowerCased));
   };
 
   return (
