@@ -4,14 +4,18 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export function filterMovies(query: string) {
+  const formattedQuery = query.toLowerCase();
+  const includesQuery = (source: string) => (
+    source.includes(formattedQuery)
+  );
+
   return (moviesFromServer.filter((movie) => {
     const { title, description } = movie;
     const formattedTitle = title.toLowerCase();
     const formattedDescription = description.toLowerCase();
-    const formattedQuery = query.toLowerCase();
 
-    return (formattedTitle.includes(formattedQuery)
-    || formattedDescription.includes(formattedQuery));
+    return (includesQuery(formattedTitle)
+    || includesQuery(formattedDescription));
   }));
 }
 
