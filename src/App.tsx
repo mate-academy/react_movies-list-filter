@@ -5,19 +5,11 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.toLowerCase();
+    const inputValue = e.target.value.toLowerCase().trim();
 
     setQuery(inputValue);
-
-    const filteredMovies = moviesFromServer.filter((movie) => {
-      return movie.description.toLowerCase().includes(query)
-      || movie.title.toLowerCase().includes(query);
-    });
-
-    setVisibleMovies(filteredMovies);
   };
 
   return (
@@ -42,7 +34,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList query={query} movies={moviesFromServer} />
       </div>
 
       <div className="sidebar">
