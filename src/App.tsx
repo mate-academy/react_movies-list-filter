@@ -7,10 +7,15 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const queryLowerCase = query.toLowerCase().trim();
 
-  const matchingMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(queryLowerCase)
-    || movie.description.toLowerCase().includes(queryLowerCase)
-  ));
+  const findMatching = (element: string) => {
+    return element.toLocaleLowerCase().includes(queryLowerCase);
+  };
+
+  const matchingMovies = moviesFromServer.filter(movie => {
+    const { title, description } = movie;
+
+    return findMatching(title) || findMatching(description);
+  });
 
   return (
     <div className="page">
