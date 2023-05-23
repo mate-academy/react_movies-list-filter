@@ -3,11 +3,8 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const filterByInput = (preparedInput:string) => {
-  return moviesFromServer
-    .filter(({ title, description }) => title.toLowerCase()
-      .includes(preparedInput)
-      || description.toLowerCase().includes(preparedInput));
+const checkIncluding = (text: string, searchTerm: string) => {
+  return text.toLowerCase().includes(searchTerm.toLowerCase().trim());
 };
 
 export const App: React.FC = () => {
@@ -16,11 +13,11 @@ export const App: React.FC = () => {
   = useState(moviesFromServer);
 
   const filterMovies = (input:string) => {
-    const trimmedInputLowerCased = input.trim().toLowerCase();
-
     setQuery(input);
 
-    setVisibleMovies(filterByInput(trimmedInputLowerCased));
+    setVisibleMovies(moviesFromServer
+      .filter(({ title, description }) => checkIncluding(title, input)
+      || checkIncluding(description, input)));
   };
 
   return (
