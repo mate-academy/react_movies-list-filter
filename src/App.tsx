@@ -10,7 +10,11 @@ export const App: FC = () => {
     const { title, description } = movie;
 
     const movieInfo = `${title} ${description}`.toLowerCase();
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = query
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .join(' ');
 
     return movieInfo.includes(normalizedQuery);
   });
