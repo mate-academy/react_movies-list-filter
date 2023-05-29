@@ -4,11 +4,16 @@ import { MovieCard } from '../MovieCard';
 
 interface Props {
   movies: Movie[];
+  filter: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies }) => (
+export const MoviesList: React.FC<Props> = ({ movies, filter }) => (
   <div className="movies">
-    {movies.map(movie => (
+    {movies.filter(element => element.title.toLocaleLowerCase()
+    .includes(filter.toLocaleLowerCase()) 
+    || element.description.toLocaleLowerCase()
+    .includes(filter.toLocaleLowerCase()))
+    .map(movie => (
       <MovieCard key={movie.imdbId} movie={movie} />
     ))}
   </div>
