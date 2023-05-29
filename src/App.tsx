@@ -8,7 +8,7 @@ export const App: React.FC = () => {
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setSearch(event.target.value);
-  }
+  };
 
   return (
     <div className="page">
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} filter = {searchWords} />
+        <MoviesList movies={moviesFromServer} filter={searchWords} />
       </div>
 
       <div className="sidebar">

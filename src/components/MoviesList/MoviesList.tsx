@@ -10,11 +10,11 @@ interface Props {
 export const MoviesList: React.FC<Props> = ({ movies, filter }) => (
   <div className="movies">
     {movies.filter(element => element.title.toLocaleLowerCase()
-    .includes(filter.toLocaleLowerCase()) 
+      .includes(filter.toLocaleLowerCase())
     || element.description.toLocaleLowerCase()
-    .includes(filter.toLocaleLowerCase()))
-    .map(movie => (
-      <MovieCard key={movie.imdbId} movie={movie} />
-    ))}
+      .includes(filter.toLocaleLowerCase()))
+      .map(movie => (
+        <MovieCard key={movie.imdbId} movie={movie} />
+      ))}
   </div>
 );
