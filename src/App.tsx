@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -19,6 +19,10 @@ export const App: FC = () => {
     return movieInfo.includes(normalizedQuery);
   });
 
+  const handleQueryOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -36,9 +40,7 @@ export const App: FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                }}
+                onChange={handleQueryOnChange}
               />
             </div>
           </div>
