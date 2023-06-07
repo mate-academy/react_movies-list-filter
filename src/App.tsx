@@ -3,17 +3,18 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function findTheMovie(field: string, film: string) {
-  return field.toLowerCase().includes(film);
-}
-
 export const App: React.FC = () => {
-  const [film, setFilm] = useState('');
+  const [query, setQuery] = useState('');
 
-  const visibleFilms = (movies: Movie[]) => {
-    return movies
-      .filter(movie => findTheMovie(movie.description, film)
-        || findTheMovie(movie.title, film));
+  const visibleFilms = (movies: Movie[], searchQuery: string): Movie[] => {
+    return movies.filter(movie => {
+      const preparedTitle = movie.title.toLowerCase();
+      const preparedDescription = movie.description.toLowerCase();
+      const preparedQuery = searchQuery.toLowerCase();
+
+      return preparedTitle.includes(preparedQuery)
+        || preparedDescription.includes(preparedQuery);
+    });
   };
 
   return (
@@ -33,14 +34,14 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  setFilm((event.target.value).toLowerCase().trim());
+                  setQuery((event.target.value).toLowerCase().trim());
                 }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleFilms(moviesFromServer)} />
+        <MoviesList movies={visibleFilms(moviesFromServer, query)} />
       </div>
 
       <div className="sidebar">
