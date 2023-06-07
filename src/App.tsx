@@ -4,8 +4,20 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
   const [filmName, setFilmName] = useState('');
+
+  const visibleMovies = moviesFromServer.filter((movie) => {
+    const { title, description } = movie;
+
+    const movieInfo = `${title} ${description}`.toLowerCase();
+    const normalizedFilmName = filmName
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .join(' ');
+
+    return movieInfo.includes(normalizedFilmName);
+  });
 
   return (
     <div className="page">
@@ -26,15 +38,6 @@ export const App: React.FC = () => {
                 value={filmName}
                 onChange={(event) => {
                   setFilmName(event.target.value);
-                  setVisibleMovies(moviesFromServer.filter(movie => {
-                    return movie
-                      .title
-                      .toLowerCase()
-                      .includes(filmName.toLowerCase()) || movie
-                      .description
-                      .toLowerCase()
-                      .includes(filmName.toLowerCase());
-                  }));
                 }}
               />
             </div>
