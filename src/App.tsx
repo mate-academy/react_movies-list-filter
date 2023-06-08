@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,15 +6,17 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [filmName, setFilmName] = useState('');
 
+  const handleSetFilm = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilmName(event.target.value);
+  };
+
   const visibleMovies = moviesFromServer.filter((movie) => {
     const { title, description } = movie;
 
     const movieInfo = `${title} ${description}`.toLowerCase();
     const normalizedFilmName = filmName
       .toLowerCase()
-      .split(' ')
-      .filter(Boolean)
-      .join(' ');
+      .replace(/ /g, '');
 
     return movieInfo.includes(normalizedFilmName);
   });
@@ -36,9 +38,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={filmName}
-                onChange={(event) => {
-                  setFilmName(event.target.value);
-                }}
+                onChange={handleSetFilm}
               />
             </div>
           </div>
