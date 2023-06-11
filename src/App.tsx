@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const [visibleMovie, setVisibleMovie] = useState(moviesFromServer);
+
+  useEffect(() => {
+    const convertedQuery = query.trim().toUpperCase();
+    const filtered = moviesFromServer
+      .filter(
+        movie => movie.description.toUpperCase()
+          .includes(convertedQuery)
+        || movie.title.toUpperCase()
+          .includes(convertedQuery),
+      );
+
+    setVisibleMovie(filtered);
+  }, [query]);
+
+  const handleQuery = (newQuery: string) => {
+    setQuery(newQuery);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +40,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={(event) => handleQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovie} />
       </div>
 
       <div className="sidebar">
