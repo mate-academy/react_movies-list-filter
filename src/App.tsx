@@ -4,10 +4,10 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [searchWords, setSearch] = useState('');
+  const [searchedMovie, setSearchedMovie] = useState('');
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setSearch(event.target.value);
+    setSearchedMovie(event.target.value);
   };
 
   return (
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} filter={searchWords} />
+        <MoviesList movies={moviesFromServer} filter={searchedMovie} />
       </div>
 
       <div className="sidebar">

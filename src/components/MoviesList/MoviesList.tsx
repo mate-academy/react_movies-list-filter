@@ -2,17 +2,19 @@ import React from 'react';
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-interface Props {
+interface MoviesListProps {
   movies: Movie[];
   filter: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, filter }) => (
+function check(element: string, filter: string) {
+  return element.includes(filter.toLocaleLowerCase());
+}
+
+export const MoviesList: React.FC<MoviesListProps> = ({ movies, filter }) => (
   <div className="movies">
-    {movies.filter(element => element.title.toLocaleLowerCase()
-      .includes(filter.toLocaleLowerCase())
-    || element.description.toLocaleLowerCase()
-      .includes(filter.toLocaleLowerCase()))
+    {movies.filter(element => check(element.title.toLocaleLowerCase(), filter)
+    || check(element.description.toLocaleLowerCase(), filter))
       .map(movie => (
         <MovieCard key={movie.imdbId} movie={movie} />
       ))}
