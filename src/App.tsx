@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
