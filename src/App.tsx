@@ -40,6 +40,7 @@ export const App: React.FC = () => {
       </div>
 
       <div className="sidebar">
+
         Sidebar goes here
       </div>
     </div>
