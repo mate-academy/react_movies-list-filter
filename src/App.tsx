@@ -5,9 +5,14 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+
+  function searchInputValue(item: string) {
+    return item.toLowerCase().includes(query.toLowerCase().trim());
+  }
+
   const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(query.toLowerCase().trim())
-      || movie.description.toLowerCase().includes(query.toLowerCase().trim())
+    searchInputValue(movie.title)
+    || searchInputValue(movie.description)
   ));
 
   return (
@@ -40,7 +45,6 @@ export const App: React.FC = () => {
       </div>
 
       <div className="sidebar">
-
         Sidebar goes here
       </div>
     </div>
