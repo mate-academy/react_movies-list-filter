@@ -6,13 +6,15 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [inputData, setFilteredList] = useState('');
   const filteredList = moviesFromServer.filter(
-    movie =>
-    movie.title.toLowerCase().includes(inputData.toLocaleLowerCase().trim()) ||
-    movie.description.toLowerCase().includes(inputData.toLocaleLowerCase().trim())
-  )
+    movie => movie.title.toLowerCase()
+      .includes(inputData.toLocaleLowerCase().trim())
+      || movie.description.toLowerCase()
+        .includes(inputData.toLocaleLowerCase().trim()),
+  );
   const handleChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilteredList(event.target.value)
-  }
+    setFilteredList(event.target.value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
