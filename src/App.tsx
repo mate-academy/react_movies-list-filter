@@ -49,4 +49,3 @@ export const App: React.FC = () => {
     </div>
   );
 };
-// 1
