@@ -10,9 +10,9 @@ export const App: React.FC = () => {
   useEffect(() => {
     setVisibleMovies(
       searchQuery
-        ? moviesFromServer.filter(mv => {
-          const title = mv.title.toLowerCase();
-          const description = mv.description.toLowerCase();
+        ? moviesFromServer.filter(movie => {
+          const title = movie.title.toLowerCase();
+          const description = movie.description.toLowerCase();
           const querry = searchQuery.trim().toLowerCase();
 
           return title.search(querry) >= 0 || description.search(querry) >= 0;
@@ -38,9 +38,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={searchQuery}
-                onChange={event => {
-                  setSearchQuery(event.target.value);
-                }}
+                onChange={event => setSearchQuery(event.target.value)}
               />
             </div>
           </div>
