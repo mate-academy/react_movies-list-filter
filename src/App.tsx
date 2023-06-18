@@ -9,10 +9,17 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const { title, description } = movie;
 
-    const isMatch = title.toLowerCase().includes(query.toLowerCase())
-      || description.toLowerCase().includes(query.toLowerCase());
+    const formattedQuery = query.toLowerCase().trim();
 
-    return isMatch;
+    const isInTitle = title
+      .toLowerCase()
+      .includes(formattedQuery);
+
+    const isInDescription = description
+      .toLowerCase()
+      .includes(formattedQuery);
+
+    return isInTitle || isInDescription;
   });
 
   const handleQuery = (event: ChangeEvent<HTMLInputElement>) => {
