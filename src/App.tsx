@@ -13,11 +13,11 @@ export const App: React.FC = () => {
       || description.toLowerCase().includes(query.toLowerCase());
 
     return isMatch;
-  })
+  });
 
   const handleQuery = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
-  }
+  };
 
   return (
     <div className="page">

@@ -7,7 +7,7 @@ interface Props {
 
 export const MovieCard: React.FC<Props> = ({ movie }) => {
   const {
-    imdbUrl, imgUrl, description, title
+    imdbUrl, imgUrl, description, title,
   } = movie;
 
   return (
