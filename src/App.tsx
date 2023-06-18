@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const handleSearch = (event:React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value.toLowerCase());
+    setQuery(event.target.value);
   };
 
   const visibleMovies = moviesFromServer.filter(movie => {
@@ -16,14 +16,13 @@ export const App: React.FC = () => {
       description,
     } = movie;
 
+    const queryToLoweCase = query.toLowerCase().trim();
+
     return (
-      title.toLowerCase().includes(query)
-      || description.toLowerCase().includes(query)
+      title.toLowerCase().includes(queryToLoweCase)
+      || description.toLowerCase().includes(queryToLoweCase)
     );
   });
-
-  // eslint-disable-next-line no-console
-  console.log(visibleMovies);
 
   return (
     <div className="page">
