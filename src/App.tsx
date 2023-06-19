@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+interface Event {
+  target: {
+    value: string;
+  }
+}
+
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  const handleQueryChange = (event: { target: { value: string; }; }) => {
+  const handleQueryChange = (event: Event) => {
     const { value } = event.target;
 
     setQuery(value);
   };
 
-  const visibleMovies = moviesFromServer.filter(movie => {
-    const searchQuery = query.trim().toLowerCase();
+  useEffect(() => {
+    setVisibleMovies(moviesFromServer.filter(movie => {
+      const searchQuery = query.trim().toLowerCase();
 
-    const checkString = `
-      ${movie.title}
-      ${movie.description}
-    `;
+      const movieInfo = `
+        ${movie.title}
+        ${movie.description}
+      `;
 
-    return checkString.toLowerCase().includes(searchQuery);
-  });
+      return movieInfo.toLowerCase().includes(searchQuery);
+    }));
+  }, [query]);
 
   return (
     <div className="page">
