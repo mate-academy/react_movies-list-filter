@@ -8,10 +8,13 @@ export const App: React.FC = () => {
 
   const formattedQuery = query.toLowerCase().trim();
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    movie.title.toLowerCase().includes(formattedQuery)
-    || movie.description.toLowerCase().includes(formattedQuery)
-  ));
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const movieTitle = movie.title.toLowerCase();
+    const movieDesc = movie.description.toLowerCase();
+
+    return movieTitle.includes(formattedQuery)
+     || movieDesc.includes(formattedQuery);
+  });
 
   return (
     <div className="page">
