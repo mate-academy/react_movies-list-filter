@@ -16,7 +16,7 @@ export const App: React.FC = () => {
       || normalizeMovieTitle.includes(query);
   });
 
-  const handleQueryOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery((event.target.value).toLowerCase().trim());
   };
 
@@ -36,7 +36,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={handleQueryOnChange}
+                onChange={handleQueryChange}
               />
             </div>
           </div>
