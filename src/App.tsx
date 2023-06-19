@@ -20,7 +20,7 @@ export const App: React.FC = () => {
     const sortedMovies = movieList.filter(movie => {
       const title = movie.title.toLowerCase();
       const descr = movie.description.toLocaleLowerCase();
-      const substring = searchValue.toLocaleLowerCase();
+      const substring = searchValue.toLocaleLowerCase().trim();
 
       if (searchValue === ''
           || descr.includes(substring)
@@ -54,7 +54,9 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={searchValue}
-                onChange={event => setSearchValue(() => event.target.value)}
+                onChange={
+                  event => setSearchValue(() => event.target.value)
+                }
               />
             </div>
           </div>
