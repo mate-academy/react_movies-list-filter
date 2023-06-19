@@ -18,13 +18,13 @@ export const App: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const preRender = ():void => {
     const sortedMovies = movieList.filter(movie => {
-      const title = movie.title.toLowerCase();
-      const descr = movie.description.toLocaleLowerCase();
-      const substring = searchValue.toLocaleLowerCase().trim();
+      const normalizedTitle = movie.title.toLowerCase();
+      const normalizedDescription = movie.description.toLocaleLowerCase();
+      const normalizedQuery = searchValue.toLocaleLowerCase().trim();
 
-      if (searchValue === ''
-          || descr.includes(substring)
-          || title.includes(substring)) {
+      if (!normalizedQuery
+          || normalizedDescription.includes(normalizedQuery)
+          || normalizedTitle.includes(normalizedQuery)) {
         return true;
       }
 
