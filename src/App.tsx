@@ -1,27 +1,23 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: FC = () => {
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
+  // const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
   const [query, setQuery] = useState('');
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
-  useEffect(() => {
-    const filteredMovies = moviesFromServer.filter((movie) => {
-      const lowerCaseSearchQuery = query.toLowerCase().trim();
+  const lowerCaseSearchQuery = query.toLowerCase().trim();
 
-      return [movie.title, movie.description].some(
-        (text) => text.toLowerCase().includes(lowerCaseSearchQuery),
-      );
-    });
-
-    setVisibleMovies(filteredMovies);
-  }, [query]);
+  const visibleMovies = moviesFromServer.filter(movie => {
+    return [movie.title, movie.description].some(
+      (text) => text.toLowerCase().includes(lowerCaseSearchQuery),
+    );
+  });
 
   return (
     <div className="page">
