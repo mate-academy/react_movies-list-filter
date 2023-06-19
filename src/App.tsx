@@ -6,15 +6,20 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleFilms = (movies: Movie[], searchQuery: string): Movie[] => {
-    return movies.filter(movie => {
-      const normalizedTitle = movie.title.toLowerCase();
-      const normalizedDescription = movie.description.toLowerCase();
-      const normalizedQuery = searchQuery.toLowerCase();
+  const visibleFilms = moviesFromServer.filter(movie => {
+    const { title, description } = movie;
 
-      return normalizedTitle.includes(normalizedQuery)
-        || normalizedDescription.includes(normalizedQuery);
-    });
+    const normalizedMovieInfo = (property: string) => (
+      property.toLowerCase());
+
+    const normalizeQuery = query.toLocaleLowerCase();
+
+    return normalizedMovieInfo(title).includes(normalizeQuery)
+      || normalizedMovieInfo(description).includes(normalizeQuery);
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value.toLowerCase().trim());
   };
 
   return (
@@ -33,15 +38,13 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery((event.target.value).toLowerCase().trim());
-                }}
+                onChange={handleInputChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleFilms(moviesFromServer, query)} />
+        <MoviesList movies={visibleFilms} />
       </div>
 
       <div className="sidebar">
