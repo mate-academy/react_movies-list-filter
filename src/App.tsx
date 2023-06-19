@@ -9,12 +9,17 @@ export const App: React.FC = () => {
   const formattedQuery = query.toLowerCase().trim();
 
   const visibleMovies = moviesFromServer.filter(movie => {
-    const movieTitle = movie.title.toLowerCase();
-    const movieDesc = movie.description.toLowerCase();
+    const { title, description } = movie;
+    const movieTitle = title.toLowerCase();
+    const movieDesc = description.toLowerCase();
 
     return movieTitle.includes(formattedQuery)
      || movieDesc.includes(formattedQuery);
   });
+
+  const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -33,7 +38,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={handleChange}
               />
             </div>
           </div>
