@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { checkIncludes } from './helpers/helpers';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const checkIncludes = (stringFromMovie:string, fQuery: string) => {
-    return stringFromMovie.toLowerCase().includes(
-      fQuery.toLowerCase().trim(),
-    );
-  };
-
   const visibleMovies = moviesFromServer.filter(movie => (
     checkIncludes(movie.description, query)
     || checkIncludes(movie.title, query)
   ));
+
+  const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -34,7 +33,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  setQuery(event.target.value);
+                  handleChange(event);
                 }}
               />
             </div>
