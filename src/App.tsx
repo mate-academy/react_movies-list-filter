@@ -6,26 +6,21 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const handleSearchChange = (event: { target: { value: string; }; }) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setQuery(value);
   };
 
-  const visibleMovies = moviesFromServer
-    .filter(movie => {
-      const formattedQuery = query.toLowerCase().trim();
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const { description, title } = movie;
+    const formattedQuery = query.toLowerCase().trim();
 
-      const isInDescription = movie.description
-        .toLowerCase()
-        .includes(formattedQuery);
+    const isInDescription = description.toLowerCase().includes(formattedQuery);
+    const isInTitle = title.toLowerCase().includes(formattedQuery);
 
-      const isInTitle = movie.title
-        .toLowerCase()
-        .includes(formattedQuery);
-
-      return isInDescription || isInTitle;
-    });
+    return isInDescription || isInTitle;
+  });
 
   return (
     <div className="page">
