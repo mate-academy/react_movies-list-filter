@@ -8,7 +8,7 @@ export const App: React.FC = () => {
   const visibleMovies = moviesFromServer.filter((movie) => {
     const caseInsensitiveMovies = movie.title.toLocaleLowerCase();
     const caseInsensitiveDesc = movie.description.toLocaleLowerCase();
-    const caseInsensitiveQuery = query.toLocaleLowerCase();
+    const caseInsensitiveQuery = query.trim().toLocaleLowerCase();
 
     return caseInsensitiveMovies.includes(caseInsensitiveQuery)
      || caseInsensitiveDesc.includes(caseInsensitiveQuery);
