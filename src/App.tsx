@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -13,6 +13,11 @@ export const App: React.FC = () => {
     return preparedTitle.includes(preparedQuery)
     || preparedDesc.includes(preparedQuery);
   });
+  const reassignQuery = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    setQuery(value);
+  };
 
   return (
     <div className="page">
@@ -31,11 +36,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  const { value } = event.target;
-
-                  setQuery(value);
-                }}
+                onChange={reassignQuery}
               />
             </div>
           </div>
