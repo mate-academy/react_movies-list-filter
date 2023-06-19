@@ -2,21 +2,12 @@ import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { getFilteredMovies } from './Helpers/getFilteredMovies';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const searchQuery = query.toLowerCase().trim();
-
-  const visibleMovies = moviesFromServer.filter(movie => {
-    const allContent = (movie.title + movie.description).toLowerCase();
-
-    if (allContent.includes(searchQuery)) {
-      return true;
-    }
-
-    return false;
-  });
+  const visibleMovies = getFilteredMovies(query, moviesFromServer);
 
   const searchMovies = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.currentTarget.value);
