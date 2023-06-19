@@ -5,15 +5,15 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const preparedQuery = query.trim().toLowerCase();
   const visibleMovies = moviesFromServer.filter(movie => {
-    const preparedQuery = query.trim().toLowerCase();
     const preparedTitle = movie.title.toLowerCase();
     const preparedDesc = movie.description.toLowerCase();
 
     return preparedTitle.includes(preparedQuery)
     || preparedDesc.includes(preparedQuery);
   });
-  const reassignQuery = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setQuery(value);
@@ -36,7 +36,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={reassignQuery}
+                onChange={handleChange}
               />
             </div>
           </div>
