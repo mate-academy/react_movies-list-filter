@@ -21,6 +21,10 @@ export const App: React.FC = () => {
     );
   }, [searchQuery]);
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -38,7 +42,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={searchQuery}
-                onChange={event => setSearchQuery(event.target.value)}
+                onChange={handleSearchChange}
               />
             </div>
           </div>
