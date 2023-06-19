@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
+  const handlerInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
+
+  const normalizedSearchValue = searchValue.toLowerCase().trim();
+
   const visibleMovies = moviesFromServer.filter(movie => {
-    const movieTitle = movie.title.toLowerCase();
-    const movieDesc = movie.description.toLowerCase();
-    const normalizedSearchValue = searchValue.toLowerCase().trim();
+    const { title, description } = movie;
+    const movieTitle = title.toLowerCase();
+    const movieDesc = description.toLowerCase();
 
     return movieTitle.includes(normalizedSearchValue)
       || movieDesc.includes(normalizedSearchValue);
@@ -30,7 +36,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={searchValue}
-                onChange={(event) => setSearchValue(event.target.value)}
+                onChange={handlerInputChange}
               />
             </div>
           </div>
