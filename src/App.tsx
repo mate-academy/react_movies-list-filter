@@ -4,7 +4,6 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: FC = () => {
-  // const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
   const [query, setQuery] = useState('');
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
