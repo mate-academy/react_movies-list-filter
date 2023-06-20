@@ -11,15 +11,15 @@ export const App: React.FC = () => {
 
     const formattedQuery = query.toLowerCase().trim();
 
-    const isInTitle = title
+    const foundInTitle = title
       .toLowerCase()
       .includes(formattedQuery);
 
-    const isInDescription = description
+    const foundInDescription = description
       .toLowerCase()
       .includes(formattedQuery);
 
-    return isInTitle || isInDescription;
+    return foundInTitle || foundInDescription;
   });
 
   const handleQuery = (event: ChangeEvent<HTMLInputElement>) => {
