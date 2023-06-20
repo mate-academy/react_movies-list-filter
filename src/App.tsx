@@ -7,23 +7,20 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const changeQueryText = ((event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    setQuery(() => value);
+    setQuery(() => event.target.value);
   });
 
   const getUpperCase = ((word: string) => word.toUpperCase());
 
-  const getFilteredMovies = () => {
-    return moviesFromServer.filter(movie => {
+  const getFilteredMovies = () => (
+    moviesFromServer.filter(movie => {
       const queryUpperCase = getUpperCase(query).trim();
 
-      return getUpperCase(movie.description).includes(queryUpperCase)
-      || getUpperCase(movie.title).includes(queryUpperCase);
-    });
-  };
-
-  const visibleMovies = getFilteredMovies();
+      return (
+        getUpperCase(movie.description).includes(queryUpperCase)
+      || getUpperCase(movie.title).includes(queryUpperCase)
+      );
+    }));
 
   return (
     <div className="page">
@@ -48,7 +45,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={getFilteredMovies()} />
       </div>
 
       <div className="sidebar">
