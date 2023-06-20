@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+// import { event } from 'cypress/types/jquery';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+
+  const sortMovies:Movie[] = moviesFromServer.filter(
+    (movie) => movie.title.toLowerCase().includes(query.toLowerCase().trim())
+    || movie.description.toLowerCase().includes(query.toLowerCase().trim()),
+  );
+
+  // console.log(sortMovies);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +30,16 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={(eve) => {
+                  setQuery(eve.target.value);
+                }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={sortMovies} />
       </div>
 
       <div className="sidebar">
