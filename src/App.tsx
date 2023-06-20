@@ -5,10 +5,10 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+  const caseInsensitiveQuery = query.trim().toLocaleLowerCase();
   const visibleMovies = moviesFromServer.filter((movie) => {
     const caseInsensitiveMovies = movie.title.toLocaleLowerCase();
     const caseInsensitiveDesc = movie.description.toLocaleLowerCase();
-    const caseInsensitiveQuery = query.trim().toLocaleLowerCase();
 
     return caseInsensitiveMovies.includes(caseInsensitiveQuery)
      || caseInsensitiveDesc.includes(caseInsensitiveQuery);
