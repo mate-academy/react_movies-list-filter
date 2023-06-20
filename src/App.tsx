@@ -16,11 +16,11 @@ export const App: React.FC = () => {
       description,
     } = movie;
 
-    const queryToLoweCase = query.toLowerCase().trim();
+    const preparedQuery = query.toLowerCase().trim();
 
     return (
-      title.toLowerCase().includes(queryToLoweCase)
-      || description.toLowerCase().includes(queryToLoweCase)
+      title.toLowerCase().includes(preparedQuery)
+        || description.toLowerCase().includes(preparedQuery)
     );
   });
 
