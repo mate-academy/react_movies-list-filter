@@ -5,14 +5,14 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-
+  const searchRegex = new RegExp(query.trim(), 'gi');
+  
   const filteredMovies = moviesFromServer.filter(movie => {
     const {
       title,
       description,
     } = movie;
-
-    const searchRegex = new RegExp(query.trim(), 'gi');
+    
     const isMatch = searchRegex.test(title) || searchRegex.test(description);
 
     return isMatch;
