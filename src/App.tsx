@@ -12,20 +12,24 @@ interface Film {
 }
 
 export const App: React.FC = () => {
-  const [films, setFilms] = useState<Film[]>(moviesFromServer);
+  const [movies, setMovies] = useState<Film[]>(moviesFromServer);
   const [query, setQuery] = useState('');
 
-  const findFilm = (value: string) => {
-    setQuery(value);
+  const getMovies = (queryString: string) => {
+    setQuery(queryString);
 
-    const lowercasedValue = value.trim().toLowerCase();
+    const normalizedQuery = queryString.trim().toLowerCase();
 
-    const visibleMovies: Film[] = moviesFromServer.filter(film => (
-      film.title.toLowerCase().includes(lowercasedValue)
-      || film.description.toLowerCase().includes(lowercasedValue)
+    const visibleMovies = moviesFromServer.filter((movie) => (
+      movie.title.toLowerCase().includes(normalizedQuery)
+        || movie.description.toLowerCase().includes(normalizedQuery)
     ));
 
-    setFilms(visibleMovies);
+    setMovies(visibleMovies);
+  };
+
+  const handleQueryString = (event: React.ChangeEvent<HTMLInputElement>) => {
+    getMovies(event.target.value);
   };
 
   return (
@@ -45,13 +49,13 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => findFilm(event.target.value)}
+                onChange={handleQueryString}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={films} />
+        <MoviesList movies={movies} />
       </div>
 
       <div className="sidebar">
