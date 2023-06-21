@@ -1,14 +1,7 @@
-import React from 'react';
 import './MovieCard.scss';
 
-interface Props {
-  movie: Movie;
-}
-
-export const MovieCard: React.FC<Props> = ({ movie }) => {
-  const {
-    imdbUrl, imgUrl, description, title,
-  } = movie;
+export const MovieCard = ({ movie }) => {
+  const { imdbUrl, imgUrl, description, title } = movie;
 
   return (
     <div className="card">
