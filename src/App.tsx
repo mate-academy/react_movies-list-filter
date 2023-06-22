@@ -14,8 +14,9 @@ interface Movie {
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
+  const trimmedQuery = query.trim().toLowerCase();
+
   const visibleMovies: Movie[] = moviesFromServer.filter((movie) => {
-    const trimmedQuery = query.trim().toLowerCase();
     const { title, description } = movie;
 
     return (
@@ -24,7 +25,7 @@ export const App: React.FC = () => {
     );
   });
 
-  const queryChange = (event: { target:{ value: string } }) => {
+  const queryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
