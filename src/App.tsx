@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-interface Film {
-  title: string,
-  description: string,
-  imgUrl: string,
-  imdbUrl: string,
-  imdbId: string
-}
-
 export const App: React.FC = () => {
-  const [movies, setMovies] = useState<Film[]>(moviesFromServer);
   const [query, setQuery] = useState('');
 
-  const getMovies = (queryString: string) => {
-    setQuery(queryString);
+  const visibleMovies = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
 
-    const normalizedQuery = queryString.trim().toLowerCase();
-
-    const visibleMovies = moviesFromServer.filter((movie) => (
+    return moviesFromServer.filter((movie) => (
       movie.title.toLowerCase().includes(normalizedQuery)
-        || movie.description.toLowerCase().includes(normalizedQuery)
+      || movie.description.toLowerCase().includes(normalizedQuery)
     ));
-
-    setMovies(visibleMovies);
-  };
+  }, [query]);
 
   const handleQueryString = (event: React.ChangeEvent<HTMLInputElement>) => {
-    getMovies(event.target.value);
+    setQuery(event.target.value);
   };
 
   return (
@@ -55,7 +42,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={movies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
