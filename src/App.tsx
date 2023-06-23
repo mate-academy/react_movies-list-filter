@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
-import { showFilms } from './helpers';
+import { getMoviesByQuery } from './helpers';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = showFilms(query);
+  const queryInLowerCase = query.toLowerCase();
+
+  const visibleMovies = getMoviesByQuery(queryInLowerCase);
 
   const handleInputQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.trim());

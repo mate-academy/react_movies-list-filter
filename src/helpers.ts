@@ -1,12 +1,15 @@
 import moviesFromServer from './api/movies.json';
 
-export const showFilms = (query: string) => moviesFromServer.filter(movie => {
-  const movieTitleInLowerCase = movie.title.toLowerCase();
-  const queryInLowerCase = query.toLowerCase();
-  const descriptionInLowerCase = movie.description.toLowerCase();
-  const isRightTitle = movieTitleInLowerCase.includes(queryInLowerCase);
-  const isRightDescription = descriptionInLowerCase
-    .includes(queryInLowerCase);
+export const getMoviesByQuery = (
+  query: string,
+) => moviesFromServer.filter(movie => {
+  const {
+    title,
+    description,
+  } = movie;
+
+  const isRightTitle = title.toLowerCase().includes(query);
+  const isRightDescription = description.toLowerCase().includes(query);
 
   return isRightTitle || isRightDescription;
 });
