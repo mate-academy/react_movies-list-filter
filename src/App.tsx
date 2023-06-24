@@ -3,16 +3,24 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const movieFilterCallback = (field: string, query: string) => (
-  field.toLowerCase().includes(query.trim().toLowerCase()));
+// let visibleMovies = moviesFromServer;
+
+const isMovieIncludesQuery = (movieSearchField: string, query: string) => (
+  movieSearchField.toLowerCase().includes(query.trim().toLowerCase()));
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    movieFilterCallback(movie.title, query)
-      || movieFilterCallback(movie.description, query)
-  ));
+  const visibleMovies = query
+    ? (moviesFromServer.filter(movie => (
+      isMovieIncludesQuery(movie.title, query)
+        || isMovieIncludesQuery(movie.description, query)
+    )))
+    : moviesFromServer;
+
+  const searchQueryHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -31,9 +39,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={searchQueryHandler}
               />
             </div>
           </div>
