@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,10 +6,18 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(
-    (movie) => movie.title.toLowerCase().includes(query.toLowerCase().trim())
-     || movie.description.toLowerCase().includes(query.toLowerCase().trim()),
-  );
+  const handleQueryChange = useCallback((event) => {
+    setQuery(event.target.value);
+  }, []);
+
+  const visibleMovies = moviesFromServer.filter((movie) => {
+    const lowercaseQuery = query.toLowerCase().trim();
+    const lowercaseTitle = movie.title.toLowerCase();
+    const lowercaseDescription = movie.description.toLowerCase();
+
+    return lowercaseTitle.includes(lowercaseQuery)
+    || lowercaseDescription.includes(lowercaseQuery);
+  });
 
   return (
     <div className="page">
@@ -24,7 +32,7 @@ export const App: React.FC = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={event => setQuery(event.target.value)}
+                onChange={handleQueryChange}
                 type="text"
                 id="search-query"
                 className="input"
