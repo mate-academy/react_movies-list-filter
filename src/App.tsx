@@ -8,7 +8,7 @@ function getPreparedMovies(movies: Movie[], query: string) {
 
   const normalizedQuery = query.trim().toLowerCase();
 
-  if (query) {
+  if (normalizedQuery) {
     preparedMovies = movies.filter(
       movie => movie.title.toLowerCase().includes(normalizedQuery)
         || movie.description.toLowerCase().includes(normalizedQuery),
