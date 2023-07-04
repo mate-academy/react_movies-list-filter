@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { SearchField } from './components/SearchField/SearchField';
+
+function getPreparedMovies(movies: Movie[], query:string) {
+  let preparedMovies = [...movies];
+
+  if (query) {
+    const searchPropmpt = query.toLowerCase().trim();
+
+    preparedMovies = preparedMovies.filter(
+      movie => movie.title.toLowerCase().includes(searchPropmpt)
+    || movie.description.toLowerCase().includes(searchPropmpt),
+    );
+  }
+
+  return preparedMovies;
+}
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = getPreparedMovies(moviesFromServer, query);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -13,19 +32,14 @@ export const App: React.FC = () => {
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
-
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-              />
-            </div>
+            <SearchField filterBy={(newQuery:string) => {
+              setQuery(newQuery);
+            }}
+            />
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
