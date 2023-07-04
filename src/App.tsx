@@ -1,4 +1,9 @@
-import { useState, FC } from 'react';
+import {
+  useState,
+  FC,
+  useEffect,
+  ChangeEvent,
+} from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -20,8 +25,15 @@ const getVisibleMovies = (movieList: Movie[], query: string): Movie[] => {
 
 export const App: FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [visibleMovies, setVisibleMovies] = useState<Movie[]>([]);
 
-  const visibleMovies = getVisibleMovies(moviesFromServer, searchQuery);
+  useEffect(() => {
+    setVisibleMovies(getVisibleMovies(moviesFromServer, searchQuery));
+  }, [searchQuery]);
+
+  const handleSearchQuery = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value.toLocaleLowerCase());
+  };
 
   return (
     <div className="page">
@@ -39,9 +51,8 @@ export const App: FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => (
-                  setSearchQuery(event.target.value.toLocaleLowerCase())
-                )}
+                value={searchQuery}
+                onChange={handleSearchQuery}
               />
             </div>
           </div>
