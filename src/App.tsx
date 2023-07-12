@@ -13,7 +13,9 @@ export const App: React.FC = () => {
 
   const [movies] = useState(moviesFromServer);
 
-  const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(filmTitle.toLowerCase()));
+  const filteredMovies = movies.filter((movie) =>
+    // eslint-disable-next-line implicit-arrow-linebreak
+    movie.title.toLowerCase().includes(filmTitle.toLowerCase()));
 
   return (
     <div className="page">
