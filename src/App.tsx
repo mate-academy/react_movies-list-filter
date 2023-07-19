@@ -11,9 +11,7 @@ export const App: React.FC = () => {
     setSearchQuery(event.target.value);
   };
 
-  const [movies] = useState(moviesFromServer);
-
-  const filteredMovies = movies.filter((movie) => (
+  const filteredMovies = moviesFromServer.filter((movie) => (
     movie.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
 || movie.description.toLowerCase().includes(searchQuery.trim().toLowerCase())));
 
