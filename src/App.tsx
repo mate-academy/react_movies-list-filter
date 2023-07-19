@@ -4,19 +4,18 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [filmTitle, searchFilm] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (event: { target:
   { value: React.SetStateAction<string>; }; }) => {
-    searchFilm(event.target.value);
+    setSearchQuery(event.target.value);
   };
 
   const [movies] = useState(moviesFromServer);
 
-  const filteredMovies = movies.filter((movie) =>
-    // eslint-disable-next-line implicit-arrow-linebreak
-    movie.title.toLowerCase().includes(filmTitle.toLowerCase())
-    || movie.description.toLowerCase().includes(filmTitle.toLowerCase()));
+  const filteredMovies = movies.filter((movie) => (
+    movie.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+|| movie.description.toLowerCase().includes(searchQuery.trim().toLowerCase())));
 
   return (
     <div className="page">
@@ -34,7 +33,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={filmTitle}
+                value={searchQuery}
                 onChange={handleSearch}
               />
             </div>
