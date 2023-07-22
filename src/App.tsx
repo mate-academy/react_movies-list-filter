@@ -6,15 +6,19 @@ import moviesFromServer from './api/movies.json';
 export const App: FC = () => {
   const [query, setQuery] = useState('');
 
-  const selectedFilms = (movies: Movie[], searchQuery: string): Movie[] => {
-    return movies.filter(movie => {
+  const selectedFilms = (movies: Movie[], searchQuery: string): Movie[] => (
+    movies.filter(movie => {
       const preparedTitle = movie.title.toLocaleLowerCase();
       const preparedDescription = movie.description.toLocaleLowerCase();
       const preparedQuery = searchQuery.toLocaleLowerCase();
 
       return preparedTitle.includes(preparedQuery)
         || preparedDescription.includes(preparedQuery);
-    });
+    })
+  );
+
+  const handleQuery = (event: { target: { value: string; }; }) => {
+    setQuery((event.target.value).toLocaleLowerCase().trim());
   };
 
   return (
@@ -33,9 +37,7 @@ export const App: FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery((event.target.value).toLocaleLowerCase().trim());
-                }}
+                onChange={handleQuery}
               />
             </div>
           </div>
