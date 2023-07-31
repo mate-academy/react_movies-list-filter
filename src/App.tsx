@@ -5,18 +5,18 @@ import moviesFromServer from './api/movies.json';
 import { SearchField } from './components/SearchField/SearchField';
 
 function getPreparedMovies(movies: Movie[], query:string) {
-  let preparedMovies = [...movies];
+  const preparedMovies = [...movies];
 
-  if (query) {
-    const searchPropmpt = query.toLowerCase().trim();
-
-    preparedMovies = preparedMovies.filter(
-      movie => movie.title.toLowerCase().includes(searchPropmpt)
-    || movie.description.toLowerCase().includes(searchPropmpt),
-    );
+  if (!query) {
+    return movies;
   }
 
-  return preparedMovies;
+  const searchPropmpt = query.toLowerCase().trim();
+
+  return preparedMovies.filter(
+    movie => movie.title.toLowerCase().includes(searchPropmpt)
+       || movie.description.toLowerCase().includes(searchPropmpt),
+  );
 }
 
 export const App: React.FC = () => {
@@ -32,10 +32,7 @@ export const App: React.FC = () => {
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
-            <SearchField filterBy={(newQuery:string) => {
-              setQuery(newQuery);
-            }}
-            />
+            <SearchField filterBy={setQuery} />
           </div>
         </div>
 

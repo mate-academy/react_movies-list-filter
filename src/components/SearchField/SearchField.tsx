@@ -1,5 +1,5 @@
 interface Props {
-  filterBy(arg1: string) :void;
+  filterBy(value: string) :void;
 }
 
 export const SearchField: React.FC<Props> = ({ filterBy }) => {
