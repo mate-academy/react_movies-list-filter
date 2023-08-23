@@ -5,24 +5,14 @@ import { MovieCard } from '../MovieCard';
 
 interface Props {
   movies: Movie[];
-  query: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies, query }) => {
-  let visibleMovies = false;
-
+export const MoviesList: React.FC<Props> = ({ movies }) => {
   return (
     <div className="movies">
-      {movies.map(movie => {
-        movie.title.toLowerCase().includes(query.toLowerCase().trim())
-        || movie.description.toLowerCase().includes(query.toLowerCase().trim())
-          ? visibleMovies = true
-          : visibleMovies = false;
-
-        return (
-          (visibleMovies && <MovieCard key={movie.imdbId} movie={movie} />)
-        );
-      })}
+      {movies.map(movie => (
+        <MovieCard key={movie.imdbId} movie={movie} />
+      ))}
     </div>
   );
 };
