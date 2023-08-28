@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import './MovieCard.scss';
 
@@ -9,6 +10,10 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
   const {
     imdbUrl, imgUrl, description, title,
   } = movie;
+
+  console.log('dawdwa');
+  console.log('dawdwa');
+  console.log('dawdwa');
 
   return (
     <div className="card">
