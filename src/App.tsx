@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 const filteredMovies = (query: string):Movie[] => {
   return moviesFromServer.filter((movie:Movie) => {
     const { description, title } = movie;
-    const searchPattern = new RegExp(query, 'i');
+    const searchPattern = new RegExp(query.trim(), 'i');
 
     return description.search(searchPattern) + title.search(searchPattern) > -2;
   });
