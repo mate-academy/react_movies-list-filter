@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -7,25 +7,27 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
-  const filterMovies = (searchQuery: string) => {
-    const filteredMovies = moviesFromServer.filter(
-      (movie) => movie.title.toLowerCase()
-        .includes(searchQuery.trim().toLowerCase())
-        || movie.description.toLowerCase()
-          .includes(searchQuery.trim().toLowerCase()),
-    );
+  const filterMovies = useCallback(
+    (searchQuery: string) => {
+      const filteredMovies = moviesFromServer.filter(
+        (movie) => movie.title.toLowerCase()
+          .includes(searchQuery.trim().toLowerCase())
+          || movie.description.toLowerCase()
+            .includes(searchQuery.trim().toLowerCase()),
+      );
 
-    setVisibleMovies(filteredMovies);
-  };
+      setVisibleMovies(filteredMovies);
+    },
+    [moviesFromServer],
+  );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setQuery(value);
+
     filterMovies(value);
   };
-
-  const memoizedVisibleMovies = useMemo(() => visibleMovies, [visibleMovies]);
 
   return (
     <div className="page">
@@ -47,8 +49,10 @@ export const App: React.FC = () => {
             </div>
           </div>
         </div>
-        <MoviesList movies={memoizedVisibleMovies} />
+
+        <MoviesList movies={visibleMovies} />
       </div>
+
       <div className="sidebar">Sidebar goes here</div>
     </div>
   );
