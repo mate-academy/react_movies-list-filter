@@ -29,8 +29,8 @@ export const App: React.FC = () => {
               <input
                 type="text"
                 id="search-query"
-                className="input"
                 placeholder="Type search word"
+                className="input"
                 value={query}
                 onChange={handleMovies}
               />
