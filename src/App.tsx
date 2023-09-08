@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import React from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [query, setQuery] = useState<string>('');
+  const [query, setQuery] = useState('');
 
   const visibleMovies = moviesFromServer.filter((movie) => {
     return movie.title.toLowerCase().includes(query.toLowerCase().trim())
