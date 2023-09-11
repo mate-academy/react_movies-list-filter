@@ -7,8 +7,13 @@ export const App: React.FC = () => {
   const [filter, setFilter] = useState('');
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setFilter(event.target.value);
+    setFilter(event.target.value.trimStart().trimEnd());
   };
+
+  const filteredMovies = moviesFromServer.filter(v => v.title.toLowerCase()
+    .includes(filter.toLowerCase())
+    || v.description.toLowerCase()
+      .includes(filter.toLowerCase()));
 
   return (
     <div className="page">
@@ -31,7 +36,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} filter={filter} />
+        <MoviesList movies={filteredMovies} />
       </div>
 
       <div className="sidebar">
