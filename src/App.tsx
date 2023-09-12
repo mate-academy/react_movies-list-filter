@@ -6,14 +6,12 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const sortedMovies = () => {
-    return moviesFromServer.filter(movie => {
-      const title = movie.title.toLowerCase();
-      const description = movie.description.toLowerCase();
+  const sortedMovies = moviesFromServer.filter(movie => {
+    const title = movie.title.toLowerCase();
+    const description = movie.description.toLowerCase();
 
-      return title.includes(query) || description.includes(query);
-    });
-  };
+    return title.includes(query) || description.includes(query);
+  });
 
   const searchedValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.toLocaleLowerCase().trim());
@@ -41,7 +39,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={sortedMovies()} />
+        <MoviesList movies={sortedMovies} />
       </div>
 
       <div className="sidebar">
