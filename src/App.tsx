@@ -4,7 +4,7 @@ import moviesFromServer from './api/movies.json';
 import './App.scss';
 
 export const App: React.FC = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState<string>('');
 
   const updateQuery: React.ChangeEventHandler<HTMLInputElement> = e => {
     setQuery(e.target.value);
