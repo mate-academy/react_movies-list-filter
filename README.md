@@ -6,7 +6,7 @@ Check out the live demo of the application: [DEMO LINK](https://spojrzenie.githu
 
 ![Movie Poster](https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg)
 
-This project was created as part of learning React Hook as an exercise with [Mate Academy](https://www.mateacademy.com/). The application allows you to search for movies based on their title and description. It utilizes React and React Hook, along with sample movie data.
+This project was created as part of learning React Hook as an exercise with [Mate Academy](https://www.mate.academy). The application allows you to search for movies based on their title and description. It utilizes React and React Hook, along with sample movie data.
 
 ## Features
 
