@@ -6,10 +6,13 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const filtered = moviesFromServer.filter((movie) => movie
-    .title.toLocaleLowerCase().trim().includes(query.toLocaleLowerCase().trim())
-    || movie.description.toLocaleLowerCase().trim()
-      .includes(query.toLocaleLowerCase().trim()));
+  const filtered = moviesFromServer.filter((movie) => {
+    const queryArray = query.split(' '); // Replace with your actual array of words
+
+    return queryArray.every((word) => movie
+      .title.toLowerCase().includes(word.toLowerCase().trim())
+      || movie.description.toLowerCase().includes(word.toLowerCase().trim()));
+  });
 
   return (
     <div className="page">
