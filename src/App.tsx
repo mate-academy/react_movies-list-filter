@@ -4,21 +4,20 @@ import {
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import searchTextInString from './searchTextInString';
 
 export const App: FC = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setQuery(event.target.value);
+    setQuery(event.target.value.trimStart());
   };
 
   useEffect(() => {
     const filteredMovies = moviesFromServer.filter(movie => {
-      const isInTitle = movie.title
-        .toLowerCase().includes(query.toLowerCase());
-      const isInDescription = movie.title
-        .toLowerCase().includes(query.toLowerCase());
+      const isInTitle = searchTextInString(movie.title, query);
+      const isInDescription = searchTextInString(movie.description, query);
 
       return (isInTitle || isInDescription) && movie;
     });
