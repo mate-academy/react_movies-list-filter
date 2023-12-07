@@ -15,8 +15,10 @@ export const App: FC = () => {
 
   useEffect(() => {
     const filteredMovies = moviesFromServer.filter(movie => {
-      const isInTitle = movie.title.toLowerCase().includes(query);
-      const isInDescription = movie.title.toLowerCase().includes(query);
+      const isInTitle = movie.title
+        .toLowerCase().includes(query.toLowerCase());
+      const isInDescription = movie.title
+        .toLowerCase().includes(query.toLowerCase());
 
       return (isInTitle || isInDescription) && movie;
     });
