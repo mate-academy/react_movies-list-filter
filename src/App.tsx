@@ -17,7 +17,7 @@ function filterMoviesWithQuery(movies: Movie[], query: string) {
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const moviesToRender = filterMoviesWithQuery(moviesFromServer, query);
+  const visibleMovies = filterMoviesWithQuery(moviesFromServer, query);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setQuery(event.target.value);
@@ -46,7 +46,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesToRender} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
