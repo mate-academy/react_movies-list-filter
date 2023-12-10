@@ -1,17 +1,32 @@
-# Movies list - Filter
+## Demo
 
-The `App`contains a `MoviesList` and a search field. Implement filtering using a `useState` hook.
+Check out the live demo of the application: [DEMO LINK](https://spojrzenie.github.io/react_movies-list-filter/)
 
-> Here is [the working version](https://mate-academy.github.io/react_movies-list-filter/)
+# Movie Search App
 
-- On every change save the input value into the `query`;
-- create a `visibleMovies` variable containing filtered movies;
-- check if `movie.title` or `movie.description` contains `query`;
-- search should be case insensitive (`Inception` can be found by entering `inc` or `Inc` or even `iNC`).
+![Movie Poster](https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg)
 
-## Instructions
+This project was created as part of learning React Hook as an exercise with [Mate Academy](https://www.mate.academy). The application allows you to search for movies based on their title and description. It utilizes React and React Hook, along with sample movie data.
 
-- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
-- Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
-- Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_movies-list-filter/) and add it to the PR description.
+## Features
+
+- Search for movies based on title and description.
+- Utilizes React Hook for state management.
+- Displays a list of found movies.
+
+## Usage
+
+1. Enter the title or description of the movie you're interested in in the "Search movie" field.
+2. The search results will be displayed below in the "Movies List" section.
+
+## Technologies
+
+- React
+- React Hook
+- SCSS
+
+## Author
+
+Krzysztof Janiewicz
+
+**Note:** This application is a sample project created for educational purposes. The movie image is sourced from [Amazon](https://www.amazon.com/).
