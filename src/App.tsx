@@ -5,15 +5,14 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const newQuery = query.trim().toLowerCase();
 
   const visibleMovies = moviesFromServer.filter(
-    (movie) => movie.title.toLowerCase().includes(newQuery)
-      || movie.description.toLowerCase().includes(newQuery),
+    (movie) => movie.title.toLowerCase().includes(query)
+      || movie.description.toLowerCase().includes(query),
   );
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setQuery(event.target.value);
+    setQuery(event.target.value.trim().toLowerCase());
   };
 
   return (
@@ -39,9 +38,7 @@ export const App: React.FC = () => {
         </div>
 
         <MoviesList
-          movies={query === ''
-            ? moviesFromServer
-            : visibleMovies}
+          movies={visibleMovies}
         />
       </div>
 
