@@ -3,21 +3,21 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const movieFilter = (movies: Movie[], query: string) => {
+  return movies
+    .filter((movie) => movie
+      .title.toLowerCase()
+      .includes(query.toLowerCase().trim())
+      || movie
+        .description.toLowerCase()
+        .includes(query.toLowerCase().trim()));
+};
+
 export const App = () => {
   const [query, setQuery] = useState('');
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setQuery(event.target.value);
-  };
-
-  const movieFilter = (movies: Movie[]) => {
-    return movies
-      .filter((movie) => movie
-        .title.toLowerCase()
-        .includes(query.toLowerCase().trim())
-        || movie
-          .description.toLowerCase()
-          .includes(query.toLowerCase().trim()));
   };
 
   return (
@@ -43,7 +43,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={movieFilter(moviesFromServer)} />
+        <MoviesList movies={movieFilter(moviesFromServer, query)} />
       </div>
 
       <div className="sidebar">
