@@ -9,10 +9,10 @@ export const App: React.FC = () => {
 
   const filteredMovies = moviesFromServer.filter(movie => movie.title
     .toLocaleLowerCase()
-    .includes(queryToLower)
+    .includes(queryToLower.trim())
     || movie.description
       .toLocaleLowerCase()
-      .includes(queryToLower));
+      .includes(queryToLower.trim()));
 
   return (
     <div className="page">
