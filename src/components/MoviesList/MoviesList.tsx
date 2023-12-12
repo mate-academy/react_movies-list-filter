@@ -1,6 +1,9 @@
 import React from 'react';
 import './MoviesList.scss';
-import { MovieCard } from '../MovieCard';
+// eslint-disable-next-line import/no-cycle
+import { MovieCard } from '../MovieCard/MovieCard';
+
+import { Movie } from '../../types';
 
 interface Props {
   movies: Movie[];
