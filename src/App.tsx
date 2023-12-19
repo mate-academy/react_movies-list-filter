@@ -6,11 +6,13 @@ import './App.scss';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const filtered = moviesFromServer.filter(movie => {
-    const queryWords = query.trim().toLowerCase().split(/\s+/);
+  const handleMovies: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setQuery(event.target.value);
+  };
 
-    return queryWords.every(word => movie.title.toLowerCase().includes(word)
-    || movie.description.toLowerCase().includes(word));
+  const visibleMovies = moviesFromServer.filter(movie => {
+    return movie.description.toLowerCase().includes(query.trim().toLowerCase())
+    || movie.title.toLowerCase().includes(query.trim().toLowerCase());
   });
 
   return (
@@ -29,13 +31,14 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Search"
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={handleMovies}
+                value={query}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={filtered} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
