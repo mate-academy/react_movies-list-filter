@@ -10,7 +10,7 @@ export const App: React.FC = () => {
   const handleSearchChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = ev.target.value;
 
-    setSearch(newValue.trimStart());
+    setSearch(newValue);
   };
 
   return (
@@ -42,10 +42,10 @@ export const App: React.FC = () => {
                   movie =>
                     movie.title
                       .toLocaleLowerCase()
-                      .includes(search.toLocaleLowerCase()) ||
+                      .includes(search.toLocaleLowerCase().trim()) ||
                     movie.description
                       .toLocaleLowerCase()
-                      .includes(search.toLocaleLowerCase()),
+                      .includes(search.toLocaleLowerCase().trim()),
                 )
               : moviesFromServer
           }
