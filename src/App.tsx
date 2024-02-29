@@ -10,7 +10,7 @@ export const App: React.FC = () => {
   const handleSearchChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = ev.target.value;
 
-    setSearch(newValue.trim());
+    setSearch(newValue.trimStart());
   };
 
   return (
