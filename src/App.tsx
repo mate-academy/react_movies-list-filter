@@ -13,6 +13,18 @@ export const App: React.FC = () => {
     setSearch(newValue);
   };
 
+  const filterHelper = search
+    ? moviesFromServer.filter(
+        movie =>
+          movie.title
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase().trim()) ||
+          movie.description
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase().trim()),
+      )
+    : moviesFromServer;
+
   return (
     <div className="page">
       <div className="page-content">
@@ -35,21 +47,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={
-            search.length !== 0
-              ? moviesFromServer.filter(
-                  movie =>
-                    movie.title
-                      .toLocaleLowerCase()
-                      .includes(search.toLocaleLowerCase().trim()) ||
-                    movie.description
-                      .toLocaleLowerCase()
-                      .includes(search.toLocaleLowerCase().trim()),
-                )
-              : moviesFromServer
-          }
-        />
+        <MoviesList movies={filterHelper} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
