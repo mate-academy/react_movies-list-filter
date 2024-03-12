@@ -67,7 +67,7 @@
     "projectType": "reactTypescript",
     "tests": {
       "_comment": "Add `cypressComponents: true` to enable component tests",
-      "cypressComponents": true
+      "cypressComponents": false
     }
   }
 }
