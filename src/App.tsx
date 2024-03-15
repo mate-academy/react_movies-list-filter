@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
   const filterMovie = (movies: Movie[], valueQuery: string) => {
-    const searchMovie = valueQuery.toLowerCase();
+    const searchMovie = valueQuery.trim().toLowerCase();
 
     return movies.filter(movie => {
       const checkMovie = `${movie.title.toLowerCase()}${movie.description.toLowerCase()}`;
