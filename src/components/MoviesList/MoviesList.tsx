@@ -13,8 +13,8 @@ export const MoviesList: React.FC<Props> = ({ movies, filter }) => (
     {movies
       .filter(({ description, title }) => {
         return (
-          title.toLowerCase().includes(filter.toLowerCase()) ||
-          description.toLowerCase().includes(filter.toLowerCase())
+          title.toLowerCase().includes(filter.toLowerCase().trim()) ||
+          description.toLowerCase().includes(filter.toLowerCase().trim())
         );
       })
       .map(movie => (
