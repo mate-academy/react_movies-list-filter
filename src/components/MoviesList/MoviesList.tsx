@@ -1,15 +1,24 @@
-import React from 'react';
 import './MoviesList.scss';
+
 import { MovieCard } from '../MovieCard';
+import React from 'react';
 
 interface Props {
   movies: Movie[];
+  filter: string;
 }
 
-export const MoviesList: React.FC<Props> = ({ movies }) => (
+export const MoviesList: React.FC<Props> = ({ movies, filter }) => (
   <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} movie={movie} />
-    ))}
+    {movies
+      .filter(({ description, title }) => {
+        return (
+          title.toLowerCase().includes(filter.toLowerCase().trim()) ||
+          description.toLowerCase().includes(filter.toLowerCase().trim())
+        );
+      })
+      .map(movie => (
+        <MovieCard key={movie.imdbId} movie={movie} />
+      ))}
   </div>
 );
