@@ -5,7 +5,7 @@ import React from 'react';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
-  const [filter, setFilter] = React.useState('');
+  const [filter, setFilter] = React.useState<string>('');
 
   return (
     <div className="page">
