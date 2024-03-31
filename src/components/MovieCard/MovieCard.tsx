@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const MovieCard: React.FC<Props> = ({ movie }) => {
-  const { imdbUrl, imgUrl, description, title } = movie;
+  const { imgUrl, title, description, imdbUrl } = movie;
 
   return (
     <div className="card">
