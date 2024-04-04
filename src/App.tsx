@@ -20,8 +20,8 @@ function filteredMovies(query: string) {
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const handleSearch: ChangeEventHandler<HTMLInputElement> = e => {
-    setQuery(e.target.value.trim());
+  const handleSearch: ChangeEventHandler<HTMLInputElement> = event => {
+    setQuery(event.target.value.trim());
   };
 
   return (
