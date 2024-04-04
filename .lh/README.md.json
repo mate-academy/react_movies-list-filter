@@ -1,0 +1,18 @@
+{
+    "sourceFile": "README.md",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1712240640934,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1712240640934,
+            "name": "Commit-0",
+            "content": "# Movies list - Filter\n\nThe `App`contains a `MoviesList` and a search field. Implement filtering using a `useState` hook.\n\n> Here is [the working version](https://mate-academy.github.io/react_movies-list-filter/)\n\n- On every change save the input value into the `query`;\n- create a `visibleMovies` variable containing filtered movies;\n- check if `movie.title` or `movie.description` contains `query`;\n- search should be case insensitive (`Inception` can be found by entering `inc` or `Inc` or even `iNC`).\n\n## Instructions\n- Install Prettier Extention and use this [VSCode settings](https://mate-academy.github.io/fe-program/tools/vscode/settings.json) to enable format on save.\n- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).\n- Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).\n- Open one more terminal and run tests with `npm test` to ensure your solution is correct.\n- Replace `<your_account>` with your Github username in the [DEMO LINK](https://.github.io/react_movies-list-filter/) and add it to the PR description.\n"
+        }
+    ]
+}
