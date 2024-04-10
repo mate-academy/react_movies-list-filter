@@ -14,7 +14,7 @@ export const App: React.FC = () => {
 
   const visibleMovies = moviesFromServer.filter(movie => {
     const { title, description } = movie;
-    const lowerCaseQuery = query.toLowerCase().trim();
+    const lowerCaseQuery = query.toLowerCase();
 
     return (
       title.toLowerCase().includes(lowerCaseQuery) ||
@@ -37,7 +37,6 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={query}
                 onChange={handleInputChange}
               />
             </div>
