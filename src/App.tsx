@@ -13,8 +13,8 @@ export const App: React.FC = () => {
 
   const visibleMovies = moviesFromServer.filter(
     movie =>
-      movie.title.toLowerCase().includes(query.toLowerCase()) ||
-      movie.description.toLowerCase().includes(query.toLowerCase()),
+      movie.title.toLowerCase().includes(query.trim().toLowerCase()) ||
+      movie.description.toLowerCase().includes(query.trim().toLowerCase()),
   );
 
   return (
