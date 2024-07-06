@@ -5,23 +5,18 @@ import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const handleInput: React.ChangeEventHandler<HTMLInputElement> = event => {
     const userInput = event.target.value;
 
     setQuery(userInput);
-
-    const filtered = moviesFromServer.filter(
-      movie =>
-        movie.title.toLowerCase().includes(userInput.toLowerCase().trim()) ||
-        movie.description
-          .toLowerCase()
-          .includes(userInput.toLowerCase().trim()),
-    );
-
-    setVisibleMovies(filtered);
   };
+
+  const visibleMovies = moviesFromServer.filter(
+    movie =>
+      movie.title.toLowerCase().includes(query.toLowerCase().trim()) ||
+      movie.description.toLowerCase().includes(query.toLowerCase().trim()),
+  );
 
   return (
     <div className="page">
