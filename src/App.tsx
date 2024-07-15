@@ -14,22 +14,14 @@ export type Movie = {
 export const App: React.FC = () => {
   const [query, setQuery] = useState<string>('');
 
+  const supportFilter = (data: string) => {
+    return data.toLocaleLowerCase().includes(query.toLocaleLowerCase().trim());
+  };
+
   const filterMovies = (list: Movie[]) => {
-    let tmp = [...list];
-
-    if (query.length > 0) {
-      tmp = tmp.filter(
-        movie =>
-          movie.title
-            .toLocaleLowerCase()
-            .includes(query.toLocaleLowerCase().trim()) ||
-          movie.description
-            .toLocaleLowerCase()
-            .includes(query.toLocaleLowerCase().trim()),
-      );
-    }
-
-    return tmp;
+    return list.filter(
+      movie => supportFilter(movie.title) || supportFilter(movie.description),
+    );
   };
 
   const visibleMovies = filterMovies(moviesFromServer);
