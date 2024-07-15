@@ -12,10 +12,8 @@ export const App: React.FC = () => {
   };
 
   const visibleMovies = (moviesArray: Movies[], filter: string): Movies[] => {
-    const moviesCopy = [...moviesArray];
-
-    if (filter.length !== 0) {
-      return moviesCopy.filter(el => {
+    if (filter.length) {
+      return moviesArray.filter(el => {
         const { description, title } = el;
         const descriptionFilter = description
           .toLocaleLowerCase()
@@ -28,7 +26,7 @@ export const App: React.FC = () => {
       });
     }
 
-    return moviesCopy;
+    return moviesArray;
   };
 
   return (
