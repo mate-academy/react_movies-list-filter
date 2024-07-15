@@ -15,12 +15,14 @@ export const App: React.FC = () => {
     if (filter.length) {
       return moviesArray.filter(el => {
         const { description, title } = el;
-        const descriptionFilter = description
-          .toLocaleLowerCase()
-          .includes(filter.toLocaleLowerCase().trim());
-        const titleFilter = title
-          .toLocaleLowerCase()
-          .includes(filter.toLocaleLowerCase().trim());
+        const toFilterLoverCase = (text: string): boolean => {
+          return text
+            .toLocaleLowerCase()
+            .includes(filter.toLocaleLowerCase().trim());
+        };
+
+        const descriptionFilter = toFilterLoverCase(description);
+        const titleFilter = toFilterLoverCase(title);
 
         return descriptionFilter || titleFilter;
       });
