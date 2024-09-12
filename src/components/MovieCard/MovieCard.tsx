@@ -1,6 +1,13 @@
 import React from 'react';
 import './MovieCard.scss';
 
+interface Movie {
+  imdbUrl: string;
+  imgUrl: string;
+  description: string;
+  title: string;
+}
+
 interface Props {
   movie: Movie;
 }
