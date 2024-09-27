@@ -1,9 +1,15 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [search, setSearch] = useState('');
+
+  const listCopy = [...moviesFromServer]
+    .filter(el => el.title.toLocaleLowerCase().includes(search)
+        || el.description.toLocaleLowerCase().includes(search));
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +26,16 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                onChange={(e) => {
+                  setSearch(e.target.value.toLowerCase());
+                }}
+                value={search}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={listCopy} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
