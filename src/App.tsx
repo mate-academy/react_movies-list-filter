@@ -3,8 +3,13 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export type Movie = (typeof moviesFromServer)[0];
-
+export type Movie = {
+  title: string;
+  description: string;
+  imgUrl: string;
+  imdbUrl: string;
+  imdbId: string;
+};
 export const App = () => {
   const [filteredMovieList, setFilteredMovieList] =
     useState<Movie[]>(moviesFromServer);
