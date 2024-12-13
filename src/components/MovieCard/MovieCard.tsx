@@ -1,7 +1,15 @@
 import React from 'react';
 import './MovieCard.scss';
 
-interface Props {
+type Movie = {
+  imdbId: string;
+  title: string;
+  description: string;
+  imdbUrl: string;
+  imgUrl: string;
+};
+
+export interface Props {
   movie: Movie;
 }
 
