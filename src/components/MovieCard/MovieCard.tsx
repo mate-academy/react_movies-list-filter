@@ -1,9 +1,7 @@
 import React from 'react';
 import './MovieCard.scss';
+import { Props } from '../types/Movie';
 
-interface Props {
-  movie: Movie;
-}
 
 export const MovieCard: React.FC<Props> = ({ movie }) => {
   const { imdbUrl, imgUrl, description, title } = movie;
