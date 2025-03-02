@@ -7,23 +7,18 @@ iframe {
   grid-template: auto / 1fr 400px;
   column-gap: 20px;
   min-height: 100vh;
+  background-color: #08042b;
 }
 
 .page-content {
   padding: 20px;
+
+}
+
+.box {
+  background-color: #76c5db;
 }
 
 .sidebar {
-  padding: 20px;
-  border-left: 1px solid lightgray;
-}
-
-.movies {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.card-image img {
-  object-fit: contain;
+  background-color: #1e1f28;
 }
