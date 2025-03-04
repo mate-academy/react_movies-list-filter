@@ -1,31 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
+import { SearchBar } from './components/SearchBar';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+  const handleSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
+    setQuery(event.currentTarget.value);
+  };
+
+  const movies: Movie[] = moviesFromServer.filter(({ title, description }) => (
+    title.toLowerCase().includes(query.toLowerCase())
+    || description.toLowerCase().includes(query.toLowerCase())
+  )) || moviesFromServer;
+
   return (
     <div className="page">
       <div className="page-content">
-        <div className="box">
-          <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
-              Search movie
-            </label>
+        <SearchBar query={query} onChange={handleSearchInput} />
 
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-              />
-            </div>
-          </div>
-        </div>
-
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={movies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
