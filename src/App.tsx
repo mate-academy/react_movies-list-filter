@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function checkSubstr(str: string, subStr: string): boolean {
+  const lowerStr = str.toLowerCase();
+  const lowerSubStr = subStr.toLowerCase();
+
+  return lowerStr.includes(lowerSubStr);
+}
+
 export const App: React.FC = () => {
+  const [query, changeQuery] = useState('');
+  const visibleMovies = moviesFromServer
+    .filter(({ description, title }: Movie) => (
+      checkSubstr(description, query) || checkSubstr(title, query)
+    ));
+
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    changeQuery(event.target.value.trim());
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +37,13 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                onChange={handleQueryChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
