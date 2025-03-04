@@ -4,6 +4,16 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  const [guery, setQuery] = React.useState<string>('');
+
+  const isMovieMatchQuery = (movieProperty: string) => {
+    return movieProperty.toLowerCase().includes(guery.toLowerCase().trim());
+  };
+
+  const visibleMovies = moviesFromServer.filter(movie => (
+    isMovieMatchQuery(movie.title) || isMovieMatchQuery(movie.description)
+  ));
+
   return (
     <div className="page">
       <div className="page-content">
@@ -19,13 +29,15 @@ export const App: React.FC = () => {
                 type="text"
                 id="search-query"
                 className="input"
+                value={guery}
                 placeholder="Type search word"
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
