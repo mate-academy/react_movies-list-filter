@@ -27,11 +27,16 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
           </div>
         </div>
 
-        <div className="content">
-          {description}
-          <br />
-          <a href={imdbUrl}>IMDB</a>
-        </div>
+        {
+          description
+          && (
+            <div className="content">
+              {description}
+              <br />
+              <a href={imdbUrl}>IMDB</a>
+            </div>
+          )
+        }
       </div>
     </div>
   );
