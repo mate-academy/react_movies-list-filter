@@ -23,7 +23,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+                onChange={event => setSearchQuery(event.target.value)}
               />
             </div>
           </div>
