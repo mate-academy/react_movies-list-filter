@@ -1,34 +1,51 @@
-import React from 'react';
-import './App.scss';
-import { MoviesList } from './components/MoviesList';
-import moviesFromServer from './api/movies.json';
+import React, { useState } from 'react';
 
-export const App: React.FC = () => {
+// Define the enum for sorting options
+enum SortType {
+  Default = 'default',
+  Alphabetically = 'alphabetically',
+  ByLength = 'byLength',
+}
+
+// Define the type for goods
+const goods: string[] = ['Apples', 'Oranges', 'Bananas', 'Pineapples', 'Grapes'];
+
+const ListOfGoods: React.FC = () => {
+  // State for goods and sort type
+  const [sortedGoods, setSortedGoods] = useState<string[]>(goods);
+  const [sortType, setSortType] = useState<SortType>(SortType.Default);
+
+  // Function to handle sorting
+  const handleSort = (type: SortType) => {
+    let updatedGoods = [...goods];
+    switch (type) {
+      case SortType.Alphabetically:
+        updatedGoods.sort((a, b) => a.localeCompare(b));
+        break;
+      case SortType.ByLength:
+        updatedGoods.sort((a, b) => a.length - b.length);
+        break;
+      case SortType.Default:
+      default:
+        updatedGoods = [...goods];
+    }
+    setSortedGoods(updatedGoods);
+    setSortType(type);
+  };
+
   return (
-    <div className="page">
-      <div className="page-content">
-        <div className="box">
-          <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
-              Search movie
-            </label>
-
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-              />
-            </div>
-          </div>
-        </div>
-
-        <MoviesList movies={moviesFromServer} />
-      </div>
-
-      <div className="sidebar">Sidebar goes here</div>
+    <div>
+      <h1>List of Goods</h1>
+      <ul>
+        {sortedGoods.map((good, index) => (
+          <li key={index}>{good}</li>
+        ))}
+      </ul>
+      <button onClick={() => handleSort(SortType.Default)}>Default</button>
+      <button onClick={() => handleSort(SortType.Alphabetically)}>Sort Alphabetically</button>
+      <button onClick={() => handleSort(SortType.ByLength)}>Sort by Length</button>
     </div>
   );
 };
+
+export default ListOfGoods;
