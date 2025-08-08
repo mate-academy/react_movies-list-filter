@@ -1,5 +1,6 @@
 import React from 'react';
 import './MovieCard.scss';
+import { Movie } from '../MoviesList';
 
 interface Props {
   movie: Movie;
