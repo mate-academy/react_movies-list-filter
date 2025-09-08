@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { useState } from 'react';
-// import { includes } from 'cypress/types/lodash';
 
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
+
+  // calcula 1x por render (evita duplicação no filter)
+  const lowerQuery = query.trim().toLowerCase();
+
   const visibleMovies = moviesFromServer.filter(movie => {
-    const lowerQuery = query.trim().toLowerCase();
-    const title = movie.title.toLowerCase();
-    const description = movie.description.toLowerCase();
+    // null-safety: evita TypeError se faltar título/descrição
+    const title = (movie.title ?? '').toLowerCase();
+    const description = (movie.description ?? '').toLowerCase();
 
     return title.includes(lowerQuery) || description.includes(lowerQuery);
   });
@@ -20,7 +22,6 @@ export const App: React.FC = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
