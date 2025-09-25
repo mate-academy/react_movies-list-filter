@@ -6,19 +6,24 @@ import moviesFromServer from './api/movies.json';
 export const App: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  // Filter movies based on query (case-insensitive)
-  const visibleMovies = moviesFromServer.filter(
-    movie =>
-      movie.title.toLowerCase().includes(query.toLowerCase()) ||
-      movie.description.toLowerCase().includes(query.toLowerCase()),
-  );
+  // normalize once, trim to ignore accidental spaces
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const titleLower = movie.title.toLowerCase();
+    const descriptionLower = (movie.description || '').toLowerCase();
+
+    return (
+      titleLower.includes(normalizedQuery) ||
+      descriptionLower.includes(normalizedQuery)
+    );
+  });
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -30,13 +35,12 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        {/* Use filtered movies here */}
         <MoviesList movies={visibleMovies} />
       </div>
 
