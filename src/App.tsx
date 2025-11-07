@@ -1,9 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+interface Movie {
+  title: string;
+  description: string;
+  imgUrl: string;
+  imdbUrl: string;
+  imdbId: string;
+}
+
+function getPreparedMovies(movies: Movie[], query: string): Movie[] {
+  let preparedGoods = movies;
+  const normalizedSearch = query.trim().toLowerCase();
+
+  if (normalizedSearch) {
+    preparedGoods = preparedGoods.filter(good => {
+      const normalizedTitle = good.title.trim().toLowerCase();
+      const normalizedDescription = good.description.trim().toLowerCase();
+
+      return (
+        normalizedTitle.includes(normalizedSearch) ||
+        normalizedDescription.includes(normalizedSearch)
+      );
+    });
+  }
+
+  return preparedGoods;
+}
+
 export const App: React.FC = () => {
+  const [query, setQuery] = useState('');
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
+  const visibleMovies = getPreparedMovies(moviesFromServer, query);
+
   return (
     <div className="page">
       <div className="page-content">
@@ -20,12 +55,14 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
+                value={query}
+                onChange={handleTitleChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
