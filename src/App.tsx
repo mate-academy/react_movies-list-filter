@@ -34,7 +34,6 @@ export const App: React.FC = () => {
   const visibleMovies = getPreparedMovies(moviesFromServer, query);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
     setQuery(event.target.value);
   };
 
