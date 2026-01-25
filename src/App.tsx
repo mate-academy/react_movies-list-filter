@@ -9,6 +9,14 @@ export const App: React.FC = () => {
     return [...moviesFromServer];
   };
 
+  const visibleMovies = () => {
+    return getMovies().filter(
+      m =>
+        m.title.toLowerCase().includes(query.toLowerCase()) ||
+        m.description.toLowerCase().includes(query.toLowerCase()),
+    );
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -31,13 +39,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={getMovies().filter(
-            m =>
-              m.title.toLowerCase().includes(query.toLowerCase()) ||
-              m.description.toLowerCase().includes(query.toLowerCase()),
-          )}
-        />
+        <MoviesList movies={visibleMovies()} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
