@@ -1,17 +1,59 @@
-# Movies list - Filter
+# Movies List – Filter
 
-The `App`contains a `MoviesList` and a search field. Implement filtering using a `useState` hook.
+Projeto desenvolvido em React com foco em filtragem dinâmica de dados utilizando hooks.
 
-> Here is [the working version](https://mate-academy.github.io/react_movies-list-filter/)
+[DEMO LINK](https://Igor-hrm.github.io/react_movies-list-filter/)
 
-- On every change save the input value into the `query`;
-- create a `visibleMovies` variable containing filtered movies;
-- check if `movie.title` or `movie.description` contains `query`;
-- search should be case insensitive (`Inception` can be found by entering `inc` or `Inc` or even `iNC`).
+---
 
-## Instructions
-- Install Prettier Extention and use this [VSCode settings](https://mate-academy.github.io/fe-program/tools/vscode/settings.json) to enable format on save.
-- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
-- Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
-- Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_movies-list-filter/) and add it to the PR description.
+## Sobre o projeto
+
+Este projeto foi desenvolvido durante meus estudos em React.
+O objetivo foi implementar um sistema de busca que filtra uma lista de filmes de forma dinâmica, com base no texto digitado pelo usuário.
+
+A filtragem considera tanto o título quanto a descrição dos filmes e funciona de forma case insensitive.
+
+---
+
+## Tecnologias utilizadas
+
+- React
+- TypeScript
+- CSS
+- Vite
+
+---
+
+## O que foi desenvolvido
+
+- Campo de busca controlado com `useState`
+- Armazenamento do valor da busca no estado
+- Criação de uma lista de filmes visível baseada no termo de busca
+- Filtro por título e descrição
+- Busca case insensitive
+- Renderização dinâmica da lista filtrada
+- Manutenção das classes e estrutura exigidas para testes
+- Deploy da aplicação com GitHub Pages
+
+---
+
+## Aprendizados
+
+Com este projeto, pratiquei:
+
+- Uso de estado com Hooks
+- Criação de inputs controlados
+- Filtragem de listas no React
+- Escrita de lógica clara e reutilizável
+- Atenção a requisitos de testes automatizados
+
+---
+
+## Como rodar o projeto localmente
+
+```bash
+git clone https://github.com/Igor-hrm/react_movies-list-filter.git
+cd react_movies-list-filter
+npm install
+npm run dev
+```
