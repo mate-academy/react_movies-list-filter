@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useMemo } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -9,9 +10,10 @@ export const App: React.FC = () => {
   const visibleMovies = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
-    return moviesFromServer.filter(({ title, description }) =>
-      title.toLowerCase().includes(normalizedQuery) ||
-      description.toLowerCase().includes(normalizedQuery)
+    return moviesFromServer.filter(
+      ({ title, description }) =>
+        title.toLowerCase().includes(normalizedQuery) ||
+        description.toLowerCase().includes(normalizedQuery),
     );
   }, [query]);
 
@@ -32,7 +34,7 @@ export const App: React.FC = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
