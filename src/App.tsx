@@ -4,8 +4,11 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App: React.FC = () => {
+  // Estado controlado do campo de busca
   const [query, setQuery] = useState('');
 
+  // Filtra filmes cujo título ou descrição contenham o termo buscado
+  // trim() remove espaços extras | toLowerCase() garante busca case-insensitive
   const visibleMovies = moviesFromServer.filter(movie => {
     const normalizedQuery = query.trim().toLowerCase();
 
@@ -26,6 +29,7 @@ export const App: React.FC = () => {
             </label>
 
             <div className="control">
+              {/* Input controlado: value vinculado ao state, onChange atualiza a query */}
               <input
                 type="text"
                 id="search-query"
@@ -38,6 +42,7 @@ export const App: React.FC = () => {
           </div>
         </div>
 
+        {/* Renderiza apenas os filmes que correspondem à busca */}
         <MoviesList movies={visibleMovies} />
       </div>
 
