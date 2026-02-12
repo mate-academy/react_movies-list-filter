@@ -2,10 +2,13 @@ import React from 'react';
 import './MovieCard.scss';
 
 interface Props {
-  movie: Movie;
+  movie: Movie; // Dados de um único filme a ser exibido
 }
 
+// Componente que exibe o card individual de um filme
+// Utiliza classes do Bulma CSS para estilização (card, media, content)
 export const MovieCard: React.FC<Props> = ({ movie }) => {
+  // Desestruturação para acesso direto às propriedades do filme
   const { imdbUrl, imgUrl, description, title } = movie;
 
   return (
